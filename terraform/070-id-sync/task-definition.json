@@ -1,0 +1,81 @@
+[
+  {
+    "volumesFrom": [],
+    "memory": 256,
+    "extraHosts": null,
+    "dnsServers": null,
+    "disableNetworking": null,
+    "dnsSearchDomains": null,
+    "portMappings": [
+      {
+        "hostPort": 0,
+        "containerPort": 80,
+        "protocol": "tcp"
+      }
+    ],
+    "hostname": null,
+    "essential": true,
+    "entryPoint": null,
+    "mountPoints": [],
+    "name": "web",
+    "ulimits": null,
+    "dockerSecurityOptions": null,
+    "environment": [
+      {
+        "name": "APP_ENV",
+        "value": "${app_env}"
+      },
+      {
+        "name": "ID_BROKER_ACCESS_TOKEN",
+        "value": "${id_broker_access_token}"
+      },
+      {
+        "name": "ID_BROKER_ADAPTER",
+        "value": "${id_broker_adapter}"
+      },
+      {
+        "name": "ID_BROKER_BASE_URL",
+        "value": "${id_broker_base_url}"
+      },
+      {
+        "name": "ID_STORE_ADAPTER",
+        "value": "${id_store_adapter}"
+      },
+      {
+        "name": "ID_STORE_API_KEY",
+        "value": "${id_store_api_key}"
+      },
+      {
+        "name": "ID_STORE_API_SECRET",
+        "value": "${id_store_api_secret}"
+      },
+      {
+        "name": "ID_STORE_BASE_URL",
+        "value": "${id_store_base_url}"
+      },
+      {
+        "name": "ID_SYNC_ACCESS_TOKENS",
+        "value": "${id_sync_access_tokens}"
+      },
+      {
+        "name": "IDP_NAME",
+        "value": "${idp_name}"
+      },
+      {
+        "name": "LOGENTRIES_KEY",
+        "value": "${logentries_key}"
+      }
+    ],
+    "links": null,
+    "workingDirectory": null,
+    "readonlyRootFilesystem": null,
+    "image": "${docker_image}",
+    "command": null,
+    "user": null,
+    "dockerLabels": null,
+    "logConfiguration": null,
+    "cpu": 256,
+    "privileged": null,
+    "memoryReservation": 100
+  }
+]

@@ -1,0 +1,171 @@
+[
+  {
+    "volumesFrom": [],
+    "memory": 224,
+    "extraHosts": null,
+    "dnsServers": null,
+    "disableNetworking": null,
+    "dnsSearchDomains": null,
+    "portMappings": [
+      {
+        "hostPort": 0,
+        "containerPort": 80,
+        "protocol": "tcp"
+      }
+    ],
+    "hostname": null,
+    "essential": true,
+    "entryPoint": null,
+    "mountPoints": [],
+    "name": "web",
+    "ulimits": null,
+    "dockerSecurityOptions": null,
+    "environment": [
+      {
+        "name": "ACCESS_TOKEN_HASH_KEY",
+        "value": "${access_token_hash}"
+      },
+      {
+        "name": "ALERTS_EMAIL",
+        "value": "${alerts_email}"
+      },
+      {
+        "name": "ALERTS_EMAIL_ENABLED",
+        "value": "true"
+      },
+      {
+        "name": "APP_ENV",
+        "value": "${app_env}"
+      },
+      {
+        "name": "FROM_EMAIL",
+        "value": "${from_email}"
+      },
+      {
+        "name": "FROM_NAME",
+        "value": "${from_name}"
+      },
+      {
+        "name": "HELP_CENTER_URL",
+        "value": "${help_center_url}"
+      },
+      {
+        "name": "ID_BROKER_ACCESS_TOKEN",
+        "value": "${id_broker_access_token}"
+      },
+      {
+        "name": "ID_BROKER_BASE_URI",
+        "value": "${id_broker_base_uri}"
+      },
+      {
+        "name": "IDP_NAME",
+        "value": "${idp_name}"
+      },
+      {
+        "name": "LOGENTRIES_KEY",
+        "value": "${logentries_key}"
+      },
+      {
+        "name": "LOGO_URL",
+        "value": "${logo_url}"
+      },
+      {
+        "name": "MAILER_HOST",
+        "value": "${mailer_host}"
+      },
+      {
+        "name": "MAILER_PASSWORD",
+        "value": "${mailer_password}"
+      },
+      {
+        "name": "MAILER_USEFILES",
+        "value": "false"
+      },
+      {
+        "name": "MAILER_USERNAME",
+        "value": "${mailer_username}"
+      },
+      {
+        "name": "MYSQL_DATABASE",
+        "value": "${db_name}"
+      },
+      {
+        "name": "MYSQL_HOST",
+        "value": "${mysql_host}"
+      },
+      {
+        "name": "MYSQL_PASSWORD",
+        "value": "${mysql_password}"
+      },
+      {
+        "name": "MYSQL_USER",
+        "value": "${mysql_user}"
+      },
+      {
+        "name": "RECAPTCHA_SECRET_KEY",
+        "value": "${recaptcha_secret_key}"
+      },
+      {
+        "name": "RECAPTCHA_SITE_KEY",
+        "value": "${recaptcha_site_key}"
+      },
+      {
+        "name": "SUPPORT_EMAIL",
+        "value": "${support_email}"
+      },
+      {
+        "name": "UI_CORS_ORIGIN",
+        "value": "${ui_cors_origin}"
+      },
+      {
+        "name": "UI_URL",
+        "value": "${ui_url}"
+      },
+      {
+        "name": "ZXCVBN_API_BASEURL",
+        "value": "http://zxcvbn:3000"
+      }
+    ],
+    "links": [
+      "zxcvbn"
+    ],
+    "workingDirectory": null,
+    "readonlyRootFilesystem": null,
+    "image": "${docker_image}",
+    "command": ["${cmd}"],
+    "user": null,
+    "dockerLabels": null,
+    "logConfiguration": null,
+    "cpu": 512,
+    "privileged": null,
+    "memoryReservation": null
+  },
+  {
+    "volumesFrom": [],
+    "memory": 128,
+    "extraHosts": null,
+    "dnsServers": null,
+    "disableNetworking": null,
+    "dnsSearchDomains": null,
+    "portMappings": [],
+    "hostname": null,
+    "essential": true,
+    "entryPoint": null,
+    "mountPoints": [],
+    "name": "zxcvbn",
+    "ulimits": null,
+    "dockerSecurityOptions": null,
+    "environment": [],
+    "links": null,
+    "workingDirectory": null,
+    "readonlyRootFilesystem": null,
+    "image": "wcjr/zxcvbn-api:latest",
+    "command": null,
+    "user": null,
+    "dockerLabels": null,
+    "logConfiguration": null,
+    "cpu": 128,
+    "privileged": null,
+    "memoryReservation": null
+  }
+]

@@ -1,0 +1,117 @@
+[
+  {
+    "volumesFrom": [],
+    "memory": 128,
+    "extraHosts": null,
+    "dnsServers": null,
+    "disableNetworking": null,
+    "dnsSearchDomains": null,
+    "portMappings": [
+      {
+        "hostPort": 0,
+        "containerPort": 80,
+        "protocol": "tcp"
+      }
+    ],
+    "hostname": null,
+    "essential": true,
+    "entryPoint": null,
+    "mountPoints": [],
+    "name": "web",
+    "ulimits": null,
+    "dockerSecurityOptions": null,
+    "environment": [
+      {
+        "name": "API_ACCESS_KEYS",
+        "value": "${api_access_keys}"
+      },
+      {
+        "name": "APP_ENV",
+        "value": "${app_env}"
+      },
+      {
+        "name": "IDP_NAME",
+        "value": "${idp_name}"
+      },
+      {
+        "name": "LDAP_ADMIN_PASSWORD",
+        "value": "${ldap_admin_password}"
+      },
+      {
+        "name": "LDAP_ADMIN_USERNAME",
+        "value": "${ldap_admin_username}"
+      },
+      {
+        "name": "LDAP_BASE_DN",
+        "value": "${ldap_base_dn}"
+      },
+      {
+        "name": "LDAP_DOMAIN_CONTROLLERS",
+        "value": "${ldap_domain_controllers}"
+      },
+      {
+        "name": "LDAP_USE_SSL",
+        "value": "${ldap_use_ssl}"
+      },
+      {
+        "name": "LDAP_USE_TLS",
+        "value": "${ldap_use_tls}"
+      },
+      {
+        "name": "LOGENTRIES_KEY",
+        "value": "${logentries_key}"
+      },
+      {
+        "name": "MAILER_USEFILES",
+        "value": "${mailer_usefiles}"
+      },
+      {
+        "name": "MAILER_HOST",
+        "value": "${mailer_host}"
+      },
+      {
+        "name": "MAILER_USERNAME",
+        "value": "${mailer_username}"
+      },
+      {
+        "name": "MAILER_PASSWORD",
+        "value": "${mailer_password}"
+      },
+      {
+        "name": "NOTIFICATION_EMAIL",
+        "value": "${notification_email}"
+      },
+      {
+        "name": "MIGRATE_PW_FROM_LDAP",
+        "value": "${migrate_pw_from_ldap}"
+      },
+      {
+        "name": "MYSQL_DATABASE",
+        "value": "${db_name}"
+      },
+      {
+        "name": "MYSQL_HOST",
+        "value": "${mysql_host}"
+      },
+      {
+        "name": "MYSQL_PASSWORD",
+        "value": "${mysql_pass}"
+      },
+      {
+        "name": "MYSQL_USER",
+        "value": "${mysql_user}"
+      }
+    ],
+    "links": null,
+    "workingDirectory": null,
+    "readonlyRootFilesystem": null,
+    "image": "${docker_image}",
+    "command": null,
+    "user": null,
+    "dockerLabels": null,
+    "logConfiguration": null,
+    "cpu": 256,
+    "privileged": null,
+    "memoryReservation": 100
+  }
+]

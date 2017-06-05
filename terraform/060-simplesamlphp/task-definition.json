@@ -1,0 +1,133 @@
+[
+  {
+    "volumesFrom": [],
+    "memory": 128,
+    "extraHosts": null,
+    "dnsServers": null,
+    "disableNetworking": null,
+    "dnsSearchDomains": null,
+    "portMappings": [
+      {
+        "hostPort": 0,
+        "containerPort": 80,
+        "protocol": "tcp"
+      }
+    ],
+    "hostname": null,
+    "essential": true,
+    "entryPoint": null,
+    "mountPoints": [],
+    "name": "web",
+    "ulimits": null,
+    "dockerSecurityOptions": null,
+    "environment": [
+      {
+        "name": "ADMIN_EMAIL",
+        "value": "info@insitehome.org"
+      },
+      {
+        "name": "ADMIN_NAME",
+        "value": "Insite Admin"
+      },
+      {
+        "name": "ADMIN_PASS",
+        "value": "${admin_pass}"
+      },
+      {
+        "name": "BASE_URL_PATH",
+        "value": "${base_url}"
+      },
+      {
+        "name": "ENABLE_HUB_AUTHPROCS",
+        "value": "true"
+      },
+      {
+        "name": "LOGENTRIES_KEY",
+        "value": "${logentries_key}"
+      },
+      {
+        "name": "MEMCACHE_HOST1",
+        "value": "${memcache_host1}"
+      },
+      {
+        "name": "MEMCACHE_HOST2",
+        "value": "${memcache_host2}"
+      },
+      {
+        "name": "SECRET_SALT",
+        "value": "${secret_salt}"
+      },
+      {
+        "name": "SESSION_STORE_TYPE",
+        "value": "memcache"
+      },
+      {
+        "name": "SHOW_SAML_ERRORS",
+        "value": "false"
+      },
+      {
+        "name": "THEME_USE",
+        "value": "material:material"
+      },
+      {
+        "name": "FORGOT_PASSWORD_URL",
+        "value": "${forgot_password_url}"
+      },
+      {
+        "name": "HUB_MODE",
+        "value": "${hub_mode}"
+      },
+      {
+        "name": "ID_BROKER_ACCESS_TOKEN",
+        "value": "${id_broker_access_token}"
+      },
+      {
+        "name": "ID_BROKER_BASE_URI",
+        "value": "${id_broker_base_uri}"
+      },
+      {
+        "name": "MYSQL_HOST",
+        "value": "${mysql_host}"
+      },
+      {
+        "name": "MYSQL_DATABASE",
+        "value": "${mysql_database}"
+      },
+      {
+        "name": "MYSQL_USER",
+        "value": "${mysql_user}"
+      },
+      {
+        "name": "MYSQL_PASSWORD",
+        "value": "${mysql_password}"
+      },
+      {
+        "name": "RECAPTCHA_SITE_KEY",
+        "value": "${recaptcha_key}"
+      },
+      {
+        "name": "RECAPTCHA_SECRET",
+        "value": "${recaptcha_secret}"
+      },
+      {
+        "name": "IDP_DOMAIN_NAME",
+        "value": "${idp_domain_name}"
+      },
+      {
+        "name": "IDP_NAME",
+        "value": "${idp_name}"
+      }
+    ],
+    "links": null,
+    "workingDirectory": null,
+    "readonlyRootFilesystem": null,
+    "image": "${docker_image}",
+    "command": ["/data/run-idp.sh"],
+    "user": null,
+    "dockerLabels": null,
+    "logConfiguration": null,
+    "cpu": 256,
+    "privileged": null,
+    "memoryReservation": 100
+  }
+]
