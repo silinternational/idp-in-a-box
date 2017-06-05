@@ -72,7 +72,6 @@ module "broker" {
   ldap_domain_controllers = "${var.ldap_domain_controllers}"
   ldap_use_ssl = "${var.ldap_use_ssl}"
   ldap_use_tls = "${var.ldap_use_tls}"
-  logentries_key = "${logentries_log.log.token}"
   mailer_usefiles = "${var.mailer_usefiles}"
   mailer_host = "${var.mailer_host}"
   mailer_username = "${var.mailer_username}"
