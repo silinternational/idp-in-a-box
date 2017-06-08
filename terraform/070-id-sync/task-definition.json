@@ -26,7 +26,7 @@
         "value": "${app_env}"
       },
       {
-        "name": "ID_BROKER_ACCESS_TOKEN",
+        "name": "ID_BROKER_CONFIG_accessToken",
         "value": "${id_broker_access_token}"
       },
       {
@@ -34,7 +34,7 @@
         "value": "${id_broker_adapter}"
       },
       {
-        "name": "ID_BROKER_BASE_URL",
+        "name": "ID_BROKER_CONFIG_baseUrl",
         "value": "${id_broker_base_url}"
       },
       {
