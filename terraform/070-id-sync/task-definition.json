@@ -42,15 +42,15 @@
         "value": "${id_store_adapter}"
       },
       {
-        "name": "ID_STORE_API_KEY",
+        "name": "ID_STORE_CONFIG_apiKey",
         "value": "${id_store_api_key}"
       },
       {
-        "name": "ID_STORE_API_SECRET",
+        "name": "ID_STORE_CONFIG_apiSecret",
         "value": "${id_store_api_secret}"
       },
       {
-        "name": "ID_STORE_BASE_URL",
+        "name": "ID_STORE_CONFIG_baseUrl",
         "value": "${id_store_base_url}"
       },
       {
