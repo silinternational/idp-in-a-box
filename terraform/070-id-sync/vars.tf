@@ -57,9 +57,3 @@ variable "ecsServiceRole_arn" {
 variable "alb_dns_name" {
   type = "string"
 }
-variable "" {
-  type = "string"
-}
-variable "" {
-  type = "string"
-}
