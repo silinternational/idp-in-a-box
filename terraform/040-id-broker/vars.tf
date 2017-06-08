@@ -50,9 +50,6 @@ variable "ldap_use_ssl" {
 variable "ldap_use_tls" {
   type = "string"
 }
-variable "logentries_key" {
-  type = "string"
-}
 variable "mailer_usefiles" {
   type = "string"
   default = "false"
