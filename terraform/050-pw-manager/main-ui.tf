@@ -12,7 +12,8 @@ resource "aws_s3_bucket" "ui" {
   bucket = "${var.ui_subdomain}.${var.cloudflare_domain}"
   acl    = "public-read"
   policy = "${data.template_file.bucket_policy.rendered}"
-
+  force_destroy = true
+  
   website {
     index_document = "index.html"
     error_document = "error.html"
