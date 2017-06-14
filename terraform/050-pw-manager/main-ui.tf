@@ -52,7 +52,7 @@ resource "aws_cloudfront_distribution" "ui" {
     /*
      * We dont want/need CloudFront to cache, we'll let CloudFlare handle that
      */
-    viewer_protocol_policy = "allow-all"
+    viewer_protocol_policy = "redirect-to-https"
     min_ttl                = 0
     default_ttl            = 0
     max_ttl                = 0
