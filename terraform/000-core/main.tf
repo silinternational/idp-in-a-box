@@ -36,6 +36,15 @@ resource "aws_iam_user_policy" "cd_ecs" {
       ]
     },
     {
+      "Effect": "Allow",
+      "Action": [
+        "ecs:DescribeServices"
+      ],
+      "Resource": [
+        "*"
+      ]
+    },
+    {
         "Effect": "Allow",
         "Action": [
             "ecr:GetAuthorizationToken"
