@@ -1,6 +1,6 @@
 # 070-id-sync - ECS service for id-sync
 This module is used to create an ECS service running the id-sync component which syncs identities from a personnel
-store. 
+store.
 
 ## What this does
 
@@ -23,13 +23,11 @@ store.
  - `id_broker_adapter` - Which ID Sync adapter to use
  - `id_broker_base_url` - Base URL to id-broker API
  - `id_store_adapter` - Which ID Store adapter to use
- - `id_store_api_key` - API Key for ID Store
- - `id_store_api_secret` - Secret for ID Store API Key
- - `id_store_base_url` - Base URL for ID Store API
+ - `id_store_config` - A map of configuration data to pass into id-sync as env vars
  - `idp_name` - Short name of IdP for use in logs and email alerts
  - `ecs_cluster_id` - ID for ECS Cluster
  - `ecsServiceRole_arn` - ARN for ECS Service Role
- - `alb_dns_name` - DNS name for application load balancer 
+ - `alb_dns_name` - DNS name for application load balancer
 
 ## Outputs
 
@@ -53,9 +51,7 @@ module "idsync" {
   id_broker_adapter = "${var.id_broker_adapter}"
   id_broker_base_url = "https://${data.terraform_remote_state.broker.hostname}"
   id_store_adapter = "${var.id_store_adapter}"
-  id_store_api_key = "${var.id_store_api_key}"
-  id_store_api_secret = "${var.id_store_api_secret}"
-  id_store_base_url = "${var.id_store_base_url}"
+  id_store_config = "${var.id_store_config}"
   idp_name = "${var.idp_name}"
   ecs_cluster_id = "${data.terraform_remote_state.core.ecs_cluster_id}"
   ecsServiceRole_arn = "${data.terraform_remote_state.core.ecsServiceRole_arn}"
