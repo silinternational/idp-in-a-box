@@ -40,6 +40,7 @@ variable "logo_url" {
 }
 variable "mailer_usefiles" {
   type = "string"
+  default = "false"
 }
 variable "mailer_host" {
   type = "string"
