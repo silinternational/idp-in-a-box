@@ -45,6 +45,16 @@ resource "random_id" "access_token_external" {
   byte_length = 16
 }
 
+data "template_file" "env_vars" {
+  count = "${length(var.id_store_config)}"
+  template = "${file("${path.module}/envvar.json")}"
+
+  vars {
+    name = "ID_STORE_CONFIG_${element(keys(var.id_store_config), count.index)}"
+    value = "${element(values(var.id_store_config), count.index)}"
+  }
+}
+
 /*
  * Create ECS service
  */
@@ -64,6 +74,7 @@ data "template_file" "task_def" {
     id_sync_access_tokens = "${random_id.access_token_external.hex}"
     idp_name = "${var.idp_name}"
     logentries_key = "${logentries_log.log.token}"
+    id_store_config = "${join(",", data.template_file.env_vars.*.rendered)}"
   }
 }
 

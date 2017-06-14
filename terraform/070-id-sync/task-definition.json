@@ -42,18 +42,6 @@
         "value": "${id_store_adapter}"
       },
       {
-        "name": "ID_STORE_CONFIG_apiKey",
-        "value": "${id_store_api_key}"
-      },
-      {
-        "name": "ID_STORE_CONFIG_apiSecret",
-        "value": "${id_store_api_secret}"
-      },
-      {
-        "name": "ID_STORE_CONFIG_baseUrl",
-        "value": "${id_store_base_url}"
-      },
-      {
         "name": "ID_SYNC_ACCESS_TOKENS",
         "value": "${id_sync_access_tokens}"
       },
@@ -64,7 +52,8 @@
       {
         "name": "LOGENTRIES_KEY",
         "value": "${logentries_key}"
-      }
+      },
+      "${id_store_config}"
     ],
     "links": null,
     "workingDirectory": null,
