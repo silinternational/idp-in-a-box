@@ -38,7 +38,8 @@ resource "aws_iam_user_policy" "cd_ecs" {
     {
       "Effect": "Allow",
       "Action": [
-        "ecs:DescribeServices"
+        "ecs:DescribeServices",
+        "ecs:DescribeTaskDefinition"
       ],
       "Resource": [
         "*"
