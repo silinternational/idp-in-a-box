@@ -53,7 +53,7 @@
         "name": "LOGENTRIES_KEY",
         "value": "${logentries_key}"
       },
-      "${id_store_config}"
+      ${id_store_config}
     ],
     "links": null,
     "workingDirectory": null,
