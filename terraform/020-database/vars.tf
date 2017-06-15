@@ -6,6 +6,7 @@ variable "app_name" {
 }
 variable "availability_zone" {
   type = "string"
+  default = ""
 }
 variable "mysql_user" {
   type = "string"

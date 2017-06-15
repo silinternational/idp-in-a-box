@@ -8,6 +8,9 @@ variable "app_name" {
 variable "app_env" {
   type = "string"
 }
+variable "idp_name" {
+  type = "string"
+}
 variable "vpc_id" {
   type = "string"
 }

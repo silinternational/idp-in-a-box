@@ -36,14 +36,9 @@ variable "id_broker_base_url" {
 variable "id_store_adapter" {
   type = "string"
 }
-variable "id_store_api_key" {
-  type = "string"
-}
-variable "id_store_api_secret" {
-  type = "string"
-}
-variable "id_store_base_url" {
-  type = "string"
+variable "id_store_config" {
+  type = "map"
+  description = "A map of configuration data to pass into id-sync as env vars"
 }
 variable "idp_name" {
   type = "string"
@@ -55,11 +50,5 @@ variable "ecsServiceRole_arn" {
   type = "string"
 }
 variable "alb_dns_name" {
-  type = "string"
-}
-variable "" {
-  type = "string"
-}
-variable "" {
   type = "string"
 }

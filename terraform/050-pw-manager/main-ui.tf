@@ -12,6 +12,7 @@ resource "aws_s3_bucket" "ui" {
   bucket = "${var.ui_subdomain}.${var.cloudflare_domain}"
   acl    = "public-read"
   policy = "${data.template_file.bucket_policy.rendered}"
+  force_destroy = true
 
   website {
     index_document = "index.html"
@@ -51,7 +52,7 @@ resource "aws_cloudfront_distribution" "ui" {
     /*
      * We dont want/need CloudFront to cache, we'll let CloudFlare handle that
      */
-    viewer_protocol_policy = "allow-all"
+    viewer_protocol_policy = "redirect-to-https"
     min_ttl                = 0
     default_ttl            = 0
     max_ttl                = 0

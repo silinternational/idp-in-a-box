@@ -26,7 +26,7 @@
         "value": "${app_env}"
       },
       {
-        "name": "ID_BROKER_ACCESS_TOKEN",
+        "name": "ID_BROKER_CONFIG_accessToken",
         "value": "${id_broker_access_token}"
       },
       {
@@ -34,24 +34,12 @@
         "value": "${id_broker_adapter}"
       },
       {
-        "name": "ID_BROKER_BASE_URL",
+        "name": "ID_BROKER_CONFIG_baseUrl",
         "value": "${id_broker_base_url}"
       },
       {
         "name": "ID_STORE_ADAPTER",
         "value": "${id_store_adapter}"
-      },
-      {
-        "name": "ID_STORE_API_KEY",
-        "value": "${id_store_api_key}"
-      },
-      {
-        "name": "ID_STORE_API_SECRET",
-        "value": "${id_store_api_secret}"
-      },
-      {
-        "name": "ID_STORE_BASE_URL",
-        "value": "${id_store_base_url}"
       },
       {
         "name": "ID_SYNC_ACCESS_TOKENS",
@@ -64,7 +52,8 @@
       {
         "name": "LOGENTRIES_KEY",
         "value": "${logentries_key}"
-      }
+      },
+      "${id_store_config}"
     ],
     "links": null,
     "workingDirectory": null,

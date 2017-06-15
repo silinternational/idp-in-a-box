@@ -101,7 +101,7 @@ data "template_file" "task_def" {
 module "ecsservice" {
   source = "github.com/silinternational/terraform-modules//aws/ecs/service-only"
   cluster_id = "${var.ecs_cluster_id}"
-  service_name = "${var.app_name}"
+  service_name = "${var.idp_name}-${var.app_name}"
   service_env = "${var.app_env}"
   ecsServiceRole_arn = "${var.ecsServiceRole_arn}"
   container_def_json = "${data.template_file.task_def.rendered}"
