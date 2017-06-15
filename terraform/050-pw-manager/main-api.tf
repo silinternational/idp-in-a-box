@@ -121,7 +121,7 @@ data "template_file" "task_def_cron" {
     docker_image = "${var.docker_image}"
     app_env = "${var.app_env}"
     ui_cors_origin = "https://${var.ui_subdomain}.${var.cloudflare_domain}"
-    ui_url = "https://${var.ui_subdomain}.${var.cloudflare_domain}/index.html#"
+    ui_url = "https://${var.ui_subdomain}.${var.cloudflare_domain}/#"
     id_broker_access_token = "${var.id_broker_access_token}"
     id_broker_base_uri = "${var.id_broker_base_uri}"
     cmd = "/data/run-cron.sh"

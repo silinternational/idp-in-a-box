@@ -52,3 +52,15 @@ variable "ecsServiceRole_arn" {
 variable "alb_dns_name" {
   type = "string"
 }
+variable "mailer_host" {
+  type = "string"
+}
+variable "mailer_username" {
+  type = "string"
+}
+variable "mailer_password" {
+  type = "string"
+}
+variable "notifier_email_to" {
+  type = "string"
+}

@@ -53,6 +53,22 @@
         "name": "LOGENTRIES_KEY",
         "value": "${logentries_key}"
       },
+      {
+        "name": "MAILER_HOST",
+        "value": "${mailer_host}"
+      },
+      {
+        "name": "MAILER_PASSWORD",
+        "value": "${mailer_password}"
+      },
+      {
+        "name": "MAILER_USERNAME",
+        "value": "${mailer_username}"
+      },
+      {
+        "name": "NOTIFIER_EMAIL_TO",
+        "value": "${notifier_email_to}"
+      },
       ${id_store_config}
     ],
     "links": null,

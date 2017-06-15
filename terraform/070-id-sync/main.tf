@@ -72,6 +72,10 @@ data "template_file" "task_def" {
     id_sync_access_tokens = "${random_id.access_token_external.hex}"
     idp_name = "${var.idp_name}"
     logentries_key = "${logentries_log.log.token}"
+    mailer_host = "${var.mailer_host}"
+    mailer_username = "${var.mailer_username}"
+    mailer_password = "${var.mailer_password}"
+    notifier_email_to = "${var.notifier_email_to}"
     id_store_config = "${join(",", data.template_file.env_vars.*.rendered)}"
   }
 }
