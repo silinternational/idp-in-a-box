@@ -29,21 +29,19 @@ resource "aws_iam_user_policy" "cd_ecs" {
     {
       "Effect": "Allow",
       "Action": [
-        "ecs:*"
-      ],
-      "Resource": [
-        "${module.ecscluster.ecs_cluster_id}"
-      ]
-    },
-    {
-      "Effect": "Allow",
-      "Action": [
+        "ecs:DeregisterTaskDefinition",
         "ecs:DescribeServices",
-        "ecs:DescribeTaskDefinition"
+        "ecs:DescribeTaskDefinition",
+        "ecs:DescribeTasks",
+        "ecs:ListTasks",
+        "ecs:ListTaskDefinitions",
+        "ecs:RegisterTaskDefinition",
+        "ecs:StartTask",
+        "ecs:StopTask",
+        "ecs:UpdateService",
+        "iam:PassRole"
       ],
-      "Resource": [
-        "*"
-      ]
+      "Resource": "*"
     },
     {
         "Effect": "Allow",
