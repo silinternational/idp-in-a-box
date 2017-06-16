@@ -22,6 +22,7 @@ resource "aws_alb_target_group" "broker" {
   port     = "80"
   protocol = "HTTP"
   vpc_id   = "${var.vpc_id}"
+  deregistration_delay = "30"
 
   health_check {
     path = "/site/status"

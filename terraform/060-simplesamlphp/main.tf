@@ -15,6 +15,7 @@ resource "aws_alb_target_group" "ssp" {
   port     = "80"
   protocol = "HTTP"
   vpc_id   = "${var.vpc_id}"
+  deregistration_delay = "30"
 
   health_check {
     path = "/module.php/silauth/status.php"
