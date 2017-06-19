@@ -23,6 +23,10 @@ variable "cloudflare_domain" {
 variable "idp_name" {
   type = "string"
 }
+variable "idp_username_hint" {
+  type = "string"
+  default = "Username or email address"
+}
 variable "alerts_email" {
   type = "string"
 }

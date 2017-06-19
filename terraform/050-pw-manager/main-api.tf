@@ -55,6 +55,7 @@ data "template_file" "task_def" {
   vars {
     access_token_hash = "${random_id.access_token_hash.hex}"
     idp_name = "${var.idp_name}"
+    idp_username_hint = "${var.idp_username_hint}"
     alerts_email = "${var.alerts_email}"
     support_email = "${var.support_email}"
     from_email = "${var.from_email}"
@@ -103,6 +104,7 @@ data "template_file" "task_def_cron" {
   vars {
     access_token_hash = "${random_id.access_token_hash.hex}"
     idp_name = "${var.idp_name}"
+    idp_username_hint = "${var.idp_username_hint}"
     alerts_email = "${var.alerts_email}"
     support_email = "${var.support_email}"
     from_email = "${var.from_email}"
