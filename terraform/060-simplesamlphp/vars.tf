@@ -72,3 +72,6 @@ variable "alb_dns_name" {
 variable "idp_name" {
   type = "string"
 }
+variable "trusted_ip_addresses" {
+  type = "list"
+}

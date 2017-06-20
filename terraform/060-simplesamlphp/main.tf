@@ -71,6 +71,7 @@ data "template_file" "task_def" {
     recaptcha_secret = "${var.recaptcha_secret}"
     secret_salt = "${random_id.secretsalt.hex}"
     idp_name = "${var.idp_name}"
+    trusted_ip_addresses = "${join(",", var.trusted_ip_addresses)}"
   }
 }
 

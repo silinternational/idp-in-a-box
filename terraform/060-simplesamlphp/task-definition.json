@@ -116,6 +116,10 @@
       {
         "name": "IDP_NAME",
         "value": "${idp_name}"
+      },
+      {
+        "name": "TRUSTED_IP_ADDRESSES",
+        "value": "${trusted_ip_addresses}"
       }
     ],
     "links": null,
