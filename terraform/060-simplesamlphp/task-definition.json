@@ -63,7 +63,7 @@
       },
       {
         "name": "SHOW_SAML_ERRORS",
-        "value": "false"
+        "value": "${show_saml_errors}"
       },
       {
         "name": "THEME_USE",

@@ -72,6 +72,10 @@ variable "alb_dns_name" {
 variable "idp_name" {
   type = "string"
 }
+variable "show_saml_errors" {
+  type = "string"
+  default = "false"
+}
 variable "trusted_ip_addresses" {
   type = "list"
 }
