@@ -138,7 +138,7 @@
     "user": null,
     "dockerLabels": null,
     "logConfiguration": null,
-    "cpu": 256,
+    "cpu": 128,
     "privileged": null,
     "memoryReservation": null
   }
