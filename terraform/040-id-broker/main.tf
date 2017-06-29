@@ -98,6 +98,8 @@ data "template_file" "task_def" {
     mysql_host              = "${var.mysql_host}"
     mysql_user              = "${var.mysql_user}"
     mysql_pass              = "${var.mysql_pass}"
+    memory                  = "${var.memory}"
+    cpu                     = "${var.cpu}"
   }
 }
 
