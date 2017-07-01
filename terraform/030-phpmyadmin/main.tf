@@ -9,10 +9,11 @@ resource "random_id" "blowfish_secret" {
  * Create target group for ALB
  */
 resource "aws_alb_target_group" "phpmyadmin" {
-  name     = "tg-${var.app_name}-${var.app_env}"
-  port     = "80"
-  protocol = "HTTP"
-  vpc_id   = "${var.vpc_id}"
+  name                 = "tg-${var.app_name}-${var.app_env}"
+  port                 = "80"
+  protocol             = "HTTP"
+  vpc_id               = "${var.vpc_id}"
+  deregistration_delay = "30"
 }
 
 /*
@@ -20,13 +21,15 @@ resource "aws_alb_target_group" "phpmyadmin" {
  */
 resource "aws_alb_listener_rule" "phpmyadmin" {
   listener_arn = "${var.alb_https_listener_arn}"
-  priority = "30"
+  priority     = "30"
+
   action {
-    type = "forward"
+    type             = "forward"
     target_group_arn = "${aws_alb_target_group.phpmyadmin.arn}"
   }
+
   condition {
-    field = "host-header"
+    field  = "host-header"
     values = ["${var.subdomain}.${var.cloudflare_domain}"]
   }
 }
@@ -39,21 +42,21 @@ data "template_file" "task_def" {
 
   vars {
     blowfish_secret = "${random_id.blowfish_secret.hex}"
-    hostname = "${var.subdomain}.${var.cloudflare_domain}"
-    mysql_host = "${var.rds_address}"
+    hostname        = "${var.subdomain}.${var.cloudflare_domain}"
+    mysql_host      = "${var.rds_address}"
   }
 }
 
 module "ecsservice" {
-  source = "github.com/silinternational/terraform-modules//aws/ecs/service-only"
-  cluster_id = "${var.ecs_cluster_id}"
-  service_name = "${var.idp_name}-${var.app_name}"
-  service_env = "${var.app_env}"
+  source             = "github.com/silinternational/terraform-modules//aws/ecs/service-only"
+  cluster_id         = "${var.ecs_cluster_id}"
+  service_name       = "${var.idp_name}-${var.app_name}"
+  service_env        = "${var.app_env}"
   container_def_json = "${data.template_file.task_def.rendered}"
-  desired_count = 1
-  tg_arn = "${aws_alb_target_group.phpmyadmin.arn}"
-  lb_container_name = "phpMyAdmin"
-  lb_container_port = "80"
+  desired_count      = 1
+  tg_arn             = "${aws_alb_target_group.phpmyadmin.arn}"
+  lb_container_name  = "phpMyAdmin"
+  lb_container_port  = "80"
   ecsServiceRole_arn = "${var.ecsServiceRole_arn}"
 }
 
@@ -61,9 +64,9 @@ module "ecsservice" {
  * Create Cloudflare DNS record
  */
 resource "cloudflare_record" "pmadns" {
-  domain = "${var.cloudflare_domain}"
-  name   = "${var.subdomain}"
-  value  = "${var.alb_dns_name}"
-  type   = "CNAME"
+  domain  = "${var.cloudflare_domain}"
+  name    = "${var.subdomain}"
+  value   = "${var.alb_dns_name}"
+  type    = "CNAME"
   proxied = true
 }

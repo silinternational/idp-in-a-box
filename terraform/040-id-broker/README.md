@@ -1,5 +1,5 @@
-# 040-phpmyadmin - ECS service for id-broker
-This module is used to create an ECS service running id-broker. 
+# 040-id-broker - ECS service for id-broker
+This module is used to create an ECS service running id-broker.
 
 ## What this does
 
@@ -39,8 +39,8 @@ This module is used to create an ECS service running id-broker.
  - `ecsServiceRole_arn` - ARN for ECS Service Role
  - `broker_subdomain` - Subdomain for id-broker
  - `cloudflare_domain` - Top level domain name for use with Cloudflare
- - `ecs_desired_count` - Desired count of tasks running in ECS service
- 
+ - `desired_count` - Desired count of tasks running in ECS service
+
 
 ## Outputs
 
@@ -54,37 +54,39 @@ This module is used to create an ECS service running id-broker.
 
 ```hcl
 module "broker" {
-  source = "github.com/silinternational/idp-in-a-box//terraform/040-phpmyadmin"
-  app_name = "${var.app_name}"
-  app_env = "${var.app_env}"
-  vpc_default_sg_id = "${data.terraform_remote_state.cluster.vpc_default_sg_id}"
-  private_subnet_ids = "${data.terraform_remote_state.cluster.private_subnet_ids}"
-  vpc_id = "${data.terraform_remote_state.cluster.vpc_id}"
-  ssl_policy = "${var.ssl_policy}"
-  wildcard_cert_arn = "${data.terraform_remote_state.cluster.wildcard_cert_arn}"
-  logentries_set_id = "${data.terraform_remote_state.cluster.logentries_set_id}"
-  idp_name = "${var.idp_name}"
-  docker_image = "${data.terraform_remote_state.ecr.ecr_repo_idbroker}"
-  db_name = "${var.db_idbroker_name}"
-  ldap_admin_password = "${var.ldap_admin_password}"
-  ldap_admin_username = "${var.ldap_admin_username}"
-  ldap_base_dn = "${var.ldap_base_dn}"
+  source                  = "github.com/silinternational/idp-in-a-box//terraform/040-id-broker"
+  memory                  = "${var.memory}"
+  cpu                     = "${var.cpu}"
+  app_name                = "${var.app_name}"
+  app_env                 = "${var.app_env}"
+  vpc_default_sg_id       = "${data.terraform_remote_state.cluster.vpc_default_sg_id}"
+  private_subnet_ids      = "${data.terraform_remote_state.cluster.private_subnet_ids}"
+  vpc_id                  = "${data.terraform_remote_state.cluster.vpc_id}"
+  ssl_policy              = "${var.ssl_policy}"
+  wildcard_cert_arn       = "${data.terraform_remote_state.cluster.wildcard_cert_arn}"
+  logentries_set_id       = "${data.terraform_remote_state.cluster.logentries_set_id}"
+  idp_name                = "${var.idp_name}"
+  docker_image            = "${data.terraform_remote_state.ecr.ecr_repo_idbroker}"
+  db_name                 = "${var.db_idbroker_name}"
+  ldap_admin_password     = "${var.ldap_admin_password}"
+  ldap_admin_username     = "${var.ldap_admin_username}"
+  ldap_base_dn            = "${var.ldap_base_dn}"
   ldap_domain_controllers = "${var.ldap_domain_controllers}"
-  ldap_use_ssl = "${var.ldap_use_ssl}"
-  ldap_use_tls = "${var.ldap_use_tls}"
-  mailer_usefiles = "${var.mailer_usefiles}"
-  mailer_host = "${var.mailer_host}"
-  mailer_username = "${var.mailer_username}"
-  mailer_password = "${var.mailer_password}"
-  notification_email = "${var.notification_email}"
-  migrate_pw_from_ldap = "${var.migrate_pw_from_ldap}"
-  mysql_host = "${data.terraform_remote_state.database.rds_address}"
-  mysql_user = "${var.db_idbroker_user}"
-  mysql_pass = "${data.terraform_remote_state.database.db_idbroker_pass}"
-  ecs_cluster_id = "${data.terraform_remote_state.core.ecs_cluster_id}"
-  ecsServiceRole_arn = "${data.terraform_remote_state.core.ecsServiceRole_arn}"
-  subdomain = "${var.broker_subdomain}"
-  cloudflare_domain = "${var.cloudflare_domain}"
-  ecs_desired_count = "${var.ecs_desired_count}"
+  ldap_use_ssl            = "${var.ldap_use_ssl}"
+  ldap_use_tls            = "${var.ldap_use_tls}"
+  mailer_usefiles         = "${var.mailer_usefiles}"
+  mailer_host             = "${var.mailer_host}"
+  mailer_username         = "${var.mailer_username}"
+  mailer_password         = "${var.mailer_password}"
+  notification_email      = "${var.notification_email}"
+  migrate_pw_from_ldap    = "${var.migrate_pw_from_ldap}"
+  mysql_host              = "${data.terraform_remote_state.database.rds_address}"
+  mysql_user              = "${var.db_idbroker_user}"
+  mysql_pass              = "${data.terraform_remote_state.database.db_idbroker_pass}"
+  ecs_cluster_id          = "${data.terraform_remote_state.core.ecs_cluster_id}"
+  ecsServiceRole_arn      = "${data.terraform_remote_state.core.ecsServiceRole_arn}"
+  subdomain               = "${var.broker_subdomain}"
+  cloudflare_domain       = "${var.cloudflare_domain}"
+  desired_count           = "${var.ecs_desired_count}"
 }
 ```

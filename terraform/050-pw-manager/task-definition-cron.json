@@ -62,6 +62,10 @@
         "value": "${idp_name}"
       },
       {
+        "name": "IDP_USERNAME_HINT",
+        "value": "${idp_username_hint}"
+      },
+      {
         "name": "LOGENTRIES_KEY",
         "value": "${logentries_key}"
       },
@@ -134,7 +138,7 @@
     "user": null,
     "dockerLabels": null,
     "logConfiguration": null,
-    "cpu": 256,
+    "cpu": 128,
     "privileged": null,
     "memoryReservation": null
   }

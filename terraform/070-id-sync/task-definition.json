@@ -1,7 +1,7 @@
 [
   {
     "volumesFrom": [],
-    "memory": 256,
+    "memory": ${memory},
     "extraHosts": null,
     "dnsServers": null,
     "disableNetworking": null,
@@ -53,7 +53,23 @@
         "name": "LOGENTRIES_KEY",
         "value": "${logentries_key}"
       },
-      "${id_store_config}"
+      {
+        "name": "MAILER_HOST",
+        "value": "${mailer_host}"
+      },
+      {
+        "name": "MAILER_PASSWORD",
+        "value": "${mailer_password}"
+      },
+      {
+        "name": "MAILER_USERNAME",
+        "value": "${mailer_username}"
+      },
+      {
+        "name": "NOTIFIER_EMAIL_TO",
+        "value": "${notifier_email_to}"
+      },
+      ${id_store_config}
     ],
     "links": null,
     "workingDirectory": null,
@@ -63,8 +79,8 @@
     "user": null,
     "dockerLabels": null,
     "logConfiguration": null,
-    "cpu": 256,
+    "cpu": ${cpu},
     "privileged": null,
-    "memoryReservation": 100
+    "memoryReservation": ${memory}
   }
 ]

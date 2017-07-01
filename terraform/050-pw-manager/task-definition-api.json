@@ -1,7 +1,7 @@
 [
   {
     "volumesFrom": [],
-    "memory": 224,
+    "memory": ${memory},
     "extraHosts": null,
     "dnsServers": null,
     "disableNetworking": null,
@@ -60,6 +60,10 @@
       {
         "name": "IDP_NAME",
         "value": "${idp_name}"
+      },
+      {
+        "name": "IDP_USERNAME_HINT",
+        "value": "${idp_username_hint}"
       },
       {
         "name": "LOGENTRIES_KEY",
@@ -136,9 +140,9 @@
     "user": null,
     "dockerLabels": null,
     "logConfiguration": null,
-    "cpu": 512,
+    "cpu": ${cpu},
     "privileged": null,
-    "memoryReservation": null
+    "memoryReservation": ${memory}
   },
   {
     "volumesFrom": [],

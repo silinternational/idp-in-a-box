@@ -1,7 +1,7 @@
 [
   {
     "volumesFrom": [],
-    "memory": 128,
+    "memory": ${memory},
     "extraHosts": null,
     "dnsServers": null,
     "disableNetworking": null,
@@ -116,6 +116,10 @@
       {
         "name": "IDP_NAME",
         "value": "${idp_name}"
+      },
+      {
+        "name": "TRUSTED_IP_ADDRESSES",
+        "value": "${trusted_ip_addresses}"
       }
     ],
     "links": null,
@@ -126,8 +130,8 @@
     "user": null,
     "dockerLabels": null,
     "logConfiguration": null,
-    "cpu": 256,
+    "cpu": ${cpu},
     "privileged": null,
-    "memoryReservation": 100
+    "memoryReservation": ${memory}
   }
 ]
