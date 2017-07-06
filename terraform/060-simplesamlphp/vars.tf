@@ -111,3 +111,7 @@ variable "trusted_ip_addresses" {
 variable "desired_count" {
   default = "1"
 }
+
+variable "analytics_id" {
+  type = "string"
+}

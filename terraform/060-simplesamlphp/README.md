@@ -34,6 +34,7 @@ This module is used to create an ECS service running simpleSAMLphp.
  - `alb_dns_name` - DNS name for application load balancer
  - `idp_name` - Short name of IdP for use in logs and email alerts
  - `trusted_ip_addresses` - A list of ip addresses or ranges that should not be rate limited
+ - `analytics_id` - The ID used by an analytics provider such as Google Analytics, e.g., "UA-XXXX-YY"
 
 ## Outputs
 
@@ -78,5 +79,6 @@ module "ssp" {
   alb_dns_name           = "${data.terraform_remote_state.cluster.alb_dns_name}"
   idp_name               = "${var.idp_name}"
   trusted_ip_addresses   = ["${concat(module.cf_ips.ipv4_cidrs, var.trusted_ip_addresses, data.terraform_remote_state.cluster.public_subnet_cidr_blocks)}"]
+  analytics_id           = "${var.analytics_id}"
 }
 ```

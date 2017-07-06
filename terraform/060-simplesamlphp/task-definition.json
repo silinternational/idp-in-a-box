@@ -120,6 +120,10 @@
       {
         "name": "TRUSTED_IP_ADDRESSES",
         "value": "${trusted_ip_addresses}"
+      },
+      {
+        "name": "ANALYTICS_ID",
+        "value": "${analytics_id}"
       }
     ],
     "links": null,
