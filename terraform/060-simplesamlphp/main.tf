@@ -78,6 +78,7 @@ data "template_file" "task_def" {
     secret_salt            = "${random_id.secretsalt.hex}"
     idp_name               = "${var.idp_name}"
     trusted_ip_addresses   = "${join(",", var.trusted_ip_addresses)}"
+    analytics_id           = "${var.analytics_id}"
   }
 }
 
