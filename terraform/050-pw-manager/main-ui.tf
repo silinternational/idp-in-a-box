@@ -8,10 +8,11 @@ data "template_file" "bucket_policy" {
     bucket_name = "${var.ui_subdomain}.${var.cloudflare_domain}"
   }
 }
+
 resource "aws_s3_bucket" "ui" {
-  bucket = "${var.ui_subdomain}.${var.cloudflare_domain}"
-  acl    = "public-read"
-  policy = "${data.template_file.bucket_policy.rendered}"
+  bucket        = "${var.ui_subdomain}.${var.cloudflare_domain}"
+  acl           = "public-read"
+  policy        = "${data.template_file.bucket_policy.rendered}"
   force_destroy = true
 
   website {
@@ -25,6 +26,7 @@ resource "aws_s3_bucket" "ui" {
  */
 resource "aws_cloudfront_distribution" "ui" {
   count = 1
+
   origin {
     domain_name = "${aws_s3_bucket.ui.bucket_domain_name}"
     origin_id   = "ui-s3-origin"
@@ -50,24 +52,25 @@ resource "aws_cloudfront_distribution" "ui" {
     }
 
     /*
-     * We dont want/need CloudFront to cache, we'll let CloudFlare handle that
-     */
+         * We dont want/need CloudFront to cache, we'll let CloudFlare handle that
+         */
     viewer_protocol_policy = "redirect-to-https"
-    min_ttl                = 0
-    default_ttl            = 0
-    max_ttl                = 0
+
+    min_ttl     = 0
+    default_ttl = 0
+    max_ttl     = 0
   }
 
   price_class = "PriceClass_All"
 
   tags {
     app_name = "${var.app_name}"
-    app_env = "${var.app_env}"
+    app_env  = "${var.app_env}"
   }
 
   viewer_certificate {
-    acm_certificate_arn = "${var.wildcard_cert_arn}"
-    ssl_support_method = "sni-only"
+    acm_certificate_arn      = "${var.wildcard_cert_arn}"
+    ssl_support_method       = "sni-only"
     minimum_protocol_version = "TLSv1"
   }
 
@@ -118,9 +121,9 @@ EOF
  * Create Cloudflare DNS record
  */
 resource "cloudflare_record" "uidns" {
-  domain = "${var.cloudflare_domain}"
-  name   = "${var.ui_subdomain}"
-  value  = "${aws_cloudfront_distribution.ui.domain_name}"
-  type   = "CNAME"
+  domain  = "${var.cloudflare_domain}"
+  name    = "${var.ui_subdomain}"
+  value   = "${aws_cloudfront_distribution.ui.domain_name}"
+  type    = "CNAME"
   proxied = true
 }

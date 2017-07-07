@@ -1,5 +1,5 @@
 # 010-cluster - Cluster setup
-This module is used to setup the cluster with VPC, security groups, auto-scaling group, 
+This module is used to setup the cluster with VPC, security groups, auto-scaling group,
 ssl certificate, core application load balancer, and a Logentries log set
 
 ## What this does
@@ -22,7 +22,7 @@ ssl certificate, core application load balancer, and a Logentries log set
  - `ecs_ami_id` - ID for AMI to be used.
  - `ecs_cluster_name` - ECS cluster name for registering instances
  - `ecs_instance_profile_id` - IAM profile ID for ecsInstanceProfile
- 
+
 
 ## Outputs
 
@@ -48,15 +48,15 @@ ssl certificate, core application load balancer, and a Logentries log set
 
 ```hcl
 module "cluster" {
-  source = "github.com/silinternational/idp-in-a-box//terraform/010-cluster"
-  app_name = "${var.app_name}"
-  app_env = "${var.app_env}"
-  aws_instance = "${var.aws_instance}"
-  aws_region = "${var.aws_region}"
-  aws_zones = ["${var.aws_zones}"]
-  cert_domain_name = "${var.cert_domain_name}"
-  ecs_ami_id = "${data.terraform_remote_state.core.ecs_ami_id}"
-  ecs_cluster_name = "${data.terraform_remote_state.core.ecs_cluster_name}"
+  source                  = "github.com/silinternational/idp-in-a-box//terraform/010-cluster"
+  app_name                = "${var.app_name}"
+  app_env                 = "${var.app_env}"
+  aws_instance            = "${var.aws_instance}"
+  aws_region              = "${var.aws_region}"
+  aws_zones               = ["${var.aws_zones}"]
+  cert_domain_name        = "${var.cert_domain_name}"
+  ecs_ami_id              = "${data.terraform_remote_state.core.ecs_ami_id}"
+  ecs_cluster_name        = "${data.terraform_remote_state.core.ecs_cluster_name}"
   ecs_instance_profile_id = "${data.terraform_remote_state.core.ecs_instance_profile_id}"
 }
 ```
