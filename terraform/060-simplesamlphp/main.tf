@@ -76,6 +76,7 @@ data "template_file" "task_def" {
     recaptcha_key          = "${var.recaptcha_key}"
     recaptcha_secret       = "${var.recaptcha_secret}"
     secret_salt            = "${random_id.secretsalt.hex}"
+    show_saml_errors       = "${var.show_saml_errors}"
     idp_name               = "${var.idp_name}"
     trusted_ip_addresses   = "${join(",", var.trusted_ip_addresses)}"
     analytics_id           = "${var.analytics_id}"
