@@ -118,6 +118,10 @@
         "value": "${idp_name}"
       },
       {
+        "name": "IDP_DISPLAY_NAME",
+        "value": "${idp_display_name}"
+      },
+      {
         "name": "TRUSTED_IP_ADDRESSES",
         "value": "${trusted_ip_addresses}"
       },

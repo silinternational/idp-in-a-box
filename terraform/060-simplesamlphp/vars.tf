@@ -104,8 +104,12 @@ variable "idp_name" {
   type = "string"
 }
 
-variable "show_saml_errors" {
+variable "idp_display_name" {
   type = "string"
+}
+
+variable "show_saml_errors" {
+  type    = "string"
   default = "false"
 }
 

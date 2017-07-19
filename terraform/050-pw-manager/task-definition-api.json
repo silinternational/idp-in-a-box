@@ -62,6 +62,10 @@
         "value": "${idp_name}"
       },
       {
+        "name": "IDP_DISPLAY_NAME",
+        "value": "${idp_display_name}"
+      },
+      {
         "name": "IDP_USERNAME_HINT",
         "value": "${idp_username_hint}"
       },
