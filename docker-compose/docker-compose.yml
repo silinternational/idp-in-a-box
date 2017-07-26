@@ -1,0 +1,236 @@
+version: "3"
+
+services:
+
+  db-broker:
+    image: silintl/mariadb:latest
+    ports:
+      - "3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: r00tP@ss!
+      MYSQL_DATABASE: broker
+      MYSQL_USER: broker
+      MYSQL_PASSWORD: broker
+
+  broker:
+    image: silintl/idp-id-broker:develop
+    ports:
+      - "10000:80"
+    depends_on:
+      - db-broker
+    environment:
+      API_ACCESS_KEYS: abc123abc123
+      APP_ENV: test
+      IDP_NAME: development
+      LDAP_ADMIN_PASSWORD: admin
+      LDAP_ADMIN_USERNAME: cn=Manager,dc=acme,dc=org
+      LDAP_BASE_DN: dc=acme,dc=org
+      LDAP_DOMAIN_CONTROLLERS: ldap
+      LDAP_USE_SSL: "false"
+      LDAP_USE_TLS: "false"
+      LOGENTRIES_KEY:
+      MAILER_HOST: "smtp.gmail.com"
+      MAILER_PASSWORD: "test"
+      MAILER_USEFILES: "true"
+      MAILER_USERNAME: "test"
+      MIGRATE_PW_FROM_LDAP: "false"
+      MYSQL_DATABASE: broker
+      MYSQL_HOST: db-broker
+      MYSQL_USER: broker
+      MYSQL_PASSWORD: broker
+      NOTIFICATION_EMAIL: "dummy@example.com"
+    command: whenavail db-broker 3306 100 /data/run.sh
+
+  phpmyadmin-broker:
+    image: phpmyadmin/phpmyadmin:latest
+    ports:
+      - "8001:80"
+    depends_on:
+      - db-broker
+    environment:
+      PMA_HOST: db-broker
+
+  db-ssp:
+    image: silintl/mariadb:latest
+    ports:
+      - "3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: r00tP@ss!
+      MYSQL_DATABASE: ssp
+      MYSQL_USER: ssp
+      MYSQL_PASSWORD: ssp
+
+  ssp:
+    image: silintl/ssp-base:develop
+    ports:
+      - "80:80"
+    depends_on:
+      - broker
+      - db-ssp
+    environment:
+      ADMIN_EMAIL: "john_doe@there.com"
+      ADMIN_PASS: "a"
+      SECRET_SALT: "sortalongrandomstring"
+      SECURE_COOKIE: "false"
+      SHOW_SAML_ERRORS: "true"
+      THEME_USE: material:material
+      FORGOT_PASSWORD_URL: http://localhost:9000/#/forgot
+      BASE_URL_PATH: http://localhost/
+      ID_BROKER_ACCESS_TOKEN: abc123abc123
+      ID_BROKER_BASE_URI: http://broker
+      IDP_DOMAIN_NAME: localhost
+      IDP_NAME: development
+      MYSQL_HOST: db-ssp
+      MYSQL_DATABASE: ssp
+      MYSQL_USER: ssp
+      MYSQL_PASSWORD: ssp
+      RECAPTCHA_SITE_KEY: asdf
+      RECAPTCHA_SECRET: adff
+      PASSWORD_CHANGE_URL: http://localhost:9000/#/change
+      PASSWORD_FORGOT_URL: http://localhost:9000/#/forgot
+    volumes:
+      - ./ssp/cert:/data/vendor/simplesamlphp/simplesamlphp/cert
+      - ./ssp/config/authsources.php:/data/vendor/simplesamlphp/simplesamlphp/config/authsources.php
+      - ./ssp/metadata/saml20-idp-hosted.php:/data/vendor/simplesamlphp/simplesamlphp/metadata/saml20-idp-hosted.php
+      - ./ssp/metadata/saml20-sp-remote.php:/data/vendor/simplesamlphp/simplesamlphp/metadata/saml20-sp-remote.php
+    command: whenavail db-ssp 3306 100 /data/run-idp.sh
+
+  phpmyadmin-ssp:
+    image: phpmyadmin/phpmyadmin:latest
+    ports:
+      - "8002:80"
+    depends_on:
+      - db-ssp
+    environment:
+      PMA_HOST: db-ssp
+
+  db-pw:
+    image: silintl/mariadb:latest
+    ports:
+      - "3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: r00tP@ss!
+      MYSQL_DATABASE: pw-api
+      MYSQL_USER: pw-api
+      MYSQL_PASSWORD: pw-api
+
+  pw-api:
+    image: silintl/idp-pw-api:latest
+    ports:
+      - "8080:80"
+    depends_on:
+      - db-pw
+    volumes:
+      - ./pw-api/config.php:/data/common/config/local.php
+    environment:
+      MYSQL_HOST: db-pw
+      MYSQL_DATABASE: pw-api
+      MYSQL_USER: pw-api
+      MYSQL_PASSWORD: pw-api
+      IDP_NAME: development
+      COMPOSER_ALLOW_SUPERUSER: 1
+      COMPOSER_CACHE_DIR: /composer
+      ALERTS_EMAIL_ENABLED: "false"
+      LOGO_URL: http://localhost:9000/#/welcome
+      MAILER_USEFILES: "true"
+      MAILER_HOST: smtp.gmail.com
+      MAILER_USERNAME: dummy
+      MAILER_PASSWORD: dummy
+      ADMIN_EMAIL: admin@domain.com
+      FROM_EMAIL: admin@domain.com
+      FROM_NAME: Your friendly Help Desk team
+      FRONT_COOKIE_SECURE: "false"
+      RECAPTCHA_REQUIRED: "false"
+      RECAPTCHA_SITE_KEY:
+      RECAPTCHA_SECRET_KEY:
+      UI_URL: http://localhost:9000/#
+      UI_CORS_ORIGIN: http://localhost:9000
+      HELP_CENTER_URL: https://google.com/
+      LOGENTRIES_KEY:
+      SUPPORT_PHONE:
+      SUPPORT_EMAIL:
+      SUPPORT_URL:
+      SUPPORT_FEEDBACK:
+      ZXCVBN_API_BASEURL: http://zxcvbn:3000
+      ACCESS_TOKEN_HASH_KEY: nice long random string here
+      ALERTS_EMAIL: admin@domain.com
+      ALERTS_EMAIL_ENABLED: "false"
+
+  pw-cron:
+    image: silintl/idp-pw-api:latest
+    depends_on:
+      - db-pw
+    volumes:
+      - ./pw-api/config.php:/data/common/config/local.php
+    environment:
+      MYSQL_HOST: db-pw
+      MYSQL_DATABASE: pw-api
+      MYSQL_USER: pw-api
+      MYSQL_PASSWORD: pw-api
+      IDP_NAME: development
+      ALERTS_EMAIL_ENABLED: "false"
+      LOGO_URL: http://www.sil.org
+      MAILER_USEFILES: "true"
+      MAILER_HOST: smtp.gmail.com
+      MAILER_USERNAME: dummy
+      MAILER_PASSWORD: dummy
+      ADMIN_EMAIL: admin@domain.com
+      FROM_EMAIL: admin@domain.com
+      FROM_NAME: Your friendly Help Desk team
+      FRONT_COOKIE_SECURE: "false"
+      RECAPTCHA_REQUIRED: "false"
+      RECAPTCHA_SITE_KEY:
+      RECAPTCHA_SECRET_KEY:
+      UI_URL: http://localhost:9000/#
+      UI_CORS_ORIGIN: http://localhost:9000
+      HELP_CENTER_URL: https://google.com/
+      LOGENTRIES_KEY:
+      SUPPORT_PHONE:
+      SUPPORT_EMAIL:
+      SUPPORT_URL:
+      SUPPORT_FEEDBACK:
+      ZXCVBN_API_BASEURL: http://zxcvbn:3000
+      ACCESS_TOKEN_HASH_KEY: nice long random string here
+      ALERTS_EMAIL: admin@domain.com
+      ALERTS_EMAIL_ENABLED: "false"
+    command: whenavail db-pw 3306 100 /data/run-cron.sh
+
+  phpmyadmin-pw:
+    image: phpmyadmin/phpmyadmin:latest
+    ports:
+      - "8003:80"
+    depends_on:
+      - db-pw
+    environment:
+      PMA_HOST: db-pw
+
+  zxcvbn:
+    image: wcjr/zxcvbn-api:1.1.0
+    ports:
+        - "3000"
+
+  pw-ui:
+    image: silintl/idp-pw-ui:latest
+    ports:
+       - "9000:9000"
+    volumes:
+      - ./pw-ui/password.env.js:/data/app/password.env.js
+
+  sync:
+    image: silintl/idp-id-sync:develop
+    ports:
+      - "9090:80"
+    depends_on:
+      - broker
+    environment:
+      APP_ENV: dev
+      ID_BROKER_CONFIG_accessToken: abc123abc123
+      ID_BROKER_CONFIG_baseUrl: http://broker
+      ID_BROKER_ADAPTER: idp
+      ID_STORE_ADAPTER: googlesheets
+      ID_STORE_CONFIG_applicationName: idp-in-a-box
+      ID_STORE_CONFIG_jsonAuthFilePath: /data/google-auth.json
+      ID_STORE_CONFIG_spreadsheetId: 123456
+      ID_SYNC_ACCESS_TOKENS: abc123abc123
+      IDP_NAME: development
+      LOGENTRIES_KEY:
