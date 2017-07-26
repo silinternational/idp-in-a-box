@@ -2,13 +2,13 @@
  * Create internal application load balancer
  */
 resource "aws_alb" "alb" {
-  name            = "alb-${var.app_name}-${var.app_env}"
+  name            = "alb-${var.idp_name}-${var.app_name}-${var.app_env}"
   internal        = true
   security_groups = ["${var.vpc_default_sg_id}"]
   subnets         = ["${var.private_subnet_ids}"]
 
   tags {
-    Name     = "alb-${var.app_name}-${var.app_env}"
+    Name     = "alb-${var.idp_name}-${var.app_name}-${var.app_env}"
     app_name = "${var.app_name}"
     app_env  = "${var.app_env}"
   }
