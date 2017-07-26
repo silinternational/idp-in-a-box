@@ -18,7 +18,7 @@ resource "aws_alb" "alb" {
  * Create target group for ALB
  */
 resource "aws_alb_target_group" "broker" {
-  name                 = "tg-${var.app_name}-${var.app_env}"
+  name                 = "tg-${var.idp_name}-${var.app_name}-${var.app_env}"
   port                 = "80"
   protocol             = "HTTP"
   vpc_id               = "${var.vpc_id}"
