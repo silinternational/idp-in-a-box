@@ -9,7 +9,7 @@ resource "random_id" "blowfish_secret" {
  * Create target group for ALB
  */
 resource "aws_alb_target_group" "phpmyadmin" {
-  name                 = "tg-${var.idp_name}-${var.app_name}-${var.app_env}"
+  name                 = "${substr("tg-${var.idp_name}-${var.app_name}-${var.app_env}", 0, 32)}"
   port                 = "80"
   protocol             = "HTTP"
   vpc_id               = "${var.vpc_id}"
