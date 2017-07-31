@@ -74,7 +74,6 @@ services:
       SECURE_COOKIE: "false"
       SHOW_SAML_ERRORS: "true"
       THEME_USE: material:material
-      FORGOT_PASSWORD_URL: http://localhost:9000/#/forgot
       BASE_URL_PATH: http://localhost/
       ID_BROKER_ACCESS_TOKEN: abc123abc123
       ID_BROKER_BASE_URI: http://broker
