@@ -70,7 +70,7 @@
         "value": "material:material"
       },
       {
-        "name": "FORGOT_PASSWORD_URL",
+        "name": "PASSWORD_FORGOT_URL",
         "value": "${forgot_password_url}"
       },
       {
