@@ -15,18 +15,20 @@ resource "aws_alb_target_group" "email" {
 }
 
 /*
- * Create listeners to connect ALB to target group
+ * Create listener rule for hostname routing to new target group
  */
-resource "aws_alb_listener" "https" {
-  load_balancer_arn = "${var.internal_alb_arn}"
-  port              = "443"
-  protocol          = "HTTPS"
-  ssl_policy        = "${var.ssl_policy}"
-  certificate_arn   = "${var.wildcard_cert_arn}"
+resource "aws_alb_listener_rule" "email" {
+  listener_arn = "${var.internal_alb_listener_arn}"
+  priority     = "31"
 
-  default_action {
-    target_group_arn = "${aws_alb_target_group.email.arn}"
+  action {
     type             = "forward"
+    target_group_arn = "${aws_alb_target_group.email.arn}"
+  }
+
+  condition {
+    field  = "host-header"
+    values = ["${var.subdomain}.${var.cloudflare_domain}"]
   }
 }
 

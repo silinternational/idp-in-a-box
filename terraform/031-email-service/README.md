@@ -23,8 +23,9 @@ This module is used to create an ECS service running email-service.
  - `from_email` - Email address to send emails from
  - `from_name` - Email address to send emails from
  - `idp_name` - Short name of IdP for use in logs and email alerts
- - `internal_alb_arn` - ARN for the IdP-in-a-Box's internal AWS Application Load Balancer
- - `internal_alb_dns_name` - DNS name for the IdP-in-a-Box's internal AWS Application Load Balancer
+ - `internal_alb_arn` - ARN for the IdP-in-a-Box's internal Application Load Balancer
+ - `internal_alb_dns_name` - DNS name for the IdP-in-a-Box's internal Application Load Balancer
+ - `internal_alb_listener_arn` - ARN for the IdP-in-a-Box's internal ALB's listener
  - `logentries_set_id` - Logentries logset ID for creating new log in
  - `mailer_host` - SMTP hostname
  - `mailer_password` - SMTP password

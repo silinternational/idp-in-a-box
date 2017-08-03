@@ -65,12 +65,17 @@ variable "idp_name" {
 }
 
 variable "internal_alb_arn" {
-  description = "The ARN for the IdP-in-a-Box's internal AWS Application Load Balancer."
+  description = "The ARN for the IdP-in-a-Box's internal Application Load Balancer."
   type = "string"
 }
 
 variable "internal_alb_dns_name" {
-  description = "The DNS name for the IdP-in-a-Box's internal AWS Application Load Balancer."
+  description = "The DNS name for the IdP-in-a-Box's internal Application Load Balancer."
+  type = "string"
+}
+
+variable "internal_alb_listener_arn" {
+  description = "The ARN for the IdP-in-a-Box's internal ALB's listener."
   type = "string"
 }
 
