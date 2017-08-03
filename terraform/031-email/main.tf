@@ -17,7 +17,7 @@ resource "aws_alb" "alb" {
 /*
  * Create target group for ALB
  */
-resource "aws_alb_target_group" "broker" {
+resource "aws_alb_target_group" "email" {
   name                 = "${replace("tg-${var.idp_name}-${var.app_name}-${var.app_env}", "/(.{0,32})(.*)/", "$1")}"
   port                 = "80"
   protocol             = "HTTP"
@@ -41,7 +41,7 @@ resource "aws_alb_listener" "https" {
   certificate_arn   = "${var.wildcard_cert_arn}"
 
   default_action {
-    target_group_arn = "${aws_alb_target_group.broker.arn}"
+    target_group_arn = "${aws_alb_target_group.email.arn}"
     type             = "forward"
   }
 }
@@ -110,7 +110,7 @@ module "ecsservice" {
   ecsServiceRole_arn = "${var.ecsServiceRole_arn}"
   container_def_json = "${data.template_file.task_def.rendered}"
   desired_count      = "${var.desired_count}"
-  tg_arn             = "${aws_alb_target_group.broker.arn}"
+  tg_arn             = "${aws_alb_target_group.email.arn}"
   lb_container_name  = "web"
   lb_container_port  = "80"
 }
@@ -118,7 +118,7 @@ module "ecsservice" {
 /*
  * Create Cloudflare DNS record
  */
-resource "cloudflare_record" "brokerdns" {
+resource "cloudflare_record" "emaildns" {
   domain  = "${var.cloudflare_domain}"
   name    = "${var.subdomain}"
   value   = "${aws_alb.alb.dns_name}"
