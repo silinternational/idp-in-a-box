@@ -18,7 +18,6 @@ This module is used to create an ECS service running id-broker.
  - `wildcard_cert_arn` - ARN to ACM wildcard certificate
  - `logentries_set_id` - Logentries logset ID for creating new log in
  - `idp_name` - Short name of IdP for use in logs and email alerts
- - `ecr_repo_idbroker` - ECR repo url for id-broker Docker image
  - `db_name` - Name of MySQL database for id-broker
  - `ldap_admin_password` - Password for LDAP user if using migrate passwords feature
  - `ldap_admin_username` - Username for LDAP user if using migrate passwords feature
