@@ -3,7 +3,7 @@ This module is used to create an ECS service running email-service.
 
 ## What this does
 
- - Create internal ALB for idp-broker
+ - Create internal ALB for email-service
  - Create task definition and ECS service for email-service
  - Create Cloudflare DNS record
 
@@ -30,7 +30,7 @@ This module is used to create an ECS service running email-service.
  - `mysql_pass` - MySQL password for email-service
  - `ecs_cluster_id` - ID for ECS Cluster
  - `ecsServiceRole_arn` - ARN for ECS Service Role
- - `broker_subdomain` - Subdomain for email-service
+ - `email_subdomain` - Subdomain for email-service
  - `cloudflare_domain` - Top level domain name for use with Cloudflare
  - `desired_count` - Desired count of tasks running in ECS service
 
@@ -46,7 +46,7 @@ This module is used to create an ECS service running email-service.
 ## Usage Example
 
 ```hcl
-module "broker" {
+module "email" {
   source                  = "github.com/silinternational/idp-in-a-box//terraform/031-email-service"
   memory                  = "${var.memory}"
   cpu                     = "${var.cpu}"
@@ -71,7 +71,7 @@ module "broker" {
   mysql_pass              = "${data.terraform_remote_state.database.db_emailservice_pass}"
   ecs_cluster_id          = "${data.terraform_remote_state.core.ecs_cluster_id}"
   ecsServiceRole_arn      = "${data.terraform_remote_state.core.ecsServiceRole_arn}"
-  subdomain               = "${var.broker_subdomain}"
+  subdomain               = "${var.email_subdomain}"
   cloudflare_domain       = "${var.cloudflare_domain}"
   desired_count           = "${var.ecs_desired_count}"
 }

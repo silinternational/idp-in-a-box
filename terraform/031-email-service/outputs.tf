@@ -1,8 +1,8 @@
 output "hostname" {
-  value = "${cloudflare_record.brokerdns.hostname}"
+  value = "${cloudflare_record.emaildns.hostname}"
 }
 
-output "db_idbroker_user" {
+output "db_emailservice_user" {
   value = "${var.mysql_user}"
 }
 
