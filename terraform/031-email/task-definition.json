@@ -38,24 +38,20 @@
         "value": "${logentries_key}"
       },
       {
-        "name": "MAILER_USEFILES",
-        "value": "${mailer_usefiles}"
-      },
-      {
         "name": "MAILER_HOST",
         "value": "${mailer_host}"
-      },
-      {
-        "name": "MAILER_USERNAME",
-        "value": "${mailer_username}"
       },
       {
         "name": "MAILER_PASSWORD",
         "value": "${mailer_password}"
       },
       {
-        "name": "NOTIFICATION_EMAIL",
-        "value": "${notification_email}"
+        "name": "MAILER_USEFILES",
+        "value": "${mailer_usefiles}"
+      },
+      {
+        "name": "MAILER_USERNAME",
+        "value": "${mailer_username}"
       },
       {
         "name": "MYSQL_DATABASE",
@@ -72,6 +68,10 @@
       {
         "name": "MYSQL_USER",
         "value": "${mysql_user}"
+      },
+      {
+        "name": "NOTIFICATION_EMAIL",
+        "value": "${notification_email}"
       }
     ],
     "links": null,
