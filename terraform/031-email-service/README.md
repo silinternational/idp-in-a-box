@@ -8,30 +8,37 @@ This module is used to create an ECS service running email-service.
 
 ## Required Inputs
 
- - `app_name` - Application name
  - `app_env` - Application environment
- - `vpc_id` - ID for VPC
- - `ssl_policy` - SSL policy
- - `wildcard_cert_arn` - ARN to ACM wildcard certificate
- - `logentries_set_id` - Logentries logset ID for creating new log in
- - `idp_name` - Short name of IdP for use in logs and email alerts
- - `ecr_repo_emailservice` - ECR repo url for email-service Docker image
+ - `app_name` - Application name (default: email-service)
+ - `cloudflare_domain` - Top level domain name for use with Cloudflare
+ - `cpu` - CPU resources to allot to this (default: 250)
  - `db_name` - Name of MySQL database for email-service
- - `internal_alb_arn` - ARN for the IdP-in-a-Box's internal AWS Application Load Balancer
- - `internal_alb_dns_name` - DNS name for the IdP-in-a-Box's internal AWS Application Load Balancer
- - `mailer_usefiles` - Whether or not YiiMailer should write to files instead of sending emails
- - `mailer_host` - SMTP hostname
- - `mailer_username` - SMTP username
- - `mailer_password` - SMTP password
- - `notification_email` - Email address to send alerts/notifications to
- - `mysql_host` - Address for RDS instance
- - `mysql_user` - MySQL username for email-service
- - `mysql_pass` - MySQL password for email-service
+ - `desired_count` - Desired count of tasks running in ECS service
+ - `docker_image` - The docker image to use for this
  - `ecs_cluster_id` - ID for ECS Cluster
  - `ecsServiceRole_arn` - ARN for ECS Service Role
- - `email_subdomain` - Subdomain for email-service
- - `cloudflare_domain` - Top level domain name for use with Cloudflare
- - `desired_count` - Desired count of tasks running in ECS service
+ - `email_brand_color` - CSS color to use for branding in emails
+ - `email_brand_logo` - The fully qualified URL to an image for logo in emails
+ - `email_queue_batch_size` - How many queued emails to process per run (default: 10)
+ - `from_email` - Email address to send emails from
+ - `from_name` - Email address to send emails from
+ - `idp_name` - Short name of IdP for use in logs and email alerts
+ - `internal_alb_arn` - ARN for the IdP-in-a-Box's internal AWS Application Load Balancer
+ - `internal_alb_dns_name` - DNS name for the IdP-in-a-Box's internal AWS Application Load Balancer
+ - `logentries_set_id` - Logentries logset ID for creating new log in
+ - `mailer_host` - SMTP hostname
+ - `mailer_password` - SMTP password
+ - `mailer_usefiles` - Whether or not YiiMailer should write to files instead of sending emails
+ - `mailer_username` - SMTP username
+ - `memory` - Memory (RAM) resources to allot to this (default: 96)
+ - `mysql_host` - Address for RDS instance
+ - `mysql_pass` - MySQL password for email-service
+ - `mysql_user` - MySQL username for email-service
+ - `notification_email` - Email address to send alerts/notifications to
+ - `ssl_policy` - SSL policy
+ - `subdomain` - Subdomain for email-service
+ - `vpc_id` - ID for VPC
+ - `wildcard_cert_arn` - ARN to ACM wildcard certificate
 
 
 ## Outputs
