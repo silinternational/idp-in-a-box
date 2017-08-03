@@ -4,7 +4,7 @@ variable "app_env" {
 
 variable "app_name" {
   type    = "string"
-  default = "id-broker"
+  default = "email-service"
 }
 
 variable "cloudflare_domain" {
@@ -36,31 +36,40 @@ variable "ecsServiceRole_arn" {
   type = "string"
 }
 
+variable "email_brand_color" {
+  description = "The CSS color to use for branding in emails (e.g. `rgb(0, 93, 154).`"
+  type = "string"
+}
+
+variable "email_brand_logo" {
+  description = "The fully qualified URL to an image."
+  type = "string"
+}
+
+variable "email_queue_batch_size" {
+  default = "10"
+  type = "string"
+}
+
+variable "from_email" {
+  type = "string"
+}
+
+variable "from_name" {
+  type = "string"
+}
+
 variable "idp_name" {
   type = "string"
 }
 
-variable "ldap_admin_password" {
+variable "internal_alb_arn" {
+  description = "The ARN for the IdP-in-a-Box's internal AWS Application Load Balancer."
   type = "string"
 }
 
-variable "ldap_admin_username" {
-  type = "string"
-}
-
-variable "ldap_base_dn" {
-  type = "string"
-}
-
-variable "ldap_domain_controllers" {
-  type = "string"
-}
-
-variable "ldap_use_ssl" {
-  type = "string"
-}
-
-variable "ldap_use_tls" {
+variable "internal_alb_dns_name" {
+  description = "The DNS name for the IdP-in-a-Box's internal AWS Application Load Balancer."
   type = "string"
 }
 
@@ -87,10 +96,6 @@ variable "mailer_username" {
 
 variable "memory" {
   default = "96"
-}
-
-variable "migrate_pw_from_ldap" {
-  type = "string"
 }
 
 variable "mysql_host" {
