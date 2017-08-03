@@ -43,11 +43,11 @@ This module is used to create an ECS service running email-service.
 
 ## Outputs
 
- - `hostname` - The url to email-service
+ - `hostname` - The URL to the Email Service
  - `db_emailservice_user` - Email Service MySQL username
- - `access_token_pwmanager` - Access token for PW Manager to use in API calls to email-service
- - `access_token_idbroker` - Access token for ID Broker to use in API calls to email-service
- - `access_token_idsync` - Access token for id-sync to use in API calls to email-service
+ - `access_token_pwmanager` - Access token for PW Manager to use in API calls to Email Service
+ - `access_token_idbroker` - Access token for ID Broker to use in API calls to Email Service
+ - `access_token_idsync` - Access token for ID Sync to use in API calls to Email Service
 
 ## Usage Example
 
