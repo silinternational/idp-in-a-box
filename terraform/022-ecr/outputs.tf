@@ -2,6 +2,10 @@ output "ecr_repo_idbroker" {
   value = "${module.ecr_idbroker.repo_url}"
 }
 
+output "ecr_repo_emailservice" {
+  value = "${module.ecr_emailservice.repo_url}"
+}
+
 output "ecr_repo_pwapi" {
   value = "${module.ecr_pwapi.repo_url}"
 }

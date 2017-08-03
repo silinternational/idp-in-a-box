@@ -3,8 +3,8 @@ This module is used to create an ECS image repositories for all services
 
 ## What this does
 
- - Create ECR repositories for id-broker, pw-manager, simplesamlphp, and id-sync
- - Attache ECR policy to allow appropriate access
+ - Create ECR repositories for id-broker, email-service, pw-manager, simplesamlphp, and id-sync
+ - Attach ECR policy to allow appropriate access
 
 ## Required Inputs
 
@@ -16,6 +16,7 @@ This module is used to create an ECS image repositories for all services
 ## Outputs
 
  - `ecr_repo_idbroker` - The repository url for id-broker. Ex: `1234567890.dkr.ecr.us-east-1.amazonaws.com/idp-name/id-broker-environment`
+ - `ecr_repo_emailservice` - The repository url for email-service. Ex: `1234567890.dkr.ecr.us-east-1.amazonaws.com/idp-name/email-service-environment`
  - `ecr_repo_pwapi` - The repository url for pw-api. Ex: `1234567890.dkr.ecr.us-east-1.amazonaws.com/idp-name/pw-api-environment`
  - `ecr_repo_simplesamlphp` - The repository url for simplesamlphp. Ex: `1234567890.dkr.ecr.us-east-1.amazonaws.com/idp-name/simplesamlphp-environment`
  - `ecr_repo_idsync` - The repository url for id-sync. Ex: `1234567890.dkr.ecr.us-east-1.amazonaws.com/idp-name/id-sync-environment`

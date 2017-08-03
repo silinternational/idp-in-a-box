@@ -10,6 +10,17 @@ module "ecr_idbroker" {
 }
 
 /*
+ * email-service
+ */
+module "ecr_emailservice" {
+  source              = "github.com/silinternational/terraform-modules//aws/ecr"
+  repo_name           = "${var.idp_name}/email-service"
+  ecsInstanceRole_arn = "${var.ecsInstanceRole_arn}"
+  ecsServiceRole_arn  = "${var.ecsServiceRole_arn}"
+  cd_user_arn         = "${var.cd_user_arn}"
+}
+
+/*
  * pw-api
  */
 module "ecr_pwapi" {
