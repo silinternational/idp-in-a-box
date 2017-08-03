@@ -1,20 +1,4 @@
 /*
- * Create internal application load balancer
- */
-resource "aws_alb" "alb" {
-  name            = "alb-${var.idp_name}-${var.app_name}-${var.app_env}"
-  internal        = true
-  security_groups = ["${var.vpc_default_sg_id}"]
-  subnets         = ["${var.private_subnet_ids}"]
-
-  tags {
-    Name     = "alb-${var.idp_name}-${var.app_name}-${var.app_env}"
-    app_name = "${var.app_name}"
-    app_env  = "${var.app_env}"
-  }
-}
-
-/*
  * Create target group for ALB
  */
 resource "aws_alb_target_group" "email" {
@@ -34,7 +18,7 @@ resource "aws_alb_target_group" "email" {
  * Create listeners to connect ALB to target group
  */
 resource "aws_alb_listener" "https" {
-  load_balancer_arn = "${aws_alb.alb.arn}"
+  load_balancer_arn = "${var.internal_alb_arn}"
   port              = "443"
   protocol          = "HTTPS"
   ssl_policy        = "${var.ssl_policy}"
@@ -121,7 +105,7 @@ module "ecsservice" {
 resource "cloudflare_record" "emaildns" {
   domain  = "${var.cloudflare_domain}"
   name    = "${var.subdomain}"
-  value   = "${aws_alb.alb.dns_name}"
+  value   = "${var.internal_alb_dns_name}"
   type    = "CNAME"
   proxied = false
 }

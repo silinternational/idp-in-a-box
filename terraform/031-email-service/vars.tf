@@ -109,19 +109,11 @@ variable "notification_email" {
   type = "string"
 }
 
-variable "private_subnet_ids" {
-  type = "list"
-}
-
 variable "ssl_policy" {
   type = "string"
 }
 
 variable "subdomain" {
-  type = "string"
-}
-
-variable "vpc_default_sg_id" {
   type = "string"
 }
 

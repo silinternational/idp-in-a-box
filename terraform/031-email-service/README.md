@@ -3,7 +3,6 @@ This module is used to create an ECS service running email-service.
 
 ## What this does
 
- - Create internal ALB for email-service
  - Create task definition and ECS service for email-service
  - Create Cloudflare DNS record
 
@@ -11,8 +10,6 @@ This module is used to create an ECS service running email-service.
 
  - `app_name` - Application name
  - `app_env` - Application environment
- - `vpc_default_sg_id` - ID for default security group in VPC
- - `private_subnet_ids` - List of private subnet ids
  - `vpc_id` - ID for VPC
  - `ssl_policy` - SSL policy
  - `wildcard_cert_arn` - ARN to ACM wildcard certificate
@@ -20,6 +17,8 @@ This module is used to create an ECS service running email-service.
  - `idp_name` - Short name of IdP for use in logs and email alerts
  - `ecr_repo_emailservice` - ECR repo url for email-service Docker image
  - `db_name` - Name of MySQL database for email-service
+ - `internal_alb_arn` - ARN for the IdP-in-a-Box's internal AWS Application Load Balancer
+ - `internal_alb_dns_name` - DNS name for the IdP-in-a-Box's internal AWS Application Load Balancer
  - `mailer_usefiles` - Whether or not YiiMailer should write to files instead of sending emails
  - `mailer_host` - SMTP hostname
  - `mailer_username` - SMTP username
@@ -52,8 +51,6 @@ module "email" {
   cpu                     = "${var.cpu}"
   app_name                = "${var.app_name}"
   app_env                 = "${var.app_env}"
-  vpc_default_sg_id       = "${data.terraform_remote_state.cluster.vpc_default_sg_id}"
-  private_subnet_ids      = "${data.terraform_remote_state.cluster.private_subnet_ids}"
   vpc_id                  = "${data.terraform_remote_state.cluster.vpc_id}"
   ssl_policy              = "${var.ssl_policy}"
   wildcard_cert_arn       = "${data.terraform_remote_state.cluster.wildcard_cert_arn}"
