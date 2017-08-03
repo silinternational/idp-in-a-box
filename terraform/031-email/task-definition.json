@@ -34,30 +34,6 @@
         "value": "${idp_name}"
       },
       {
-        "name": "LDAP_ADMIN_PASSWORD",
-        "value": "${ldap_admin_password}"
-      },
-      {
-        "name": "LDAP_ADMIN_USERNAME",
-        "value": "${ldap_admin_username}"
-      },
-      {
-        "name": "LDAP_BASE_DN",
-        "value": "${ldap_base_dn}"
-      },
-      {
-        "name": "LDAP_DOMAIN_CONTROLLERS",
-        "value": "${ldap_domain_controllers}"
-      },
-      {
-        "name": "LDAP_USE_SSL",
-        "value": "${ldap_use_ssl}"
-      },
-      {
-        "name": "LDAP_USE_TLS",
-        "value": "${ldap_use_tls}"
-      },
-      {
         "name": "LOGENTRIES_KEY",
         "value": "${logentries_key}"
       },
@@ -80,10 +56,6 @@
       {
         "name": "NOTIFICATION_EMAIL",
         "value": "${notification_email}"
-      },
-      {
-        "name": "MIGRATE_PW_FROM_LDAP",
-        "value": "${migrate_pw_from_ldap}"
       },
       {
         "name": "MYSQL_DATABASE",
