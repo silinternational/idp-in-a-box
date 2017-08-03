@@ -28,9 +28,13 @@ module "rds" {
 
 /*
  * Generate db passwords for different apps
- * Value is displayed in output to used to externally create user
+ * Value is displayed in output to use to externally create user
  */
 resource "random_id" "db_idbroker_pass" {
+  byte_length = 16
+}
+
+resource "random_id" "db_emailservice_pass" {
   byte_length = 16
 }
 
