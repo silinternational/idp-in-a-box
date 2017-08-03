@@ -15,13 +15,13 @@ variable "cpu" {
   default = "250"
 }
 
+variable "db_name" {
+  type = "string"
+}
+
 variable "desired_count" {
   type    = "string"
   default = "1"
-}
-
-variable "db_name" {
-  type = "string"
 }
 
 variable "docker_image" {
@@ -42,12 +42,13 @@ variable "email_brand_color" {
 }
 
 variable "email_brand_logo" {
-  description = "The fully qualified URL to an image."
+  description = "The fully qualified URL to an image for use as logo in emails."
   type = "string"
 }
 
 variable "email_queue_batch_size" {
   default = "10"
+  description = "How many queued emails to process per run."
   type = "string"
 }
 
