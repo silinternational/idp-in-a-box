@@ -23,7 +23,6 @@ This module is used to create an ECS service running email-service.
  - `from_email` - Email address to send emails from
  - `from_name` - Email address to send emails from
  - `idp_name` - Short name of IdP for use in logs and email alerts
- - `internal_alb_arn` - ARN for the IdP-in-a-Box's internal Application Load Balancer
  - `internal_alb_dns_name` - DNS name for the IdP-in-a-Box's internal Application Load Balancer
  - `internal_alb_listener_arn` - ARN for the IdP-in-a-Box's internal ALB's listener
  - `logentries_set_id` - Logentries logset ID for creating new log in
@@ -70,7 +69,6 @@ module "email" {
   from_email              = "${var.from_email}"
   from_name               = "${var.from_name}"
   idp_name                = "${var.idp_name}"
-  internal_alb_arn        = "${data.terraform_remote_state.cluster.internal_alb_arn}"
   internal_alb_dns_name   = "${data.terraform_remote_state.cluster.internal_alb_dns_name}"
   logentries_set_id       = "${data.terraform_remote_state.cluster.logentries_set_id}"
   mailer_host             = "${var.mailer_host}"
