@@ -37,7 +37,7 @@ variable "ecsServiceRole_arn" {
 }
 
 variable "email_brand_color" {
-  description = "The CSS color to use for branding in emails (e.g. `rgb(0, 93, 154).`"
+  description = "The CSS color to use for branding in emails (e.g. `rgb(0, 93, 154)`)."
   type = "string"
 }
 
