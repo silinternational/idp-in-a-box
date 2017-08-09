@@ -18,8 +18,9 @@ This module is used to create an ECS service running id-broker.
  - `wildcard_cert_arn` - ARN to ACM wildcard certificate
  - `logentries_set_id` - Logentries logset ID for creating new log in
  - `idp_name` - Short name of IdP for use in logs and email alerts
- - `ecr_repo_idbroker` - ECR repo url for id-broker Docker image
  - `db_name` - Name of MySQL database for id-broker
+ - `internal_alb_dns_name` - DNS name for the IdP-in-a-Box's internal Application Load Balancer
+ - `internal_alb_listener_arn` - ARN for the IdP-in-a-Box's internal ALB's listener
  - `ldap_admin_password` - Password for LDAP user if using migrate passwords feature
  - `ldap_admin_username` - Username for LDAP user if using migrate passwords feature
  - `ldap_base_dn` - Base DN for LDAP queries if using migrate passwords feature
@@ -54,39 +55,41 @@ This module is used to create an ECS service running id-broker.
 
 ```hcl
 module "broker" {
-  source                  = "github.com/silinternational/idp-in-a-box//terraform/040-id-broker"
-  memory                  = "${var.memory}"
-  cpu                     = "${var.cpu}"
-  app_name                = "${var.app_name}"
-  app_env                 = "${var.app_env}"
-  vpc_default_sg_id       = "${data.terraform_remote_state.cluster.vpc_default_sg_id}"
-  private_subnet_ids      = "${data.terraform_remote_state.cluster.private_subnet_ids}"
-  vpc_id                  = "${data.terraform_remote_state.cluster.vpc_id}"
-  ssl_policy              = "${var.ssl_policy}"
-  wildcard_cert_arn       = "${data.terraform_remote_state.cluster.wildcard_cert_arn}"
-  logentries_set_id       = "${data.terraform_remote_state.cluster.logentries_set_id}"
-  idp_name                = "${var.idp_name}"
-  docker_image            = "${data.terraform_remote_state.ecr.ecr_repo_idbroker}"
-  db_name                 = "${var.db_idbroker_name}"
-  ldap_admin_password     = "${var.ldap_admin_password}"
-  ldap_admin_username     = "${var.ldap_admin_username}"
-  ldap_base_dn            = "${var.ldap_base_dn}"
-  ldap_domain_controllers = "${var.ldap_domain_controllers}"
-  ldap_use_ssl            = "${var.ldap_use_ssl}"
-  ldap_use_tls            = "${var.ldap_use_tls}"
-  mailer_usefiles         = "${var.mailer_usefiles}"
-  mailer_host             = "${var.mailer_host}"
-  mailer_username         = "${var.mailer_username}"
-  mailer_password         = "${var.mailer_password}"
-  notification_email      = "${var.notification_email}"
-  migrate_pw_from_ldap    = "${var.migrate_pw_from_ldap}"
-  mysql_host              = "${data.terraform_remote_state.database.rds_address}"
-  mysql_user              = "${var.db_idbroker_user}"
-  mysql_pass              = "${data.terraform_remote_state.database.db_idbroker_pass}"
-  ecs_cluster_id          = "${data.terraform_remote_state.core.ecs_cluster_id}"
-  ecsServiceRole_arn      = "${data.terraform_remote_state.core.ecsServiceRole_arn}"
-  subdomain               = "${var.broker_subdomain}"
-  cloudflare_domain       = "${var.cloudflare_domain}"
-  desired_count           = "${var.ecs_desired_count}"
+  source                    = "github.com/silinternational/idp-in-a-box//terraform/040-id-broker"
+  memory                    = "${var.memory}"
+  cpu                       = "${var.cpu}"
+  app_name                  = "${var.app_name}"
+  app_env                   = "${var.app_env}"
+  vpc_default_sg_id         = "${data.terraform_remote_state.cluster.vpc_default_sg_id}"
+  private_subnet_ids        = "${data.terraform_remote_state.cluster.private_subnet_ids}"
+  vpc_id                    = "${data.terraform_remote_state.cluster.vpc_id}"
+  ssl_policy                = "${var.ssl_policy}"
+  wildcard_cert_arn         = "${data.terraform_remote_state.cluster.wildcard_cert_arn}"
+  logentries_set_id         = "${data.terraform_remote_state.cluster.logentries_set_id}"
+  idp_name                  = "${var.idp_name}"
+  docker_image              = "${data.terraform_remote_state.ecr.ecr_repo_idbroker}"
+  db_name                   = "${var.db_idbroker_name}"
+  internal_alb_dns_name     = "${data.terraform_remote_state.cluster.internal_alb_dns_name}"
+  internal_alb_listener_arn = "${data.terraform_remote_state.cluster.internal_alb_https_listener_arn}"
+  ldap_admin_password       = "${var.ldap_admin_password}"
+  ldap_admin_username       = "${var.ldap_admin_username}"
+  ldap_base_dn              = "${var.ldap_base_dn}"
+  ldap_domain_controllers   = "${var.ldap_domain_controllers}"
+  ldap_use_ssl              = "${var.ldap_use_ssl}"
+  ldap_use_tls              = "${var.ldap_use_tls}"
+  mailer_usefiles           = "${var.mailer_usefiles}"
+  mailer_host               = "${var.mailer_host}"
+  mailer_username           = "${var.mailer_username}"
+  mailer_password           = "${var.mailer_password}"
+  notification_email        = "${var.notification_email}"
+  migrate_pw_from_ldap      = "${var.migrate_pw_from_ldap}"
+  mysql_host                = "${data.terraform_remote_state.database.rds_address}"
+  mysql_user                = "${var.db_idbroker_user}"
+  mysql_pass                = "${data.terraform_remote_state.database.db_idbroker_pass}"
+  ecs_cluster_id            = "${data.terraform_remote_state.core.ecs_cluster_id}"
+  ecsServiceRole_arn        = "${data.terraform_remote_state.core.ecsServiceRole_arn}"
+  subdomain                 = "${var.broker_subdomain}"
+  cloudflare_domain         = "${var.cloudflare_domain}"
+  desired_count             = "${var.ecs_desired_count}"
 }
 ```

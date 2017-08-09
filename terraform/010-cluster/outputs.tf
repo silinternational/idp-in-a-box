@@ -42,7 +42,7 @@ output "private_subnet_cidr_blocks" {
 }
 
 /*
- * Application load balancer outputs
+ * External application load balancer outputs
  */
 output "alb_arn" {
   value = "${module.alb.arn}"
@@ -64,6 +64,32 @@ output "alb_id" {
   value = "${module.alb.id}"
 }
 
+/*
+ * Internal application load balancer outputs
+ */
+output "internal_alb_arn" {
+  value = "${module.internal_alb.arn}"
+}
+
+output "internal_alb_default_tg_arn" {
+  value = "${module.internal_alb.default_tg_arn}"
+}
+
+output "internal_alb_dns_name" {
+  value = "${module.internal_alb.dns_name}"
+}
+
+output "internal_alb_https_listener_arn" {
+  value = "${module.internal_alb.https_listener_arn}"
+}
+
+output "internal_alb_id" {
+  value = "${module.internal_alb.id}"
+}
+
+/*
+ * AWS Certificat manager output
+ */
 output "wildcard_cert_arn" {
   value = "${data.aws_acm_certificate.wildcard.arn}"
 }

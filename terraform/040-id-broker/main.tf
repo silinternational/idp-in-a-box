@@ -1,20 +1,4 @@
 /*
- * Create internal application load balancer
- */
-resource "aws_alb" "alb" {
-  name            = "alb-${var.idp_name}-${var.app_name}-${var.app_env}"
-  internal        = true
-  security_groups = ["${var.vpc_default_sg_id}"]
-  subnets         = ["${var.private_subnet_ids}"]
-
-  tags {
-    Name     = "alb-${var.idp_name}-${var.app_name}-${var.app_env}"
-    app_name = "${var.app_name}"
-    app_env  = "${var.app_env}"
-  }
-}
-
-/*
  * Create target group for ALB
  */
 resource "aws_alb_target_group" "broker" {
@@ -31,18 +15,20 @@ resource "aws_alb_target_group" "broker" {
 }
 
 /*
- * Create listeners to connect ALB to target group
+ * Create listener rule for hostname routing to new target group
  */
-resource "aws_alb_listener" "https" {
-  load_balancer_arn = "${aws_alb.alb.arn}"
-  port              = "443"
-  protocol          = "HTTPS"
-  ssl_policy        = "${var.ssl_policy}"
-  certificate_arn   = "${var.wildcard_cert_arn}"
+resource "aws_alb_listener_rule" "broker" {
+  listener_arn = "${var.internal_alb_listener_arn}"
+  priority     = "40"
 
-  default_action {
+  action {
     target_group_arn = "${aws_alb_target_group.broker.arn}"
     type             = "forward"
+  }
+
+  condition {
+    field  = "host-header"
+    values = ["${var.subdomain}.${var.cloudflare_domain}"]
   }
 }
 
@@ -104,7 +90,7 @@ data "template_file" "task_def" {
 }
 
 module "ecsservice" {
-  source             = "github.com/silinternational/terraform-modules//aws/ecs/service-only?ref=1.0.0"
+  source             = "github.com/silinternational/terraform-modules//aws/ecs/service-only?ref=1.1.0"
   cluster_id         = "${var.ecs_cluster_id}"
   service_name       = "${var.idp_name}-${var.app_name}"
   service_env        = "${var.app_env}"
@@ -122,7 +108,7 @@ module "ecsservice" {
 resource "cloudflare_record" "brokerdns" {
   domain  = "${var.cloudflare_domain}"
   name    = "${var.subdomain}"
-  value   = "${aws_alb.alb.dns_name}"
+  value   = "${var.internal_alb_dns_name}"
   type    = "CNAME"
   proxied = false
 }

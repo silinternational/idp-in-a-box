@@ -32,6 +32,7 @@
  - `mysql_user` - Username for root DB user
  - `mysql_pass` - Password for root DB user
  - `db_idbroker_pass` - Password for `idbroker` user
+ - `db_emailservice_pass` - Password for `emailservice` user
  - `db_pwmanager_pass` - Password for `pwmanager` user
  - `db_ssp_pass` - Password for `ssp` user
 
