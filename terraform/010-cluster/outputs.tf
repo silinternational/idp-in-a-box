@@ -88,7 +88,7 @@ output "internal_alb_id" {
 }
 
 /*
- * AWS Certificat manager output
+ * AWS Certificate manager output
  */
 output "wildcard_cert_arn" {
   value = "${data.aws_acm_certificate.wildcard.arn}"
