@@ -88,7 +88,7 @@ data "template_file" "task_def" {
     email_service_baseUrl         = "${var.email_service_baseUrl}"
     email_service_accessToken     = "${var.email_service_accessToken}"
     email_service_assertValidIp   = "${var.email_service_assertValidIp}"
-    email_service_validIpRanges   = "${var.email_service_validIpRanges}"
+    email_service_validIpRanges   = "${join(",", var.email_service_validIpRanges)}"
   }
 }
 
@@ -145,7 +145,7 @@ data "template_file" "task_def_cron" {
     email_service_baseUrl         = "${var.email_service_baseUrl}"
     email_service_accessToken     = "${var.email_service_accessToken}"
     email_service_assertValidIp   = "${var.email_service_assertValidIp}"
-    email_service_validIpRanges   = "${var.email_service_validIpRanges}"
+    email_service_validIpRanges   = "${join(",", var.email_service_validIpRanges)}"
   }
 }
 
