@@ -15,14 +15,6 @@ variable "app_env" {
   type = "string"
 }
 
-variable "vpc_default_sg_id" {
-  type = "string"
-}
-
-variable "private_subnet_ids" {
-  type = "list"
-}
-
 variable "vpc_id" {
   type = "string"
 }
