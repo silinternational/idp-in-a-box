@@ -45,6 +45,11 @@ This module is used to create an ECS service running the password manager API an
  - `memory` - Amount of memory to allocate to API container
  - `cpu` - Amount of CPU to allocate to API container
  - `desired_count` - Number of API tasks that should be run
+ - `email_service_useEmailService` - Whether or not to use Email Service API to send emails. Default: `true`
+ - `email_service_baseUrl` - Base URL to Email Service API
+ - `email_service_accessToken` - Access Token for Email Service API
+ - `email_service_assertValidIp` - Whether or not to assert IP address for Email Service API is trusted. Default: `true`
+ - `email_service_validIpRanges` - List of valid IP ranges to Email Service API
 
 ## Outputs
 
@@ -58,41 +63,46 @@ This module is used to create an ECS service running the password manager API an
 
 ```hcl
 module "pwmanager" {
-  source                 = "github.com/silinternational/idp-in-a-box//terraform/050-pw-manager"
-  memory                 = "${var.memory}"
-  cpu                    = "${var.cpu}"
-  desired_count          = "${var.desired_count}"
-  app_name               = "${var.app_name}"
-  app_env                = "${var.app_env}"
-  logentries_set_id      = "${data.terraform_remote_state.cluster.logentries_set_id}"
-  vpc_id                 = "${data.terraform_remote_state.cluster.vpc_id}"
-  alb_https_listener_arn = "${data.terraform_remote_state.cluster.alb_https_listener_arn}"
-  api_subdomain          = "${var.api_subdomain}"
-  cloudflare_domain      = "${var.cloudflare_domain}"
-  idp_name               = "${var.idp_name}"
-  alerts_email           = "${var.alerts_email}"
-  support_email          = "${var.support_email}"
-  from_email             = "${var.from_email}"
-  from_name              = "${var.from_name}"
-  logo_url               = "${var.logo_url}"
-  mailer_usefiles        = "${var.mailer_usefiles}"
-  mailer_host            = "${var.mailer_host}"
-  mailer_username        = "${var.mailer_username}"
-  mailer_password        = "${var.mailer_password}"
-  db_name                = "${var.db_name}"
-  mysql_host             = "${data.terraform_remote_state.database.rds_address}"
-  mysql_user             = "${var.mysql_user}"
-  mysql_pass             = "${data.terraform_remote_state.database.db_pwmanager_pass}"
-  recaptcha_key          = "${var.recaptcha_key}"
-  recaptcha_secret       = "${var.recaptcha_secret}"
-  docker_image           = "${data.terraform_remote_state.ecr.ecr_repo_pwmanager}"
-  ui_subdomain           = "${var.ui_subdomain}"
-  id_broker_access_token = "${data.terraform_remote_state.broker.access_token_pwmanager}"
-  id_broker_base_uri     = "https://${data.terraform_remote_state.broker.hostname}"
-  ecs_cluster_id         = "${data.terraform_remote_state.core.ecs_cluster_id}"
-  ecsServiceRole_arn     = "${data.terraform_remote_state.core.ecsServiceRole_arn}"
-  alb_dns_name           = "${data.terraform_remote_state.cluster.alb_dns_name}"
-  wildcard_cert_arn      = "${data.terraform_remote_state.cluster.wildcard_cert_arn}"
-  cd_user_username       = "${data.terraform_remote_state.core.cduser_username}"
+  source                        = "github.com/silinternational/idp-in-a-box//terraform/050-pw-manager"
+  memory                        = "${var.memory}"
+  cpu                           = "${var.cpu}"
+  desired_count                 = "${var.desired_count}"
+  app_name                      = "${var.app_name}"
+  app_env                       = "${var.app_env}"
+  logentries_set_id             = "${data.terraform_remote_state.cluster.logentries_set_id}"
+  vpc_id                        = "${data.terraform_remote_state.cluster.vpc_id}"
+  alb_https_listener_arn        = "${data.terraform_remote_state.cluster.alb_https_listener_arn}"
+  api_subdomain                 = "${var.api_subdomain}"
+  cloudflare_domain             = "${var.cloudflare_domain}"
+  idp_name                      = "${var.idp_name}"
+  alerts_email                  = "${var.alerts_email}"
+  support_email                 = "${var.support_email}"
+  from_email                    = "${var.from_email}"
+  from_name                     = "${var.from_name}"
+  logo_url                      = "${var.logo_url}"
+  mailer_usefiles               = "${var.mailer_usefiles}"
+  mailer_host                   = "${var.mailer_host}"
+  mailer_username               = "${var.mailer_username}"
+  mailer_password               = "${var.mailer_password}"
+  db_name                       = "${var.db_name}"
+  mysql_host                    = "${data.terraform_remote_state.database.rds_address}"
+  mysql_user                    = "${var.mysql_user}"
+  mysql_pass                    = "${data.terraform_remote_state.database.db_pwmanager_pass}"
+  recaptcha_key                 = "${var.recaptcha_key}"
+  recaptcha_secret              = "${var.recaptcha_secret}"
+  docker_image                  = "${data.terraform_remote_state.ecr.ecr_repo_pwmanager}"
+  ui_subdomain                  = "${var.ui_subdomain}"
+  id_broker_access_token        = "${data.terraform_remote_state.broker.access_token_pwmanager}"
+  id_broker_base_uri            = "https://${data.terraform_remote_state.broker.hostname}"
+  ecs_cluster_id                = "${data.terraform_remote_state.core.ecs_cluster_id}"
+  ecsServiceRole_arn            = "${data.terraform_remote_state.core.ecsServiceRole_arn}"
+  alb_dns_name                  = "${data.terraform_remote_state.cluster.alb_dns_name}"
+  wildcard_cert_arn             = "${data.terraform_remote_state.cluster.wildcard_cert_arn}"
+  cd_user_username              = "${data.terraform_remote_state.core.cduser_username}"
+  email_service_useEmailService = "${var.email_service_useEmailService}"
+  email_service_baseUrl         = "${data.terraform_remote_state.email.hostname}"
+  email_service_accessToken     = "${data.terraform_remote_state.email.access_token_pwmanager}"
+  email_service_assertValidIp   = "${var.email_service_assertValidIp}"
+  email_service_validIpRanges   = ["${data.terraform_remote_state.cluster.private_subnet_cidr_blocks}"]
 }
 ```
