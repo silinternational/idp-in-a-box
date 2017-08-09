@@ -60,7 +60,7 @@ resource "logentries_log" "log" {
  * Create ECS service
  */
 data "template_file" "task_def" {
-  template = "${file("${path.module}/task-definition.json")}"
+  template = "${file("${path.module}/task-definition-api.json")}"
 
   vars {
     api_access_keys         = "${random_id.access_token_pwmanager.hex},${random_id.access_token_idbroker.hex},${random_id.access_token_idsync.hex}"
