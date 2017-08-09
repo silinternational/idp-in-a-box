@@ -74,6 +74,7 @@ data "template_file" "task_def" {
     id_store_config        = "${var.id_store_config}"
     id_sync_access_tokens  = "${random_id.access_token_external.hex}"
     idp_name               = "${var.idp_name}"
+    idp_display_name       = "${var.idp_display_name}"
     logentries_key         = "${logentries_log.log.token}"
     mailer_host            = "${var.mailer_host}"
     mailer_username        = "${var.mailer_username}"
@@ -86,7 +87,7 @@ data "template_file" "task_def" {
 }
 
 module "ecsservice" {
-  source             = "github.com/silinternational/terraform-modules//aws/ecs/service-only"
+  source             = "github.com/silinternational/terraform-modules//aws/ecs/service-only?ref=1.0.0"
   cluster_id         = "${var.ecs_cluster_id}"
   service_name       = "${var.idp_name}-${var.app_name}"
   service_env        = "${var.app_env}"
