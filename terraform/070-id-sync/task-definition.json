@@ -50,6 +50,10 @@
         "value": "${idp_name}"
       },
       {
+        "name": "IDP_DISPLAY_NAME",
+        "value": "${idp_display_name}"
+      },
+      {
         "name": "LOGENTRIES_KEY",
         "value": "${logentries_key}"
       },
