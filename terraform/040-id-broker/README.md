@@ -11,8 +11,6 @@ This module is used to create an ECS service running id-broker.
 
  - `app_name` - Application name
  - `app_env` - Application environment
- - `vpc_default_sg_id` - ID for default security group in VPC
- - `private_subnet_ids` - List of private subnet ids
  - `vpc_id` - ID for VPC
  - `ssl_policy` - SSL policy
  - `wildcard_cert_arn` - ARN to ACM wildcard certificate
@@ -60,8 +58,6 @@ module "broker" {
   cpu                       = "${var.cpu}"
   app_name                  = "${var.app_name}"
   app_env                   = "${var.app_env}"
-  vpc_default_sg_id         = "${data.terraform_remote_state.cluster.vpc_default_sg_id}"
-  private_subnet_ids        = "${data.terraform_remote_state.cluster.private_subnet_ids}"
   vpc_id                    = "${data.terraform_remote_state.cluster.vpc_id}"
   ssl_policy                = "${var.ssl_policy}"
   wildcard_cert_arn         = "${data.terraform_remote_state.cluster.wildcard_cert_arn}"
