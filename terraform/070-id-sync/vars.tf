@@ -65,6 +65,11 @@ variable "idp_name" {
   type = "string"
 }
 
+variable "idp_display_name" {
+  default = ""
+  type = "string"
+}
+
 variable "ecs_cluster_id" {
   type = "string"
 }
