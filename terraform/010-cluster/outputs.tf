@@ -44,24 +44,24 @@ output "private_subnet_cidr_blocks" {
 /*
  * External application load balancer outputs
  */
-output "external_alb_arn" {
-  value = "${module.external_alb.arn}"
+output "alb_arn" {
+  value = "${module.alb.arn}"
 }
 
-output "external_alb_default_tg_arn" {
-  value = "${module.external_alb.default_tg_arn}"
+output "alb_default_tg_arn" {
+  value = "${module.alb.default_tg_arn}"
 }
 
-output "external_alb_dns_name" {
-  value = "${module.external_alb.dns_name}"
+output "alb_dns_name" {
+  value = "${module.alb.dns_name}"
 }
 
-output "external_alb_https_listener_arn" {
-  value = "${module.external_alb.https_listener_arn}"
+output "alb_https_listener_arn" {
+  value = "${module.alb.https_listener_arn}"
 }
 
-output "external_alb_id" {
-  value = "${module.external_alb.id}"
+output "alb_id" {
+  value = "${module.alb.id}"
 }
 
 /*
