@@ -3,23 +3,20 @@ This module is used to create an ECS service running email-service.
 
 ## What this does
 
- - Create task definition and ECS service for email-service
+ - Create task definition and ECS service for email-service API
+ - Create task definition and ECS service for email-service cron
  - Create Cloudflare DNS record
 
 ## Required Inputs
 
  - `app_env` - Application environment
- - `app_name` - Application name (default: email-service)
  - `cloudflare_domain` - Top level domain name for use with Cloudflare
- - `cpu` - CPU resources to allot to this (default: 250)
  - `db_name` - Name of MySQL database for email-service
- - `desired_count` - Desired count of tasks running in ECS service
  - `docker_image` - The docker image to use for this
  - `ecs_cluster_id` - ID for ECS Cluster
  - `ecsServiceRole_arn` - ARN for ECS Service Role
  - `email_brand_color` - CSS color to use for branding in emails
  - `email_brand_logo` - The fully qualified URL to an image for logo in emails
- - `email_queue_batch_size` - How many queued emails to process per run (default: 10)
  - `from_email` - Email address to send emails from
  - `from_name` - Email address to send emails from
  - `idp_name` - Short name of IdP for use in logs and email alerts
@@ -28,9 +25,7 @@ This module is used to create an ECS service running email-service.
  - `logentries_set_id` - Logentries logset ID for creating new log in
  - `mailer_host` - SMTP hostname
  - `mailer_password` - SMTP password
- - `mailer_usefiles` - Whether or not YiiMailer should write to files instead of sending emails
  - `mailer_username` - SMTP username
- - `memory` - Memory (RAM) resources to allot to this (default: 96)
  - `mysql_host` - Address for RDS instance
  - `mysql_pass` - MySQL password for email-service
  - `mysql_user` - MySQL username for email-service
@@ -40,6 +35,16 @@ This module is used to create an ECS service running email-service.
  - `vpc_id` - ID for VPC
  - `wildcard_cert_arn` - ARN to ACM wildcard certificate
 
+## Optional Inputs
+
+ - `app_name` - Application name
+ - `cpu_api` - CPU resources to allot to each API instance
+ - `cpu_cron` - CPU resources to allot to the cron instance
+ - `desired_count_api` - Desired count of email-service API instances (there will only be 1 cron instance)
+ - `email_queue_batch_size` - How many queued emails to process per run
+ - `mailer_usefiles` - Whether or not YiiMailer should write to files instead of sending emails
+ - `memory_api` - Memory (RAM) resources to allot to each API instance
+ - `memory_cron` - Memory (RAM) resources to allot to the cron instance
 
 ## Outputs
 
@@ -57,9 +62,10 @@ module "email" {
   app_env                   = "${var.app_env}"
   app_name                  = "${var.app_name}"
   cloudflare_domain         = "${var.cloudflare_domain}"
-  cpu                       = "${var.cpu}"
+  cpu_api                   = "${var.cpu_api}"
+  cpu_cron                  = "${var.cpu_cron}"
   db_name                   = "${var.db_name}"
-  desired_count             = "${var.desired_count}"
+  desired_count_api         = "${var.desired_count_api}"
   docker_image              = "${data.terraform_remote_state.ecr.ecr_repo_emailservice}"
   ecs_cluster_id            = "${data.terraform_remote_state.core.ecs_cluster_id}"
   ecsServiceRole_arn        = "${data.terraform_remote_state.core.ecsServiceRole_arn}"
@@ -76,7 +82,8 @@ module "email" {
   mailer_password           = "${var.mailer_password}"
   mailer_usefiles           = "${var.mailer_usefiles}"
   mailer_username           = "${var.mailer_username}"
-  memory                    = "${var.memory}"
+  memory_api                = "${var.memory_api}"
+  memory_cron               = "${var.memory_cron}"
   mysql_host                = "${data.terraform_remote_state.database.rds_address}"
   mysql_pass                = "${data.terraform_remote_state.database.db_emailservice_pass}"
   mysql_user                = "${var.mysql_user}"

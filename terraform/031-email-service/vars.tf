@@ -11,7 +11,11 @@ variable "cloudflare_domain" {
   type = "string"
 }
 
-variable "cpu" {
+variable "cpu_api" {
+  default = "250"
+}
+
+variable "cpu_cron" {
   default = "250"
 }
 
@@ -19,9 +23,9 @@ variable "db_name" {
   type = "string"
 }
 
-variable "desired_count" {
+variable "desired_count_api" {
   type    = "string"
-  default = "1"
+  default = "2"
 }
 
 variable "docker_image" {
@@ -95,8 +99,12 @@ variable "mailer_username" {
   type = "string"
 }
 
-variable "memory" {
+variable "memory_api" {
   default = "96"
+}
+
+variable "memory_cron" {
+  default = "64"
 }
 
 variable "mysql_host" {

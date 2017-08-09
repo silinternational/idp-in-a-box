@@ -1,23 +1,17 @@
 [
   {
     "volumesFrom": [],
-    "memory": ${memory_api},
+    "memory": ${memory_cron},
     "extraHosts": null,
     "dnsServers": null,
     "disableNetworking": null,
     "dnsSearchDomains": null,
-    "portMappings": [
-      {
-        "hostPort": 0,
-        "containerPort": 80,
-        "protocol": "tcp"
-      }
-    ],
+    "portMappings": [],
     "hostname": null,
     "essential": true,
     "entryPoint": null,
     "mountPoints": [],
-    "name": "api",
+    "name": "cron",
     "ulimits": null,
     "dockerSecurityOptions": null,
     "environment": [
@@ -102,12 +96,14 @@
     "workingDirectory": null,
     "readonlyRootFilesystem": null,
     "image": "${docker_image}",
-    "command": null,
+    "command": [
+      "/data/run-cron.sh"
+    ],
     "user": null,
     "dockerLabels": null,
     "logConfiguration": null,
-    "cpu": ${cpu_api},
+    "cpu": ${cpu_cron},
     "privileged": null,
-    "memoryReservation": ${memory_api}
+    "memoryReservation": ${memory_cron}
   }
 ]
