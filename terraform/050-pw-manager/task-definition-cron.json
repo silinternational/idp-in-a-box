@@ -38,6 +38,26 @@
         "value": "${app_env}"
       },
       {
+        "name": "EMAIL_SERVICE_useEmailService",
+        "value": "${email_service_useEmailService}"
+      },
+      {
+        "name": "EMAIL_SERVICE_baseUrl",
+        "value": "${email_service_baseUrl}"
+      },
+      {
+        "name": "EMAIL_SERVICE_accessToken",
+        "value": "${email_service_accessToken}"
+      },
+      {
+        "name": "EMAIL_SERVICE_assertValidIp",
+        "value": "${email_service_assertValidIp}"
+      },
+      {
+        "name": "EMAIL_SERVICE_validIpRanges",
+        "value": "${email_service_validIpRanges}"
+      },
+      {
         "name": "FROM_EMAIL",
         "value": "${from_email}"
       },
