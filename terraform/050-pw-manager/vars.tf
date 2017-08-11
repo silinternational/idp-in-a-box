@@ -75,14 +75,17 @@ variable "mailer_usefiles" {
 
 variable "mailer_host" {
   type = "string"
+  default = ""
 }
 
 variable "mailer_username" {
   type = "string"
+  default = ""
 }
 
 variable "mailer_password" {
   type = "string"
+  default = ""
 }
 
 variable "db_name" {
