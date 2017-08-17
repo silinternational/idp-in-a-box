@@ -67,8 +67,9 @@ module "broker" {
   logentries_set_id           = "${data.terraform_remote_state.cluster.logentries_set_id}"
   idp_name                    = "${var.idp_name}"
   docker_image                = "${data.terraform_remote_state.ecr.ecr_repo_idbroker}"
-  db_name                     = "${var.db_idbroker_name}"
+  db_name                     = "${var.db_name}"
   email_service_accessToken   = "${data.terraform_remote_state.email.access_token_idbroker}"
+  email_service_assertValidIp = "${var.email_service_assertValidIp}"
   email_service_baseUrl       = "https://${data.terraform_remote_state.email.hostname}"
   email_service_validIpRanges = ["${data.terraform_remote_state.cluster.private_subnet_cidr_blocks}"]
   internal_alb_dns_name       = "${data.terraform_remote_state.cluster.internal_alb_dns_name}"
@@ -82,12 +83,12 @@ module "broker" {
   notification_email          = "${var.notification_email}"
   migrate_pw_from_ldap        = "${var.migrate_pw_from_ldap}"
   mysql_host                  = "${data.terraform_remote_state.database.rds_address}"
-  mysql_user                  = "${var.db_idbroker_user}"
+  mysql_user                  = "${var.mysql_user}"
   mysql_pass                  = "${data.terraform_remote_state.database.db_idbroker_pass}"
   ecs_cluster_id              = "${data.terraform_remote_state.core.ecs_cluster_id}"
   ecsServiceRole_arn          = "${data.terraform_remote_state.core.ecsServiceRole_arn}"
   subdomain                   = "${var.broker_subdomain}"
   cloudflare_domain           = "${var.cloudflare_domain}"
-  desired_count               = "${var.ecs_desired_count}"
+  desired_count               = "${var.desired_count}"
 }
 ```
