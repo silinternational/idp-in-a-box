@@ -56,10 +56,11 @@ module "idsync" {
   logentries_set_id           = "${data.terraform_remote_state.cluster.logentries_set_id}"
   vpc_id                      = "${data.terraform_remote_state.cluster.vpc_id}"
   alb_https_listener_arn      = "${data.terraform_remote_state.cluster.alb_https_listener_arn}"
-  subdomain                   = "${var.ssp_subdomain}"
+  subdomain                   = "${var.sync_subdomain}"
   cloudflare_domain           = "${var.cloudflare_domain}"
   docker_image                = "${data.terraform_remote_state.ecr.ecr_repo_idsync}"
   email_service_accessToken   = "${data.terraform_remote_state.email.access_token_idsync}"
+  email_service_assertValidIp = "${var.email_service_assertValidIp}"
   email_service_baseUrl       = "https://${data.terraform_remote_state.email.hostname}"
   email_service_validIpRanges = ["${data.terraform_remote_state.cluster.private_subnet_cidr_blocks}"]
   id_broker_access_token      = "${data.terraform_remote_state.broker.access_token_idsync}"
