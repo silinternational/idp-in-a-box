@@ -25,6 +25,7 @@ store.
  - `id_broker_access_token` - Access token for calling id-broker
  - `id_broker_adapter` - Which ID Sync adapter to use
  - `id_broker_base_url` - Base URL to id-broker API
+ - `id_broker_trustedIpRanges` - List of valid IP address ranges for ID Broker API
  - `id_store_adapter` - Which ID Store adapter to use
  - `id_store_config` - A map of configuration data to pass into id-sync as env vars
  - `idp_name` - Short name of IdP for use in logs and email alerts
@@ -38,6 +39,7 @@ store.
 ## Optional Inputs
 
 - `email_service_assertValidIp` - Whether or not to assert IP address for Email Service API is trusted
+- `id_broker_assertValidIp` - Whether or not to assert IP address for ID Broker API is trusted
 
 ## Outputs
 
@@ -65,7 +67,9 @@ module "idsync" {
   email_service_validIpRanges = ["${data.terraform_remote_state.cluster.private_subnet_cidr_blocks}"]
   id_broker_access_token      = "${data.terraform_remote_state.broker.access_token_idsync}"
   id_broker_adapter           = "${var.id_broker_adapter}"
+  id_broker_assertValidIp     = "${var.id_broker_assertValidIp}"
   id_broker_base_url          = "https://${data.terraform_remote_state.broker.hostname}"
+  id_broker_trustedIpRanges   = ["${data.terraform_remote_state.cluster.private_subnet_cidr_blocks}"]
   id_store_adapter            = "${var.id_store_adapter}"
   id_store_config             = "${var.id_store_config}"
   idp_name                    = "${var.idp_name}"
