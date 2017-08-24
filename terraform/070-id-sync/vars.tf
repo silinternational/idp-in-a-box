@@ -66,8 +66,18 @@ variable "id_broker_adapter" {
   default = "idp"
 }
 
+variable "id_broker_assertValidIp" {
+  description = "Whether or not to assert IP address for ID Broker API is trusted"
+  default     = "true"
+}
+
 variable "id_broker_base_url" {
   type = "string"
+}
+
+variable "id_broker_trustedIpRanges" {
+  description = "List of valid IP address ranges for ID Broker API"
+  type        = "list"
 }
 
 variable "id_store_adapter" {

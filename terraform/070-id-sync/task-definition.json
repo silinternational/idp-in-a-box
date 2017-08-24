@@ -50,8 +50,16 @@
         "value": "${id_broker_adapter}"
       },
       {
+        "name": "ID_BROKER_CONFIG_assertValidIp",
+        "value": "${id_broker_assertValidIp}"
+      },
+      {
         "name": "ID_BROKER_CONFIG_baseUrl",
         "value": "${id_broker_base_url}"
+      },
+      {
+        "name": "ID_BROKER_CONFIG_trustedIpRanges",
+        "value": "${id_broker_trustedIpRanges}"
       },
       {
         "name": "ID_STORE_ADAPTER",
