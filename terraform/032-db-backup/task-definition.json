@@ -37,7 +37,7 @@
       },
       {
         "name": "DB_NAMES",
-        "value": "[${db_names}]"
+        "value": "${db_names}"
       },
       {
         "name": "IDP_NAME",
@@ -65,7 +65,7 @@
       },
       {
         "name": "S3_BUCKET",
-        "value": "${s3_bucket}"
+        "value": "s3://${s3_bucket}"
       }
     ],
     "links": null,

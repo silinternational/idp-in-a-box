@@ -50,7 +50,7 @@ variable "logentries_set_id" {
 
 variable "memory" {
   type    = "string"
-  default = "128"
+  default = "64"
 }
 
 variable "mysql_host" {
