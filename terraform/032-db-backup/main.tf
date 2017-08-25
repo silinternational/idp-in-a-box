@@ -10,6 +10,7 @@ resource "aws_s3_bucket" "backup" {
   }
 
   lifecycle_rule {
+    id      = "delete-old-versions"
     enabled = true
 
     noncurrent_version_expiration {
