@@ -9,6 +9,14 @@ resource "aws_s3_bucket" "backup" {
     enabled = true
   }
 
+  lifecycle_rule {
+    enabled = true
+
+    noncurrent_version_expiration {
+      days = 30
+    }
+  }
+
   tags {
     idp_name = "${var.idp_name}"
     app_name = "${var.app_name}"
