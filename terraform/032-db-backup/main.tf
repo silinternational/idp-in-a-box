@@ -2,8 +2,9 @@
  * Create S3 bucket for storing backups
  */
 resource "aws_s3_bucket" "backup" {
-  bucket = "${var.idp_name}-${var.app_name}-${var.app_env}"
-  acl    = "private"
+  bucket        = "${var.idp_name}-${var.app_name}-${var.app_env}"
+  acl           = "private"
+  force_destroy = true
 
   versioning {
     enabled = true
