@@ -52,10 +52,6 @@
         "value": "${service_mode}"
       },
       {
-        "name": "MYSQL_DATABASE",
-        "value": "${db_name}"
-      },
-      {
         "name": "MYSQL_HOST",
         "value": "${mysql_host}"
       },
