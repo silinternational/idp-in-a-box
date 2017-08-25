@@ -19,21 +19,27 @@ store.
  - `subdomain` - Subdomain for SSP IdP
  - `cloudflare_domain` - Top level domain name for use with Cloudflare
  - `docker_image` - URL to Docker image
+ - `email_service_accessToken` - Access token for Email Service API
+ - `email_service_baseUrl` - Base URL (e.g. 'https://email.example.com') to Email Service API
+ - `email_service_validIpRanges` - List of valid IP address ranges for Email Service API
  - `id_broker_access_token` - Access token for calling id-broker
  - `id_broker_adapter` - Which ID Sync adapter to use
  - `id_broker_base_url` - Base URL to id-broker API
+ - `id_broker_trustedIpRanges` - List of valid IP address ranges for ID Broker API
  - `id_store_adapter` - Which ID Store adapter to use
  - `id_store_config` - A map of configuration data to pass into id-sync as env vars
  - `idp_name` - Short name of IdP for use in logs and email alerts
  - `ecs_cluster_id` - ID for ECS Cluster
  - `ecsServiceRole_arn` - ARN for ECS Service Role
  - `alb_dns_name` - DNS name for application load balancer
- - `mailer_host` - SMTP hostname
- - `mailer_username` - SMTP username
- - `mailer_password` - SMTP password
  - `notifier_email_to` - Who to send notifications to about sync problems
  - `memory` - Amount of memory to allocate to container
  - `cpu` - Amount of CPU to allocate to container
+
+## Optional Inputs
+
+- `email_service_assertValidIp` - Whether or not to assert IP address for Email Service API is trusted
+- `id_broker_assertValidIp` - Whether or not to assert IP address for ID Broker API is trusted
 
 ## Outputs
 
@@ -44,29 +50,32 @@ store.
 
 ```hcl
 module "idsync" {
-  source                 = "github.com/silinternational/idp-in-a-box//terraform/070-id-sync"
-  memory                 = "${var.memory}"
-  cpu                    = "${var.cpu}"
-  app_name               = "${var.app_name}"
-  app_env                = "${var.app_env}"
-  logentries_set_id      = "${data.terraform_remote_state.cluster.logentries_set_id}"
-  vpc_id                 = "${data.terraform_remote_state.cluster.vpc_id}"
-  alb_https_listener_arn = "${data.terraform_remote_state.cluster.alb_https_listener_arn}"
-  subdomain              = "${var.ssp_subdomain}"
-  cloudflare_domain      = "${var.cloudflare_domain}"
-  docker_image           = "${data.terraform_remote_state.ecr.ecr_repo_idsync}"
-  id_broker_access_token = "${data.terraform_remote_state.broker.access_token_idsync}"
-  id_broker_adapter      = "${var.id_broker_adapter}"
-  id_broker_base_url     = "https://${data.terraform_remote_state.broker.hostname}"
-  id_store_adapter       = "${var.id_store_adapter}"
-  id_store_config        = "${var.id_store_config}"
-  idp_name               = "${var.idp_name}"
-  ecs_cluster_id         = "${data.terraform_remote_state.core.ecs_cluster_id}"
-  ecsServiceRole_arn     = "${data.terraform_remote_state.core.ecsServiceRole_arn}"
-  alb_dns_name           = "${data.terraform_remote_state.cluster.alb_dns_name}"
-  mailer_host            = "${var.mailer_host}"
-  mailer_username        = "${var.mailer_username}"
-  mailer_password        = "${var.mailer_password}"
-  notifier_email_to      = "${var.notifier_email_to}"
+  source                      = "github.com/silinternational/idp-in-a-box//terraform/070-id-sync"
+  memory                      = "${var.memory}"
+  cpu                         = "${var.cpu}"
+  app_name                    = "${var.app_name}"
+  app_env                     = "${var.app_env}"
+  logentries_set_id           = "${data.terraform_remote_state.cluster.logentries_set_id}"
+  vpc_id                      = "${data.terraform_remote_state.cluster.vpc_id}"
+  alb_https_listener_arn      = "${data.terraform_remote_state.cluster.alb_https_listener_arn}"
+  subdomain                   = "${var.sync_subdomain}"
+  cloudflare_domain           = "${var.cloudflare_domain}"
+  docker_image                = "${data.terraform_remote_state.ecr.ecr_repo_idsync}"
+  email_service_accessToken   = "${data.terraform_remote_state.email.access_token_idsync}"
+  email_service_assertValidIp = "${var.email_service_assertValidIp}"
+  email_service_baseUrl       = "https://${data.terraform_remote_state.email.hostname}"
+  email_service_validIpRanges = ["${data.terraform_remote_state.cluster.private_subnet_cidr_blocks}"]
+  id_broker_access_token      = "${data.terraform_remote_state.broker.access_token_idsync}"
+  id_broker_adapter           = "${var.id_broker_adapter}"
+  id_broker_assertValidIp     = "${var.id_broker_assertValidIp}"
+  id_broker_base_url          = "https://${data.terraform_remote_state.broker.hostname}"
+  id_broker_trustedIpRanges   = ["${data.terraform_remote_state.cluster.private_subnet_cidr_blocks}"]
+  id_store_adapter            = "${var.id_store_adapter}"
+  id_store_config             = "${var.id_store_config}"
+  idp_name                    = "${var.idp_name}"
+  ecs_cluster_id              = "${data.terraform_remote_state.core.ecs_cluster_id}"
+  ecsServiceRole_arn          = "${data.terraform_remote_state.core.ecsServiceRole_arn}"
+  alb_dns_name                = "${data.terraform_remote_state.cluster.alb_dns_name}"
+  notifier_email_to           = "${var.notifier_email_to}"
 }
 ```

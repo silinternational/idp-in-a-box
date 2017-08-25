@@ -17,6 +17,9 @@ This module is used to create an ECS service running id-broker.
  - `logentries_set_id` - Logentries logset ID for creating new log in
  - `idp_name` - Short name of IdP for use in logs and email alerts
  - `db_name` - Name of MySQL database for id-broker
+ - `email_service_accessToken` - Access token for Email Service API
+ - `email_service_baseUrl` - Base URL (e.g. 'https://email.example.com') to Email Service API
+ - `email_service_validIpRanges` - List of valid IP address ranges for Email Service API
  - `internal_alb_dns_name` - DNS name for the IdP-in-a-Box's internal Application Load Balancer
  - `internal_alb_listener_arn` - ARN for the IdP-in-a-Box's internal ALB's listener
  - `ldap_admin_password` - Password for LDAP user if using migrate passwords feature
@@ -25,10 +28,6 @@ This module is used to create an ECS service running id-broker.
  - `ldap_domain_controllers` - Hostname for LDAP server if using migrate passwords feature
  - `ldap_use_ssl` - true/false
  - `ldap_use_tls` - true/false
- - `mailer_usefiles` - Whether or not YiiMailer should write to files instead of sending emails
- - `mailer_host` - SMTP hostname
- - `mailer_username` - SMTP username
- - `mailer_password` - SMTP password
  - `notification_email` - Email address to send alerts/notifications to
  - `migrate_pw_from_ldap` - Whether or not to attempt to migrate passwords from LDAP
  - `mysql_host` - Address for RDS instance
@@ -39,6 +38,10 @@ This module is used to create an ECS service running id-broker.
  - `broker_subdomain` - Subdomain for id-broker
  - `cloudflare_domain` - Top level domain name for use with Cloudflare
  - `desired_count` - Desired count of tasks running in ECS service
+
+## Optional Inputs
+
+- `email_service_assertValidIp` - Whether or not to assert IP address for Email Service API is trusted
 
 
 ## Outputs
@@ -53,39 +56,39 @@ This module is used to create an ECS service running id-broker.
 
 ```hcl
 module "broker" {
-  source                    = "github.com/silinternational/idp-in-a-box//terraform/040-id-broker"
-  memory                    = "${var.memory}"
-  cpu                       = "${var.cpu}"
-  app_name                  = "${var.app_name}"
-  app_env                   = "${var.app_env}"
-  vpc_id                    = "${data.terraform_remote_state.cluster.vpc_id}"
-  ssl_policy                = "${var.ssl_policy}"
-  wildcard_cert_arn         = "${data.terraform_remote_state.cluster.wildcard_cert_arn}"
-  logentries_set_id         = "${data.terraform_remote_state.cluster.logentries_set_id}"
-  idp_name                  = "${var.idp_name}"
-  docker_image              = "${data.terraform_remote_state.ecr.ecr_repo_idbroker}"
-  db_name                   = "${var.db_idbroker_name}"
-  internal_alb_dns_name     = "${data.terraform_remote_state.cluster.internal_alb_dns_name}"
-  internal_alb_listener_arn = "${data.terraform_remote_state.cluster.internal_alb_https_listener_arn}"
-  ldap_admin_password       = "${var.ldap_admin_password}"
-  ldap_admin_username       = "${var.ldap_admin_username}"
-  ldap_base_dn              = "${var.ldap_base_dn}"
-  ldap_domain_controllers   = "${var.ldap_domain_controllers}"
-  ldap_use_ssl              = "${var.ldap_use_ssl}"
-  ldap_use_tls              = "${var.ldap_use_tls}"
-  mailer_usefiles           = "${var.mailer_usefiles}"
-  mailer_host               = "${var.mailer_host}"
-  mailer_username           = "${var.mailer_username}"
-  mailer_password           = "${var.mailer_password}"
-  notification_email        = "${var.notification_email}"
-  migrate_pw_from_ldap      = "${var.migrate_pw_from_ldap}"
-  mysql_host                = "${data.terraform_remote_state.database.rds_address}"
-  mysql_user                = "${var.db_idbroker_user}"
-  mysql_pass                = "${data.terraform_remote_state.database.db_idbroker_pass}"
-  ecs_cluster_id            = "${data.terraform_remote_state.core.ecs_cluster_id}"
-  ecsServiceRole_arn        = "${data.terraform_remote_state.core.ecsServiceRole_arn}"
-  subdomain                 = "${var.broker_subdomain}"
-  cloudflare_domain         = "${var.cloudflare_domain}"
-  desired_count             = "${var.ecs_desired_count}"
+  source                      = "github.com/silinternational/idp-in-a-box//terraform/040-id-broker"
+  memory                      = "${var.memory}"
+  cpu                         = "${var.cpu}"
+  app_name                    = "${var.app_name}"
+  app_env                     = "${var.app_env}"
+  vpc_id                      = "${data.terraform_remote_state.cluster.vpc_id}"
+  ssl_policy                  = "${var.ssl_policy}"
+  wildcard_cert_arn           = "${data.terraform_remote_state.cluster.wildcard_cert_arn}"
+  logentries_set_id           = "${data.terraform_remote_state.cluster.logentries_set_id}"
+  idp_name                    = "${var.idp_name}"
+  docker_image                = "${data.terraform_remote_state.ecr.ecr_repo_idbroker}"
+  db_name                     = "${var.db_name}"
+  email_service_accessToken   = "${data.terraform_remote_state.email.access_token_idbroker}"
+  email_service_assertValidIp = "${var.email_service_assertValidIp}"
+  email_service_baseUrl       = "https://${data.terraform_remote_state.email.hostname}"
+  email_service_validIpRanges = ["${data.terraform_remote_state.cluster.private_subnet_cidr_blocks}"]
+  internal_alb_dns_name       = "${data.terraform_remote_state.cluster.internal_alb_dns_name}"
+  internal_alb_listener_arn   = "${data.terraform_remote_state.cluster.internal_alb_https_listener_arn}"
+  ldap_admin_password         = "${var.ldap_admin_password}"
+  ldap_admin_username         = "${var.ldap_admin_username}"
+  ldap_base_dn                = "${var.ldap_base_dn}"
+  ldap_domain_controllers     = "${var.ldap_domain_controllers}"
+  ldap_use_ssl                = "${var.ldap_use_ssl}"
+  ldap_use_tls                = "${var.ldap_use_tls}"
+  notification_email          = "${var.notification_email}"
+  migrate_pw_from_ldap        = "${var.migrate_pw_from_ldap}"
+  mysql_host                  = "${data.terraform_remote_state.database.rds_address}"
+  mysql_user                  = "${var.mysql_user}"
+  mysql_pass                  = "${data.terraform_remote_state.database.db_idbroker_pass}"
+  ecs_cluster_id              = "${data.terraform_remote_state.core.ecs_cluster_id}"
+  ecsServiceRole_arn          = "${data.terraform_remote_state.core.ecsServiceRole_arn}"
+  subdomain                   = "${var.broker_subdomain}"
+  cloudflare_domain           = "${var.cloudflare_domain}"
+  desired_count               = "${var.desired_count}"
 }
 ```
