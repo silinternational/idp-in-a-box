@@ -5,6 +5,10 @@ resource "aws_s3_bucket" "backup" {
   bucket = "${var.idp_name}-${var.app_name}-${var.app_env}"
   acl    = "private"
 
+  versioning {
+    enabled = true
+  }
+
   tags {
     idp_name = "${var.idp_name}"
     app_name = "${var.app_name}"
