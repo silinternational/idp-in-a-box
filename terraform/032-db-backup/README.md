@@ -16,8 +16,8 @@ This module is used to run mysqldump and backup files to S3
  - `idp_name` - Short name of IdP for use in logs and email alerts
  - `logentries_set_id` - Logentries logset ID for creating new log in
  - `mysql_host` - Address for RDS instance
- - `mysql_pass` - MySQL password for email-service
- - `mysql_user` - MySQL username for email-service
+ - `mysql_pass` - MySQL password
+ - `mysql_user` - MySQL username
  - `vpc_id` - ID for VPC
 
 ## Optional Inputs
