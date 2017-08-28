@@ -7,7 +7,7 @@ resource "random_id" "db_root_pass" {
 }
 
 module "rds" {
-  source                  = "github.com/silinternational/terraform-modules//aws/rds/mariadb?ref=1.0.0"
+  source                  = "github.com/silinternational/terraform-modules//aws/rds/mariadb?ref=1.1.0"
   app_name                = "${var.app_name}"
   app_env                 = "${var.app_env}"
   db_name                 = "${var.db_name}"
@@ -28,9 +28,13 @@ module "rds" {
 
 /*
  * Generate db passwords for different apps
- * Value is displayed in output to used to externally create user
+ * Value is displayed in output to use to externally create user
  */
 resource "random_id" "db_idbroker_pass" {
+  byte_length = 16
+}
+
+resource "random_id" "db_emailservice_pass" {
   byte_length = 16
 }
 

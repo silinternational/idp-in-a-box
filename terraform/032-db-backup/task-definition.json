@@ -1,0 +1,83 @@
+[
+  {
+    "volumesFrom": [],
+    "memory": ${memory},
+    "extraHosts": null,
+    "dnsServers": null,
+    "disableNetworking": null,
+    "dnsSearchDomains": null,
+    "portMappings": [],
+    "hostname": null,
+    "essential": true,
+    "entryPoint": null,
+    "mountPoints": [],
+    "name": "cron",
+    "ulimits": null,
+    "dockerSecurityOptions": null,
+    "environment": [
+      {
+        "name": "APP_ENV",
+        "value": "${app_env}"
+      },
+      {
+        "name": "APP_NAME",
+        "value": "${app_name}"
+      },
+      {
+        "name": "AWS_ACCESS_KEY",
+        "value": "${aws_access_key}"
+      },
+      {
+        "name": "AWS_SECRET_KEY",
+        "value": "${aws_secret_key}"
+      },
+      {
+        "name": "CRON_SCHEDULE",
+        "value": "${cron_schedule}"
+      },
+      {
+        "name": "DB_NAMES",
+        "value": "${db_names}"
+      },
+      {
+        "name": "IDP_NAME",
+        "value": "${idp_name}"
+      },
+      {
+        "name": "LOGENTRIES_KEY",
+        "value": "${logentries_key}"
+      },
+      {
+        "name": "MODE",
+        "value": "${service_mode}"
+      },
+      {
+        "name": "MYSQL_HOST",
+        "value": "${mysql_host}"
+      },
+      {
+        "name": "MYSQL_PASSWORD",
+        "value": "${mysql_pass}"
+      },
+      {
+        "name": "MYSQL_USER",
+        "value": "${mysql_user}"
+      },
+      {
+        "name": "S3_BUCKET",
+        "value": "s3://${s3_bucket}"
+      }
+    ],
+    "links": null,
+    "workingDirectory": null,
+    "readonlyRootFilesystem": null,
+    "image": "${docker_image}",
+    "command": [],
+    "user": null,
+    "dockerLabels": null,
+    "logConfiguration": null,
+    "cpu": ${cpu},
+    "privileged": null,
+    "memoryReservation": ${memory}
+  }
+]

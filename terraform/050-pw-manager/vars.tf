@@ -75,14 +75,17 @@ variable "mailer_usefiles" {
 
 variable "mailer_host" {
   type = "string"
+  default = ""
 }
 
 variable "mailer_username" {
   type = "string"
+  default = ""
 }
 
 variable "mailer_password" {
   type = "string"
+  default = ""
 }
 
 variable "db_name" {
@@ -148,4 +151,27 @@ variable "cd_user_username" {
 variable "desired_count" {
   type    = "string"
   default = "1"
+}
+
+variable "email_service_useEmailService" {
+  description = "Whether or not to use Email Service API to send emails"
+  default     = "true"
+}
+
+variable "email_service_baseUrl" {
+  description = "Base URL to Email Service API"
+}
+
+variable "email_service_accessToken" {
+  description = "Access Token for Email Service API"
+}
+
+variable "email_service_assertValidIp" {
+  description = "Whether or not to assert IP address for Email Service API is trusted"
+  default     = "true"
+}
+
+variable "email_service_validIpRanges" {
+  description = "List of valid IP ranges to Email Service API"
+  type        = "list"
 }

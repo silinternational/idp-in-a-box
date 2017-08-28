@@ -18,6 +18,10 @@ output "db_idbroker_pass" {
   value = "${random_id.db_idbroker_pass.hex}"
 }
 
+output "db_emailservice_pass" {
+  value = "${random_id.db_emailservice_pass.hex}"
+}
+
 output "db_pwmanager_pass" {
   value = "${random_id.db_pwmanager_pass.hex}"
 }

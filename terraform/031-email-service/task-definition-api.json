@@ -1,7 +1,7 @@
 [
   {
     "volumesFrom": [],
-    "memory": ${memory},
+    "memory": ${memory_api},
     "extraHosts": null,
     "dnsServers": null,
     "disableNetworking": null,
@@ -17,7 +17,7 @@
     "essential": true,
     "entryPoint": null,
     "mountPoints": [],
-    "name": "web",
+    "name": "api",
     "ulimits": null,
     "dockerSecurityOptions": null,
     "environment": [
@@ -30,60 +30,52 @@
         "value": "${app_env}"
       },
       {
-        "name": "EMAIL_SERVICE_accessToken",
-        "value": "${email_service_accessToken}"
+        "name": "APP_NAME",
+        "value": "${app_name}"
       },
       {
-        "name": "EMAIL_SERVICE_assertValidIp",
-        "value": "${email_service_assertValidIp}"
+        "name": "EMAIL_BRAND_COLOR",
+        "value": "${email_brand_color}"
       },
       {
-        "name": "EMAIL_SERVICE_baseUrl",
-        "value": "${email_service_baseUrl}"
+        "name": "EMAIL_BRAND_LOGO",
+        "value": "${email_brand_logo}"
       },
       {
-        "name": "EMAIL_SERVICE_validIpRanges",
-        "value": "${email_service_validIpRanges}"
+        "name": "EMAIL_QUEUE_BATCH_SIZE",
+        "value": "${email_queue_batch_size}"
+      },
+      {
+        "name": "FROM_EMAIL",
+        "value": "${from_email}"
+      },
+      {
+        "name": "FROM_NAME",
+        "value": "${from_name}"
       },
       {
         "name": "IDP_NAME",
         "value": "${idp_name}"
       },
       {
-        "name": "LDAP_ADMIN_PASSWORD",
-        "value": "${ldap_admin_password}"
-      },
-      {
-        "name": "LDAP_ADMIN_USERNAME",
-        "value": "${ldap_admin_username}"
-      },
-      {
-        "name": "LDAP_BASE_DN",
-        "value": "${ldap_base_dn}"
-      },
-      {
-        "name": "LDAP_DOMAIN_CONTROLLERS",
-        "value": "${ldap_domain_controllers}"
-      },
-      {
-        "name": "LDAP_USE_SSL",
-        "value": "${ldap_use_ssl}"
-      },
-      {
-        "name": "LDAP_USE_TLS",
-        "value": "${ldap_use_tls}"
-      },
-      {
         "name": "LOGENTRIES_KEY",
         "value": "${logentries_key}"
       },
       {
-        "name": "NOTIFICATION_EMAIL",
-        "value": "${notification_email}"
+        "name": "MAILER_HOST",
+        "value": "${mailer_host}"
       },
       {
-        "name": "MIGRATE_PW_FROM_LDAP",
-        "value": "${migrate_pw_from_ldap}"
+        "name": "MAILER_PASSWORD",
+        "value": "${mailer_password}"
+      },
+      {
+        "name": "MAILER_USEFILES",
+        "value": "${mailer_usefiles}"
+      },
+      {
+        "name": "MAILER_USERNAME",
+        "value": "${mailer_username}"
       },
       {
         "name": "MYSQL_DATABASE",
@@ -100,6 +92,10 @@
       {
         "name": "MYSQL_USER",
         "value": "${mysql_user}"
+      },
+      {
+        "name": "NOTIFICATION_EMAIL",
+        "value": "${notification_email}"
       }
     ],
     "links": null,
@@ -110,8 +106,8 @@
     "user": null,
     "dockerLabels": null,
     "logConfiguration": null,
-    "cpu": ${cpu},
+    "cpu": ${cpu_api},
     "privileged": null,
-    "memoryReservation": ${memory}
+    "memoryReservation": ${memory_api}
   }
 ]

@@ -26,6 +26,22 @@
         "value": "${app_env}"
       },
       {
+        "name": "EMAIL_SERVICE_accessToken",
+        "value": "${email_service_accessToken}"
+      },
+      {
+        "name": "EMAIL_SERVICE_assertValidIp",
+        "value": "${email_service_assertValidIp}"
+      },
+      {
+        "name": "EMAIL_SERVICE_baseUrl",
+        "value": "${email_service_baseUrl}"
+      },
+      {
+        "name": "EMAIL_SERVICE_validIpRanges",
+        "value": "${email_service_validIpRanges}"
+      },
+      {
         "name": "ID_BROKER_CONFIG_accessToken",
         "value": "${id_broker_access_token}"
       },
@@ -34,8 +50,16 @@
         "value": "${id_broker_adapter}"
       },
       {
+        "name": "ID_BROKER_CONFIG_assertValidIp",
+        "value": "${id_broker_assertValidIp}"
+      },
+      {
         "name": "ID_BROKER_CONFIG_baseUrl",
         "value": "${id_broker_base_url}"
+      },
+      {
+        "name": "ID_BROKER_CONFIG_trustedIpRanges",
+        "value": "${id_broker_trustedIpRanges}"
       },
       {
         "name": "ID_STORE_ADAPTER",
@@ -50,20 +74,12 @@
         "value": "${idp_name}"
       },
       {
+        "name": "IDP_DISPLAY_NAME",
+        "value": "${idp_display_name}"
+      },
+      {
         "name": "LOGENTRIES_KEY",
         "value": "${logentries_key}"
-      },
-      {
-        "name": "MAILER_HOST",
-        "value": "${mailer_host}"
-      },
-      {
-        "name": "MAILER_PASSWORD",
-        "value": "${mailer_password}"
-      },
-      {
-        "name": "MAILER_USERNAME",
-        "value": "${mailer_username}"
       },
       {
         "name": "NOTIFIER_EMAIL_TO",

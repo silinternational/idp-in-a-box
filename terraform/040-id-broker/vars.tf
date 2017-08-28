@@ -15,14 +15,6 @@ variable "app_env" {
   type = "string"
 }
 
-variable "vpc_default_sg_id" {
-  type = "string"
-}
-
-variable "private_subnet_ids" {
-  type = "list"
-}
-
 variable "vpc_id" {
   type = "string"
 }
@@ -51,6 +43,34 @@ variable "db_name" {
   type = "string"
 }
 
+variable "email_service_accessToken" {
+  description = "Access Token for Email Service API"
+}
+
+variable "email_service_assertValidIp" {
+  description = "Whether or not to assert IP address for Email Service API is trusted"
+  default     = "true"
+}
+
+variable "email_service_baseUrl" {
+  description = "Base URL to Email Service API"
+}
+
+variable "email_service_validIpRanges" {
+  description = "List of valid IP ranges to Email Service API"
+  type        = "list"
+}
+
+variable "internal_alb_dns_name" {
+  description = "The DNS name for the IdP-in-a-Box's internal Application Load Balancer."
+  type        = "string"
+}
+
+variable "internal_alb_listener_arn" {
+  description = "The ARN for the IdP-in-a-Box's internal ALB's listener."
+  type        = "string"
+}
+
 variable "ldap_admin_password" {
   type = "string"
 }
@@ -72,23 +92,6 @@ variable "ldap_use_ssl" {
 }
 
 variable "ldap_use_tls" {
-  type = "string"
-}
-
-variable "mailer_usefiles" {
-  type    = "string"
-  default = "false"
-}
-
-variable "mailer_host" {
-  type = "string"
-}
-
-variable "mailer_username" {
-  type = "string"
-}
-
-variable "mailer_password" {
   type = "string"
 }
 
