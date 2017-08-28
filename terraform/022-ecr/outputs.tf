@@ -17,3 +17,7 @@ output "ecr_repo_simplesamlphp" {
 output "ecr_repo_idsync" {
   value = "${module.ecr_idsync.repo_url}"
 }
+
+output "ecr_repo_dbbackup" {
+  value = "${module.ecr_dbbackup.repo_url}"
+}
