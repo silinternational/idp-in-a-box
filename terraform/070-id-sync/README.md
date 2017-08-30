@@ -29,6 +29,7 @@ store.
  - `id_store_adapter` - Which ID Store adapter to use
  - `id_store_config` - A map of configuration data to pass into id-sync as env vars
  - `idp_name` - Short name of IdP for use in logs and email alerts
+ - `idp_display_name` - Friendly name for IdP
  - `ecs_cluster_id` - ID for ECS Cluster
  - `ecsServiceRole_arn` - ARN for ECS Service Role
  - `alb_dns_name` - DNS name for application load balancer
@@ -73,6 +74,7 @@ module "idsync" {
   id_store_adapter            = "${var.id_store_adapter}"
   id_store_config             = "${var.id_store_config}"
   idp_name                    = "${var.idp_name}"
+  idp_display_name            = "${var.idp_display_name}"
   ecs_cluster_id              = "${data.terraform_remote_state.core.ecs_cluster_id}"
   ecsServiceRole_arn          = "${data.terraform_remote_state.core.ecsServiceRole_arn}"
   alb_dns_name                = "${data.terraform_remote_state.cluster.alb_dns_name}"
