@@ -17,7 +17,8 @@ This module is used to create an ECS service running simpleSAMLphp.
  - `subdomain` - Subdomain for SSP IdP
  - `cloudflare_domain` - Top level domain name for use with Cloudflare
  - `docker_image` - URL to Docker image
- - `forgot_password_url` - URL to forgot password page
+ - `password_change_url` - URL to change password page
+ - `password_forgot_url` - URL to forgot password page
  - `hub_mode` - Whether or not this IdP is in hub mode, default: false
  - `id_broker_access_token` - Access token for calling id-broker
  - `id_broker_base_uri` - Base URL to id-broker API
@@ -63,7 +64,8 @@ module "ssp" {
   subdomain              = "${var.ssp_subdomain}"
   cloudflare_domain      = "${var.cloudflare_domain}"
   docker_image           = "${data.terraform_remote_state.ecr.ecr_repo_simplesamlphp}"
-  forgot_password_url    = "https://${data.terraform_remote_state.pwmanager.ui_hostname}/#/forgot"
+  password_change_url    = "https://${data.terraform_remote_state.pwmanager.ui_hostname}/#/change"
+  password_forgot_url    = "https://${data.terraform_remote_state.pwmanager.ui_hostname}/#/forgot"
   hub_mode               = "${var.hub_mode}"
   id_broker_access_token = "${data.terraform_remote_state.broker.access_token_ssp}"
   id_broker_base_uri     = "https://${data.terraform_remote_state.broker.hostname}"

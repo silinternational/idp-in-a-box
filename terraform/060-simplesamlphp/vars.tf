@@ -39,7 +39,11 @@ variable "docker_image" {
   type = "string"
 }
 
-variable "forgot_password_url" {
+variable "password_change_url" {
+  type = "string"
+}
+
+variable "password_forgot_url" {
   type = "string"
 }
 
