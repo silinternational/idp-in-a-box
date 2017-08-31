@@ -86,8 +86,16 @@
         "value": "${id_broker_access_token}"
       },
       {
+        "name": "ID_BROKER_ASSERT_VALID_IP",
+        "value": "${id_broker_assert_valid_ip}"
+      },
+      {
         "name": "ID_BROKER_BASE_URI",
         "value": "${id_broker_base_uri}"
+      },
+      {
+        "name": "ID_BROKER_TRUSTED_IP_RANGES",
+        "value": "${id_broker_trusted_ip_ranges}"
       },
       {
         "name": "MYSQL_HOST",
