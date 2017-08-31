@@ -8,7 +8,7 @@
 ## Required Inputs
 
  - `app_name` - Name of application, ex: Doorman, IdP, etc.
- - `app_env` - Name of environment, ex: production, testing, etc.
+ - `app_env` - Name of environment, ex: prod, test, etc.
  - `db_name` - Name of database to be created by default
  - `mysql_user` - Root database username
  - `subnet_group_name` - Name of DB subnet group to place instance in
