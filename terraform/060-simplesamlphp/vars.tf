@@ -56,8 +56,18 @@ variable "id_broker_access_token" {
   type = "string"
 }
 
+variable "id_broker_assert_valid_ip" {
+  type    = "string"
+  default = "true"
+}
+
 variable "id_broker_base_uri" {
   type = "string"
+}
+
+variable "id_broker_trusted_ip_ranges" {
+  type    = "list"
+  default = []
 }
 
 variable "memcache_host1" {
