@@ -65,9 +65,6 @@ data "template_file" "task_def" {
     from_name                     = "${var.from_name}"
     help_center_url               = "https://${cloudflare_record.uidns.hostname}/#/help"
     logo_url                      = "${var.logo_url}"
-    mailer_host                   = "${var.mailer_host}"
-    mailer_username               = "${var.mailer_username}"
-    mailer_password               = "${var.mailer_password}"
     db_name                       = "${var.db_name}"
     mysql_host                    = "${var.mysql_host}"
     mysql_user                    = "${var.mysql_user}"
@@ -103,59 +100,6 @@ module "ecsservice" {
   lb_container_name  = "web"
   lb_container_port  = "80"
   ecsServiceRole_arn = "${var.ecsServiceRole_arn}"
-}
-
-/*
- * Create ECS service for Cron
- */
-data "template_file" "task_def_cron" {
-  template = "${file("${path.module}/task-definition-cron.json")}"
-
-  vars {
-    access_token_hash             = "${random_id.access_token_hash.hex}"
-    idp_name                      = "${var.idp_name}"
-    idp_display_name              = "${var.idp_display_name}"
-    idp_username_hint             = "${var.idp_username_hint}"
-    alerts_email                  = "${var.alerts_email}"
-    support_email                 = "${var.support_email}"
-    from_email                    = "${var.from_email}"
-    from_name                     = "${var.from_name}"
-    help_center_url               = "https://${cloudflare_record.uidns.hostname}/#/help"
-    logo_url                      = "${var.logo_url}"
-    mailer_host                   = "${var.mailer_host}"
-    mailer_username               = "${var.mailer_username}"
-    mailer_password               = "${var.mailer_password}"
-    db_name                       = "${var.db_name}"
-    mysql_host                    = "${var.mysql_host}"
-    mysql_user                    = "${var.mysql_user}"
-    mysql_password                = "${var.mysql_pass}"
-    recaptcha_site_key            = "${var.recaptcha_key}"
-    recaptcha_secret_key          = "${var.recaptcha_secret}"
-    logentries_key                = "${logentries_log.log.token}"
-    docker_image                  = "${var.docker_image}"
-    app_env                       = "${var.app_env}"
-    ui_cors_origin                = "https://${var.ui_subdomain}.${var.cloudflare_domain}"
-    ui_url                        = "https://${var.ui_subdomain}.${var.cloudflare_domain}/#"
-    id_broker_access_token        = "${var.id_broker_access_token}"
-    id_broker_base_uri            = "${var.id_broker_base_uri}"
-    cmd                           = "/data/run-cron.sh"
-    memory                        = "${var.memory}"
-    cpu                           = "${var.cpu}"
-    email_service_useEmailService = "${var.email_service_useEmailService}"
-    email_service_baseUrl         = "${var.email_service_baseUrl}"
-    email_service_accessToken     = "${var.email_service_accessToken}"
-    email_service_assertValidIp   = "${var.email_service_assertValidIp}"
-    email_service_validIpRanges   = "${join(",", var.email_service_validIpRanges)}"
-  }
-}
-
-module "ecsservice_cron" {
-  source             = "github.com/silinternational/terraform-modules//aws/ecs/service-no-alb?ref=1.1.1"
-  cluster_id         = "${var.ecs_cluster_id}"
-  service_name       = "${var.idp_name}-${var.app_name}-cron"
-  service_env        = "${var.app_env}"
-  container_def_json = "${data.template_file.task_def_cron.rendered}"
-  desired_count      = 1
 }
 
 /*

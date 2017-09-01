@@ -4,7 +4,7 @@ This module is used to create an ECS service running the password manager API an
 ## What this does
 
  - Create ALB target group for API with hostname based routing
- - Create task definition and ECS service for password manager API and Cron services
+ - Create task definition and ECS service for password manager API service
  - Create S3 bucket for UI
  - Create CloudFront distribution to provide SSL support for UI
  - Create Cloudflare DNS records for API and UI
@@ -24,10 +24,6 @@ This module is used to create an ECS service running the password manager API an
  - `from_email` - Email from address
  - `from_name` - Email from name
  - `logo_url` - URL that logo should link to
- - `mailer_usefiles` - Whether or not YiiMailer should write to files instead of sending emails
- - `mailer_host` - SMTP hostname
- - `mailer_username` - SMTP username
- - `mailer_password` - SMTP password
  - `db_name` - Name of MySQL database for pw-api
  - `mysql_host` - Address for RDS instance
  - `mysql_user` - MySQL username for id-broker
@@ -80,10 +76,6 @@ module "pwmanager" {
   from_email                    = "${var.from_email}"
   from_name                     = "${var.from_name}"
   logo_url                      = "${var.logo_url}"
-  mailer_usefiles               = "${var.mailer_usefiles}"
-  mailer_host                   = "${var.mailer_host}"
-  mailer_username               = "${var.mailer_username}"
-  mailer_password               = "${var.mailer_password}"
   db_name                       = "${var.db_name}"
   mysql_host                    = "${data.terraform_remote_state.database.rds_address}"
   mysql_user                    = "${var.mysql_user}"

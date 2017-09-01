@@ -68,26 +68,6 @@ variable "logo_url" {
   type = "string"
 }
 
-variable "mailer_usefiles" {
-  type    = "string"
-  default = "false"
-}
-
-variable "mailer_host" {
-  type = "string"
-  default = ""
-}
-
-variable "mailer_username" {
-  type = "string"
-  default = ""
-}
-
-variable "mailer_password" {
-  type = "string"
-  default = ""
-}
-
 variable "db_name" {
   type = "string"
 }
