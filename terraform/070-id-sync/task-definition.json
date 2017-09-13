@@ -85,6 +85,10 @@
         "name": "NOTIFIER_EMAIL_TO",
         "value": "${notifier_email_to}"
       },
+      {
+        "name": "SYNC_SAFETY_CUTOFF",
+        "value": "${sync_safety_cutoff}"
+      },
       ${id_store_config}
     ],
     "links": null,

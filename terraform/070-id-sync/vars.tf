@@ -113,3 +113,7 @@ variable "alb_dns_name" {
 variable "notifier_email_to" {
   type = "string"
 }
+
+variable "sync_safety_cutoff" {
+  default = "0.15"
+}
