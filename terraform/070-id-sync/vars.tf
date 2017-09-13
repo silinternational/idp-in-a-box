@@ -115,5 +115,5 @@ variable "notifier_email_to" {
 }
 
 variable "sync_safety_cutoff" {
-  default = ""
+  default = "0.15"
 }
