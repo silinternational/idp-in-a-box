@@ -41,6 +41,7 @@ store.
 
 - `email_service_assertValidIp` - Whether or not to assert IP address for Email Service API is trusted
 - `id_broker_assertValidIp` - Whether or not to assert IP address for ID Broker API is trusted
+- `sync_safety_cutoff` - The percentage of records allowed to be changed during a sync, provided as a float, ex: `0.2` for `20%`
 
 ## Outputs
 

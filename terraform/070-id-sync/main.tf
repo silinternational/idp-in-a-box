@@ -86,6 +86,7 @@ data "template_file" "task_def" {
     id_store_config             = "${join(",", data.template_file.env_vars.*.rendered)}"
     memory                      = "${var.memory}"
     cpu                         = "${var.cpu}"
+    sync_safety_cutoff          = "${var.sync_safety_cutoff}"
   }
 }
 
