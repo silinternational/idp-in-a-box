@@ -24,7 +24,6 @@ module "asg" {
   app_name                = "${var.app_name}"
   app_env                 = "${var.app_env}"
   aws_instance            = "${var.aws_instance}"
-  aws_zones               = "${var.aws_zones}"
   private_subnet_ids      = ["${module.vpc.private_subnet_ids}"]
   default_sg_id           = "${module.vpc.vpc_default_sg_id}"
   ecs_instance_profile_id = "${var.ecs_instance_profile_id}"
