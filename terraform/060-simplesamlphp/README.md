@@ -74,6 +74,7 @@ module "ssp" {
   id_broker_assert_valid_ip   = "${var.id_broker_assert_valid_ip}"
   id_broker_base_uri          = "https://${data.terraform_remote_state.broker.hostname}"
   id_broker_trusted_ip_ranges = ["${data.terraform_remote_state.cluster.private_subnet_cidr_blocks}"]
+  mfa_setup_url               = "${var.mfa_setup_url}"
   memcache_host1              = "${data.terraform_remote_state.elasticache.cache_nodes.0.address}"
   memcache_host2              = "${data.terraform_remote_state.elasticache.cache_nodes.1.address}"
   db_name                     = "${var.db_ssp_name}"
