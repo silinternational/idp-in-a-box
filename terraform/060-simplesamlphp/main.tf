@@ -68,6 +68,7 @@ data "template_file" "task_def" {
     id_broker_assert_valid_ip   = "${var.id_broker_assert_valid_ip}"
     id_broker_base_uri          = "${var.id_broker_base_uri}"
     id_broker_trusted_ip_ranges = "${join(",", var.id_broker_trusted_ip_ranges)}"
+    mfa_setup_url               = "${var.mfa_setup_url}"
     idp_domain_name             = "${var.subdomain}.${var.cloudflare_domain}"
     logentries_key              = "${logentries_log.log.token}"
     memcache_host1              = "${var.memcache_host1}"

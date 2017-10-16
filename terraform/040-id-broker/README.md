@@ -28,6 +28,13 @@ This module is used to create an ECS service running id-broker.
  - `ldap_domain_controllers` - Hostname for LDAP server if using migrate passwords feature
  - `ldap_use_ssl` - true/false
  - `ldap_use_tls` - true/false
+ - `mfa_totp_apibaseurl` - Base URL to TOTP api
+ - `mfa_totp_apikey` - API key for TOTP api
+ - `mfa_totp_apisecret` - API secret for TOTP api
+ - `mfa_u2f_apibaseurl` - Base URL for U2F api
+ - `mfa_u2f_apikey` - API key for U2F api
+ - `mfa_u2f_apisecret` - API secret for U2F api
+ - `mfa_u2f_appid` - AppID for U2F api
  - `notification_email` - Email address to send alerts/notifications to
  - `migrate_pw_from_ldap` - Whether or not to attempt to migrate passwords from LDAP
  - `mysql_host` - Address for RDS instance

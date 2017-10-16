@@ -95,6 +95,34 @@ variable "ldap_use_tls" {
   type = "string"
 }
 
+variable "mfa_totp_apibaseurl" {
+  type = "string"
+}
+
+variable "mfa_totp_apikey" {
+  type = "string"
+}
+
+variable "mfa_totp_apisecret" {
+  type = "string"
+}
+
+variable "mfa_u2f_apibaseurl" {
+  type = "string"
+}
+
+variable "mfa_u2f_apikey" {
+  type = "string"
+}
+
+variable "mfa_u2f_apisecret" {
+  type = "string"
+}
+
+variable "mfa_u2f_appid" {
+  type = "string"
+}
+
 variable "notification_email" {
   type = "string"
 }

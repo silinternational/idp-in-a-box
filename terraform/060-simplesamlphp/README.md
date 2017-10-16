@@ -24,6 +24,7 @@ This module is used to create an ECS service running simpleSAMLphp.
  - `id_broker_assert_valid_ip` - Whether or not to assert valid ip for calling id-broker
  - `id_broker_trusted_ip_ranges` - List of trusted ip blocks for ID Broker
  - `id_broker_base_uri` - Base URL to id-broker API
+ - `mfa_setup_url` - URL to setup MFA
  - `memcache_host1` - First memcache host
  - `memcache_host2` - Second memcache host
  - `db_name` - Name of MySQL database for ssp

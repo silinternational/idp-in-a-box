@@ -78,8 +78,32 @@
         "value": "${logentries_key}"
       },
       {
-        "name": "NOTIFICATION_EMAIL",
-        "value": "${notification_email}"
+        "name": "MFA_TOTP_apiBaseUrl",
+        "value": "${mfa_totp_apibaseurl}"
+      },
+      {
+        "name": "MFA_TOTP_apiKey",
+        "value": "${mfa_totp_apikey}"
+      },
+      {
+        "name": "MFA_TOTP_apiSecret",
+        "value": "${mfa_totp_apisecret}"
+      },
+      {
+        "name": "MFA_U2F_apiBaseUrl",
+        "value": "${mfa_u2f_apibaseurl}"
+      },
+      {
+        "name": "MFA_U2F_apiKey",
+        "value": "${mfa_u2f_apikey}"
+      },
+      {
+        "name": "MFA_U2F_apiSecret",
+        "value": "${mfa_u2f_apisecret}"
+      },
+      {
+        "name": "MFA_U2F_appId",
+        "value": "${mfa_u2f_appid}"
       },
       {
         "name": "MIGRATE_PW_FROM_LDAP",
@@ -100,6 +124,10 @@
       {
         "name": "MYSQL_USER",
         "value": "${mysql_user}"
+      },
+      {
+        "name": "NOTIFICATION_EMAIL",
+        "value": "${notification_email}"
       }
     ],
     "links": null,
