@@ -126,6 +126,10 @@
         "value": "${recaptcha_secret}"
       },
       {
+        "name": "REMEMBER_ME_SECRET",
+        "value": "${remember_me_secret}"
+      },
+      {
         "name": "IDP_DOMAIN_NAME",
         "value": "${idp_domain_name}"
       },

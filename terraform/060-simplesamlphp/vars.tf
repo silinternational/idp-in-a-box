@@ -106,6 +106,10 @@ variable "recaptcha_secret" {
   type = "string"
 }
 
+variable "remember_me_secret" {
+  type = "string"
+}
+
 variable "ecs_cluster_id" {
   type = "string"
 }

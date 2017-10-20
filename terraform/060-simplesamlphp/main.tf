@@ -79,6 +79,7 @@ data "template_file" "task_def" {
     mysql_user                  = "${var.mysql_user}"
     recaptcha_key               = "${var.recaptcha_key}"
     recaptcha_secret            = "${var.recaptcha_secret}"
+    remember_me_secret          = "${var.remember_me_secret}"
     secret_salt                 = "${random_id.secretsalt.hex}"
     show_saml_errors            = "${var.show_saml_errors}"
     idp_name                    = "${var.idp_name}"
