@@ -2,8 +2,16 @@ variable "memory" {
   default = "96"
 }
 
+variable "memory_cron" {
+  default = "64"
+}
+
 variable "cpu" {
   default = "250"
+}
+
+variable "cpu_cron" {
+  default = "128"
 }
 
 variable "app_name" {

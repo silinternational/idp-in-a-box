@@ -1,0 +1,141 @@
+[
+  {
+    "volumesFrom": [],
+    "memory": ${memory_cron},
+    "extraHosts": null,
+    "dnsServers": null,
+    "disableNetworking": null,
+    "dnsSearchDomains": null,
+    "portMappings": [],
+    "hostname": null,
+    "essential": true,
+    "entryPoint": null,
+    "mountPoints": [],
+    "name": "cron",
+    "ulimits": null,
+    "dockerSecurityOptions": null,
+    "environment": [
+      {
+        "name": "API_ACCESS_KEYS",
+        "value": "${api_access_keys}"
+      },
+      {
+        "name": "APP_ENV",
+        "value": "${app_env}"
+      },
+      {
+        "name": "EMAIL_SERVICE_accessToken",
+        "value": "${email_service_accessToken}"
+      },
+      {
+        "name": "EMAIL_SERVICE_assertValidIp",
+        "value": "${email_service_assertValidIp}"
+      },
+      {
+        "name": "EMAIL_SERVICE_baseUrl",
+        "value": "${email_service_baseUrl}"
+      },
+      {
+        "name": "EMAIL_SERVICE_validIpRanges",
+        "value": "${email_service_validIpRanges}"
+      },
+      {
+        "name": "IDP_NAME",
+        "value": "${idp_name}"
+      },
+      {
+        "name": "LDAP_ADMIN_PASSWORD",
+        "value": "${ldap_admin_password}"
+      },
+      {
+        "name": "LDAP_ADMIN_USERNAME",
+        "value": "${ldap_admin_username}"
+      },
+      {
+        "name": "LDAP_BASE_DN",
+        "value": "${ldap_base_dn}"
+      },
+      {
+        "name": "LDAP_DOMAIN_CONTROLLERS",
+        "value": "${ldap_domain_controllers}"
+      },
+      {
+        "name": "LDAP_USE_SSL",
+        "value": "${ldap_use_ssl}"
+      },
+      {
+        "name": "LDAP_USE_TLS",
+        "value": "${ldap_use_tls}"
+      },
+      {
+        "name": "LOGENTRIES_KEY",
+        "value": "${logentries_key}"
+      },
+      {
+        "name": "MFA_TOTP_apiBaseUrl",
+        "value": "${mfa_totp_apibaseurl}"
+      },
+      {
+        "name": "MFA_TOTP_apiKey",
+        "value": "${mfa_totp_apikey}"
+      },
+      {
+        "name": "MFA_TOTP_apiSecret",
+        "value": "${mfa_totp_apisecret}"
+      },
+      {
+        "name": "MFA_U2F_apiBaseUrl",
+        "value": "${mfa_u2f_apibaseurl}"
+      },
+      {
+        "name": "MFA_U2F_apiKey",
+        "value": "${mfa_u2f_apikey}"
+      },
+      {
+        "name": "MFA_U2F_apiSecret",
+        "value": "${mfa_u2f_apisecret}"
+      },
+      {
+        "name": "MFA_U2F_appId",
+        "value": "${mfa_u2f_appid}"
+      },
+      {
+        "name": "MIGRATE_PW_FROM_LDAP",
+        "value": "${migrate_pw_from_ldap}"
+      },
+      {
+        "name": "MYSQL_DATABASE",
+        "value": "${db_name}"
+      },
+      {
+        "name": "MYSQL_HOST",
+        "value": "${mysql_host}"
+      },
+      {
+        "name": "MYSQL_PASSWORD",
+        "value": "${mysql_pass}"
+      },
+      {
+        "name": "MYSQL_USER",
+        "value": "${mysql_user}"
+      },
+      {
+        "name": "NOTIFICATION_EMAIL",
+        "value": "${notification_email}"
+      }
+    ],
+    "links": null,
+    "workingDirectory": null,
+    "readonlyRootFilesystem": null,
+    "image": "${docker_image}",
+    "command": [
+      "/data/run-cron.sh"
+    ],
+    "user": null,
+    "dockerLabels": null,
+    "logConfiguration": null,
+    "cpu": ${cpu_cron},
+    "privileged": null,
+    "memoryReservation": ${memory_cron}
+  }
+]

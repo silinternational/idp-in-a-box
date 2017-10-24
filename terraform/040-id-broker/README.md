@@ -48,7 +48,9 @@ This module is used to create an ECS service running id-broker.
 
 ## Optional Inputs
 
-- `email_service_assertValidIp` - Whether or not to assert IP address for Email Service API is trusted
+ - `email_service_assertValidIp` - Whether or not to assert IP address for Email Service API is trusted
+ - `cpu_cron` - How much CPU to allocate to cron service. Default: `128`
+ - `memory_cron` - How much memory to allocate to cron service. Default: `64`
 
 
 ## Outputs
@@ -65,7 +67,9 @@ This module is used to create an ECS service running id-broker.
 module "broker" {
   source                      = "github.com/silinternational/idp-in-a-box//terraform/040-id-broker"
   memory                      = "${var.memory}"
+  memory_cron                 = "${var.memory_cron}"
   cpu                         = "${var.cpu}"
+  cpu_cron                    = "${var.cpu_cron}"
   app_name                    = "${var.app_name}"
   app_env                     = "${var.app_env}"
   vpc_id                      = "${data.terraform_remote_state.cluster.vpc_id}"
