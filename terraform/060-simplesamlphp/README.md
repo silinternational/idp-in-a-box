@@ -33,6 +33,7 @@ This module is used to create an ECS service running simpleSAMLphp.
  - `mysql_pass` - MySQL password for id-broker
  - `recaptcha_key` - Recaptcha site key
  - `recaptcha_secret` - Recaptcha secret
+ - `remember_me_secret` - Secret key used in MFA remember me cookie generation
  - `ecs_cluster_id` - ID for ECS Cluster
  - `ecsServiceRole_arn` - ARN for ECS Service Role
  - `alb_dns_name` - DNS name for application load balancer
@@ -83,6 +84,7 @@ module "ssp" {
   mysql_pass                  = "${data.terraform_remote_state.database.db_ssp_pass}"
   recaptcha_key               = "${var.recaptcha_key}"
   recaptcha_secret            = "${var.recaptcha_secret}"
+  remember_me_secret          = "${var.remember_me_secret}"
   ecs_cluster_id              = "${data.terraform_remote_state.core.ecs_cluster_id}"
   ecsServiceRole_arn          = "${data.terraform_remote_state.core.ecsServiceRole_arn}"
   alb_dns_name                = "${data.terraform_remote_state.cluster.alb_dns_name}"
