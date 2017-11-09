@@ -24,6 +24,7 @@ This module is used to create an ECS service running simpleSAMLphp.
  - `id_broker_assert_valid_ip` - Whether or not to assert valid ip for calling id-broker
  - `id_broker_trusted_ip_ranges` - List of trusted ip blocks for ID Broker
  - `id_broker_base_uri` - Base URL to id-broker API
+ - `mfa_setup_url` - URL to setup MFA
  - `memcache_host1` - First memcache host
  - `memcache_host2` - Second memcache host
  - `db_name` - Name of MySQL database for ssp
@@ -32,6 +33,7 @@ This module is used to create an ECS service running simpleSAMLphp.
  - `mysql_pass` - MySQL password for id-broker
  - `recaptcha_key` - Recaptcha site key
  - `recaptcha_secret` - Recaptcha secret
+ - `remember_me_secret` - Secret key used in MFA remember me cookie generation
  - `ecs_cluster_id` - ID for ECS Cluster
  - `ecsServiceRole_arn` - ARN for ECS Service Role
  - `alb_dns_name` - DNS name for application load balancer
@@ -73,6 +75,7 @@ module "ssp" {
   id_broker_assert_valid_ip   = "${var.id_broker_assert_valid_ip}"
   id_broker_base_uri          = "https://${data.terraform_remote_state.broker.hostname}"
   id_broker_trusted_ip_ranges = ["${data.terraform_remote_state.cluster.private_subnet_cidr_blocks}"]
+  mfa_setup_url               = "${var.mfa_setup_url}"
   memcache_host1              = "${data.terraform_remote_state.elasticache.cache_nodes.0.address}"
   memcache_host2              = "${data.terraform_remote_state.elasticache.cache_nodes.1.address}"
   db_name                     = "${var.db_ssp_name}"
@@ -81,6 +84,7 @@ module "ssp" {
   mysql_pass                  = "${data.terraform_remote_state.database.db_ssp_pass}"
   recaptcha_key               = "${var.recaptcha_key}"
   recaptcha_secret            = "${var.recaptcha_secret}"
+  remember_me_secret          = "${var.remember_me_secret}"
   ecs_cluster_id              = "${data.terraform_remote_state.core.ecs_cluster_id}"
   ecsServiceRole_arn          = "${data.terraform_remote_state.core.ecsServiceRole_arn}"
   alb_dns_name                = "${data.terraform_remote_state.cluster.alb_dns_name}"

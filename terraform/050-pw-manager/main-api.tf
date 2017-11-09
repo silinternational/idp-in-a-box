@@ -78,6 +78,8 @@ data "template_file" "task_def" {
     ui_url                        = "https://${var.ui_subdomain}.${var.cloudflare_domain}/#"
     id_broker_access_token        = "${var.id_broker_access_token}"
     id_broker_base_uri            = "${var.id_broker_base_uri}"
+    id_broker_assertValidBrokerIp = "${var.id_broker_assertValidBrokerIp}"
+    id_broker_validIpRanges       = "${join(",", var.id_broker_validIpRanges)}"
     cmd                           = "/data/run.sh"
     memory                        = "${var.memory}"
     cpu                           = "${var.cpu}"

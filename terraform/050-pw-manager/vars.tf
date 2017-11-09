@@ -35,6 +35,16 @@ variable "cloudflare_domain" {
   type = "string"
 }
 
+variable "id_broker_assertValidBrokerIp" {
+  description = "Whether or not to assert IP address for ID Broker API is trusted"
+  default     = "true"
+}
+
+variable "id_broker_validIpRanges" {
+  description = "List of valid IP ranges to ID Broker API"
+  type        = "list"
+}
+
 variable "idp_name" {
   type = "string"
 }

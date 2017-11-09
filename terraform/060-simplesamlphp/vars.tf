@@ -70,6 +70,10 @@ variable "id_broker_trusted_ip_ranges" {
   default = []
 }
 
+variable "mfa_setup_url" {
+  type = "string"
+}
+
 variable "memcache_host1" {
   type = "string"
 }
@@ -99,6 +103,10 @@ variable "recaptcha_key" {
 }
 
 variable "recaptcha_secret" {
+  type = "string"
+}
+
+variable "remember_me_secret" {
   type = "string"
 }
 

@@ -28,6 +28,13 @@ This module is used to create an ECS service running id-broker.
  - `ldap_domain_controllers` - Hostname for LDAP server if using migrate passwords feature
  - `ldap_use_ssl` - true/false
  - `ldap_use_tls` - true/false
+ - `mfa_totp_apibaseurl` - Base URL to TOTP api
+ - `mfa_totp_apikey` - API key for TOTP api
+ - `mfa_totp_apisecret` - API secret for TOTP api
+ - `mfa_u2f_apibaseurl` - Base URL for U2F api
+ - `mfa_u2f_apikey` - API key for U2F api
+ - `mfa_u2f_apisecret` - API secret for U2F api
+ - `mfa_u2f_appid` - AppID for U2F api
  - `notification_email` - Email address to send alerts/notifications to
  - `migrate_pw_from_ldap` - Whether or not to attempt to migrate passwords from LDAP
  - `mysql_host` - Address for RDS instance
@@ -41,7 +48,9 @@ This module is used to create an ECS service running id-broker.
 
 ## Optional Inputs
 
-- `email_service_assertValidIp` - Whether or not to assert IP address for Email Service API is trusted
+ - `email_service_assertValidIp` - Whether or not to assert IP address for Email Service API is trusted
+ - `cpu_cron` - How much CPU to allocate to cron service. Default: `128`
+ - `memory_cron` - How much memory to allocate to cron service. Default: `64`
 
 
 ## Outputs
@@ -58,7 +67,9 @@ This module is used to create an ECS service running id-broker.
 module "broker" {
   source                      = "github.com/silinternational/idp-in-a-box//terraform/040-id-broker"
   memory                      = "${var.memory}"
+  memory_cron                 = "${var.memory_cron}"
   cpu                         = "${var.cpu}"
+  cpu_cron                    = "${var.cpu_cron}"
   app_name                    = "${var.app_name}"
   app_env                     = "${var.app_env}"
   vpc_id                      = "${data.terraform_remote_state.cluster.vpc_id}"
@@ -80,6 +91,13 @@ module "broker" {
   ldap_domain_controllers     = "${var.ldap_domain_controllers}"
   ldap_use_ssl                = "${var.ldap_use_ssl}"
   ldap_use_tls                = "${var.ldap_use_tls}"
+  mfa_totp_apibaseurl         = "${var.mfa_totp_apibaseurl}"
+  mfa_totp_apikey             = "${var.mfa_totp_apikey}"
+  mfa_totp_apisecret          = "${var.mfa_totp_apisecret}"
+  mfa_u2f_apibaseurl          = "${var.mfa_u2f_apibaseurl}"
+  mfa_u2f_apikey              = "${var.mfa_u2f_apikey}"
+  mfa_u2f_apisecret           = "${var.mfa_u2f_apisecret}"
+  mfa_u2f_appid               = "${var.mfa_u2f_appid}"
   notification_email          = "${var.notification_email}"
   migrate_pw_from_ldap        = "${var.migrate_pw_from_ldap}"
   mysql_host                  = "${data.terraform_remote_state.database.rds_address}"

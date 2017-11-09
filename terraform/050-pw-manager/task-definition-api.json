@@ -70,12 +70,20 @@
         "value": "${help_center_url}"
       },
       {
-        "name": "ID_BROKER_ACCESS_TOKEN",
+        "name": "ID_BROKER_accessToken",
         "value": "${id_broker_access_token}"
       },
       {
-        "name": "ID_BROKER_BASE_URI",
+        "name": "ID_BROKER_baseUrl",
         "value": "${id_broker_base_uri}"
+      },
+      {
+        "name": "ID_BROKER_assertValidBrokerIp",
+        "value": "${id_broker_assertValidBrokerIp}"
+      },
+      {
+        "name": "ID_BROKER_validIpRanges",
+        "value": "${id_broker_validIpRanges}"
       },
       {
         "name": "IDP_NAME",
