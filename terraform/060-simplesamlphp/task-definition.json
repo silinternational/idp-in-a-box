@@ -98,6 +98,10 @@
         "value": "${id_broker_trusted_ip_ranges}"
       },
       {
+        "name": "MFA_LEARN_MORE_URL",
+        "value": "${mfa_learn_more_url}"
+      },
+      {
         "name": "MFA_SETUP_URL",
         "value": "${mfa_setup_url}"
       },

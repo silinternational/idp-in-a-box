@@ -105,7 +105,7 @@ resource "aws_iam_access_key" "cloudtrail-s3" {
 }
 
 resource "aws_iam_user_policy" "cloudtrail-s3" {
-  name = "ECS-ECR"
+  name = "cloudtrail-s3"
   user = "${aws_iam_user.cloudtrail-s3.name}"
 
   policy = <<EOF

@@ -70,6 +70,10 @@ variable "id_broker_trusted_ip_ranges" {
   default = []
 }
 
+variable "mfa_learn_more_url" {
+  type = "string"
+}
+
 variable "mfa_setup_url" {
   type = "string"
 }
