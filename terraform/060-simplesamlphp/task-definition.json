@@ -98,6 +98,14 @@
         "value": "${id_broker_trusted_ip_ranges}"
       },
       {
+        "name": "MFA_LEARN_MORE_URL",
+        "value": "${mfa_learn_more_url}"
+      },
+      {
+        "name": "MFA_SETUP_URL",
+        "value": "${mfa_setup_url}"
+      },
+      {
         "name": "MYSQL_HOST",
         "value": "${mysql_host}"
       },
@@ -120,6 +128,10 @@
       {
         "name": "RECAPTCHA_SECRET",
         "value": "${recaptcha_secret}"
+      },
+      {
+        "name": "REMEMBER_ME_SECRET",
+        "value": "${remember_me_secret}"
       },
       {
         "name": "IDP_DOMAIN_NAME",

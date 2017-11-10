@@ -34,6 +34,8 @@ This module is used to create an ECS service running the password manager API an
  - `ui_subdomain` - Subdomain for PW UI
  - `id_broker_access_token` - Access token for calling id-broker
  - `id_broker_base_uri` - Base URL to id-broker API
+ - `id_broker_assertValidBrokerIp` - Whether or not to assert IP address for ID Broker API is trusted. Default: `true`
+ - `id_broker_validIpRanges` - List of valid IP blocks for ID Broker
  - `ecs_cluster_id` - ID for ECS Cluster
  - `ecsServiceRole_arn` - ARN for ECS Service Role
  - `alb_dns_name` - DNS name for application load balancer
@@ -86,6 +88,8 @@ module "pwmanager" {
   ui_subdomain                  = "${var.ui_subdomain}"
   id_broker_access_token        = "${data.terraform_remote_state.broker.access_token_pwmanager}"
   id_broker_base_uri            = "https://${data.terraform_remote_state.broker.hostname}"
+  id_broker_assertValidBrokerIp = "${var.id_broker_assertValidBrokerIp}"
+  id_broker_validIpRanges       = ["${data.terraform_remote_state.cluster.private_subnet_cidr_blocks}"]
   ecs_cluster_id                = "${data.terraform_remote_state.core.ecs_cluster_id}"
   ecsServiceRole_arn            = "${data.terraform_remote_state.core.ecsServiceRole_arn}"
   alb_dns_name                  = "${data.terraform_remote_state.cluster.alb_dns_name}"

@@ -2,8 +2,16 @@ variable "memory" {
   default = "96"
 }
 
+variable "memory_cron" {
+  default = "64"
+}
+
 variable "cpu" {
   default = "250"
+}
+
+variable "cpu_cron" {
+  default = "128"
 }
 
 variable "app_name" {
@@ -92,6 +100,34 @@ variable "ldap_use_ssl" {
 }
 
 variable "ldap_use_tls" {
+  type = "string"
+}
+
+variable "mfa_totp_apibaseurl" {
+  type = "string"
+}
+
+variable "mfa_totp_apikey" {
+  type = "string"
+}
+
+variable "mfa_totp_apisecret" {
+  type = "string"
+}
+
+variable "mfa_u2f_apibaseurl" {
+  type = "string"
+}
+
+variable "mfa_u2f_apikey" {
+  type = "string"
+}
+
+variable "mfa_u2f_apisecret" {
+  type = "string"
+}
+
+variable "mfa_u2f_appid" {
   type = "string"
 }
 
