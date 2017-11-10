@@ -24,6 +24,7 @@ This module is used to create an ECS service running simpleSAMLphp.
  - `id_broker_assert_valid_ip` - Whether or not to assert valid ip for calling id-broker
  - `id_broker_trusted_ip_ranges` - List of trusted ip blocks for ID Broker
  - `id_broker_base_uri` - Base URL to id-broker API
+ - `mfa_learn_more_url` - URL to learn more about MFA
  - `mfa_setup_url` - URL to setup MFA
  - `memcache_host1` - First memcache host
  - `memcache_host2` - Second memcache host
@@ -75,6 +76,7 @@ module "ssp" {
   id_broker_assert_valid_ip   = "${var.id_broker_assert_valid_ip}"
   id_broker_base_uri          = "https://${data.terraform_remote_state.broker.hostname}"
   id_broker_trusted_ip_ranges = ["${data.terraform_remote_state.cluster.private_subnet_cidr_blocks}"]
+  mfa_learn_more_url          = "${var.mfa_learn_more_url}"
   mfa_setup_url               = "${var.mfa_setup_url}"
   memcache_host1              = "${data.terraform_remote_state.elasticache.cache_nodes.0.address}"
   memcache_host2              = "${data.terraform_remote_state.elasticache.cache_nodes.1.address}"
