@@ -105,8 +105,8 @@ resource "aws_iam_user_policy" "cd_serverless" {
                 "iam:PutRolePolicy"
             ],
             "Resource": [
-                "arn:aws:iam:::*",
-                "arn:aws:iam:::role/*"
+                "arn:aws:iam::*:*",
+                "arn:aws:iam::*:role/*"
             ]
         },
         {
@@ -124,7 +124,7 @@ resource "aws_iam_user_policy" "cd_serverless" {
                 "logs:*"
             ],
             "Resource": [
-                "arn:aws:logs:us-east-1::log-group:*:log-stream:"
+                "arn:aws:logs:us-east-1:*:log-group:*:log-stream:"
             ]
         },
         {
