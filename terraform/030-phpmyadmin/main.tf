@@ -14,6 +14,10 @@ resource "aws_alb_target_group" "phpmyadmin" {
   protocol             = "HTTP"
   vpc_id               = "${var.vpc_id}"
   deregistration_delay = "30"
+
+  stickiness {
+    type = "lb_cookie"
+  }
 }
 
 /*

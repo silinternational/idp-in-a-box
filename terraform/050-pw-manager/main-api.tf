@@ -17,6 +17,10 @@ resource "aws_alb_target_group" "pwmanager" {
   vpc_id               = "${var.vpc_id}"
   deregistration_delay = "30"
 
+  stickiness {
+    type = "lb_cookie"
+  }
+
   health_check {
     path    = "/site/system-status"
     matcher = "200"
