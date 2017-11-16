@@ -39,6 +39,7 @@ This module is used to create an ECS service running simpleSAMLphp.
  - `ecsServiceRole_arn` - ARN for ECS Service Role
  - `alb_dns_name` - DNS name for application load balancer
  - `idp_name` - Short name of IdP for use in logs and email alerts
+ - `theme_color_scheme` - The color scheme to use for SSP. Default: `'indigo-purple'`
  - `trusted_ip_addresses` - A list of ip addresses or ranges that should not be rate limited
  - `analytics_id` - The ID used by an analytics provider such as Google Analytics, e.g., "UA-XXXX-YY"
  - `show_saml_errors` - Whether or not to show saml errors. Default: `false`

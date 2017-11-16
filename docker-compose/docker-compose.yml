@@ -73,6 +73,7 @@ services:
       SECRET_SALT: "sortalongrandomstring"
       SECURE_COOKIE: "false"
       SHOW_SAML_ERRORS: "true"
+      THEME_COLOR_SCHEME: "orange-light_blue"
       THEME_USE: material:material
       BASE_URL_PATH: http://localhost/
       ID_BROKER_ACCESS_TOKEN: abc123abc123
