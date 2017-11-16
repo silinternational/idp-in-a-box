@@ -66,6 +66,10 @@
         "value": "${show_saml_errors}"
       },
       {
+        "name": "THEME_COLOR_SCHEME",
+        "value": "${theme_color_scheme}"
+      },
+      {
         "name": "THEME_USE",
         "value": "material:material"
       },
