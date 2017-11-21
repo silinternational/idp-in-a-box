@@ -139,6 +139,11 @@ variable "show_saml_errors" {
   default = "false"
 }
 
+variable "theme_color_scheme" {
+  type    = "string"
+  default = "indigo-purple"
+}
+
 variable "trusted_ip_addresses" {
   type = "list"
 }
