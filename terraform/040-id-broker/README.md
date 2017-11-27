@@ -61,7 +61,7 @@ This module is used to create an ECS service running id-broker.
  - `subject_for_invite` - Email subject text for invite emails. Default: `Your new %s account`
  - `subject_for_mfa_rate_limit` - Email subject text for MFA rate limit emails. Default: `Too many 2-step verification attempts on your %s account`
  - `subject_for_password_changed` - Email subject text for password changed emails. Default: `Your %s account password has been changed`
- - `send_invite_emails` - Bool of whether or not to send invite emails. Default: `true`
+ - `send_invite_emails` - Bool of whether or not to send invite emails. Default: `false`
  - `send_mfa_rate_limit_emails` - Bool of whether or not to send MFA rate limit emails. Default: `true`
  - `send_password_changed_emails` - Bool of whether or not to send password changed emails. Default: `true`
 

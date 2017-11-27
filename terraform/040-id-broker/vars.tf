@@ -199,7 +199,7 @@ variable "help_center_url" {
 
 variable "send_invite_emails" {
   type    = "string"
-  default = "true"
+  default = "false"
 }
 
 variable "send_mfa_rate_limit_emails" {
