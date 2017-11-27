@@ -179,3 +179,8 @@ variable "password_profile_url" {
 variable "help_center_url" {
   type = "string"
 }
+
+variable "subject_for_password_changed" {
+  type    = "string"
+  default = ""
+}

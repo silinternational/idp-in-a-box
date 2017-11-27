@@ -53,6 +53,7 @@ This module is used to create an ECS service running id-broker.
  - `email_service_assertValidIp` - Whether or not to assert IP address for Email Service API is trusted
  - `cpu_cron` - How much CPU to allocate to cron service. Default: `128`
  - `memory_cron` - How much memory to allocate to cron service. Default: `64`
+ - `subject_for_password_changed` - Email subject text for password-changed emails
 
 
 ## Outputs

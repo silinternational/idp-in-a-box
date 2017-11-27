@@ -130,6 +130,10 @@
       {
         "name": "PASSWORD_PROFILE_URL",
         "value": "${password_profile_url}"
+      },
+      {
+        "name": "SUBJECT_FOR_PASSWORD_CHANGED",
+        "value": "${subject_for_password_changed}"
       }
     ],
     "links": null,
