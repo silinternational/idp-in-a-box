@@ -14,7 +14,7 @@ ssl certificate, core application load balancer, and a Logentries log set
 ## Required Inputs
 
  - `app_name` - Name of application, ex: Doorman, IdP, etc.
- - `app_env` - Name of environment, ex: production, testing, etc.
+ - `app_env` - Name of environment, ex: prod, test, etc.
  - `aws_instance` - A map containing keys for `instance_type`, `volume_size`, `instance_count`
  - `aws_region` - A string with region to deploy in, example: `us-east-1`
  - `aws_zones` - A list of availability zones to distribute instances across, example: `["us-east-1a", "us-east-1b", "us-east-1c"]`
