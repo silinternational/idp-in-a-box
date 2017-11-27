@@ -40,6 +40,10 @@
         "value": "${email_service_validIpRanges}"
       },
       {
+        "name": "EMAIL_SIGNATURE",
+        "value": "${email_signature}"
+      },
+      {
         "name": "HELP_CENTER_URL",
         "value": "${help_center_url}"
       },
@@ -128,8 +132,44 @@
         "value": "${notification_email}"
       },
       {
+        "name": "PASSWORD_FORGOT_URL",
+        "value": "${password_forgot_url}"
+      },
+      {
         "name": "PASSWORD_PROFILE_URL",
         "value": "${password_profile_url}"
+      },
+      {
+        "name": "SEND_INVITE_EMAILS",
+        "value": "${send_invite_emails}"
+      },
+      {
+        "name": "SEND_MFA_RATE_LIMIT_EMAILS",
+        "value": "${send_mfa_rate_limit_emails}"
+      },
+      {
+        "name": "SEND_PASSWORD_CHANGED_EMAILS",
+        "value": "${send_password_changed_emails}"
+      },
+      {
+        "name": "SUBJECT_FOR_INVITE",
+        "value": "${subject_for_invite}"
+      },
+      {
+        "name": "SUBJECT_FOR_MFA_RATE_LMIT",
+        "value": "${subject_for_mfa_rate_limit}"
+      },
+      {
+        "name": "SUBJECT_FOR_PASSWORD_CHANGED",
+        "value": "${subject_for_password_changed}"
+      },
+      {
+        "name": "SUPPORT_EMAIL",
+        "value": "${support_email}"
+      },
+      {
+        "name": "SUPPORT_NAME",
+        "value": "${support_name}"
       }
     ],
     "links": null,
