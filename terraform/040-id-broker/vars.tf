@@ -191,6 +191,7 @@ variable "support_email" {
 
 variable "support_name" {
   type = "string"
+  default = "support"
 }
 
 variable "help_center_url" {

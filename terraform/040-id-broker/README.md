@@ -50,8 +50,6 @@ This module is used to create an ECS service running id-broker.
  - `password_forgot_url` - URL to forgot password process
  - `password_profile_url` - URL to password manager profile
  - `support_email` - Email address for support
- - `support_name` - Name for support
- 
 
 ## Optional Inputs
 
@@ -64,6 +62,7 @@ This module is used to create an ECS service running id-broker.
  - `send_invite_emails` - Bool of whether or not to send invite emails. Default: `false`
  - `send_mfa_rate_limit_emails` - Bool of whether or not to send MFA rate limit emails. Default: `true`
  - `send_password_changed_emails` - Bool of whether or not to send password changed emails. Default: `true`
+ - `support_name` - Name for support. Default: `support`
 
 
 ## Outputs
