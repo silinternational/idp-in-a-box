@@ -46,6 +46,10 @@
         "value": "${email_service_validIpRanges}"
       },
       {
+        "name": "HELP_CENTER_URL",
+        "value": "${help_center_url}"
+      },
+      {
         "name": "IDP_NAME",
         "value": "${idp_name}"
       },
@@ -128,6 +132,10 @@
       {
         "name": "NOTIFICATION_EMAIL",
         "value": "${notification_email}"
+      },
+      {
+        "name": "PASSWORD_PROFILE_URL",
+        "value": "${password_profile_url}"
       }
     ],
     "links": null,
