@@ -172,10 +172,58 @@ variable "desired_count" {
   default = "1"
 }
 
+variable "email_signature" {
+  type    = "string"
+  default = ""
+}
+
+variable "password_forgot_url" {
+  type = "string"
+}
+
 variable "password_profile_url" {
   type = "string"
 }
 
+variable "support_email" {
+  type = "string"
+}
+
+variable "support_name" {
+  type = "string"
+  default = "support"
+}
+
 variable "help_center_url" {
   type = "string"
+}
+
+variable "send_invite_emails" {
+  type    = "string"
+  default = "false"
+}
+
+variable "send_mfa_rate_limit_emails" {
+  type    = "string"
+  default = "true"
+}
+
+variable "send_password_changed_emails" {
+  type    = "string"
+  default = "true"
+}
+
+variable "subject_for_invite" {
+  type    = "string"
+  default = ""
+}
+
+variable "subject_for_mfa_rate_limit" {
+  type    = "string"
+  default = ""
+}
+
+variable "subject_for_password_changed" {
+  type    = "string"
+  default = ""
 }
