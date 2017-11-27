@@ -190,7 +190,7 @@ variable "support_email" {
 }
 
 variable "support_name" {
-  type = "string"
+  type    = "string"
   default = "support"
 }
 
