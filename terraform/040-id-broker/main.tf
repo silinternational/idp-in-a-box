@@ -66,12 +66,14 @@ data "template_file" "task_def" {
     api_access_keys             = "${random_id.access_token_pwmanager.hex},${random_id.access_token_ssp.hex},${random_id.access_token_idsync.hex}"
     app_env                     = "${var.app_env}"
     idp_name                    = "${var.idp_name}"
+    cpu                         = "${var.cpu}"
     db_name                     = "${var.db_name}"
     docker_image                = "${var.docker_image}"
     email_service_accessToken   = "${var.email_service_accessToken}"
     email_service_assertValidIp = "${var.email_service_assertValidIp}"
     email_service_baseUrl       = "${var.email_service_baseUrl}"
     email_service_validIpRanges = "${join(",", var.email_service_validIpRanges)}"
+    help_center_url             = "${var.help_center_url}"
     ldap_admin_password         = "${var.ldap_admin_password}"
     ldap_admin_username         = "${var.ldap_admin_username}"
     ldap_base_dn                = "${var.ldap_base_dn}"
@@ -92,7 +94,7 @@ data "template_file" "task_def" {
     mysql_pass                  = "${var.mysql_pass}"
     memory                      = "${var.memory}"
     notification_email          = "${var.notification_email}"
-    cpu                         = "${var.cpu}"
+    password_profile_url        = "${var.password_profile_url}"
   }
 }
 
@@ -126,6 +128,7 @@ data "template_file" "task_def_cron" {
     email_service_assertValidIp = "${var.email_service_assertValidIp}"
     email_service_baseUrl       = "${var.email_service_baseUrl}"
     email_service_validIpRanges = "${join(",", var.email_service_validIpRanges)}"
+    help_center_url             = "${var.help_center_url}"
     ldap_admin_password         = "${var.ldap_admin_password}"
     ldap_admin_username         = "${var.ldap_admin_username}"
     ldap_base_dn                = "${var.ldap_base_dn}"
@@ -146,6 +149,7 @@ data "template_file" "task_def_cron" {
     mysql_user                  = "${var.mysql_user}"
     mysql_pass                  = "${var.mysql_pass}"
     notification_email          = "${var.notification_email}"
+    password_profile_url        = "${var.password_profile_url}"
   }
 }
 

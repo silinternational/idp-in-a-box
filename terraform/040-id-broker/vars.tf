@@ -171,3 +171,11 @@ variable "desired_count" {
   type    = "string"
   default = "1"
 }
+
+variable "password_profile_url" {
+  type = "string"
+}
+
+variable "help_center_url" {
+  type = "string"
+}

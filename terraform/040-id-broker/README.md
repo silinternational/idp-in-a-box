@@ -20,6 +20,7 @@ This module is used to create an ECS service running id-broker.
  - `email_service_accessToken` - Access token for Email Service API
  - `email_service_baseUrl` - Base URL (e.g. 'https://email.example.com') to Email Service API
  - `email_service_validIpRanges` - List of valid IP address ranges for Email Service API
+ - `help_center_url` - URL to password manager help center
  - `internal_alb_dns_name` - DNS name for the IdP-in-a-Box's internal Application Load Balancer
  - `internal_alb_listener_arn` - ARN for the IdP-in-a-Box's internal ALB's listener
  - `ldap_admin_password` - Password for LDAP user if using migrate passwords feature
@@ -45,6 +46,7 @@ This module is used to create an ECS service running id-broker.
  - `broker_subdomain` - Subdomain for id-broker
  - `cloudflare_domain` - Top level domain name for use with Cloudflare
  - `desired_count` - Desired count of tasks running in ECS service
+ - `password_profile_url` - URL to password manager profile
 
 ## Optional Inputs
 
@@ -83,6 +85,7 @@ module "broker" {
   email_service_assertValidIp = "${var.email_service_assertValidIp}"
   email_service_baseUrl       = "https://${data.terraform_remote_state.email.hostname}"
   email_service_validIpRanges = ["${data.terraform_remote_state.cluster.private_subnet_cidr_blocks}"]
+  help_center_url             = "${var.help_center_url}"
   internal_alb_dns_name       = "${data.terraform_remote_state.cluster.internal_alb_dns_name}"
   internal_alb_listener_arn   = "${data.terraform_remote_state.cluster.internal_alb_https_listener_arn}"
   ldap_admin_password         = "${var.ldap_admin_password}"
@@ -108,5 +111,6 @@ module "broker" {
   subdomain                   = "${var.broker_subdomain}"
   cloudflare_domain           = "${var.cloudflare_domain}"
   desired_count               = "${var.desired_count}"
+  password_profile_url        = "${var.password_profile_url}"
 }
 ```
