@@ -65,6 +65,7 @@ data "template_file" "task_def" {
   vars {
     api_access_keys              = "${random_id.access_token_pwmanager.hex},${random_id.access_token_ssp.hex},${random_id.access_token_idsync.hex}"
     app_env                      = "${var.app_env}"
+    idp_display_name             = "${var.idp_display_name}"
     idp_name                     = "${var.idp_name}"
     cpu                          = "${var.cpu}"
     db_name                      = "${var.db_name}"
@@ -130,6 +131,7 @@ data "template_file" "task_def_cron" {
   vars {
     api_access_keys              = "${random_id.access_token_pwmanager.hex},${random_id.access_token_ssp.hex},${random_id.access_token_idsync.hex}"
     app_env                      = "${var.app_env}"
+    idp_display_name             = "${var.idp_display_name}"
     idp_name                     = "${var.idp_name}"
     cpu_cron                     = "${var.cpu_cron}"
     db_name                      = "${var.db_name}"

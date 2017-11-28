@@ -48,6 +48,10 @@
         "value": "${help_center_url}"
       },
       {
+        "name": "IDP_DISPLAY_NAME",
+        "value": "${idp_display_name}"
+      },
+      {
         "name": "IDP_NAME",
         "value": "${idp_name}"
       },
