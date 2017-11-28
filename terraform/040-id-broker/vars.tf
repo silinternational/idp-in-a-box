@@ -39,6 +39,11 @@ variable "logentries_set_id" {
   type = "string"
 }
 
+variable "idp_display_name" {
+  type = "string"
+  default = ""
+}
+
 variable "idp_name" {
   type = "string"
 }
