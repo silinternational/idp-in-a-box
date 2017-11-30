@@ -59,9 +59,11 @@ This module is used to create an ECS service running id-broker.
  - `subject_for_invite` - Email subject text for invite emails. Default: `Your new %s account`
  - `subject_for_mfa_rate_limit` - Email subject text for MFA rate limit emails. Default: `Too many 2-step verification attempts on your %s account`
  - `subject_for_password_changed` - Email subject text for password changed emails. Default: `Your %s account password has been changed`
+ - `subject_for_welcome` - Email subject text for welcome emails. Default: `Welcome to your new %s account`
  - `send_invite_emails` - Bool of whether or not to send invite emails. Default: `false`
  - `send_mfa_rate_limit_emails` - Bool of whether or not to send MFA rate limit emails. Default: `true`
  - `send_password_changed_emails` - Bool of whether or not to send password changed emails. Default: `true`
+ - `send_welcome_emails` - Bool of whether or not to send welcome emails. Default: `true`
  - `support_name` - Name for support. Default: `support`
  - `idp_display_name` - Display name for IdP. Default is empty string
 
@@ -124,11 +126,13 @@ module "broker" {
   send_invite_emails           = "${var.send_invite_emails}"
   send_mfa_rate_limit_emails   = "${var.send_mfa_rate_limit_emails}"
   send_password_changed_emails = "${var.send_password_changed_emails}"
+  send_welcome_emails          = "${var.send_welcome_emails}"
   ssl_policy                   = "${var.ssl_policy}"
   subdomain                    = "${var.broker_subdomain}"
   subject_for_invite           = "${var.subject_for_invite}"
   subject_for_mfa_rate_limit   = "${var.subject_for_mfa_rate_limit}"
   subject_for_password_changed = "${var.subject_for_password_changed}"
+  subject_for_welcome          = "${var.subject_for_welcome}"
   support_email                = "${var.support_email}"
   support_name                 = "${var.support_name}"
   vpc_id                       = "${data.terraform_remote_state.cluster.vpc_id}"

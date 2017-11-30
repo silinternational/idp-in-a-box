@@ -101,9 +101,11 @@ data "template_file" "task_def" {
     send_invite_emails           = "${var.send_invite_emails}"
     send_mfa_rate_limit_emails   = "${var.send_mfa_rate_limit_emails}"
     send_password_changed_emails = "${var.send_password_changed_emails}"
+    send_welcome_emails          = "${var.send_welcome_emails}"
     subject_for_invite           = "${var.subject_for_invite}"
     subject_for_mfa_rate_limit   = "${var.subject_for_mfa_rate_limit}"
     subject_for_password_changed = "${var.subject_for_password_changed}"
+    subject_for_welcome          = "${var.subject_for_welcome}"
     support_email                = "${var.support_email}"
     support_name                 = "${var.support_name}"
   }
@@ -167,9 +169,11 @@ data "template_file" "task_def_cron" {
     send_invite_emails           = "${var.send_invite_emails}"
     send_mfa_rate_limit_emails   = "${var.send_mfa_rate_limit_emails}"
     send_password_changed_emails = "${var.send_password_changed_emails}"
+    send_welcome_emails          = "${var.send_welcome_emails}"
     subject_for_invite           = "${var.subject_for_invite}"
     subject_for_mfa_rate_limit   = "${var.subject_for_mfa_rate_limit}"
     subject_for_password_changed = "${var.subject_for_password_changed}"
+    subject_for_welcome          = "${var.subject_for_welcome}"
     support_email                = "${var.support_email}"
     support_name                 = "${var.support_name}"
   }
