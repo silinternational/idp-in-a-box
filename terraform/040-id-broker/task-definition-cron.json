@@ -156,6 +156,10 @@
         "value": "${send_password_changed_emails}"
       },
       {
+        "name": "SEND_WELCOME_EMAILS",
+        "value": "${send_welcome_emails}"
+      },
+      {
         "name": "SUBJECT_FOR_INVITE",
         "value": "${subject_for_invite}"
       },

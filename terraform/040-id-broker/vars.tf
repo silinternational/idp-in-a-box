@@ -218,6 +218,11 @@ variable "send_password_changed_emails" {
   default = "true"
 }
 
+variable "send_welcome_emails" {
+  type    = "string"
+  default = "true"
+}
+
 variable "subject_for_invite" {
   type    = "string"
   default = ""

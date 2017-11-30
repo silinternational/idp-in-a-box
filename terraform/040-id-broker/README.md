@@ -63,6 +63,7 @@ This module is used to create an ECS service running id-broker.
  - `send_invite_emails` - Bool of whether or not to send invite emails. Default: `false`
  - `send_mfa_rate_limit_emails` - Bool of whether or not to send MFA rate limit emails. Default: `true`
  - `send_password_changed_emails` - Bool of whether or not to send password changed emails. Default: `true`
+ - `send_welcome_emails` - Bool of whether or not to send welcome emails. Default: `true`
  - `support_name` - Name for support. Default: `support`
  - `idp_display_name` - Display name for IdP. Default is empty string
 
@@ -125,6 +126,7 @@ module "broker" {
   send_invite_emails           = "${var.send_invite_emails}"
   send_mfa_rate_limit_emails   = "${var.send_mfa_rate_limit_emails}"
   send_password_changed_emails = "${var.send_password_changed_emails}"
+  send_welcome_emails          = "${var.send_welcome_emails}"
   ssl_policy                   = "${var.ssl_policy}"
   subdomain                    = "${var.broker_subdomain}"
   subject_for_invite           = "${var.subject_for_invite}"
