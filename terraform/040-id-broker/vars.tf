@@ -40,7 +40,7 @@ variable "logentries_set_id" {
 }
 
 variable "idp_display_name" {
-  type = "string"
+  type    = "string"
   default = ""
 }
 
@@ -218,6 +218,11 @@ variable "send_password_changed_emails" {
   default = "true"
 }
 
+variable "send_welcome_emails" {
+  type    = "string"
+  default = "true"
+}
+
 variable "subject_for_invite" {
   type    = "string"
   default = ""
@@ -229,6 +234,11 @@ variable "subject_for_mfa_rate_limit" {
 }
 
 variable "subject_for_password_changed" {
+  type    = "string"
+  default = ""
+}
+
+variable "subject_for_welcome" {
   type    = "string"
   default = ""
 }
