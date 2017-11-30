@@ -104,6 +104,7 @@ data "template_file" "task_def" {
     subject_for_invite           = "${var.subject_for_invite}"
     subject_for_mfa_rate_limit   = "${var.subject_for_mfa_rate_limit}"
     subject_for_password_changed = "${var.subject_for_password_changed}"
+    subject_for_welcome          = "${var.subject_for_welcome}"
     support_email                = "${var.support_email}"
     support_name                 = "${var.support_name}"
   }
@@ -170,6 +171,7 @@ data "template_file" "task_def_cron" {
     subject_for_invite           = "${var.subject_for_invite}"
     subject_for_mfa_rate_limit   = "${var.subject_for_mfa_rate_limit}"
     subject_for_password_changed = "${var.subject_for_password_changed}"
+    subject_for_welcome          = "${var.subject_for_welcome}"
     support_email                = "${var.support_email}"
     support_name                 = "${var.support_name}"
   }

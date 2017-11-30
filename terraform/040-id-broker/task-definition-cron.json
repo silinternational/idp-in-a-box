@@ -168,6 +168,10 @@
         "value": "${subject_for_password_changed}"
       },
       {
+        "name": "SUBJECT_FOR_WELCOME",
+        "value": "${subject_for_welcome}"
+      },
+      {
         "name": "SUPPORT_EMAIL",
         "value": "${support_email}"
       },
