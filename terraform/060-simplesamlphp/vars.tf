@@ -35,6 +35,11 @@ variable "cloudflare_domain" {
   type = "string"
 }
 
+variable "delete_remember_me_on_logout" {
+  type    = "string"
+  default = "true"
+}
+
 variable "docker_image" {
   type = "string"
 }
