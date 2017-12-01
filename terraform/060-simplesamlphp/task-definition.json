@@ -38,6 +38,10 @@
         "value": "${base_url}"
       },
       {
+        "name": "DELETE_REMEMBER_ME_ON_LOGOUT",
+        "value": "${delete_remember_me_on_logout}"
+      },
+      {
         "name": "ENABLE_HUB_AUTHPROCS",
         "value": "true"
       },
