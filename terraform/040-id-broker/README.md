@@ -66,6 +66,7 @@ This module is used to create an ECS service running id-broker.
  - `send_welcome_emails` - Bool of whether or not to send welcome emails. Default: `true`
  - `support_name` - Name for support. Default: `support`
  - `idp_display_name` - Display name for IdP. Default is empty string
+ - `mfa_nag_interval` - How often to prompt users on login to setup MFA. Default: `+30 days`
 
 
 ## Outputs
@@ -109,6 +110,7 @@ module "broker" {
   logentries_set_id            = "${data.terraform_remote_state.cluster.logentries_set_id}"
   memory                       = "${var.memory}"
   memory_cron                  = "${var.memory_cron}"
+  mfa_nag_interval             = "${var.mfa_nag_interval}"
   mfa_totp_apibaseurl          = "${var.mfa_totp_apibaseurl}"
   mfa_totp_apikey              = "${var.mfa_totp_apikey}"
   mfa_totp_apisecret           = "${var.mfa_totp_apisecret}"

@@ -84,6 +84,10 @@
         "value": "${logentries_key}"
       },
       {
+        "name": "MFA_NAG_INTERVAL",
+        "value": "${mfa_nag_interval}"
+      },
+      {
         "name": "MFA_TOTP_apiBaseUrl",
         "value": "${mfa_totp_apibaseurl}"
       },

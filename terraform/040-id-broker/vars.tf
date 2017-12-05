@@ -108,6 +108,12 @@ variable "ldap_use_tls" {
   type = "string"
 }
 
+variable "mfa_nag_interval" {
+  type        = "string"
+  description = "Interval for nagging users to set up MFA if they have not already done so"
+  default     = "+30 days"
+}
+
 variable "mfa_totp_apibaseurl" {
   type = "string"
 }
