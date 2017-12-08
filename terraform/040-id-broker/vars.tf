@@ -74,6 +74,16 @@ variable "email_service_validIpRanges" {
   type        = "list"
 }
 
+variable "ga_tracking_id" {
+  description = "The Google Analytics property id (e.g. UA-12345678-12)"
+  type = "string"
+}
+
+variable "ga_client_id" {
+  description = "Used by Google Analytics to distinguish the user."
+  type = "string"
+}
+
 variable "internal_alb_dns_name" {
   description = "The DNS name for the IdP-in-a-Box's internal Application Load Balancer."
   type        = "string"

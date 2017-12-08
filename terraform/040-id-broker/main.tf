@@ -144,6 +144,8 @@ data "template_file" "task_def_cron" {
     email_service_baseUrl        = "${var.email_service_baseUrl}"
     email_service_validIpRanges  = "${join(",", var.email_service_validIpRanges)}"
     email_signature              = "${var.email_signature}"
+    ga_tracking_id               = "${var.ga_tracking_id}"
+    ga_client_id                 = "${var.ga_client_id}"
     help_center_url              = "${var.help_center_url}"
     ldap_admin_password          = "${var.ldap_admin_password}"
     ldap_admin_username          = "${var.ldap_admin_username}"

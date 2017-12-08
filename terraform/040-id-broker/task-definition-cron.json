@@ -44,6 +44,14 @@
         "value": "${email_signature}"
       },
       {
+        "name": "GA_TRACKING_ID",
+        "value": "${ga_tracking_id}"
+      },
+      {
+        "name": "GA_CLIENT_ID",
+        "value": "${ga_client_id}"
+      },
+      {
         "name": "HELP_CENTER_URL",
         "value": "${help_center_url}"
       },
