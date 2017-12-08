@@ -54,6 +54,8 @@ This module is used to create an ECS service running id-broker.
 ## Optional Inputs
 
  - `email_service_assertValidIp` - Whether or not to assert IP address for Email Service API is trusted
+ - `ga_tracking_id` - The Google Analytics property id (e.g. UA-12345678-12)
+ - `ga_client_id` - Used by Google Analytics to distinguish the user (e.g. IDP-<the idp name>-ID-BROKER)
  - `cpu_cron` - How much CPU to allocate to cron service. Default: `128`
  - `memory_cron` - How much memory to allocate to cron service. Default: `64`
  - `subject_for_invite` - Email subject text for invite emails. Default: `Your new %s account`
@@ -97,6 +99,8 @@ module "broker" {
   email_service_baseUrl        = "https://${data.terraform_remote_state.email.hostname}"
   email_service_validIpRanges  = ["${data.terraform_remote_state.cluster.private_subnet_cidr_blocks}"]
   email_signature              = "${var.email_signature}"
+  ga_tracking_id               = "${var.ga_tracking_id}"
+  ga_client_id                 = "${var.ga_client_id}"
   help_center_url              = "${var.help_center_url}"
   idp_name                     = "${var.idp_name}"
   internal_alb_dns_name        = "${data.terraform_remote_state.cluster.internal_alb_dns_name}"
