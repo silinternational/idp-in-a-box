@@ -22,11 +22,7 @@
     "dockerSecurityOptions": null,
     "environment": [
       {
-        "name": "BLOWFISH_SECRET",
-        "value": "${blowfish_secret}"
-      },
-      {
-        "name": "MYSQL_HOST",
+        "name": "PMA_HOST",
         "value": "${mysql_host}"
       },
       {
@@ -37,7 +33,7 @@
     "links": [],
     "workingDirectory": null,
     "readonlyRootFilesystem": null,
-    "image": "silintl/phpmyadmin:latest",
+    "image": "phpmyadmin/phpmyadmin:latest",
     "command": [],
     "user": null,
     "dockerLabels": null,

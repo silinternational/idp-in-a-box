@@ -25,10 +25,6 @@ variable "cert_domain_name" {
   type = "string"
 }
 
-variable "ecs_ami_id" {
-  type = "string"
-}
-
 variable "ecs_cluster_name" {
   type = "string"
 }
