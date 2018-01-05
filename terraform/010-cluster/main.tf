@@ -17,7 +17,7 @@ module "cloudflare-sg" {
 }
 
 /*
- * Deterimine most recent ECS optimized AMI
+ * Determine most recent ECS optimized AMI
  */
 data "aws_ami" "ecs_ami" {
   most_recent = true
