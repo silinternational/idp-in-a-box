@@ -17,6 +17,19 @@ module "cloudflare-sg" {
 }
 
 /*
+ * Deterimine most recent ECS optimized AMI
+ */
+data "aws_ami" "ecs_ami" {
+  most_recent = true
+  owners      = ["amazon"]
+
+  filter {
+    name   = "name"
+    values = ["amzn-ami-*-amazon-ecs-optimized"]
+  }
+}
+
+/*
  * Create auto-scaling group
  */
 module "asg" {
@@ -28,7 +41,7 @@ module "asg" {
   default_sg_id           = "${module.vpc.vpc_default_sg_id}"
   ecs_instance_profile_id = "${var.ecs_instance_profile_id}"
   ecs_cluster_name        = "${var.ecs_cluster_name}"
-  ami_id                  = "${var.ecs_ami_id}"
+  ami_id                  = "${data.aws_ami.ecs_ami}"
 }
 
 /*

@@ -19,7 +19,6 @@ ssl certificate, core application load balancer, and a Logentries log set
  - `aws_region` - A string with region to deploy in, example: `us-east-1`
  - `aws_zones` - A list of availability zones to distribute instances across, example: `["us-east-1a", "us-east-1b", "us-east-1c"]`
  - `cert_domain_name` - Domain name for certificate, example: `*.mydomain.com`
- - `ecs_ami_id` - ID for AMI to be used.
  - `ecs_cluster_name` - ECS cluster name for registering instances
  - `ecs_instance_profile_id` - IAM profile ID for ecsInstanceProfile
 
