@@ -1,11 +1,4 @@
 /*
- * Generate random string for blowfish secret
- */
-resource "random_id" "blowfish_secret" {
-  byte_length = 16
-}
-
-/*
  * Create target group for ALB
  */
 resource "aws_alb_target_group" "phpmyadmin" {
@@ -45,7 +38,6 @@ data "template_file" "task_def" {
   template = "${file("${path.module}/task-definition.json")}"
 
   vars {
-    blowfish_secret = "${random_id.blowfish_secret.hex}"
     hostname        = "${var.subdomain}.${var.cloudflare_domain}"
     mysql_host      = "${var.rds_address}"
   }
