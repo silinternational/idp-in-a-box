@@ -131,7 +131,7 @@ data "template_file" "task_def_cron" {
 }
 
 module "ecsservice_cron" {
-  source             = "github.com/silinternational/terraform-modules//aws/ecs/service-no-alb?ref=2.0.1"
+  source             = "github.com/silinternational/terraform-modules//aws/ecs/service-no-alb?ref=develop"
   cluster_id         = "${var.ecs_cluster_id}"
   service_name       = "${var.idp_name}-${var.app_name}-cron"
   service_env        = "${var.app_env}"
