@@ -42,18 +42,18 @@ variable "ecsServiceRole_arn" {
 
 variable "email_brand_color" {
   description = "The CSS color to use for branding in emails (e.g. `rgb(0, 93, 154)`)."
-  type = "string"
+  type        = "string"
 }
 
 variable "email_brand_logo" {
   description = "The fully qualified URL to an image for use as logo in emails."
-  type = "string"
+  type        = "string"
 }
 
 variable "email_queue_batch_size" {
-  default = "10"
+  default     = "10"
   description = "How many queued emails to process per run."
-  type = "string"
+  type        = "string"
 }
 
 variable "from_email" {
@@ -70,12 +70,12 @@ variable "idp_name" {
 
 variable "internal_alb_dns_name" {
   description = "The DNS name for the IdP-in-a-Box's internal Application Load Balancer."
-  type = "string"
+  type        = "string"
 }
 
 variable "internal_alb_listener_arn" {
   description = "The ARN for the IdP-in-a-Box's internal ALB's listener."
-  type = "string"
+  type        = "string"
 }
 
 variable "logentries_set_id" {

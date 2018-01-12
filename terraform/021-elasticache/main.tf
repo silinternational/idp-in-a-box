@@ -2,7 +2,7 @@
  * Create Memcache cluster
  */
 module "memcache" {
-  source               = "github.com/silinternational/terraform-modules//aws/elasticache/memcache?ref=2.0.1"
+  source               = "github.com/silinternational/terraform-modules//aws/elasticache/memcache?ref=2.0.2"
   cluster_id           = "${var.app_name}-${var.app_env}-cache"
   security_group_ids   = ["${var.security_group_ids}"]
   subnet_group_name    = "${var.app_name}-${var.app_env}-cache-subnet"
