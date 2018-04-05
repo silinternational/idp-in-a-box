@@ -8,3 +8,8 @@ variable "app_name" {
 variable "app_env" {
   type = "string"
 }
+
+variable "enable_cloudtrail" {
+  type    = "string"
+  default = "yes"
+}
