@@ -215,6 +215,7 @@ EOF
 }
 
 resource "aws_cloudtrail" "cloudtrail" {
+  count                         = "${var.enable_cloudtrail == "yes" ? 1 : 0}"
   name                          = "${var.app_name}-${var.app_env}-cloudtrail"
   s3_bucket_name                = "${aws_s3_bucket.cloudtrail.id}"
   include_global_service_events = true
