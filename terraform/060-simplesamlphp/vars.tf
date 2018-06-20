@@ -3,7 +3,7 @@ variable "memory" {
 }
 
 variable "cpu" {
-  default = "250"
+  default = "150"
 }
 
 variable "logentries_set_id" {
