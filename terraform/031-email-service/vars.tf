@@ -12,11 +12,11 @@ variable "cloudflare_domain" {
 }
 
 variable "cpu_api" {
-  default = "250"
+  default = "32"
 }
 
 variable "cpu_cron" {
-  default = "250"
+  default = "100"
 }
 
 variable "db_name" {
@@ -104,7 +104,7 @@ variable "memory_api" {
 }
 
 variable "memory_cron" {
-  default = "64"
+  default = "32"
 }
 
 variable "mysql_host" {

@@ -1,9 +1,9 @@
 variable "memory" {
-  default = "96"
+  default = "200"
 }
 
 variable "memory_cron" {
-  default = "64"
+  default = "50"
 }
 
 variable "cpu" {

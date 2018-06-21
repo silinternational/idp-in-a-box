@@ -9,7 +9,7 @@ variable "app_name" {
 
 variable "cpu" {
   type    = "string"
-  default = "128"
+  default = "32"
 }
 
 variable "cron_schedule" {
@@ -50,7 +50,7 @@ variable "logentries_set_id" {
 
 variable "memory" {
   type    = "string"
-  default = "64"
+  default = "32"
 }
 
 variable "mysql_host" {

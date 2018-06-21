@@ -162,7 +162,7 @@
   },
   {
     "volumesFrom": [],
-    "memory": 128,
+    "memory": 100,
     "extraHosts": null,
     "dnsServers": null,
     "disableNetworking": null,
@@ -184,7 +184,7 @@
     "user": null,
     "dockerLabels": null,
     "logConfiguration": null,
-    "cpu": 128,
+    "cpu": 32,
     "privileged": null,
     "memoryReservation": null
   }
