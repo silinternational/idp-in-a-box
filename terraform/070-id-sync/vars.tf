@@ -1,5 +1,5 @@
 variable "memory" {
-  default = "128"
+  default = "200"
 }
 
 variable "cpu" {
