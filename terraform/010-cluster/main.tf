@@ -87,3 +87,26 @@ module "internal_alb" {
 resource "logentries_logset" "logset" {
   name = "${var.app_name}-${var.app_env}"
 }
+
+/*
+ * Create CloudWatch Dashboard for services that will be in this cluster
+ */
+module "ecs-service-cloudwatch-dashboard" {
+  source  = "silinternational/ecs-service-cloudwatch-dashboard/aws"
+  version = "~> 1.0.0"
+
+  cluster_name = "${var.ecs_cluster_name}"
+  dashboard_name = "${var.app_name}-${var.app_env}"
+  service_names = [
+    "${var.idp_name}-db-backup",
+    "${var.idp_name}-email-service-api",
+    "${var.idp_name}-email-service-cron",
+    "${var.idp_name}-id-broker",
+    "${var.idp_name}-id-broker-cron",
+    "${var.idp_name}-id-sync",
+    "${var.idp_name}-phpmyadmin",
+    "${var.idp_name}-pw-manager",
+    "${var.idp_name}-simplesamlphp",
+  ]
+  aws_region = "${var.aws_region}"
+}

@@ -21,6 +21,7 @@ ssl certificate, core application load balancer, and a Logentries log set
  - `cert_domain_name` - Domain name for certificate, example: `*.mydomain.com`
  - `ecs_cluster_name` - ECS cluster name for registering instances
  - `ecs_instance_profile_id` - IAM profile ID for ecsInstanceProfile
+ - `idp_name` - Name of the IDP (all lowercase, no spaces), example: `acme`
 
 
 ## Outputs
@@ -56,5 +57,6 @@ module "cluster" {
   cert_domain_name        = "${var.cert_domain_name}"
   ecs_cluster_name        = "${data.terraform_remote_state.core.ecs_cluster_name}"
   ecs_instance_profile_id = "${data.terraform_remote_state.core.ecs_instance_profile_id}"
+  idp_name                = "${var.idp_name}"
 }
 ```
