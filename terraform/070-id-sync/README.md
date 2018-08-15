@@ -33,7 +33,6 @@ store.
  - `ecs_cluster_id` - ID for ECS Cluster
  - `ecsServiceRole_arn` - ARN for ECS Service Role
  - `alb_dns_name` - DNS name for application load balancer
- - `notifier_email_to` - Who to send notifications to about sync problems
  - `memory` - Amount of memory to allocate to container
  - `cpu` - Amount of CPU to allocate to container
 
@@ -41,6 +40,7 @@ store.
 
 - `email_service_assertValidIp` - Whether or not to assert IP address for Email Service API is trusted
 - `id_broker_assertValidIp` - Whether or not to assert IP address for ID Broker API is trusted
+- `notifier_email_to` - Who to send notifications to about sync problems (e.g. users lacking email addresses)
 - `sync_safety_cutoff` - The percentage of records allowed to be changed during a sync, provided as a float, ex: `0.2` for `20%`
 
 ## Outputs
