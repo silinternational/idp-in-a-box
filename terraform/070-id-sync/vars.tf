@@ -111,7 +111,8 @@ variable "alb_dns_name" {
 }
 
 variable "notifier_email_to" {
-  type = "string"
+  default = ""
+  type    = "string"
 }
 
 variable "sync_safety_cutoff" {
