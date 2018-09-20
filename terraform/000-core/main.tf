@@ -124,7 +124,7 @@ resource "aws_iam_user_policy" "cd_serverless" {
                 "logs:*"
             ],
             "Resource": [
-                "arn:aws:logs:us-east-1:*:log-group:*:log-stream:"
+                "arn:aws:logs:${var.aws_region}:*:log-group:*:log-stream:"
             ]
         },
         {
