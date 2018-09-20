@@ -146,7 +146,7 @@ EOF
  * Create CloudTrail resources
  */
 resource "aws_s3_bucket" "cloudtrail" {
-  bucket        = "${var.app_name}-${var.app_env}-cloudtrail"
+  bucket        = "${var.app_name}-${var.app_env}-cloudtrail-${var.aws_region}"
   force_destroy = true
 
   policy = <<POLICY
