@@ -45,10 +45,32 @@ module "asg" {
 }
 
 /*
- * Get ssl cert for use with listener
+ * Create ssl cert for use with listener
  */
-data "aws_acm_certificate" "wildcard" {
+resource "aws_acm_certificate" "wildcard" {
+  domain_name       = "${var.cert_domain_name}"
+  validation_method = "DNS"
+
+  tags {
+    app_name = "${var.app_name}"
+    app_env  = "${var.app_env}"
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+resource "cloudflare_record" "cert_validation_dns_record" {
   domain = "${var.cert_domain_name}"
+  name   = "${aws_acm_certificate.wildcard.domain_validation_options.0.resource_record_name}"
+  value  = "${aws_acm_certificate.wildcard.domain_validation_options.0.resource_record_value}"
+  type   = "${aws_acm_certificate.wildcard.domain_validation_options.0.resource_record_type}"
+}
+
+resource "aws_acm_certificate_validation" "wildcard_cert_validation" {
+  certificate_arn = "${aws_acm_certificate.wildcard.arn}"
+  validation_record_fqdns = ["${cloudflare_record.cert_validation_dns_record.hostname}"]
 }
 
 /*
@@ -62,7 +84,7 @@ module "alb" {
   vpc_id          = "${module.vpc.id}"
   security_groups = ["${module.vpc.vpc_default_sg_id}", "${module.cloudflare-sg.id}"]
   subnets         = ["${module.vpc.public_subnet_ids}"]
-  certificate_arn = "${data.aws_acm_certificate.wildcard.arn}"
+  certificate_arn = "${aws_acm_certificate.wildcard.arn}"
 }
 
 /*
@@ -78,7 +100,7 @@ module "internal_alb" {
   vpc_id          = "${module.vpc.id}"
   security_groups = ["${module.vpc.vpc_default_sg_id}"]
   subnets         = ["${module.vpc.private_subnet_ids}"]
-  certificate_arn = "${data.aws_acm_certificate.wildcard.arn}"
+  certificate_arn = "${aws_acm_certificate.wildcard.arn}"
 }
 
 /*
