@@ -124,7 +124,7 @@ resource "aws_iam_user_policy" "cd_serverless" {
                 "logs:*"
             ],
             "Resource": [
-                "arn:aws:logs:us-east-1:*:log-group:*:log-stream:"
+                "arn:aws:logs:${var.aws_region}:*:log-group:*:log-stream:"
             ]
         },
         {
@@ -146,7 +146,7 @@ EOF
  * Create CloudTrail resources
  */
 resource "aws_s3_bucket" "cloudtrail" {
-  bucket        = "${var.app_name}-${var.app_env}-cloudtrail"
+  bucket        = "${var.app_name}-${var.app_env}-cloudtrail-${var.aws_region}"
   force_destroy = true
 
   policy = <<POLICY

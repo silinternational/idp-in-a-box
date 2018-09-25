@@ -15,6 +15,11 @@ IAM roles to function.
  - `app_name` - Name of application, ex: Doorman, IdP, etc.
  - `app_env` - Name of environment, ex: prod, test, etc.
 
+## Optional Inputs
+
+ - `aws_region` - Region to deploy in, ex: `us-east-1`
+ - `enable_cloudtrail` - Whether to create a Trail for this in AWS CloudTrail (`yes` or `no`)
+
 ## Outputs
 
  - `cduser_access_key_id` - AWS access key id for continuous delivery user
