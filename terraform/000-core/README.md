@@ -6,14 +6,15 @@ IAM roles to function.
 
  - Create ECS cluster named after `app_name` and `app_env`
  - Create IAM roles and policies for ECS services and instances
- - Create S3 bucket for CloudTrail logs
- - Create IAM user with read-only access to CloudTrail S3 bucket
- - Enable CloudTrail logging
 
 ## Required Inputs
 
  - `app_name` - Name of application, ex: Doorman, IdP, etc.
  - `app_env` - Name of environment, ex: prod, test, etc.
+
+## Optional Inputs
+
+ - `aws_region` - Region to deploy in, ex: `us-east-1`
 
 ## Outputs
 
@@ -26,10 +27,6 @@ IAM roles to function.
  - `ecs_instance_profile_id` - The ID for created IAM profile `ecsInstanceProfile`
  - `ecsInstanceRole_arn` - The ARN for created IAM role `ecsInstanceRole`
  - `ecsServiceRole_arn` - The ID for created IAM role `ecsServiceRole`
- - `cloudtrail_access_key_id` - Access key for IAM user with read-only access to Cloudtrail S3 bucket
- - `cloudtrail_access_key_secret` - Secret access key
- - `cloudtrail_arn` - ARN for Cloudtrail S3 bucket
- - `cloudtrail_username` - IAM username of read-only user to Cloudtrail S3 bucket
 
 
 ## Usage Example

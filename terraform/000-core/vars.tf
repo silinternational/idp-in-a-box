@@ -9,7 +9,7 @@ variable "app_env" {
   type = "string"
 }
 
-variable "enable_cloudtrail" {
+variable "aws_region" {
+  default = "us-east-1"
   type    = "string"
-  default = "yes"
 }
