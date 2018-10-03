@@ -56,7 +56,7 @@ This module is used to create an ECS service running the password manager API an
  - `auth_saml_spPrivateKey` - Private cert contents for this SP
  - `auth_saml_entityId` - Entity ID for this SP
  - `auth_saml_ssoUrl` - SSO url for IdP
- - `auth_saml_sloUrl` - SLO urla for IdP
+ - `auth_saml_sloUrl` - SLO url for IdP
 
 ## Outputs
 
