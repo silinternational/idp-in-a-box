@@ -165,3 +165,47 @@ variable "email_service_validIpRanges" {
   description = "List of valid IP ranges to Email Service API"
   type        = "list"
 }
+
+variable "auth_saml_signRequest" {
+  description = "Whether or not to sign auth requests"
+  type        = "string"
+  default     = "true"
+}
+
+variable "auth_saml_checkResponseSigning" {
+  default = "true"
+}
+
+variable "auth_saml_requireEncryptedAssertion" {
+  default = "true"
+}
+
+variable "auth_saml_idpCertificate" {
+  description = "Public cert data for IdP"
+  type        = "string"
+}
+
+variable "auth_saml_spCertificate" {
+  description = "Public cert data for this SP"
+  type        = "string"
+}
+
+variable "auth_saml_spPrivateKey" {
+  description = "Private cert data for this SP"
+  type        = "string"
+}
+
+variable "auth_saml_entityId" {
+  description = "SP entity ID"
+  type        = "string"
+}
+
+variable "auth_saml_ssoUrl" {
+  description = "SSO url for IdP"
+  type        = "string"
+}
+
+variable "auth_saml_sloUrl" {
+  description = "SLO url for IdP"
+  type        = "string"
+}

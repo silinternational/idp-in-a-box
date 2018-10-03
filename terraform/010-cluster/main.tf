@@ -95,8 +95,9 @@ module "ecs-service-cloudwatch-dashboard" {
   source  = "silinternational/ecs-service-cloudwatch-dashboard/aws"
   version = "~> 1.0.0"
 
-  cluster_name = "${var.ecs_cluster_name}"
+  cluster_name   = "${var.ecs_cluster_name}"
   dashboard_name = "${var.app_name}-${var.app_env}"
+
   service_names = [
     "${var.idp_name}-db-backup",
     "${var.idp_name}-email-service-api",
@@ -108,5 +109,6 @@ module "ecs-service-cloudwatch-dashboard" {
     "${var.idp_name}-pw-manager",
     "${var.idp_name}-simplesamlphp",
   ]
+
   aws_region = "${var.aws_region}"
 }
