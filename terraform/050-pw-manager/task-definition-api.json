@@ -38,6 +38,42 @@
         "value": "${app_env}"
       },
       {
+        "name": "AUTH_SAML_signRequest",
+        "value": "${auth_saml_signRequest}"
+      },
+      {
+        "name": "AUTH_SAML_checkResponseSigning",
+        "value": "${auth_saml_checkResponseSigning}"
+      },
+      {
+        "name": "AUTH_SAML_requireEncryptedAssertion",
+        "value": "${auth_saml_requireEncryptedAssertion}"
+      },
+      {
+        "name": "AUTH_SAML_idpCertificate",
+        "value": "${auth_saml_idpCertificate}"
+      },
+      {
+        "name": "AUTH_SAML_spCertificate",
+        "value": "${auth_saml_spCertificate}"
+      },
+      {
+        "name": "AUTH_SAML_spPrivateKey",
+        "value": "${auth_saml_spPrivateKey}"
+      },
+      {
+        "name": "AUTH_SAML_entityId",
+        "value": "${auth_saml_entityId}"
+      },
+      {
+        "name": "AUTH_SAML_ssoUrl",
+        "value": "${auth_saml_ssoUrl}"
+      },
+      {
+        "name": "AUTH_SAML_sloUrl",
+        "value": "${auth_saml_sloUrl}"
+      },
+      {
         "name": "EMAIL_SERVICE_useEmailService",
         "value": "${email_service_useEmailService}"
       },
