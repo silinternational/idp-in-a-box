@@ -29,10 +29,10 @@ services:
       LDAP_USE_SSL: "false"
       LDAP_USE_TLS: "false"
       LOGENTRIES_KEY:
-      MAILER_HOST: "smtp.gmail.com"
-      MAILER_PASSWORD: "test"
-      MAILER_USEFILES: "true"
-      MAILER_USERNAME: "test"
+      EMAILER_CLASS: \Sil\SilIdBroker\Behat\Context\fakes\FakeEmailer
+      EMAIL_SERVICE_accessToken: fake
+      EMAIL_SERVICE_assertValidIp: "false"
+      EMAIL_SERVICE_baseUrl: fake
       MIGRATE_PW_FROM_LDAP: "false"
       MYSQL_DATABASE: broker
       MYSQL_HOST: db-broker
