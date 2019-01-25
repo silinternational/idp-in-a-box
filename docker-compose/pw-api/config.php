@@ -53,10 +53,13 @@ return [
             ],
         ],
         'personnel' => [
-            'class' => 'tests\mock\personnel\Component',
+            'class' => 'common\components\personnel\IdBroker',
+            'baseUrl' => 'http://broker',
+            'accessToken' => 'abc123abc123',
+            'assertValidBrokerIp' => false,
         ],
         'auth' => [
-          'class' => '\Sil\IdpPw\Auth\Saml',
+          'class' => 'common\components\Auth\Saml',
           'signRequest' => false,
           'checkResponseSigning' => false,
           'requireEncryptedAssertion' => false,
@@ -79,9 +82,10 @@ return [
             'codeLength' => 4,
         ],
         'passwordStore' => [
-            'class' => 'Sil\IdpPw\PasswordStore\IdBroker\IdBroker',
+            'class' => 'common\components\passwordStore\IdBroker',
             'baseUrl' => 'http://broker',
-            'accessToken' => 'abc123abc123'
+            'accessToken' => 'abc123abc123',
+            'assertValidBrokerIp' => false,
         ],
     ],
 ];
