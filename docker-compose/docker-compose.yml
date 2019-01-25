@@ -115,7 +115,7 @@ services:
       MYSQL_PASSWORD: pw-api
 
   pw-api:
-    image: silintl/idp-pw-api:latest
+    image: silintl/idp-pw-api:develop
     ports:
       - "8080:80"
     depends_on:
@@ -154,10 +154,9 @@ services:
       ZXCVBN_API_BASEURL: http://zxcvbn:3000
       ACCESS_TOKEN_HASH_KEY: nice long random string here
       ALERTS_EMAIL: admin@domain.com
-      ALERTS_EMAIL_ENABLED: "false"
 
   pw-cron:
-    image: silintl/idp-pw-api:latest
+    image: silintl/idp-pw-api:develop
     depends_on:
       - db-pw
     volumes:
@@ -192,7 +191,6 @@ services:
       ZXCVBN_API_BASEURL: http://zxcvbn:3000
       ACCESS_TOKEN_HASH_KEY: nice long random string here
       ALERTS_EMAIL: admin@domain.com
-      ALERTS_EMAIL_ENABLED: "false"
     command: whenavail db-pw 3306 100 /data/run-cron.sh
 
   phpmyadmin-pw:
@@ -210,7 +208,7 @@ services:
         - "3000"
 
   pw-ui:
-    image: silintl/idp-pw-ui:latest
+    image: silintl/idp-pw-ui:develop
     ports:
        - "9000:9000"
     volumes:
