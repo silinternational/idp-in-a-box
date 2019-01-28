@@ -83,6 +83,7 @@ services:
       ID_BROKER_ASSERT_VALID_IP: "false"
       IDP_DOMAIN_NAME: localhost
       IDP_NAME: development
+      LOGENTRIES_KEY:
       MYSQL_HOST: db-ssp
       MYSQL_DATABASE: ssp
       MYSQL_USER: ssp
