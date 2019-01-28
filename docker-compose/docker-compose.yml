@@ -49,6 +49,8 @@ services:
       - db-broker
     environment:
       PMA_HOST: db-broker
+      PMA_USER: broker
+      PMA_PASSWORD: broker
 
   db-ssp:
     image: silintl/mariadb:latest
@@ -104,6 +106,8 @@ services:
       - db-ssp
     environment:
       PMA_HOST: db-ssp
+      PMA_USER: ssp
+      PMA_PASSWORD: ssp
 
   db-pw:
     image: silintl/mariadb:latest
@@ -216,6 +220,8 @@ services:
       - db-pw
     environment:
       PMA_HOST: db-pw
+      PMA_USER: pw-api
+      PMA_PASSWORD: pw-api
 
   zxcvbn:
     image: wcjr/zxcvbn-api:1.1.0
