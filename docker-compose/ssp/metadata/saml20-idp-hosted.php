@@ -5,7 +5,7 @@
  * See: https://simplesamlphp.org/docs/stable/simplesamlphp-reference-idp-hosted
  */
 
-$metadata['localhost'] = [
+$metadata['ssp.local'] = [
 	/*
 	 * The hostname of the server (VHOST) that will use this SAML entity.
 	 *

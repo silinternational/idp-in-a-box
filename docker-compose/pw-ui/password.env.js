@@ -1,5 +1,5 @@
 window.passwordEnv = {
-    apiBaseUrl: '//localhost:8080/',
+    apiBaseUrl: '//pw-api.local:8080/',
     gaId: '',
     apiWithCredentials: true
 };
