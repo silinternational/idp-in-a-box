@@ -39,6 +39,11 @@ services:
       MYSQL_USER: broker
       MYSQL_PASSWORD: broker
       NOTIFICATION_EMAIL: "dummy@example.com"
+      EMAIL_SIGNATURE: filler text needed to quiet warning
+      HELP_CENTER_URL: filler text needed to quiet warning
+      PASSWORD_FORGOT_URL: filler text needed to quiet warning
+      PASSWORD_PROFILE_URL: filler text needed to quiet warning
+      SUPPORT_EMAIL: filler text needed to quiet warning
     command: whenavail db-broker 3306 100 /data/run.sh
 
   phpmyadmin-broker:
@@ -81,6 +86,7 @@ services:
       ID_BROKER_ACCESS_TOKEN: abc123abc123
       ID_BROKER_BASE_URI: http://broker
       ID_BROKER_ASSERT_VALID_IP: "false"
+      ID_BROKER_TRUSTED_IP_RANGES: 192.168.29.0/24
       IDP_DOMAIN_NAME: ssp.local
       IDP_NAME: development
       LOGENTRIES_KEY:
@@ -189,10 +195,10 @@ services:
       IDP_NAME: development
       ALERTS_EMAIL_ENABLED: "false"
       LOGO_URL: http://www.sil.org
-      MAILER_USEFILES: "true"
-      MAILER_HOST: smtp.gmail.com
-      MAILER_USERNAME: dummy
-      MAILER_PASSWORD: dummy
+      EMAILER_CLASS: \tests\mock\emailer\FakeEmailer
+      EMAIL_SERVICE_baseUrl: http://email
+      EMAIL_SERVICE_accessToken: abc123
+      EMAIL_SERVICE_assertValidIp: "false"
       ADMIN_EMAIL: admin@domain.com
       FROM_EMAIL: admin@domain.com
       FROM_NAME: Your friendly Help Desk team
@@ -211,6 +217,9 @@ services:
       ZXCVBN_API_BASEURL: http://zxcvbn:3000
       ACCESS_TOKEN_HASH_KEY: nice long random string here
       ALERTS_EMAIL: admin@domain.com
+      ID_BROKER_baseUrl: http://broker
+      ID_BROKER_accessToken: abc123abc123
+      ID_BROKER_assertValidBrokerIp: "false"
     command: whenavail db-pw 3306 100 /data/run-cron.sh
 
   phpmyadmin-pw:
