@@ -5,6 +5,9 @@
  * See: https://simplesamlphp.org/docs/stable/simplesamlphp-reference-idp-hosted
  */
 
+use Sil\PhpEnv\Env;
+use Sil\Psr3Adapters\Psr3SamlLogger;
+
 $metadata['ssp.local'] = [
 	/*
 	 * The hostname of the server (VHOST) that will use this SAML entity.
