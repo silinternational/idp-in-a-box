@@ -37,6 +37,16 @@ $metadata['ssp.local'] = [
             'mfaSetupUrl' => Env::get('MFA_SETUP_URL'),
             'loggerClass' => Psr3SamlLogger::class,
         ],
+        15 => [
+            // Required:
+            'class' => 'expirychecker:ExpiryDate',
+            'accountNameAttr' => 'cn',
+            'expiryDateAttr' => 'schacExpiryDate',
+            'passwordChangeUrl' => Env::requireEnv('PROFILE_URL'),
+
+            // Optional:
+            'warnDaysBefore' => 14,
+        ],
         30 => [
             'class' => 'profilereview:ProfileReview',
             'employeeIdAttr' => 'employeeNumber',
