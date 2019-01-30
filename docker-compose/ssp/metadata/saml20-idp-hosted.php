@@ -37,5 +37,13 @@ $metadata['ssp.local'] = [
             'mfaSetupUrl' => Env::get('MFA_SETUP_URL'),
             'loggerClass' => Psr3SamlLogger::class,
         ],
+        30 => [
+            'class' => 'profilereview:ProfileReview',
+            'employeeIdAttr' => 'employeeNumber',
+            'mfaLearnMoreUrl' => Env::get('MFA_LEARN_MORE_URL'),
+            'methodLearnMoreUrl' => Env::get('METHOD_LEARN_MORE_URL'),
+            'profileUrl' => Env::get('PROFILE_URL'),
+            'loggerClass' => Psr3SamlLogger::class,
+        ],
     ],
 ];
