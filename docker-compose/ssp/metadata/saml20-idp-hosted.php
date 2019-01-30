@@ -44,6 +44,7 @@ $metadata['ssp.local'] = [
             'methodLearnMoreUrl' => Env::get('METHOD_LEARN_MORE_URL'),
             'profileUrl' => Env::get('PROFILE_URL'),
             'loggerClass' => Psr3SamlLogger::class,
+            'skipReviewWhenHeadedToProfile' => Env::get('SKIP_REVIEW_WHEN_HEADED_TO_PROFILE'),
         ],
     ],
 ];

@@ -102,6 +102,7 @@ services:
       MFA_SETUP_URL: http://pw-ui.local:9000/#/profile
       PROFILE_URL: http://pw-ui.local:9000/#/profile
       REMEMBER_ME_SECRET: not-a-secret-570c5b18dacd45bd
+      SKIP_REVIEW_WHEN_HEADED_TO_PROFILE: "false"
     volumes:
       - ./ssp/cert:/data/vendor/simplesamlphp/simplesamlphp/cert
       - ./ssp/config/authsources.php:/data/vendor/simplesamlphp/simplesamlphp/config/authsources.php
