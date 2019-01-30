@@ -68,7 +68,7 @@ services:
       MYSQL_PASSWORD: ssp
 
   ssp:
-    image: silintl/ssp-base:4.3.0
+    image: silintl/ssp-base:feature_add-profilereview
     ports:
       - "80:80"
     depends_on:
@@ -98,6 +98,9 @@ services:
       RECAPTCHA_SECRET: adff
       PASSWORD_CHANGE_URL: http://pw-ui.local:9000/#/change
       PASSWORD_FORGOT_URL: http://pw-ui.local:9000/#/forgot
+      MFA_LEARN_MORE_URL: http://www.google.com/search?q=mfa
+      MFA_SETUP_URL: http://pw-ui.local:9000/#/profile
+      REMEMBER_ME_SECRET: not-a-secret-570c5b18dacd45bd
     volumes:
       - ./ssp/cert:/data/vendor/simplesamlphp/simplesamlphp/cert
       - ./ssp/config/authsources.php:/data/vendor/simplesamlphp/simplesamlphp/config/authsources.php
