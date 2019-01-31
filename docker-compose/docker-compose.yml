@@ -30,10 +30,9 @@ services:
       LDAP_DOMAIN_CONTROLLERS: ldap
       LDAP_USE_SSL: "false"
       LDAP_USE_TLS: "false"
-      EMAILER_CLASS: \Sil\SilIdBroker\Behat\Context\fakes\FakeEmailer
-      EMAIL_SERVICE_accessToken: fake
+      EMAIL_SERVICE_accessToken: abc123
       EMAIL_SERVICE_assertValidIp: "false"
-      EMAIL_SERVICE_baseUrl: fake
+      EMAIL_SERVICE_baseUrl: http://email
       MIGRATE_PW_FROM_LDAP: "false"
       MYSQL_DATABASE: broker
       MYSQL_HOST: db-broker
@@ -153,10 +152,9 @@ services:
       COMPOSER_CACHE_DIR: /composer
       ALERTS_EMAIL_ENABLED: "false"
       LOGO_URL: http://pw-ui.local:9000/#/welcome
-      EMAILER_CLASS: \tests\mock\emailer\FakeEmailer
-      EMAIL_SERVICE_baseUrl: http://email
       EMAIL_SERVICE_accessToken: abc123
       EMAIL_SERVICE_assertValidIp: "false"
+      EMAIL_SERVICE_baseUrl: http://email
       ADMIN_EMAIL: admin@domain.com
       FROM_EMAIL: admin@domain.com
       FROM_NAME: Your friendly Help Desk team
@@ -205,10 +203,9 @@ services:
       IDP_NAME: development
       ALERTS_EMAIL_ENABLED: "false"
       LOGO_URL: http://www.sil.org
-      EMAILER_CLASS: \tests\mock\emailer\FakeEmailer
-      EMAIL_SERVICE_baseUrl: http://email
       EMAIL_SERVICE_accessToken: abc123
       EMAIL_SERVICE_assertValidIp: "false"
+      EMAIL_SERVICE_baseUrl: http://email
       ADMIN_EMAIL: admin@domain.com
       FROM_EMAIL: admin@domain.com
       FROM_NAME: Your friendly Help Desk team
@@ -275,3 +272,79 @@ services:
       ID_STORE_CONFIG_spreadsheetId: 123456
       ID_SYNC_ACCESS_TOKENS: abc123abc123
       IDP_NAME: development
+      EMAIL_SERVICE_accessToken: abc123
+      EMAIL_SERVICE_assertValidIp: "false"
+      EMAIL_SERVICE_baseUrl: http://email
+      EMAIL_SERVICE_validIpRanges: 127.0.0.1
+
+  email:
+    image: silintl/email-service:develop
+    ports:
+      - "8082:80"
+    depends_on:
+      - db-email
+      - emailcron
+    env_file:
+      - email/local.env
+    environment:
+      APP_ENV: dev
+      API_ACCESS_KEYS: abc123
+      APP_NAME: email-service
+      FROM_EMAIL: "dummy@example.com"
+      FROM_NAME: Test
+      NOTIFICATION_EMAIL: "dummy@example.com"
+      MAILER_HOST: dummy
+      MAILER_USEFILES: "true"
+      MAILER_USERNAME: dummy
+      MAILER_PASSWORD: dummy
+      MYSQL_ROOT_PASSWORD: not-a-secret
+      MYSQL_HOST: db-email
+      MYSQL_DATABASE: email
+      MYSQL_USER: email
+      MYSQL_PASSWORD: email
+
+  emailcron:
+    image: silintl/email-service:develop
+    depends_on:
+      - db-email
+    environment:
+      API_ACCESS_KEYS: abc123
+      APP_ENV: dev
+      APP_NAME: email-service
+      FROM_EMAIL: "dummy@example.com"
+      FROM_NAME: Test
+      NOTIFICATION_EMAIL: "dummy@example.com"
+      MAILER_HOST: dummy
+      MAILER_USEFILES: "true"
+      MAILER_USERNAME: dummy
+      MAILER_PASSWORD: dummy
+      MYSQL_ROOT_PASSWORD: not-a-secret
+      MYSQL_HOST: db-email
+      MYSQL_DATABASE: email
+      MYSQL_USER: email
+      MYSQL_PASSWORD: email
+    env_file:
+      - email/local.env
+    command: /data/run-cron.sh
+
+  db-email:
+    image: silintl/mariadb:latest
+    ports:
+      - "3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: r00tP@ss!
+      MYSQL_DATABASE: email
+      MYSQL_USER: email
+      MYSQL_PASSWORD: email
+
+  phpmyadmin-email:
+    image: phpmyadmin/phpmyadmin:latest
+    ports:
+      - "8004:80"
+    depends_on:
+      - db-email
+    environment:
+      PMA_HOST: db-email
+      PMA_USER: email
+      PMA_PASSWORD: email
+

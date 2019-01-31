@@ -1,3 +1,4 @@
 #!/bin/sh
 docker-compose up -d
 docker-compose exec broker whenavail db-broker 3306 100 ./yii migrate --interactive=0
+docker-compose exec email whenavail db-email 3306 100 ./yii migrate --interactive=0
