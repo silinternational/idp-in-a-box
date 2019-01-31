@@ -18,6 +18,8 @@ services:
       - "10000:80"
     depends_on:
       - db-broker
+    env_file:
+      - broker/local.env
     environment:
       API_ACCESS_KEYS: abc123abc123
       APP_ENV: test
@@ -28,7 +30,6 @@ services:
       LDAP_DOMAIN_CONTROLLERS: ldap
       LDAP_USE_SSL: "false"
       LDAP_USE_TLS: "false"
-      LOGENTRIES_KEY:
       EMAILER_CLASS: \Sil\SilIdBroker\Behat\Context\fakes\FakeEmailer
       EMAIL_SERVICE_accessToken: fake
       EMAIL_SERVICE_assertValidIp: "false"
@@ -74,6 +75,8 @@ services:
     depends_on:
       - broker
       - db-ssp
+    env_file:
+      - ssp/local.env
     environment:
       ADMIN_EMAIL: "john_doe@there.com"
       ADMIN_PASS: "a"
@@ -89,7 +92,6 @@ services:
       ID_BROKER_TRUSTED_IP_RANGES: 192.168.29.0/24
       IDP_DOMAIN_NAME: ssp.local
       IDP_NAME: development
-      LOGENTRIES_KEY:
       MYSQL_HOST: db-ssp
       MYSQL_DATABASE: ssp
       MYSQL_USER: ssp
@@ -139,6 +141,8 @@ services:
       - db-pw
     volumes:
       - ./pw-api/config.php:/data/common/config/local.php
+    env_file:
+      - pw-api/local.env
     environment:
       MYSQL_HOST: db-pw
       MYSQL_DATABASE: pw-api
@@ -163,7 +167,6 @@ services:
       UI_URL: http://pw-ui.local:9000/#
       UI_CORS_ORIGIN: http://pw-ui.local:9000
       HELP_CENTER_URL: https://google.com/
-      LOGENTRIES_KEY:
       SUPPORT_PHONE:
       SUPPORT_EMAIL:
       SUPPORT_URL:
@@ -192,6 +195,8 @@ services:
       - db-pw
     volumes:
       - ./pw-api/config.php:/data/common/config/local.php
+    env_file:
+      - pw-api/local.env
     environment:
       MYSQL_HOST: db-pw
       MYSQL_DATABASE: pw-api
@@ -214,7 +219,6 @@ services:
       UI_URL: http://pw-ui.local:9000/#
       UI_CORS_ORIGIN: http://pw-ui.local:9000
       HELP_CENTER_URL: https://google.com/
-      LOGENTRIES_KEY:
       SUPPORT_PHONE:
       SUPPORT_EMAIL:
       SUPPORT_URL:
@@ -249,6 +253,8 @@ services:
        - "9000:9000"
     volumes:
       - ./pw-ui/password.env.js:/data/app/password.env.js
+    env_file:
+      - pw-ui/local.env
 
   sync:
     image: silintl/idp-id-sync:develop
@@ -256,6 +262,8 @@ services:
       - "9090:80"
     depends_on:
       - broker
+    env_file:
+      - sync/local.env
     environment:
       APP_ENV: dev
       ID_BROKER_CONFIG_accessToken: abc123abc123
@@ -267,4 +275,3 @@ services:
       ID_STORE_CONFIG_spreadsheetId: 123456
       ID_SYNC_ACCESS_TOKENS: abc123abc123
       IDP_NAME: development
-      LOGENTRIES_KEY:
