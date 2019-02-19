@@ -53,6 +53,6 @@ data "template_file" "db_users" {
     pwmanager_pass    = "${random_id.db_pwmanager_pass.hex}"
     idbroker_pass     = "${random_id.db_idbroker_pass.hex}"
     ssp_pass          = "${random_id.db_ssp_pass.hex}"
-    emailservice_pass = "${random_id.db_emailservie_pass.hex}"
+    emailservice_pass = "${random_id.db_emailservice_pass.hex}"
   }
 }
