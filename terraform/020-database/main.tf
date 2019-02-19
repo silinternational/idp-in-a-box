@@ -47,7 +47,7 @@ resource "random_id" "db_ssp_pass" {
 }
 
 data "template_file" "db_users" {
-  template = "${file("${path.module}/db-users")}"
+  template = "${file("${path.module}/db-users.sql")}"
 
   vars {
     pwmanager_pass    = "${random_id.db_pwmanager_pass.hex}"
