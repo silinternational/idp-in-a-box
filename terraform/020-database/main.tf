@@ -45,3 +45,14 @@ resource "random_id" "db_pwmanager_pass" {
 resource "random_id" "db_ssp_pass" {
   byte_length = 16
 }
+
+data "template_file" "db_users" {
+  template = "${file("${path.module}/db-users")}"
+
+  vars {
+    pwmanager_pass    = "${random_id.db_pwmanager_pass.hex}"
+    idbroker_pass     = "${random_id.db_idbroker_pass.hex}"
+    ssp_pass          = "${random_id.db_ssp_pass.hex}"
+    emailservice_pass = "${random_id.db_emailservie_pass.hex}"
+  }
+}
