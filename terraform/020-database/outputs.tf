@@ -29,3 +29,7 @@ output "db_pwmanager_pass" {
 output "db_ssp_pass" {
   value = "${random_id.db_ssp_pass.hex}"
 }
+
+output "db_users_sql" {
+  value = "${data.template_file.db_users.rendered}"
+}
