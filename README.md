@@ -17,11 +17,14 @@ Documentation, examples, Docker Compose setup, Terraform modules, etc. for our I
     * `EMAIL_SERVICE_accessToken`
     * `EMAIL_SERVICE_assertValidIp`
     * `EMAIL_SERVICE_baseUrl`  
+    * `EMAIL_SERVICE_validIpRanges`
   * pw-api
     * `EMAILER_CLASS`
     * `EMAIL_SERVICE_accessToken`
     * `EMAIL_SERVICE_assertValidIp`
     * `EMAIL_SERVICE_baseUrl`
+    * `EMAIL_SERVICE_validIpRanges`
+    * `AUTH_CLASS`
     * `AUTH_SAML_signRequest`
     * `AUTH_SAML_checkResponseSigning`
     * `AUTH_SAML_requireEncryptedAssertion`
@@ -35,6 +38,12 @@ Documentation, examples, Docker Compose setup, Terraform modules, etc. for our I
     * `ID_BROKER_baseUrl`
     * `ID_BROKER_accessToken`
     * `ID_BROKER_assertValidBrokerIp`
+    * `ID_BROKER_validIpRanges`
+    * `PASSWORDSTORE_CLASS`
+    * `PASSWORD_RULE_minLength`
+    * `PASSWORD_RULE_maxLength`
+    * `PASSWORD_RULE_minScore`
+    * `PERSONNEL_CLASS`
   * ssp
     * `ID_BROKER_ASSERT_VALID_IP`
 ##### Remove obsolete environment variables:
@@ -49,6 +58,7 @@ Documentation, examples, Docker Compose setup, Terraform modules, etc. for our I
     * `MAILER_PASSWORD`
     * `MAILER_USEFILES`
     * `MAILER_USERNAME`
+    * `FROM_EMAIL`
 ##### Change namespace of pw-api components
   * `common\components\auth\Saml` (note `Auth` changed to `auth`)
   * `common\components\passwordStore\IdBroker`
@@ -59,6 +69,7 @@ Documentation, examples, Docker Compose setup, Terraform modules, etc. for our I
   * New `simplesamlphp-module-profilereview` module, which requires
     a new environment variable `PROFILE_URL` and two optional variables
     `METHOD_LEARN_MORE_URL` and `SKIP_REVIEW_WHEN_HEADED_TO_PROFILE`.
+  * New `groups` and `personal_email` properties
 ##### API changes
   * On pw-api, POST changed to PUT on `/mfa/{id}/verify`.
   * Also on pw-api, PUT `/method/{id}` changed to PUT `/method/{id}/verify`.
