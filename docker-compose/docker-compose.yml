@@ -295,10 +295,6 @@ services:
       FROM_EMAIL: "dummy@example.com"
       FROM_NAME: Test
       NOTIFICATION_EMAIL: "dummy@example.com"
-      MAILER_HOST: dummy
-      MAILER_USEFILES: "true"
-      MAILER_USERNAME: dummy
-      MAILER_PASSWORD: dummy
       MYSQL_ROOT_PASSWORD: not-a-secret
       MYSQL_HOST: db-email
       MYSQL_DATABASE: email
@@ -316,10 +312,6 @@ services:
       FROM_EMAIL: "dummy@example.com"
       FROM_NAME: Test
       NOTIFICATION_EMAIL: "dummy@example.com"
-      MAILER_HOST: dummy
-      MAILER_USEFILES: "true"
-      MAILER_USERNAME: dummy
-      MAILER_PASSWORD: dummy
       MYSQL_ROOT_PASSWORD: not-a-secret
       MYSQL_HOST: db-email
       MYSQL_DATABASE: email
