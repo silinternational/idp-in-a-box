@@ -39,11 +39,11 @@ services:
       MYSQL_USER: broker
       MYSQL_PASSWORD: broker
       NOTIFICATION_EMAIL: "dummy@example.com"
-      EMAIL_SIGNATURE: filler text needed to quiet warning
-      HELP_CENTER_URL: filler text needed to quiet warning
-      PASSWORD_FORGOT_URL: filler text needed to quiet warning
-      PASSWORD_PROFILE_URL: filler text needed to quiet warning
-      SUPPORT_EMAIL: filler text needed to quiet warning
+      EMAIL_SIGNATURE: (email signature goes here)
+      HELP_CENTER_URL: http://helpcenter.example.com
+      PASSWORD_FORGOT_URL: http://localhost:8000/forgot
+      PASSWORD_PROFILE_URL: http://localhost:8000
+      SUPPORT_EMAIL: support@example.com
     command: whenavail db-broker 3306 100 /data/run.sh
 
   phpmyadmin-broker:
