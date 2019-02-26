@@ -120,12 +120,6 @@ variable "ldap_use_tls" {
   type = "string"
 }
 
-variable "mfa_nag_interval" {
-  type        = "string"
-  description = "Interval for nagging users to set up MFA if they have not already done so"
-  default     = "+30 days"
-}
-
 variable "mfa_totp_apibaseurl" {
   type = "string"
 }
@@ -223,7 +217,7 @@ variable "help_center_url" {
 
 variable "send_invite_emails" {
   type    = "string"
-  default = "false"
+  default = "true"
 }
 
 variable "send_mfa_rate_limit_emails" {
@@ -237,6 +231,41 @@ variable "send_password_changed_emails" {
 }
 
 variable "send_welcome_emails" {
+  type    = "string"
+  default = "true"
+}
+
+variable "send_get_backup_codes_emails" {
+  type    = "string"
+  default = "true"
+}
+
+variable "send_refresh_backup_codes_emails" {
+  type    = "string"
+  default = "true"
+}
+
+variable "send_lost_security_key_emails" {
+  type    = "string"
+  default = "true"
+}
+
+variable "send_mfa_option_added_emails" {
+  type    = "string"
+  default = "true"
+}
+
+variable "send_mfa_option_removed_emails" {
+  type    = "string"
+  default = "true"
+}
+
+variable "send_mfa_enabled_emails" {
+  type    = "string"
+  default = "true"
+}
+
+variable "send_mfa_disabled_emails" {
   type    = "string"
   default = "true"
 }
@@ -259,4 +288,134 @@ variable "subject_for_password_changed" {
 variable "subject_for_welcome" {
   type    = "string"
   default = ""
+}
+
+variable "subject_for_get_backup_codes" {
+  type    = "string"
+  default = ""
+}
+
+variable "subject_for_refresh_backup_codes" {
+  type    = "string"
+  default = ""
+}
+
+variable "subject_for_lost_security_key" {
+  type    = "string"
+  default = ""
+}
+
+variable "subject_for_mfa_option_added" {
+  type    = "string"
+  default = ""
+}
+
+variable "subject_for_mfa_option_removed" {
+  type    = "string"
+  default = ""
+}
+
+variable "subject_for_mfa_enabled" {
+  type    = "string"
+  default = ""
+}
+
+variable "subject_for_mfa_disabled" {
+  type    = "string"
+  default = ""
+}
+
+variable "subject_for_mfa_manager" {
+  type    = "string"
+  default = ""
+}
+
+variable "subject_for_method_verify" {
+  type    = "string"
+  default = ""
+}
+
+variable "lost_security_key_email_days" {
+  type    = "string"
+  default = "62"
+}
+
+variable "minimum_backup_codes_before_nag" {
+  type    = "string"
+  default = "4"
+}
+
+variable "email_repeat_delay_days" {
+  type    = "string"
+  default = "31"
+}
+
+variable "password_reuse_limit" {
+  type    = "string"
+  default = "10"
+}
+
+variable "password_lifespan" {
+  type    = "string"
+  default = "+1 year"
+}
+
+variable "password_expiration_grace_period" {
+  type    = "string"
+  default = "+30 days"
+}
+
+variable "invite_lifespan" {
+  type    = "string"
+  default = "+1 month"
+}
+
+variable "invite_grace_period" {
+  type    = "string"
+  default = "+3 months"
+}
+
+variable "mfa_lifetime" {
+  type    = "string"
+  default = "+2 hours"
+}
+
+variable "method_lifetime" {
+  type    = "string"
+  default = "+1 day"
+}
+
+variable "method_gracePeriod" {
+  type    = "string"
+  default = "+15 days"
+}
+
+variable "method_codeLength" {
+  type    = "string"
+  default = "6"
+}
+
+variable "method_maxAttempts" {
+  type    = "string"
+  default = "10"
+}
+
+variable "mfa_add_interval" {
+  type    = "string"
+  default = "+30 days"
+}
+
+variable "mfa_review_interval" {
+  type    = "string"
+  default = "+6 months"
+}
+
+variable "method_add_interval" {
+  type    = "string"
+  default = "+6 months"
+}
+
+variable "method_review_interval" {
+  type    = "string"
+  default = "+12 months"
 }

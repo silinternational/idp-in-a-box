@@ -58,17 +58,50 @@ This module is used to create an ECS service running id-broker.
  - `ga_client_id` - Used by Google Analytics to distinguish the user (e.g. IDP-<the idp name>-ID-BROKER)
  - `cpu_cron` - How much CPU to allocate to cron service. Default: `128`
  - `memory_cron` - How much memory to allocate to cron service. Default: `64`
- - `subject_for_invite` - Email subject text for invite emails. Default: `Your new %s account`
- - `subject_for_mfa_rate_limit` - Email subject text for MFA rate limit emails. Default: `Too many 2-step verification attempts on your %s account`
- - `subject_for_password_changed` - Email subject text for password changed emails. Default: `Your %s account password has been changed`
- - `subject_for_welcome` - Email subject text for welcome emails. Default: `Welcome to your new %s account`
- - `send_invite_emails` - Bool of whether or not to send invite emails. Default: `false`
+ - `subject_for_invite` - Email subject text for invite emails. Default: `Your new {idpDisplayName} account`
+ - `subject_for_mfa_rate_limit` - Email subject text for MFA rate limit emails. Default: `Too many 2-step verification attempts on your {idpDisplayName} account`
+ - `subject_for_password_changed` - Email subject text for password changed emails. Default: `Your {idpDisplayName} account password has been changed`
+ - `subject_for_welcome` - Email subject text for welcome emails. Default: `Welcome to your new {idpDisplayName} account`
+ - `subject_for_get_backup_codes` - Email subject text for get backup codes emails. Default: `Get printable codes for your {idpDisplayName} account`
+ - `subject_for_refresh_backup_codes` - Email subject text for refresh backup codes emails. Default: `Get a new set of printable codes for your {idpDisplayName} account`
+ - `subject_for_lost_security_key` - Email subject text for lost security key emails. Default: `Have you lost the security key you use with your {idpDisplayName} account?`
+ - `subject_for_mfa_option_added` - Email subject text for mfa option added emails. Default: `A 2-Step Verification option was added to your {idpDisplayName} account`
+ - `subject_for_mfa_option_removed` - Email subject text for mfa option removed emails. Default: `A 2-Step Verification option was removed from your {idpDisplayName} account`
+ - `subject_for_mfa_enabled` - Email subject text for mfa enabled emails. Default: `2-Step Verification was enabled on your {idpDisplayName} account`
+ - `subject_for_mfa_disabled` - Email subject text for mfa disabled emails. Default: `2-Step Verification was disabled on your {idpDisplayName} account`
+ - `subject_for_mfa_manager` - Email subject text for mfa manager emails. Default: `{displayName} has sent you a login code for their {idpDisplayName} account`
+ - `subject_for_method_verify` - Email subject text for method verify emails. Default: `Please verify your new password recovery method`
+ - `send_invite_emails` - Bool of whether or not to send invite emails. Default: `true`
  - `send_mfa_rate_limit_emails` - Bool of whether or not to send MFA rate limit emails. Default: `true`
  - `send_password_changed_emails` - Bool of whether or not to send password changed emails. Default: `true`
  - `send_welcome_emails` - Bool of whether or not to send welcome emails. Default: `true`
+ - `send_get_backup_codes_emails` - Bool of whether or not to send get backup codes emails. Default: `true`
+ - `send_refresh_backup_codes_emails` - Bool of whether or not to send refresh backup codes emails. Default: `true`
+ - `send_lost_security_key_emails` - Bool of whether or not to send lost security key emails. Default: `true`
+ - `send_mfa_option_added_emails` - Bool of whether or not to send mfa option added emails. Default: `true`
+ - `send_mfa_option_removed_emails` - Bool of whether or not to send mfa option removed emails. Default: `true`
+ - `send_mfa_enabled_emails` - Bool of whether or not to send mfa enabled emails. Default: `true`
+ - `send_mfa_disabled_emails` - Bool of whether or not to send mfa disabled emails. Default: `true`
  - `support_name` - Name for support. Default: `support`
  - `idp_display_name` - Display name for IdP. Default is empty string
  - `mfa_nag_interval` - How often to prompt users on login to setup MFA. Default: `+30 days`
+ - `lost_security_key_email_days` - The number of days of not using a security key after which we email the user. Default: `62`
+ - `minimum_backup_codes_before_nag` - Nag the user if they have FEWER than this number of backup codes. Default: `4` 
+ - `email_repeat_delay_days` - Don't resend the same type of email to the same user for X days. Default: `31`
+ - `password_reuse_limit` - Number of passwords to remember for "recent password" restriction. Default: `10`
+ - `password_lifespan` - Time span before which the user should set a new password. Default: `+1 year`
+ - `password_expiration_grace_period` - Grace period after `password_lifespan` after which the account will be locked. Default: `+30 days`
+ - `invite_lifespan` - Time span before the invite code expires. Default: `+1 month`
+ - `invite_grace_period` - Grace period after the invite lifespan, after which the invite will be deleted. Default: `+3 months`
+ - `mfa_lifetime` - Defines the amount of time in which an MFA must be verified. Default: `+2 hours`
+ - `method_lifetime` - Defines the amount of time in which a recovery method must be verified. Default: `+1 day`
+ - `method_gracePeriod` - If a recovery method has been expired longer than this amount of time, it will be removed. Default: `+1 week`
+ - `method_codeLength` - Number of digits in recovery method verification code. Default: `6`
+ - `method_maxAttempts` - Maximum number of recovery method verification attempts allowed. Default: `10`
+ - `mfa_add_interval` - Interval between reminders to add MFAs. Default: `+30 days`
+ - `mfa_review_interval` - Interval between reminders to review existing MFAs. Default: `+6 months`
+ - `method_add_interval` -  Interval between reminders to add recovery methods. Default: `+6 months`
+ - `method_review_interval` - Interval between reminders to review existing recovery methods. Default: `+12 months`
 
 
 ## Outputs
