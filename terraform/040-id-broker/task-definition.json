@@ -30,6 +30,10 @@
         "value": "${app_env}"
       },
       {
+        "name": "EMAIL_REPEAT_DELAY_DAYS",
+        "value": "${email_repeat_delay_days}"
+      },
+      {
         "name": "EMAIL_SERVICE_accessToken",
         "value": "${email_service_accessToken}"
       },
@@ -50,6 +54,14 @@
         "value": "${email_signature}"
       },
       {
+        "name": "GA_TRACKING_ID",
+        "value": "${ga_tracking_id}"
+      },
+      {
+        "name": "GA_CLIENT_ID",
+        "value": "${ga_client_id}"
+      },
+      {
         "name": "HELP_CENTER_URL",
         "value": "${help_center_url}"
       },
@@ -60,6 +72,14 @@
       {
         "name": "IDP_NAME",
         "value": "${idp_name}"
+      },
+      {
+        "name": "INVITE_GRACE_PERIOD",
+        "value": "${invite_grace_period}"
+      },
+      {
+        "name": "INVITE_LIFESPAN",
+        "value": "${invite_lifespan}"
       },
       {
         "name": "LDAP_ADMIN_PASSWORD",
@@ -88,6 +108,46 @@
       {
         "name": "LOGENTRIES_KEY",
         "value": "${logentries_key}"
+      },
+      {
+        "name": "LOST_SECURITY_KEY_EMAIL_DAYS",
+        "value": "${lost_security_key_email_days}"
+      },
+      {
+        "name": "METHOD_ADD_INTERVAL",
+        "value": "${method_add_interval}"
+      },
+      {
+        "name": "METHOD_codeLength",
+        "value": "${method_codeLength}"
+      },
+      {
+        "name": "METHOD_gracePeriod",
+        "value": "${method_gracePeriod}"
+      },
+      {
+        "name": "METHOD_lifetime",
+        "value": "${method_lifetime}"
+      },
+      {
+        "name": "METHOD_maxAttempts",
+        "value": "${method_maxAttempts}"
+      },
+      {
+        "name": "METHOD_REVIEW_INTERVAL",
+        "value": "${method_review_interval}"
+      },
+      {
+        "name": "MFA_ADD_INTERVAL",
+        "value": "${mfa_add_interval}"
+      },
+      {
+        "name": "MFA_lifetime",
+        "value": "${mfa_lifetime}"
+      },
+      {
+        "name": "MFA_REVIEW_INTERVAL",
+        "value": "${mfa_review_interval}"
       },
       {
         "name": "MFA_TOTP_apiBaseUrl",
@@ -122,6 +182,10 @@
         "value": "${migrate_pw_from_ldap}"
       },
       {
+        "name": "MINIMUM_BACKUP_CODES_BEFORE_NAG",
+        "value": "${minimum_backup_codes_before_nag}"
+      },
+      {
         "name": "MYSQL_DATABASE",
         "value": "${db_name}"
       },
@@ -142,40 +206,44 @@
         "value": "${notification_email}"
       },
       {
+        "name": "PASSWORD_EXPIRATION_GRACE_PERIOD",
+        "value": "${password_expiration_grace_period}"
+      },
+      {
         "name": "PASSWORD_FORGOT_URL",
         "value": "${password_forgot_url}"
+      },
+      {
+        "name": "PASSWORD_LIFESPAN",
+        "value": "${password_lifespan}"
       },
       {
         "name": "PASSWORD_PROFILE_URL",
         "value": "${password_profile_url}"
       },
       {
-        "name": "SEND_INVITE_EMAILS",
-        "value": "${send_invite_emails}"
-      },
-      {
-        "name": "SEND_MFA_RATE_LIMIT_EMAILS",
-        "value": "${send_mfa_rate_limit_emails}"
-      },
-      {
-        "name": "SEND_PASSWORD_CHANGED_EMAILS",
-        "value": "${send_password_changed_emails}"
-      },
-      {
-        "name": "SEND_WELCOME_EMAILS",
-        "value": "${send_welcome_emails}"
+        "name": "PASSWORD_REUSE_LIMIT",
+        "value": "${password_reuse_limit}"
       },
       {
         "name": "SEND_GET_BACKUP_CODES_EMAILS",
         "value": "${send_get_backup_codes_emails}"
       },
       {
-        "name": "SEND_REFRESH_BACKUP_CODES_EMAILS",
-        "value": "${send_refresh_backup_codes_emails}"
+        "name": "SEND_INVITE_EMAILS",
+        "value": "${send_invite_emails}"
       },
       {
         "name": "SEND_LOST_SECURITY_KEY_EMAILS",
         "value": "${send_lost_security_key_emails}"
+      },
+      {
+        "name": "SEND_MFA_DISABLED_EMAILS",
+        "value": "${send_mfa_disabled_emails}"
+      },
+      {
+        "name": "SEND_MFA_ENABLED_EMAILS",
+        "value": "${send_mfa_enabled_emails}"
       },
       {
         "name": "SEND_MFA_OPTION_ADDED_EMAILS",
@@ -186,40 +254,48 @@
         "value": "${send_mfa_option_removed_emails}"
       },
       {
-        "name": "SEND_MFA_ENABLED_EMAILS",
-        "value": "${send_mfa_enabled_emails}"
+        "name": "SEND_MFA_RATE_LIMIT_EMAILS",
+        "value": "${send_mfa_rate_limit_emails}"
       },
       {
-        "name": "SEND_MFA_DISABLED_EMAILS",
-        "value": "${send_mfa_disabled_emails}"
+        "name": "SEND_PASSWORD_CHANGED_EMAILS",
+        "value": "${send_password_changed_emails}"
       },
       {
-        "name": "SUBJECT_FOR_INVITE",
-        "value": "${subject_for_invite}"
+        "name": "SEND_REFRESH_BACKUP_CODES_EMAILS",
+        "value": "${send_refresh_backup_codes_emails}"
       },
       {
-        "name": "SUBJECT_FOR_MFA_RATE_LMIT",
-        "value": "${subject_for_mfa_rate_limit}"
-      },
-      {
-        "name": "SUBJECT_FOR_PASSWORD_CHANGED",
-        "value": "${subject_for_password_changed}"
-      },
-      {
-        "name": "SUBJECT_FOR_WELCOME",
-        "value": "${subject_for_welcome}"
+        "name": "SEND_WELCOME_EMAILS",
+        "value": "${send_welcome_emails}"
       },
       {
         "name":  "SUBJECT_FOR_GET_BACKUP_CODES",
         "value": "${subject_for_get_backup_codes}"
       },
       {
-        "name":  "SUBJECT_FOR_REFRESH_BACKUP_CODES",
-        "value": "${subject_for_refresh_backup_codes}"
+        "name": "SUBJECT_FOR_INVITE",
+        "value": "${subject_for_invite}"
       },
       {
         "name":  "SUBJECT_FOR_LOST_SECURITY_KEY",
         "value": "${subject_for_lost_security_key}"
+      },
+      {
+        "name": "SUBJECT_FOR_METHOD_VERIFY",
+        "value": "${subject_for_method_verify}"
+      },
+      {
+        "name": "SUBJECT_FOR_MFA_DISABLED",
+        "value": "${subject_for_mfa_disabled}"
+      },
+      {
+        "name":  "SUBJECT_FOR_MFA_ENABLED",
+        "value": "${subject_for_mfa_enabled}"
+      },
+      {
+        "name": "SUBJECT_FOR_MFA_MANAGER",
+        "value": "${subject_for_mfa_manager}"
       },
       {
         "name":  "SUBJECT_FOR_MFA_OPTION_ADDED",
@@ -230,20 +306,20 @@
         "value": "${subject_for_mfa_option_removed}"
       },
       {
-        "name":  "SUBJECT_FOR_MFA_ENABLED",
-        "value": "${subject_for_mfa_enabled}"
+        "name": "SUBJECT_FOR_MFA_RATE_LMIT",
+        "value": "${subject_for_mfa_rate_limit}"
       },
       {
-        "name": "SUBJECT_FOR_MFA_DISABLED",
-        "value": "${subject_for_mfa_disabled}"
+        "name": "SUBJECT_FOR_PASSWORD_CHANGED",
+        "value": "${subject_for_password_changed}"
       },
       {
-        "name": "SUBJECT_FOR_MFA_MANAGER",
-        "value": "${subject_for_mfa_manager}"
+        "name":  "SUBJECT_FOR_REFRESH_BACKUP_CODES",
+        "value": "${subject_for_refresh_backup_codes}"
       },
       {
-        "name": "SUBJECT_FOR_METHOD_VERIFY",
-        "value": "${subject_for_method_verify}"
+        "name": "SUBJECT_FOR_WELCOME",
+        "value": "${subject_for_welcome}"
       },
       {
         "name": "SUPPORT_EMAIL",
@@ -253,74 +329,6 @@
         "name": "SUPPORT_NAME",
         "value": "${support_name}"
       },
-      {
-        "name": "lost_security_key_email_days",
-        "value": "${lost_security_key_email_days}"
-      },
-      {
-        "name": "minimum_backup_codes_before_nag",
-        "value": "${minimum_backup_codes_before_nag}"
-      },
-      {
-        "name": "email_repeat_delay_days",
-        "value": "${email_repeat_delay_days}"
-      },
-      {
-        "name": "password_reuse_limit",
-        "value": "${password_reuse_limit}"
-      },
-      {
-        "name": "password_lifespan",
-        "value": "${password_lifespan}"
-      },
-      {
-        "name": "password_expiration_grace_period",
-        "value": "${password_expiration_grace_period}"
-      },
-      {
-        "name": "invite_lifespan",
-        "value": "${invite_lifespan}"
-      },
-      {
-        "name": "invite_grace_period",
-        "value": "${invite_grace_period}"
-      },
-      {
-        "name": "mfa_lifetime",
-        "value": "${mfa_lifetime}"
-      },
-      {
-        "name": "method_lifetime",
-        "value": "${method_lifetime}"
-      },
-      {
-        "name": "method_gracePeriod",
-        "value": "${method_gracePeriod}"
-      },
-      {
-        "name": "method_codeLength",
-        "value": "${method_codeLength}"
-      },
-      {
-        "name": "method_maxAttempts",
-        "value": "${method_maxAttempts}"
-      },
-      {
-        "name": "mfa_add_interval",
-        "value": "${mfa_add_interval}"
-      },
-      {
-        "name": "mfa_review_interval",
-        "value": "${mfa_review_interval}"
-      },
-      {
-        "name": "method_add_interval",
-        "value": "${method_add_interval}"
-      },
-      {
-        "name": "method_review_interval",
-        "value": "${method_review_interval}"
-      }
     ],
     "links": null,
     "workingDirectory": null,
