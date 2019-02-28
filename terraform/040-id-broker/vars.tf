@@ -265,7 +265,8 @@ variable "mysql_user" {
 }
 
 variable "notification_email" {
-  type = "string"
+  description = "Email address to send notifications to"
+  type        = "string"
 }
 
 variable "password_expiration_grace_period" {
