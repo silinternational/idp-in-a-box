@@ -192,7 +192,7 @@ data "template_file" "task_def_cron" {
     ldap_use_tls                     = "${var.ldap_use_tls}"
     logentries_key                   = "${logentries_log.log.token}"
     lost_security_key_email_days     = "${var.lost_security_key_email_days}"
-    memory                           = "${var.memory_cron}"
+    memory_cron                      = "${var.memory_cron}"
     method_add_interval              = "${var.method_add_interval}"
     method_codeLength                = "${var.method_codeLength}"
     method_gracePeriod               = "${var.method_gracePeriod}"
