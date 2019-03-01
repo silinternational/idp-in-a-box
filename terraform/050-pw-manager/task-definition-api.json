@@ -74,8 +74,12 @@
         "value": "${auth_saml_sloUrl}"
       },
       {
-        "name": "EMAIL_SERVICE_useEmailService",
-        "value": "${email_service_useEmailService}"
+        "name": "CODE_LENGTH",
+        "value": "${code_length}"
+      },
+      {
+        "name": "COOKIE_VALIDATION_KEY",
+        "value": "${cookie_validation_key}"
       },
       {
         "name": "EMAIL_SERVICE_baseUrl",
@@ -92,10 +96,6 @@
       {
         "name": "EMAIL_SERVICE_validIpRanges",
         "value": "${email_service_validIpRanges}"
-      },
-      {
-        "name": "FROM_EMAIL",
-        "value": "${from_email}"
       },
       {
         "name": "FROM_NAME",
@@ -122,12 +122,12 @@
         "value": "${id_broker_validIpRanges}"
       },
       {
-        "name": "IDP_NAME",
-        "value": "${idp_name}"
-      },
-      {
         "name": "IDP_DISPLAY_NAME",
         "value": "${idp_display_name}"
+      },
+      {
+        "name": "IDP_NAME",
+        "value": "${idp_name}"
       },
       {
         "name": "IDP_USERNAME_HINT",
@@ -136,10 +136,6 @@
       {
         "name": "LOGENTRIES_KEY",
         "value": "${logentries_key}"
-      },
-      {
-        "name": "LOGO_URL",
-        "value": "${logo_url}"
       },
       {
         "name": "MYSQL_DATABASE",
@@ -158,6 +154,18 @@
         "value": "${mysql_user}"
       },
       {
+        "name": "PASSWORD_RULE_maxLength",
+        "value": "${password_rule_maxlength}"
+      },
+      {
+        "name": "PASSWORD_RULE_minLength",
+        "value": "${password_rule_minlength}"
+      },
+      {
+        "name": "PASSWORD_RULE_minScore,",
+        "value": "${password_rule_minscore}"
+      },
+      {
         "name": "RECAPTCHA_SECRET_KEY",
         "value": "${recaptcha_secret_key}"
       },
@@ -168,6 +176,18 @@
       {
         "name": "SUPPORT_EMAIL",
         "value": "${support_email}"
+      },
+      {
+        "name": "SUPPORT_FEEDBACK",
+        "value": "${support_feedback}"
+      },
+      {
+        "name": "SUPPORT_PHONE",
+        "value": "${support_phone}"
+      },
+      {
+        "name": "SUPPORT_URL,",
+        "value": "${support_url,}"
       },
       {
         "name": "UI_CORS_ORIGIN",

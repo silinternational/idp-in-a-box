@@ -152,12 +152,10 @@ services:
       COMPOSER_ALLOW_SUPERUSER: 1
       COMPOSER_CACHE_DIR: /composer
       ALERTS_EMAIL_ENABLED: "false"
-      LOGO_URL: http://localhost:8000/welcome
       EMAIL_SERVICE_accessToken: abc123
       EMAIL_SERVICE_assertValidIp: "false"
       EMAIL_SERVICE_baseUrl: http://email
       ADMIN_EMAIL: admin@domain.com
-      FROM_EMAIL: admin@domain.com
       FROM_NAME: Your friendly Help Desk team
       FRONT_COOKIE_SECURE: "false"
       RECAPTCHA_REQUIRED: "false"
@@ -203,12 +201,10 @@ services:
       MYSQL_PASSWORD: pw-api
       IDP_NAME: development
       ALERTS_EMAIL_ENABLED: "false"
-      LOGO_URL: http://www.sil.org
       EMAIL_SERVICE_accessToken: abc123
       EMAIL_SERVICE_assertValidIp: "false"
       EMAIL_SERVICE_baseUrl: http://email
       ADMIN_EMAIL: admin@domain.com
-      FROM_EMAIL: admin@domain.com
       FROM_NAME: Your friendly Help Desk team
       FRONT_COOKIE_SECURE: "false"
       RECAPTCHA_REQUIRED: "false"
