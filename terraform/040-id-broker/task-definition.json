@@ -218,6 +218,10 @@
         "value": "${password_lifespan}"
       },
       {
+        "name": "PASSWORD_MFA_LIFESPAN_EXTENSION",
+        "value": "${password_mfa_lifespan_extension}"
+      },
+      {
         "name": "PASSWORD_PROFILE_URL",
         "value": "${password_profile_url}"
       },

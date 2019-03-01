@@ -283,6 +283,11 @@ variable "password_lifespan" {
   default = "+1 year"
 }
 
+variable "password_mfa_lifespan_extension" {
+  type    = "string"
+  default = "+4 years"
+}
+
 variable "password_profile_url" {
   type = "string"
 }

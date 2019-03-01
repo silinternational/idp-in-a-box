@@ -75,6 +75,7 @@ This module is used to create an ECS service running id-broker.
  - `notification_email` - Email address to send alerts/notifications to. Default: notifications disabled
  - `password_expiration_grace_period` - Grace period after `password_lifespan` after which the account will be locked. Default: `+30 days`
  - `password_lifespan` - Time span before which the user should set a new password. Default: `+1 year`
+ - `password_mfa_lifespan_extension` - Extension to password lifespan for users with at least one 2-step Verification option. Default: `+4 years`
  - `password_reuse_limit` - Number of passwords to remember for "recent password" restriction. Default: `10`
  - `send_get_backup_codes_emails` - Bool of whether or not to send get backup codes emails. Default: `true`
  - `send_invite_emails` - Bool of whether or not to send invite emails. Default: `true`
@@ -176,6 +177,7 @@ module "broker" {
   password_expiration_grace_period = "${var.password_expiration_grace_period}"
   password_forgot_url              = "${var.password_forgot_url}"
   password_lifespan                = "${var.password_lifespan}"
+  password_mfa_lifespan_extension  = "${var.password_mfa_lifespan_extension}"
   password_profile_url             = "${var.password_profile_url}"
   password_reuse_limit             = "${var.password_reuse_limit}"
   send_get_backup_codes_emails     = "${var.send_get_backup_codes_emails}"
