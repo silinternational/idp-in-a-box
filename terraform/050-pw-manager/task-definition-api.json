@@ -78,10 +78,6 @@
         "value": "${code_length}"
       },
       {
-        "name": "COOKIE_VALIDATION_KEY",
-        "value": "${cookie_validation_key}"
-      },
-      {
         "name": "EMAIL_SERVICE_baseUrl",
         "value": "${email_service_baseUrl}"
       },
