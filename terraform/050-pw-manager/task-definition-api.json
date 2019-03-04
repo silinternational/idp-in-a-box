@@ -186,8 +186,8 @@
         "value": "${support_phone}"
       },
       {
-        "name": "SUPPORT_URL,",
-        "value": "${support_url,}"
+        "name": "SUPPORT_URL",
+        "value": "${support_url}"
       },
       {
         "name": "UI_CORS_ORIGIN",
