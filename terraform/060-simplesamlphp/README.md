@@ -32,6 +32,7 @@ This module is used to create an ECS service running simpleSAMLphp.
  - `mysql_host` - Address for RDS instance
  - `mysql_user` - MySQL username for id-broker
  - `mysql_pass` - MySQL password for id-broker
+ - `profile_url` - URL of Password Manager profile page
  - `recaptcha_key` - Recaptcha site key
  - `recaptcha_secret` - Recaptcha secret
  - `remember_me_secret` - Secret key used in MFA remember me cookie generation
@@ -86,6 +87,7 @@ module "ssp" {
   mysql_host                   = "${data.terraform_remote_state.database.rds_address}"
   mysql_user                   = "${var.db_ssp_user}"
   mysql_pass                   = "${data.terraform_remote_state.database.db_ssp_pass}"
+  profile_url                  = "${profile_url}"
   recaptcha_key                = "${var.recaptcha_key}"
   recaptcha_secret             = "${var.recaptcha_secret}"
   remember_me_secret           = "${var.remember_me_secret}"

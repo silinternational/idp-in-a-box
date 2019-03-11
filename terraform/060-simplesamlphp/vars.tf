@@ -107,6 +107,10 @@ variable "mysql_pass" {
   type = "string"
 }
 
+variable "profile_url" {
+  type = "string"
+}
+
 variable "recaptcha_key" {
   type = "string"
 }

@@ -130,6 +130,10 @@
         "value": "${mysql_password}"
       },
       {
+        "name": "PROFILE_URL",
+        "value":  "${profile_url}",
+      },
+      {
         "name": "RECAPTCHA_SITE_KEY",
         "value": "${recaptcha_key}"
       },
