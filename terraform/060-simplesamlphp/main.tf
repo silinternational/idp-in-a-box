@@ -87,6 +87,7 @@ data "template_file" "task_def" {
     idp_name                     = "${var.idp_name}"
     idp_display_name             = "${var.idp_display_name}"
     theme_color_scheme           = "${var.theme_color_scheme}"
+    theme_use                    = "${var.theme_use}"
     trusted_ip_addresses         = "${join(",", var.trusted_ip_addresses)}"
     analytics_id                 = "${var.analytics_id}"
     delete_remember_me_on_logout = "${var.delete_remember_me_on_logout}"

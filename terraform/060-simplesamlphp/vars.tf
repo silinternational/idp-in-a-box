@@ -153,6 +153,11 @@ variable "theme_color_scheme" {
   default = "indigo-purple"
 }
 
+variable "theme_use" {
+  type    = "string"
+  default = "material-material"
+}
+
 variable "trusted_ip_addresses" {
   type = "list"
 }

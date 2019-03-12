@@ -75,7 +75,7 @@
       },
       {
         "name": "THEME_USE",
-        "value": "material:material"
+        "value": "${theme_use}"
       },
       {
         "name": "PASSWORD_CHANGE_URL",

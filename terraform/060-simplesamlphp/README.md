@@ -96,6 +96,7 @@ module "ssp" {
   alb_dns_name                 = "${data.terraform_remote_state.cluster.alb_dns_name}"
   idp_name                     = "${var.idp_name}"
   theme_color_scheme           = "${var.theme_color_scheme}"
+  theme_use                    = "${var.theme_use}"
   trusted_ip_addresses         = ["${concat(module.cf_ips.ipv4_cidrs, var.trusted_ip_addresses, data.terraform_remote_state.cluster.public_subnet_cidr_blocks)}"]
   analytics_id                 = "${var.analytics_id}"
   show_saml_errors             = "${var.show_saml_errors}"
