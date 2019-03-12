@@ -168,11 +168,6 @@ variable "memory_cron" {
   default     = "50"
 }
 
-variable "method_add_interval" {
-  type    = "string"
-  default = "+6 months"
-}
-
 variable "method_codeLength" {
   type    = "string"
   default = "6"
@@ -193,25 +188,10 @@ variable "method_maxAttempts" {
   default = "10"
 }
 
-variable "method_review_interval" {
-  type    = "string"
-  default = "+12 months"
-}
-
-variable "mfa_add_interval" {
-  type    = "string"
-  default = "+30 days"
-}
-
 variable "mfa_lifetime" {
   type = "string"
 
   default = "+2 hours"
-}
-
-variable "mfa_review_interval" {
-  type    = "string"
-  default = "+6 months"
 }
 
 variable "mfa_totp_apibaseurl" {
@@ -295,6 +275,11 @@ variable "password_profile_url" {
 variable "password_reuse_limit" {
   type    = "string"
   default = "10"
+}
+
+variable "profile_review_interval" {
+  type    = "string"
+  default = "+12 months"
 }
 
 variable "send_get_backup_codes_emails" {
@@ -391,6 +376,11 @@ variable "subject_for_mfa_enabled" {
 }
 
 variable "subject_for_mfa_manager" {
+  type    = "string"
+  default = ""
+}
+
+variable "subject_for_mfa_manager_help" {
   type    = "string"
   default = ""
 }

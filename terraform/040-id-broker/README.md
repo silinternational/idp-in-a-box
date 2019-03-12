@@ -61,22 +61,19 @@ This module is used to create an ECS service running id-broker.
  - `ldap_use_tls` - true/false. Required if `migrate_pw_from_ldap` is true.
  - `lost_security_key_email_days` - The number of days of not using a security key after which we email the user. Default: `62`
  - `memory_cron` - How much memory to allocate to cron service. Default: `64`
- - `method_add_interval` -  Interval between reminders to add recovery methods. Default: `+6 months`
  - `method_codeLength` - Number of digits in recovery method verification code. Default: `6`
  - `method_gracePeriod` - If a recovery method has been expired longer than this amount of time, it will be removed. Default: `+1 week`
  - `method_lifetime` - Defines the amount of time in which a recovery method must be verified. Default: `+1 day`
  - `method_maxAttempts` - Maximum number of recovery method verification attempts allowed. Default: `10`
- - `method_review_interval` - Interval between reminders to review existing recovery methods. Default: `+12 months`
  - `migrate_pw_from_ldap` - Whether or not to attempt to migrate passwords from LDAP. Default: `false`
- - `mfa_add_interval` - Interval between reminders to add MFAs. Default: `+30 days`
  - `mfa_lifetime` - Defines the amount of time in which an MFA must be verified. Default: `+2 hours`
- - `mfa_review_interval` - Interval between reminders to review existing MFAs. Default: `+6 months`
  - `minimum_backup_codes_before_nag` - Nag the user if they have FEWER than this number of backup codes. Default: `4` 
  - `notification_email` - Email address to send alerts/notifications to. Default: notifications disabled
  - `password_expiration_grace_period` - Grace period after `password_lifespan` after which the account will be locked. Default: `+30 days`
  - `password_lifespan` - Time span before which the user should set a new password. Default: `+1 year`
  - `password_mfa_lifespan_extension` - Extension to password lifespan for users with at least one 2-step Verification option. Default: `+4 years`
  - `password_reuse_limit` - Number of passwords to remember for "recent password" restriction. Default: `10`
+ - `profile_review_interval` - Interval between reminders to review. Default: `+6 months`
  - `send_get_backup_codes_emails` - Bool of whether or not to send get backup codes emails. Default: `true`
  - `send_invite_emails` - Bool of whether or not to send invite emails. Default: `true`
  - `send_lost_security_key_emails` - Bool of whether or not to send lost security key emails. Default: `true`
@@ -95,6 +92,7 @@ This module is used to create an ECS service running id-broker.
  - `subject_for_mfa_disabled` - Email subject text for mfa disabled emails. Default: `2-Step Verification was disabled on your {idpDisplayName} account`
  - `subject_for_mfa_enabled` - Email subject text for mfa enabled emails. Default: `2-Step Verification was enabled on your {idpDisplayName} account`
  - `subject_for_mfa_manager` - Email subject text for mfa manager emails. Default: `{displayName} has sent you a login code for their {idpDisplayName} account`
+ - `subject_for_mfa_manager_help` - Email subject text for mfa manager help emails. Default: `An access code for your {idpDisplayName} account has been sent to your manager`
  - `subject_for_mfa_option_added` - Email subject text for mfa option added emails. Default: `A 2-Step Verification option was added to your {idpDisplayName} account`
  - `subject_for_mfa_option_removed` - Email subject text for mfa option removed emails. Default: `A 2-Step Verification option was removed from your {idpDisplayName} account`
  - `subject_for_mfa_rate_limit` - Email subject text for MFA rate limit emails. Default: `Too many 2-step verification attempts on your {idpDisplayName} account`
@@ -152,15 +150,11 @@ module "broker" {
   lost_security_key_email_days     = "${var.lost_security_key_email_days}"
   memory                           = "${var.memory}"
   memory_cron                      = "${var.memory_cron}"
-  method_add_interval              = "${var.method_add_interval}"
   method_codeLength                = "${var.method_codeLength}"
   method_gracePeriod               = "${var.method_gracePeriod}"
   method_lifetime                  = "${var.method_lifetime}"
   method_maxAttempts               = "${var.method_maxAttempts}"
-  method_review_interval           = "${var.method_review_interval}"
-  mfa_add_interval                 = "${var.mfa_add_interval}"
   mfa_lifetime                     = "${var.mfa_lifetime}"
-  mfa_review_interval              = "${var.mfa_review_interval}"
   mfa_totp_apibaseurl              = "${var.mfa_totp_apibaseurl}"
   mfa_totp_apikey                  = "${var.mfa_totp_apikey}"
   mfa_totp_apisecret               = "${var.mfa_totp_apisecret}"
@@ -180,6 +174,7 @@ module "broker" {
   password_mfa_lifespan_extension  = "${var.password_mfa_lifespan_extension}"
   password_profile_url             = "${var.password_profile_url}"
   password_reuse_limit             = "${var.password_reuse_limit}"
+  profile_review_interval           = "${var.profile_review_interval}"
   send_get_backup_codes_emails     = "${var.send_get_backup_codes_emails}"
   send_invite_emails               = "${var.send_invite_emails}"
   send_lost_security_key_emails    = "${var.send_lost_security_key_emails}"
@@ -200,6 +195,7 @@ module "broker" {
   subject_for_mfa_disabled         = "${var.subject_for_mfa_disabled}"
   subject_for_mfa_enabled          = "${var.subject_for_mfa_enabled}"
   subject_for_mfa_manager          = "${var.subject_for_mfa_manager}"
+  subject_for_mfa_manager_help     = "${var.subject_for_mfa_manager_help}"
   subject_for_mfa_option_added     = "${var.subject_for_mfa_option_added}"
   subject_for_mfa_option_removed   = "${var.subject_for_mfa_option_removed}"
   subject_for_mfa_rate_limit       = "${var.subject_for_mfa_rate_limit}"

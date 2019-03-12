@@ -108,10 +108,6 @@
         "value": "${lost_security_key_email_days}"
       },
       {
-        "name": "METHOD_ADD_INTERVAL",
-        "value": "${method_add_interval}"
-      },
-      {
         "name": "METHOD_codeLength",
         "value": "${method_codeLength}"
       },
@@ -128,20 +124,8 @@
         "value": "${method_maxAttempts}"
       },
       {
-        "name": "METHOD_REVIEW_INTERVAL",
-        "value": "${method_review_interval}"
-      },
-      {
-        "name": "MFA_ADD_INTERVAL",
-        "value": "${mfa_add_interval}"
-      },
-      {
         "name": "MFA_lifetime",
         "value": "${mfa_lifetime}"
-      },
-      {
-        "name": "MFA_REVIEW_INTERVAL",
-        "value": "${mfa_review_interval}"
       },
       {
         "name": "MFA_TOTP_apiBaseUrl",
@@ -224,6 +208,10 @@
         "value": "${password_reuse_limit}"
       },
       {
+        "name": "PROFILE_REVIEW_INTERVAL",
+        "value": "${profile_review_interval}"
+      },
+      {
         "name": "SEND_GET_BACKUP_CODES_EMAILS",
         "value": "${send_get_backup_codes_emails}"
       },
@@ -294,6 +282,10 @@
       {
         "name": "SUBJECT_FOR_MFA_MANAGER",
         "value": "${subject_for_mfa_manager}"
+      },
+      {
+        "name": "SUBJECT_FOR_MFA_MANAGER_HELP",
+        "value": "${subject_for_mfa_manager_help}"
       },
       {
         "name":  "SUBJECT_FOR_MFA_OPTION_ADDED",
