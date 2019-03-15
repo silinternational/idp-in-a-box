@@ -42,6 +42,7 @@ store.
 - `id_broker_assertValidIp` - Whether or not to assert IP address for ID Broker API is trusted
 - `notifier_email_to` - Who to send notifications to about sync problems (e.g. users lacking email addresses)
 - `sync_safety_cutoff` - The percentage of records allowed to be changed during a sync, provided as a float, ex: `0.2` for `20%`
+- `allow_empty_email` - Whether or not to allow the primary email property to be empty. Default: `false`
 
 ## Outputs
 
@@ -80,5 +81,6 @@ module "idsync" {
   ecsServiceRole_arn          = "${data.terraform_remote_state.core.ecsServiceRole_arn}"
   alb_dns_name                = "${data.terraform_remote_state.cluster.alb_dns_name}"
   notifier_email_to           = "${var.notifier_email_to}"
+  allow_empty_email           = "${var.allow_empty_email}"
 }
 ```

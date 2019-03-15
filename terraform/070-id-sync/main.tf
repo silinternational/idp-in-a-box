@@ -87,6 +87,7 @@ data "template_file" "task_def" {
     memory                      = "${var.memory}"
     cpu                         = "${var.cpu}"
     sync_safety_cutoff          = "${var.sync_safety_cutoff}"
+    allow_empty_email           = "${var.allow_empty_email}"
   }
 }
 
