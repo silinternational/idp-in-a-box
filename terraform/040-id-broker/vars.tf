@@ -13,6 +13,11 @@ variable "cloudflare_domain" {
   type = "string"
 }
 
+variable "contingent_user_duration" {
+  type    = "string"
+  default = "+4 weeks"
+}
+
 variable "cpu" {
   type        = "string"
   description = "Amount of CPU to allocate to container, recommend '250' for production"

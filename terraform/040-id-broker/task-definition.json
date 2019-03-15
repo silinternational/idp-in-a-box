@@ -30,6 +30,10 @@
         "value": "${app_env}"
       },
       {
+        "name": "CONTINGENT_USER_DURATION",
+        "value": "${contingent_user_duration}"
+      },
+      {
         "name": "EMAIL_REPEAT_DELAY_DAYS",
         "value": "${email_repeat_delay_days}"
       },

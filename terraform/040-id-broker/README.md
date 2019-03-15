@@ -44,6 +44,7 @@ This module is used to create an ECS service running id-broker.
 
 ## Optional Inputs
 
+ - `contingent_user_duration` - How long before a new user without a primary email address expires. Default: `+4 weeks`
  - `cpu_cron` - How much CPU to allocate to cron service. Default: `128`
  - `email_repeat_delay_days` - Don't resend the same type of email to the same user for X days. Default: `31`
  - `email_service_assertValidIp` - Whether or not to assert IP address for Email Service API is trusted
@@ -118,6 +119,7 @@ module "broker" {
   app_env                          = "${var.app_env}"
   app_name                         = "${var.app_name}"
   cloudflare_domain                = "${var.cloudflare_domain}"
+  contingent_user_duration         = "${var.contingent_user_duration}"
   cpu                              = "${var.cpu}"
   cpu_cron                         = "${var.cpu_cron}"
   db_name                          = "${var.db_name}"
