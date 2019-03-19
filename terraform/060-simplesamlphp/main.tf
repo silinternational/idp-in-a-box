@@ -78,7 +78,7 @@ data "template_file" "task_def" {
     mysql_host                   = "${var.mysql_host}"
     mysql_password               = "${var.mysql_pass}"
     mysql_user                   = "${var.mysql_user}"
-    profile_url                  = "${profile_url}"
+    profile_url                  = "${var.profile_url}"
     recaptcha_key                = "${var.recaptcha_key}"
     recaptcha_secret             = "${var.recaptcha_secret}"
     remember_me_secret           = "${var.remember_me_secret}"
