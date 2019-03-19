@@ -131,7 +131,7 @@
       },
       {
         "name": "PROFILE_URL",
-        "value":  "${profile_url}",
+        "value":  "${profile_url}"
       },
       {
         "name": "RECAPTCHA_SITE_KEY",
