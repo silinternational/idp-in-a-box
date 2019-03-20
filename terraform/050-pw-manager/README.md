@@ -112,7 +112,6 @@ module "pwmanager" {
   id_broker_validIpRanges             = ["${data.terraform_remote_state.cluster.private_subnet_cidr_blocks}"]
   idp_display_name                    = "${var.idp_display_name}"
   idp_name                            = "${var.idp_name}"
-  idp_username_hint                   = "${var.idp_username_hint}"
   logentries_set_id                   = "${data.terraform_remote_state.cluster.logentries_set_id}"
   memory                              = "${var.memory}"
   mysql_host                          = "${data.terraform_remote_state.database.rds_address}"

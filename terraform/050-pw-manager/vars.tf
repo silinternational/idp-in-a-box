@@ -160,11 +160,6 @@ variable "idp_name" {
   type        = "string"
 }
 
-variable "idp_username_hint" {
-  type    = "string"
-  default = "Username or email address"
-}
-
 variable "logentries_set_id" {
   type = "string"
 }

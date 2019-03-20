@@ -88,7 +88,6 @@ data "template_file" "task_def" {
     id_broker_validIpRanges             = "${join(",", var.id_broker_validIpRanges)}"
     idp_display_name                    = "${var.idp_display_name}"
     idp_name                            = "${var.idp_name}"
-    idp_username_hint                   = "${var.idp_username_hint}"
     logentries_key                      = "${logentries_log.log.token}"
     memory                              = "${var.memory}"
     mysql_host                          = "${var.mysql_host}"
