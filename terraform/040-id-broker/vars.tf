@@ -259,10 +259,6 @@ variable "password_expiration_grace_period" {
   default = "+30 days"
 }
 
-variable "password_forgot_url" {
-  type = "string"
-}
-
 variable "password_lifespan" {
   type    = "string"
   default = "+1 year"

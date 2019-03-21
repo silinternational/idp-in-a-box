@@ -192,10 +192,6 @@
         "value": "${password_expiration_grace_period}"
       },
       {
-        "name": "PASSWORD_FORGOT_URL",
-        "value": "${password_forgot_url}"
-      },
-      {
         "name": "PASSWORD_LIFESPAN",
         "value": "${password_lifespan}"
       },
