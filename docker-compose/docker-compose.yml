@@ -67,7 +67,7 @@ services:
       MYSQL_PASSWORD: ssp
 
   ssp:
-    image: silintl/ssp-base:feature_add-profilereview
+    image: silintl/ssp-base:develop-5.0
     ports:
       - "80:80"
     depends_on:
