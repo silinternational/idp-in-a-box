@@ -41,7 +41,6 @@ services:
       NOTIFICATION_EMAIL: "dummy@example.com"
       EMAIL_SIGNATURE: (email signature goes here)
       HELP_CENTER_URL: http://helpcenter.example.com
-      PASSWORD_FORGOT_URL: http://localhost:8000/forgot
       PASSWORD_PROFILE_URL: http://localhost:8000
       SUPPORT_EMAIL: support@example.com
     command: whenavail db-broker 3306 100 /data/run.sh
@@ -84,6 +83,7 @@ services:
       SHOW_SAML_ERRORS: "true"
       THEME_COLOR_SCHEME: "orange-light_blue"
       THEME_USE: material:material
+#      THEME_USE: default
       BASE_URL_PATH: http://ssp.local/
       ID_BROKER_ACCESS_TOKEN: abc123abc123
       ID_BROKER_BASE_URI: http://broker
@@ -97,8 +97,8 @@ services:
       MYSQL_PASSWORD: ssp
       RECAPTCHA_SITE_KEY: asdf
       RECAPTCHA_SECRET: adff
-      PASSWORD_CHANGE_URL: http://localhost:8000/change
-      PASSWORD_FORGOT_URL: http://localhost:8000/forgot
+      PASSWORD_CHANGE_URL: http://localhost:8000/#/password/create
+      PASSWORD_FORGOT_URL: http://localhost:8000/#/password/forgot
       MFA_LEARN_MORE_URL: http://www.google.com/search?q=mfa
       MFA_SETUP_URL: http://localhost:8000/profile
       PROFILE_URL: http://localhost:8000/profile
@@ -263,6 +263,7 @@ services:
       APP_ENV: dev
       ID_BROKER_CONFIG_accessToken: abc123abc123
       ID_BROKER_CONFIG_baseUrl: http://broker
+      ID_BROKER_CONFIG_assertValidIp: "false"
       ID_BROKER_ADAPTER: idp
       ID_STORE_ADAPTER: googlesheets
       ID_STORE_CONFIG_applicationName: idp-in-a-box
