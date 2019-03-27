@@ -6,6 +6,7 @@ Documentation, examples, Docker Compose setup, Terraform modules, etc. for our I
 2. `cd docker-compose`
 3. `docker-compose up -d`
 4. `docker-compose exec broker ./yii migrate --interactive=0`
+5. open browser to `localhost:8000`
 
 #### Optional
 1. Add `LOGENTRIES` tokens in `docker-compose.yml`
@@ -67,8 +68,8 @@ Documentation, examples, Docker Compose setup, Terraform modules, etc. for our I
   * Components are not required to be defined in a `local.php` file in 
     `idp-pw-api`. Defaults are provided.
   * New `simplesamlphp-module-profilereview` module, which requires
-    a new environment variable `PROFILE_URL` and two optional variables
-    `METHOD_LEARN_MORE_URL` and `SKIP_REVIEW_WHEN_HEADED_TO_PROFILE`.
+    a new environment variable `PROFILE_URL` and an optional variable
+    `SKIP_REVIEW_WHEN_HEADED_TO_PROFILE`.
   * New `groups` and `personal_email` properties
 ##### API changes
   * On pw-api, POST changed to PUT on `/mfa/{id}/verify`.
