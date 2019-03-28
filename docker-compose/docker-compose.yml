@@ -161,7 +161,7 @@ services:
       RECAPTCHA_REQUIRED: "false"
       RECAPTCHA_SITE_KEY:
       RECAPTCHA_SECRET_KEY:
-      UI_URL: http://localhost:51052
+      UI_URL: http://localhost:51052/#
       UI_CORS_ORIGIN: http://localhost:51052
       HELP_CENTER_URL: https://google.com/
       SUPPORT_PHONE:
@@ -250,6 +250,8 @@ services:
       - pw-api
     environment:
       VUE_APP_API_BASE_URL: http://pw-api.local:51050
+      VUE_APP_PRIMARY_COLOR: "#015d99"
+      VUE_APP_SECONDARY_COLOR: "#791f5e"
 
   sync:
     image: silintl/idp-id-sync:develop
