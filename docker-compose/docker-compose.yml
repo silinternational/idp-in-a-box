@@ -186,45 +186,6 @@ services:
       ID_BROKER_accessToken: abc123abc123
       ID_BROKER_assertValidBrokerIp: "false"
 
-  pw-cron:
-    image: silintl/idp-pw-api:develop-3.0
-    depends_on:
-      - db-pw
-    volumes:
-      - ./pw-api/config.php:/data/common/config/local.php
-    env_file:
-      - pw-api/local.env
-    environment:
-      MYSQL_HOST: db-pw
-      MYSQL_DATABASE: pw-api
-      MYSQL_USER: pw-api
-      MYSQL_PASSWORD: pw-api
-      IDP_NAME: development
-      ALERTS_EMAIL_ENABLED: "false"
-      EMAIL_SERVICE_accessToken: abc123
-      EMAIL_SERVICE_assertValidIp: "false"
-      EMAIL_SERVICE_baseUrl: http://email
-      ADMIN_EMAIL: admin@domain.com
-      FROM_NAME: Your friendly Help Desk team
-      FRONT_COOKIE_SECURE: "false"
-      RECAPTCHA_REQUIRED: "false"
-      RECAPTCHA_SITE_KEY:
-      RECAPTCHA_SECRET_KEY:
-      UI_URL: http://localhost:8000
-      UI_CORS_ORIGIN: http://localhost:8000
-      HELP_CENTER_URL: https://google.com/
-      SUPPORT_PHONE:
-      SUPPORT_EMAIL:
-      SUPPORT_URL:
-      SUPPORT_FEEDBACK:
-      ZXCVBN_API_BASEURL: http://zxcvbn:3000
-      ACCESS_TOKEN_HASH_KEY: nice long random string here
-      ALERTS_EMAIL: admin@domain.com
-      ID_BROKER_baseUrl: http://broker
-      ID_BROKER_accessToken: abc123abc123
-      ID_BROKER_assertValidBrokerIp: "false"
-    command: whenavail db-pw 3306 100 /data/run-cron.sh
-
   phpmyadmin-pw:
     image: phpmyadmin/phpmyadmin:latest
     ports:
