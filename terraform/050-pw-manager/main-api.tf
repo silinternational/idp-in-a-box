@@ -93,6 +93,7 @@ data "template_file" "task_def" {
     mysql_host                          = "${var.mysql_host}"
     mysql_password                      = "${var.mysql_pass}"
     mysql_user                          = "${var.mysql_user}"
+    password_rule_enablehibp            = "${var.password_rule_enablehibp}"
     password_rule_maxlength             = "${var.password_rule_maxlength}"
     password_rule_minlength             = "${var.password_rule_minlength}"
     password_rule_minscore              = "${var.password_rule_minscore}"

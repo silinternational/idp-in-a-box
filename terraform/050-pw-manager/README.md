@@ -58,6 +58,7 @@ This module is used to create an ECS service running the password manager API an
 ## Optional Inputs
 
  - `code_length` - Number of digits in reset code. Default: `6`
+ - `password_rule_enablehibp` - Enable haveibeenpwned.com password check. Default: `true`
  - `password_rule_maxlength` - Maximum password length. Default: `255`
  - `password_rule_minlength` - Minimum password length. Default: `10`
  - `password_rule_minscore` - Minimum password score. Default: `3`
@@ -117,6 +118,7 @@ module "pwmanager" {
   mysql_host                          = "${data.terraform_remote_state.database.rds_address}"
   mysql_pass                          = "${data.terraform_remote_state.database.db_pwmanager_pass}"
   mysql_user                          = "${var.mysql_user}"
+  password_rule_enablehibp            = "${var.password_rule_enablehibp}"
   password_rule_maxlength             = "${var.password_rule_maxlength}"
   password_rule_minlength             = "${var.password_rule_minlength}"
   password_rule_minscore              = "${var.password_rule_minscore}"

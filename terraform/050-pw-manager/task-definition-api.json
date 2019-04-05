@@ -146,6 +146,10 @@
         "value": "${mysql_user}"
       },
       {
+        "name": "PASSWORD_RULE_enableHIBP",
+        "value": "${password_rule_enablehibp}"
+      },
+      {
         "name": "PASSWORD_RULE_maxLength",
         "value": "${password_rule_maxlength}"
       },

@@ -181,6 +181,12 @@ variable "mysql_user" {
   type = "string"
 }
 
+variable "password_rule_enablehibp" {
+  description = "enable haveibeenpwned.com password check"
+  type        = "string"
+  default     = "true"
+}
+
 variable "password_rule_maxlength" {
   description = "maximum password length"
   type        = "string"
