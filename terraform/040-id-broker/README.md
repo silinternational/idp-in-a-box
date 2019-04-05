@@ -35,7 +35,6 @@ This module is used to create an ECS service running id-broker.
  - `mysql_host` - Address for RDS instance
  - `mysql_pass` - MySQL password for id-broker
  - `mysql_user` - MySQL username for id-broker
- - `password_forgot_url` - URL to forgot password process
  - `password_profile_url` - URL to password manager profile
  - `ssl_policy` - SSL policy
  - `support_email` - Email address for support
@@ -171,7 +170,6 @@ module "broker" {
   mysql_user                       = "${var.mysql_user}"
   notification_email               = "${var.notification_email}"
   password_expiration_grace_period = "${var.password_expiration_grace_period}"
-  password_forgot_url              = "${var.password_forgot_url}"
   password_lifespan                = "${var.password_lifespan}"
   password_mfa_lifespan_extension  = "${var.password_mfa_lifespan_extension}"
   password_profile_url             = "${var.password_profile_url}"

@@ -194,8 +194,7 @@ variable "method_maxAttempts" {
 }
 
 variable "mfa_lifetime" {
-  type = "string"
-
+  type    = "string"
   default = "+2 hours"
 }
 

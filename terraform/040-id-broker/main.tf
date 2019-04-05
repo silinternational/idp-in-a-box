@@ -65,8 +65,8 @@ data "template_file" "task_def" {
   vars {
     api_access_keys                  = "${random_id.access_token_pwmanager.hex},${random_id.access_token_ssp.hex},${random_id.access_token_idsync.hex}"
     app_env                          = "${var.app_env}"
-    cpu                              = "${var.cpu}"
     contingent_user_duration         = "${var.contingent_user_duration}"
+    cpu                              = "${var.cpu}"
     db_name                          = "${var.db_name}"
     docker_image                     = "${var.docker_image}"
     email_repeat_delay_days          = "${var.email_repeat_delay_days}"
@@ -110,7 +110,6 @@ data "template_file" "task_def" {
     mysql_user                       = "${var.mysql_user}"
     notification_email               = "${var.notification_email}"
     password_expiration_grace_period = "${var.password_expiration_grace_period}"
-    password_forgot_url              = "${var.password_forgot_url}"
     password_lifespan                = "${var.password_lifespan}"
     password_mfa_lifespan_extension  = "${var.password_mfa_lifespan_extension}"
     password_profile_url             = "${var.password_profile_url}"
