@@ -40,6 +40,8 @@ data "template_file" "task_def" {
   vars {
     hostname   = "${var.subdomain}.${var.cloudflare_domain}"
     mysql_host = "${var.rds_address}"
+    cpu        = "${var.cpu}"
+    memory     = "${var.memory}"
   }
 }
 
