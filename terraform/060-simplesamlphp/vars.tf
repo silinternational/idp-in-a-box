@@ -155,7 +155,7 @@ variable "theme_color_scheme" {
 
 variable "theme_use" {
   type    = "string"
-  default = "material-material"
+  default = "material:material"
 }
 
 variable "trusted_ip_addresses" {
