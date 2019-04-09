@@ -35,7 +35,7 @@ variable "num_cache_nodes" {
 
 variable "parameter_group_name" {
   type    = "string"
-  default = "default.memcached1.4"
+  default = "default.memcached1.5"
 }
 
 variable "az_mode" {

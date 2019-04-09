@@ -118,3 +118,7 @@ variable "notifier_email_to" {
 variable "sync_safety_cutoff" {
   default = "0.15"
 }
+
+variable "allow_empty_email" {
+  default = "false"
+}

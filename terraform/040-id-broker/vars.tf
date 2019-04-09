@@ -1,59 +1,59 @@
-variable "memory" {
-  default = "200"
-}
-
-variable "memory_cron" {
-  default = "50"
-}
-
-variable "cpu" {
-  default = "250"
-}
-
-variable "cpu_cron" {
-  default = "128"
+variable "app_env" {
+  type        = "string"
+  description = "Environment name, ex: 'stg' or 'prod'"
 }
 
 variable "app_name" {
+  type        = "string"
+  default     = "id-broker"
+  description = "Used in ECS service names and logs, best to leave as default."
+}
+
+variable "cloudflare_domain" {
+  type = "string"
+}
+
+variable "contingent_user_duration" {
   type    = "string"
-  default = "id-broker"
+  default = "+4 weeks"
 }
 
-variable "app_env" {
+variable "cpu" {
+  type        = "string"
+  description = "Amount of CPU to allocate to container, recommend '250' for production"
+  default     = "250"
+}
+
+variable "cpu_cron" {
+  type        = "string"
+  description = "Amount of CPU to allocate to cron container, recommend '128' for production"
+  default     = "128"
+}
+
+variable "db_name" {
   type = "string"
 }
 
-variable "vpc_id" {
-  type = "string"
-}
-
-variable "ssl_policy" {
-  type = "string"
-}
-
-variable "wildcard_cert_arn" {
-  type = "string"
-}
-
-variable "logentries_set_id" {
-  type = "string"
-}
-
-variable "idp_display_name" {
+variable "desired_count" {
   type    = "string"
-  default = ""
-}
-
-variable "idp_name" {
-  type = "string"
+  default = "1"
 }
 
 variable "docker_image" {
   type = "string"
 }
 
-variable "db_name" {
+variable "ecs_cluster_id" {
   type = "string"
+}
+
+variable "ecsServiceRole_arn" {
+  type = "string"
+}
+
+variable "email_repeat_delay_days" {
+  type    = "string"
+  default = "31"
 }
 
 variable "email_service_accessToken" {
@@ -74,16 +74,34 @@ variable "email_service_validIpRanges" {
   type        = "list"
 }
 
-variable "ga_tracking_id" {
-  description = "The Google Analytics property id (e.g. UA-12345678-12)"
-  type        = "string"
-  default     = ""
+variable "email_signature" {
+  type    = "string"
+  default = ""
 }
 
 variable "ga_client_id" {
   description = "Used by Google Analytics to distinguish the user."
   type        = "string"
   default     = ""
+}
+
+variable "ga_tracking_id" {
+  description = "The Google Analytics property id (e.g. UA-12345678-12)"
+  type        = "string"
+  default     = ""
+}
+
+variable "help_center_url" {
+  type = "string"
+}
+
+variable "idp_display_name" {
+  type    = "string"
+  default = ""
+}
+
+variable "idp_name" {
+  description = "Short name of IdP for logs, something like 'acme'"
 }
 
 variable "internal_alb_dns_name" {
@@ -96,6 +114,16 @@ variable "internal_alb_listener_arn" {
   type        = "string"
 }
 
+variable "invite_grace_period" {
+  type    = "string"
+  default = "+3 months"
+}
+
+variable "invite_lifespan" {
+  type    = "string"
+  default = "+1 month"
+}
+
 variable "ldap_admin_password" {
   type = "string"
 }
@@ -105,25 +133,69 @@ variable "ldap_admin_username" {
 }
 
 variable "ldap_base_dn" {
-  type = "string"
+  description = "Base DN for LDAP search and bind. Ex: 'dc=acme,dc=org'"
+  type        = "string"
 }
 
 variable "ldap_domain_controllers" {
-  type = "string"
+  description = "Hostname for LDAP server. Ex: 'ldap.acme.org'"
+  type        = "string"
 }
 
 variable "ldap_use_ssl" {
-  type = "string"
+  description = "Whether or not to use SSL"
+  type        = "string"
 }
 
 variable "ldap_use_tls" {
+  description = "Whether or not to use TLS"
+  type        = "string"
+}
+
+variable "logentries_set_id" {
   type = "string"
 }
 
-variable "mfa_nag_interval" {
+variable "lost_security_key_email_days" {
+  type    = "string"
+  default = "62"
+}
+
+variable "memory" {
   type        = "string"
-  description = "Interval for nagging users to set up MFA if they have not already done so"
-  default     = "+30 days"
+  description = "Amount of memory to allocate to container, recommend '200' for production"
+  default     = "200"
+}
+
+variable "memory_cron" {
+  type        = "string"
+  description = "Amount of memory to allocate to cron container, recommend '64' for production"
+  default     = "50"
+}
+
+variable "method_codeLength" {
+  type    = "string"
+  default = "6"
+}
+
+variable "method_gracePeriod" {
+  type    = "string"
+  default = "+15 days"
+}
+
+variable "method_lifetime" {
+  type    = "string"
+  default = "+1 day"
+}
+
+variable "method_maxAttempts" {
+  type    = "string"
+  default = "10"
+}
+
+variable "mfa_lifetime" {
+  type    = "string"
+  default = "+2 hours"
 }
 
 variable "mfa_totp_apibaseurl" {
@@ -154,19 +226,17 @@ variable "mfa_u2f_appid" {
   type = "string"
 }
 
-variable "notification_email" {
-  type = "string"
+variable "migrate_pw_from_ldap" {
+  description = "Whether or not to attempt to migrate password from LDAP if not present in database"
+  type        = "string"
 }
 
-variable "migrate_pw_from_ldap" {
-  type = "string"
+variable "minimum_backup_codes_before_nag" {
+  type    = "string"
+  default = "4"
 }
 
 variable "mysql_host" {
-  type = "string"
-}
-
-variable "mysql_user" {
   type = "string"
 }
 
@@ -174,56 +244,77 @@ variable "mysql_pass" {
   type = "string"
 }
 
-variable "ecs_cluster_id" {
+variable "mysql_user" {
   type = "string"
 }
 
-variable "ecsServiceRole_arn" {
-  type = "string"
+variable "notification_email" {
+  description = "Email address to send notifications to"
+  type        = "string"
 }
 
-variable "subdomain" {
-  type = "string"
-}
-
-variable "cloudflare_domain" {
-  type = "string"
-}
-
-variable "desired_count" {
+variable "password_expiration_grace_period" {
   type    = "string"
-  default = "1"
+  default = "+30 days"
 }
 
-variable "email_signature" {
+variable "password_lifespan" {
   type    = "string"
-  default = ""
+  default = "+1 year"
 }
 
-variable "password_forgot_url" {
-  type = "string"
+variable "password_mfa_lifespan_extension" {
+  type    = "string"
+  default = "+4 years"
 }
 
 variable "password_profile_url" {
   type = "string"
 }
 
-variable "support_email" {
-  type = "string"
-}
-
-variable "support_name" {
+variable "password_reuse_limit" {
   type    = "string"
-  default = "support"
+  default = "10"
 }
 
-variable "help_center_url" {
-  type = "string"
+variable "profile_review_interval" {
+  type    = "string"
+  default = "+12 months"
+}
+
+variable "send_get_backup_codes_emails" {
+  type    = "string"
+  default = "true"
 }
 
 variable "send_invite_emails" {
   type    = "string"
-  default = "false"
+  default = "true"
+}
+
+variable "send_lost_security_key_emails" {
+  type    = "string"
+  default = "true"
+}
+
+variable "send_mfa_disabled_emails" {
+  type    = "string"
+  default = "true"
+}
+
+variable "send_mfa_enabled_emails" {
+  type    = "string"
+  default = "true"
+}
+
+variable "send_mfa_option_added_emails" {
+  type    = "string"
+  default = "true"
+}
+
+variable "send_mfa_option_removed_emails" {
+  type    = "string"
+  default = "true"
 }
 
 variable "send_mfa_rate_limit_emails" {
@@ -236,12 +327,70 @@ variable "send_password_changed_emails" {
   default = "true"
 }
 
+variable "send_refresh_backup_codes_emails" {
+  type    = "string"
+  default = "true"
+}
+
 variable "send_welcome_emails" {
   type    = "string"
   default = "true"
 }
 
+variable "ssl_policy" {
+  type = "string"
+}
+
+variable "subdomain" {
+  type = "string"
+}
+
+variable "subject_for_get_backup_codes" {
+  type    = "string"
+  default = ""
+}
+
 variable "subject_for_invite" {
+  type    = "string"
+  default = ""
+}
+
+variable "subject_for_lost_security_key" {
+  type    = "string"
+  default = ""
+}
+
+variable "subject_for_method_verify" {
+  type    = "string"
+  default = ""
+}
+
+variable "subject_for_mfa_disabled" {
+  type    = "string"
+  default = ""
+}
+
+variable "subject_for_mfa_enabled" {
+  type    = "string"
+  default = ""
+}
+
+variable "subject_for_mfa_manager" {
+  type    = "string"
+  default = ""
+}
+
+variable "subject_for_mfa_manager_help" {
+  type    = "string"
+  default = ""
+}
+
+variable "subject_for_mfa_option_added" {
+  type    = "string"
+  default = ""
+}
+
+variable "subject_for_mfa_option_removed" {
   type    = "string"
   default = ""
 }
@@ -256,7 +405,29 @@ variable "subject_for_password_changed" {
   default = ""
 }
 
+variable "subject_for_refresh_backup_codes" {
+  type    = "string"
+  default = ""
+}
+
 variable "subject_for_welcome" {
   type    = "string"
   default = ""
+}
+
+variable "support_email" {
+  type = "string"
+}
+
+variable "support_name" {
+  type    = "string"
+  default = "support"
+}
+
+variable "vpc_id" {
+  type = "string"
+}
+
+variable "wildcard_cert_arn" {
+  type = "string"
 }

@@ -45,3 +45,11 @@ variable "ecsServiceRole_arn" {
 variable "alb_dns_name" {
   type = "string"
 }
+
+variable "cpu" {
+  default = "32"
+}
+
+variable "memory" {
+  default = "128"
+}

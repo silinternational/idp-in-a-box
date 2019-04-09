@@ -107,6 +107,10 @@ variable "mysql_pass" {
   type = "string"
 }
 
+variable "profile_url" {
+  type = "string"
+}
+
 variable "recaptcha_key" {
   type = "string"
 }
@@ -147,6 +151,11 @@ variable "show_saml_errors" {
 variable "theme_color_scheme" {
   type    = "string"
   default = "indigo-purple"
+}
+
+variable "theme_use" {
+  type    = "string"
+  default = "material:material"
 }
 
 variable "trusted_ip_addresses" {
