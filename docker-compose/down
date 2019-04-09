@@ -1,0 +1,10 @@
+#!/bin/bash
+echo stopping containers...
+docker-compose stop 
+
+read -p "Also delete all stopped containers? " -n 1 -r
+echo    # (optional) move to a new line
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+  docker system prune -f
+fi

@@ -75,7 +75,7 @@
       },
       {
         "name": "THEME_USE",
-        "value": "material:material"
+        "value": "${theme_use}"
       },
       {
         "name": "PASSWORD_CHANGE_URL",
@@ -128,6 +128,10 @@
       {
         "name": "MYSQL_PASSWORD",
         "value": "${mysql_password}"
+      },
+      {
+        "name": "PROFILE_URL",
+        "value":  "${profile_url}"
       },
       {
         "name": "RECAPTCHA_SITE_KEY",

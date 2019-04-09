@@ -78,6 +78,7 @@ data "template_file" "task_def" {
     mysql_host                   = "${var.mysql_host}"
     mysql_password               = "${var.mysql_pass}"
     mysql_user                   = "${var.mysql_user}"
+    profile_url                  = "${var.profile_url}"
     recaptcha_key                = "${var.recaptcha_key}"
     recaptcha_secret             = "${var.recaptcha_secret}"
     remember_me_secret           = "${var.remember_me_secret}"
@@ -86,6 +87,7 @@ data "template_file" "task_def" {
     idp_name                     = "${var.idp_name}"
     idp_display_name             = "${var.idp_display_name}"
     theme_color_scheme           = "${var.theme_color_scheme}"
+    theme_use                    = "${var.theme_use}"
     trusted_ip_addresses         = "${join(",", var.trusted_ip_addresses)}"
     analytics_id                 = "${var.analytics_id}"
     delete_remember_me_on_logout = "${var.delete_remember_me_on_logout}"
@@ -93,7 +95,7 @@ data "template_file" "task_def" {
 }
 
 module "ecsservice" {
-  source             = "github.com/silinternational/terraform-modules//aws/ecs/service-only?ref=2.2.0"
+  source             = "github.com/silinternational/terraform-modules//aws/ecs/service-only?ref=2.5.0"
   cluster_id         = "${var.ecs_cluster_id}"
   service_name       = "${var.idp_name}-${var.app_name}"
   service_env        = "${var.app_env}"
