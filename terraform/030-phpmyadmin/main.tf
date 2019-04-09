@@ -46,7 +46,7 @@ data "template_file" "task_def" {
 }
 
 module "ecsservice" {
-  source             = "github.com/silinternational/terraform-modules//aws/ecs/service-only?ref=2.2.0"
+  source             = "github.com/silinternational/terraform-modules//aws/ecs/service-only?ref=2.5.0"
   cluster_id         = "${var.ecs_cluster_id}"
   service_name       = "${var.idp_name}-${var.app_name}"
   service_env        = "${var.app_env}"
