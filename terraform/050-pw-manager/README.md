@@ -107,6 +107,7 @@ module "pwmanager" {
   email_service_baseUrl               = "https://${data.terraform_remote_state.email.hostname}"
   email_service_validIpRanges         = ["${data.terraform_remote_state.cluster.private_subnet_cidr_blocks}"]
   from_name                           = "${var.from_name}"
+  help_center_url                     = "${data.terraform_remote_state.broker.help_center_url}"
   id_broker_access_token              = "${data.terraform_remote_state.broker.access_token_pwmanager}"
   id_broker_assertValidBrokerIp       = "${var.id_broker_assertValidBrokerIp}"
   id_broker_base_uri                  = "https://${data.terraform_remote_state.broker.hostname}"
