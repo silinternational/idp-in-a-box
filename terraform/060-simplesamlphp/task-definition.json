@@ -164,6 +164,10 @@
       {
         "name": "ANALYTICS_ID",
         "value": "${analytics_id}"
+      },
+      {
+        "name": "HELP_CENTER_URL",
+        "value": "${help_center_url}"
       }
     ],
     "links": null,

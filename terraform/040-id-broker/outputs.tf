@@ -17,3 +17,7 @@ output "access_token_ssp" {
 output "access_token_idsync" {
   value = "${random_id.access_token_idsync.hex}"
 }
+
+output "help_center_url" {
+  value = "${var.help_center_url}"
+}

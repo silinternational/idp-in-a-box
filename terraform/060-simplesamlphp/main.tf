@@ -91,6 +91,7 @@ data "template_file" "task_def" {
     trusted_ip_addresses         = "${join(",", var.trusted_ip_addresses)}"
     analytics_id                 = "${var.analytics_id}"
     delete_remember_me_on_logout = "${var.delete_remember_me_on_logout}"
+    help_center_url              = "${var.help_center_url}"
   }
 }
 

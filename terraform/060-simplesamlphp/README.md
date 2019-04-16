@@ -101,5 +101,6 @@ module "ssp" {
   analytics_id                 = "${var.analytics_id}"
   show_saml_errors             = "${var.show_saml_errors}"
   delete_remember_me_on_logout = "${var.delete_remember_me_on_logout}"
+  help_center_url              = "${data.terraform_remote_state.broker.help_center_url}"
 }
 ```
