@@ -169,3 +169,7 @@ variable "desired_count" {
 variable "analytics_id" {
   type = "string"
 }
+
+variable "help_center_url" {
+  type = "string"
+}

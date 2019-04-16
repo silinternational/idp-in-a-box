@@ -132,6 +132,10 @@ variable "from_name" {
   type        = "string"
 }
 
+variable "help_center_url" {
+  type = "string"
+}
+
 variable "id_broker_access_token" {
   type = "string"
 }
