@@ -94,8 +94,8 @@
         "value": "${email_service_validIpRanges}"
       },
       {
-        "name": "FROM_NAME",
-        "value": "${from_name}"
+        "name": "EMAIL_SIGNATURE",
+        "value": "${email_signature}"
       },
       {
         "name": "HELP_CENTER_URL",

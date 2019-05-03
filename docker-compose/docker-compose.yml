@@ -155,7 +155,7 @@ services:
       EMAIL_SERVICE_assertValidIp: "false"
       EMAIL_SERVICE_baseUrl: http://email
       ADMIN_EMAIL: admin@domain.com
-      FROM_NAME: Your friendly Help Desk team
+      EMAIL_SIGNATURE: Your friendly Help Desk team
       FRONT_COOKIE_SECURE: "false"
       RECAPTCHA_REQUIRED: "false"
       RECAPTCHA_SITE_KEY:

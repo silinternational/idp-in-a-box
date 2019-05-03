@@ -127,8 +127,8 @@ variable "email_service_validIpRanges" {
   type        = "list"
 }
 
-variable "from_name" {
-  description = "Name to send emails from"
+variable "email_signature" {
+  description = "Email signature line"
   type        = "string"
 }
 

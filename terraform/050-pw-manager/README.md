@@ -37,7 +37,7 @@ This module is used to create an ECS service running the password manager API an
  - `email_service_assertValidIp` - Whether or not to assert IP address for Email Service API is trusted. Default: `true`
  - `email_service_baseUrl` - Base URL to Email Service API
  - `email_service_validIpRanges` - List of valid IP ranges to Email Service API
- - `from_name` - Email from name
+ - `email_signature` - Email signature line
  - `id_broker_access_token` - Access token for calling id-broker
  - `id_broker_assertValidBrokerIp` - Whether or not to assert IP address for ID Broker API is trusted. Default: `true`
  - `id_broker_base_uri` - Base URL to id-broker API
@@ -106,7 +106,7 @@ module "pwmanager" {
   email_service_assertValidIp         = "${var.email_service_assertValidIp}"
   email_service_baseUrl               = "https://${data.terraform_remote_state.email.hostname}"
   email_service_validIpRanges         = ["${data.terraform_remote_state.cluster.private_subnet_cidr_blocks}"]
-  from_name                           = "${var.from_name}"
+  email_signature                     = "${var.email_signature}"
   help_center_url                     = "${data.terraform_remote_state.broker.help_center_url}"
   id_broker_access_token              = "${data.terraform_remote_state.broker.access_token_pwmanager}"
   id_broker_assertValidBrokerIp       = "${var.id_broker_assertValidBrokerIp}"
