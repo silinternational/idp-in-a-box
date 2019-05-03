@@ -185,7 +185,7 @@ variable "method_gracePeriod" {
 
 variable "method_lifetime" {
   type    = "string"
-  default = "+1 day"
+  default = "+5 days"
 }
 
 variable "method_maxAttempts" {
