@@ -224,6 +224,14 @@
         "value": "${send_lost_security_key_emails}"
       },
       {
+        "name": "SEND_METHOD_PURGED_EMAILS",
+        "value": "${send_method_purged_emails}"
+      },
+      {
+        "name": "SEND_METHOD_REMINDER_EMAILS",
+        "value": "${send_method_reminder_emails}"
+      },
+      {
         "name": "SEND_MFA_DISABLED_EMAILS",
         "value": "${send_mfa_disabled_emails}"
       },
@@ -248,6 +256,14 @@
         "value": "${send_password_changed_emails}"
       },
       {
+        "name": "SEND_PASSWORD_EXPIRED_EMAILS",
+        "value": "${send_password_expired_emails}"
+      },
+      {
+        "name": "SEND_PASSWORD_EXPIRING_EMAILS",
+        "value": "${send_password_expiring_emails}"
+      },
+      {
         "name": "SEND_REFRESH_BACKUP_CODES_EMAILS",
         "value": "${send_refresh_backup_codes_emails}"
       },
@@ -256,7 +272,7 @@
         "value": "${send_welcome_emails}"
       },
       {
-        "name":  "SUBJECT_FOR_GET_BACKUP_CODES",
+        "name": "SUBJECT_FOR_GET_BACKUP_CODES",
         "value": "${subject_for_get_backup_codes}"
       },
       {
@@ -264,8 +280,16 @@
         "value": "${subject_for_invite}"
       },
       {
-        "name":  "SUBJECT_FOR_LOST_SECURITY_KEY",
+        "name": "SUBJECT_FOR_LOST_SECURITY_KEY",
         "value": "${subject_for_lost_security_key}"
+      },
+      {
+        "name": "SUBJECT_FOR_METHOD_PURGED",
+        "value": "${subject_for_method_purged}"
+      },
+      {
+        "name": "SUBJECT_FOR_METHOD_REMINDER",
+        "value": "${subject_for_method_reminder}"
       },
       {
         "name": "SUBJECT_FOR_METHOD_VERIFY",
@@ -276,7 +300,7 @@
         "value": "${subject_for_mfa_disabled}"
       },
       {
-        "name":  "SUBJECT_FOR_MFA_ENABLED",
+        "name": "SUBJECT_FOR_MFA_ENABLED",
         "value": "${subject_for_mfa_enabled}"
       },
       {
@@ -288,11 +312,11 @@
         "value": "${subject_for_mfa_manager_help}"
       },
       {
-        "name":  "SUBJECT_FOR_MFA_OPTION_ADDED",
+        "name": "SUBJECT_FOR_MFA_OPTION_ADDED",
         "value": "${subject_for_mfa_option_added}"
       },
       {
-        "name":  "SUBJECT_FOR_MFA_OPTION_REMOVED",
+        "name": "SUBJECT_FOR_MFA_OPTION_REMOVED",
         "value": "${subject_for_mfa_option_removed}"
       },
       {
@@ -304,7 +328,15 @@
         "value": "${subject_for_password_changed}"
       },
       {
-        "name":  "SUBJECT_FOR_REFRESH_BACKUP_CODES",
+        "name": "SUBJECT_FOR_PASSWORD_EXPIRED",
+        "value": "${subject_for_password_expired}"
+      },
+      {
+        "name": "SUBJECT_FOR_PASSWORD_EXPIRING",
+        "value": "${subject_for_password_expiring}"
+      },
+      {
+        "name": "SUBJECT_FOR_REFRESH_BACKUP_CODES",
         "value": "${subject_for_refresh_backup_codes}"
       },
       {
