@@ -118,6 +118,10 @@
         "value": "${lost_security_key_email_days}"
       },
       {
+        "name": "METHOD_ADD_INTERVAL",
+        "value": "${method_add_interval}"
+      },
+      {
         "name": "METHOD_codeLength",
         "value": "${method_codeLength}"
       },
@@ -132,6 +136,10 @@
       {
         "name": "METHOD_maxAttempts",
         "value": "${method_maxAttempts}"
+      },
+      {
+        "name": "MFA_ADD_INTERVAL",
+        "value": "${mfa_add_interval}"
       },
       {
         "name": "MFA_lifetime",

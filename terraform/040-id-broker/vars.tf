@@ -173,6 +173,10 @@ variable "memory_cron" {
   default     = "50"
 }
 
+variable "method_add_interval" {
+  type = "string"
+}
+
 variable "method_codeLength" {
   type    = "string"
   default = "6"
@@ -191,6 +195,10 @@ variable "method_lifetime" {
 variable "method_maxAttempts" {
   type    = "string"
   default = "10"
+}
+
+variable "mfa_add_interval" {
+  type = "string"
 }
 
 variable "mfa_lifetime" {

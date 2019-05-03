@@ -61,10 +61,12 @@ This module is used to create an ECS service running id-broker.
  - `ldap_use_tls` - true/false. Required if `migrate_pw_from_ldap` is true.
  - `lost_security_key_email_days` - The number of days of not using a security key after which we email the user. Default: `62`
  - `memory_cron` - How much memory to allocate to cron service. Default: `64`
+ - `method_add_interval` Interval between reminders to add recovery methods. Default: `+6 months`
  - `method_codeLength` - Number of digits in recovery method verification code. Default: `6`
  - `method_gracePeriod` - If a recovery method has been expired longer than this amount of time, it will be removed. Default: `+1 week`
  - `method_lifetime` - Defines the amount of time in which a recovery method must be verified. Default: `+1 day`
  - `method_maxAttempts` - Maximum number of recovery method verification attempts allowed. Default: `10`
+ - `mfa_add_interval` - Interval between reminders to add MFAs. Default: `+30 days`
  - `migrate_pw_from_ldap` - Whether or not to attempt to migrate passwords from LDAP. Default: `false`
  - `mfa_lifetime` - Defines the amount of time in which an MFA must be verified. Default: `+2 hours`
  - `minimum_backup_codes_before_nag` - Nag the user if they have FEWER than this number of backup codes. Default: `4` 
