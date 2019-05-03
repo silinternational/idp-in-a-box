@@ -106,7 +106,7 @@ module "pwmanager" {
   email_service_assertValidIp         = "${var.email_service_assertValidIp}"
   email_service_baseUrl               = "https://${data.terraform_remote_state.email.hostname}"
   email_service_validIpRanges         = ["${data.terraform_remote_state.cluster.private_subnet_cidr_blocks}"]
-  email_signature                     = "${var.email_signature}"
+  email_signature                     = "${data.terraform_remote_state.broker.email_signature}"
   help_center_url                     = "${data.terraform_remote_state.broker.help_center_url}"
   id_broker_access_token              = "${data.terraform_remote_state.broker.access_token_pwmanager}"
   id_broker_assertValidBrokerIp       = "${var.id_broker_assertValidBrokerIp}"
@@ -125,7 +125,7 @@ module "pwmanager" {
   password_rule_minscore              = "${var.password_rule_minscore}"
   recaptcha_key                       = "${var.recaptcha_key}"
   recaptcha_secret                    = "${var.recaptcha_secret}"
-  source                              = "github.com/silinternational/idp-in-a-box//terraform/050-pw-manager?ref=develop-4.0"
+  source                              = "github.com/silinternational/idp-in-a-box//terraform/050-pw-manager?ref=3.1.0"
   support_email                       = "${var.support_email}"
   support_feedback                    = "${var.support_feedback}"
   support_phone                       = "${var.support_phone}"

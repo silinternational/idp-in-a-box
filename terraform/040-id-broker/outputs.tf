@@ -21,3 +21,7 @@ output "access_token_idsync" {
 output "help_center_url" {
   value = "${var.help_center_url}"
 }
+
+output "email_signature" {
+  value = "${var.email_signature}"
+}
