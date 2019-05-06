@@ -80,7 +80,7 @@ data "template_file" "task_def" {
     email_service_assertValidIp         = "${var.email_service_assertValidIp}"
     email_service_baseUrl               = "${var.email_service_baseUrl}"
     email_service_validIpRanges         = "${join(",", var.email_service_validIpRanges)}"
-    from_name                           = "${var.from_name}"
+    email_signature                     = "${var.email_signature}"
     help_center_url                     = "${var.help_center_url}"
     id_broker_access_token              = "${var.id_broker_access_token}"
     id_broker_assertValidBrokerIp       = "${var.id_broker_assertValidBrokerIp}"

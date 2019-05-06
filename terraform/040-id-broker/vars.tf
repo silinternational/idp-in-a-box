@@ -173,6 +173,10 @@ variable "memory_cron" {
   default     = "50"
 }
 
+variable "method_add_interval" {
+  type = "string"
+}
+
 variable "method_codeLength" {
   type    = "string"
   default = "6"
@@ -185,12 +189,16 @@ variable "method_gracePeriod" {
 
 variable "method_lifetime" {
   type    = "string"
-  default = "+1 day"
+  default = "+5 days"
 }
 
 variable "method_maxAttempts" {
   type    = "string"
   default = "10"
+}
+
+variable "mfa_add_interval" {
+  type = "string"
 }
 
 variable "mfa_lifetime" {
@@ -297,6 +305,16 @@ variable "send_lost_security_key_emails" {
   default = "true"
 }
 
+variable "send_method_purged_emails" {
+  type    = "string"
+  default = "true"
+}
+
+variable "send_method_reminder_emails" {
+  type    = "string"
+  default = "true"
+}
+
 variable "send_mfa_disabled_emails" {
   type    = "string"
   default = "true"
@@ -323,6 +341,16 @@ variable "send_mfa_rate_limit_emails" {
 }
 
 variable "send_password_changed_emails" {
+  type    = "string"
+  default = "true"
+}
+
+variable "send_password_expired_emails" {
+  type    = "string"
+  default = "true"
+}
+
+variable "send_password_expiring_emails" {
   type    = "string"
   default = "true"
 }
@@ -356,6 +384,16 @@ variable "subject_for_invite" {
 }
 
 variable "subject_for_lost_security_key" {
+  type    = "string"
+  default = ""
+}
+
+variable "subject_for_method_purged" {
+  type    = "string"
+  default = ""
+}
+
+variable "subject_for_method_reminder" {
   type    = "string"
   default = ""
 }
@@ -401,6 +439,16 @@ variable "subject_for_mfa_rate_limit" {
 }
 
 variable "subject_for_password_changed" {
+  type    = "string"
+  default = ""
+}
+
+variable "subject_for_password_expired" {
+  type    = "string"
+  default = ""
+}
+
+variable "subject_for_password_expiring" {
   type    = "string"
   default = ""
 }

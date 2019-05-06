@@ -61,10 +61,12 @@ This module is used to create an ECS service running id-broker.
  - `ldap_use_tls` - true/false. Required if `migrate_pw_from_ldap` is true.
  - `lost_security_key_email_days` - The number of days of not using a security key after which we email the user. Default: `62`
  - `memory_cron` - How much memory to allocate to cron service. Default: `64`
+ - `method_add_interval` Interval between reminders to add recovery methods. Default: `+6 months`
  - `method_codeLength` - Number of digits in recovery method verification code. Default: `6`
  - `method_gracePeriod` - If a recovery method has been expired longer than this amount of time, it will be removed. Default: `+1 week`
  - `method_lifetime` - Defines the amount of time in which a recovery method must be verified. Default: `+1 day`
  - `method_maxAttempts` - Maximum number of recovery method verification attempts allowed. Default: `10`
+ - `mfa_add_interval` - Interval between reminders to add MFAs. Default: `+30 days`
  - `migrate_pw_from_ldap` - Whether or not to attempt to migrate passwords from LDAP. Default: `false`
  - `mfa_lifetime` - Defines the amount of time in which an MFA must be verified. Default: `+2 hours`
  - `minimum_backup_codes_before_nag` - Nag the user if they have FEWER than this number of backup codes. Default: `4` 
@@ -85,20 +87,24 @@ This module is used to create an ECS service running id-broker.
  - `send_password_changed_emails` - Bool of whether or not to send password changed emails. Default: `true`
  - `send_refresh_backup_codes_emails` - Bool of whether or not to send refresh backup codes emails. Default: `true`
  - `send_welcome_emails` - Bool of whether or not to send welcome emails. Default: `true`
- - `subject_for_get_backup_codes` - Email subject text for get backup codes emails. Default: `Get printable codes for your {idpDisplayName} account`
- - `subject_for_invite` - Email subject text for invite emails. Default: `Your new {idpDisplayName} account`
- - `subject_for_lost_security_key` - Email subject text for lost security key emails. Default: `Have you lost the security key you use with your {idpDisplayName} account?`
+ - `subject_for_get_backup_codes` - Email subject text for get backup codes emails. Default: `Get printable codes for your {idpDisplayName} Identity account`
+ - `subject_for_invite` - Email subject text for invite emails. Default: `Your new {idpDisplayName} Identity account`
+ - `subject_for_lost_security_key` - Email subject text for lost security key emails. Default: `Have you lost the security key you use with your {idpDisplayName} Identity account?`
+ - `subject_for_method_purged` - Email subject text for method purged emails. Default: `An unverified password recovery method has been removed from your {idpDisplayName} Identity account`
+ - `subject_for_method_reminder` - Email subject text for method reminder emails. Default: `REMINDER: Please verify your new password recovery method`
  - `subject_for_method_verify` - Email subject text for method verify emails. Default: `Please verify your new password recovery method`
- - `subject_for_mfa_disabled` - Email subject text for mfa disabled emails. Default: `2-Step Verification was disabled on your {idpDisplayName} account`
- - `subject_for_mfa_enabled` - Email subject text for mfa enabled emails. Default: `2-Step Verification was enabled on your {idpDisplayName} account`
- - `subject_for_mfa_manager` - Email subject text for mfa manager emails. Default: `{displayName} has sent you a login code for their {idpDisplayName} account`
- - `subject_for_mfa_manager_help` - Email subject text for mfa manager help emails. Default: `An access code for your {idpDisplayName} account has been sent to your manager`
- - `subject_for_mfa_option_added` - Email subject text for mfa option added emails. Default: `A 2-Step Verification option was added to your {idpDisplayName} account`
- - `subject_for_mfa_option_removed` - Email subject text for mfa option removed emails. Default: `A 2-Step Verification option was removed from your {idpDisplayName} account`
- - `subject_for_mfa_rate_limit` - Email subject text for MFA rate limit emails. Default: `Too many 2-step verification attempts on your {idpDisplayName} account`
- - `subject_for_password_changed` - Email subject text for password changed emails. Default: `Your {idpDisplayName} account password has been changed`
- - `subject_for_refresh_backup_codes` - Email subject text for refresh backup codes emails. Default: `Get a new set of printable codes for your {idpDisplayName} account`
- - `subject_for_welcome` - Email subject text for welcome emails. Default: `Welcome to your new {idpDisplayName} account`
+ - `subject_for_mfa_disabled` - Email subject text for mfa disabled emails. Default: `2-Step Verification was disabled on your {idpDisplayName} Identity account`
+ - `subject_for_mfa_enabled` - Email subject text for mfa enabled emails. Default: `2-Step Verification was enabled on your {idpDisplayName} Identity account`
+ - `subject_for_mfa_manager` - Email subject text for mfa manager emails. Default: `{displayName} has sent you a login code for their {idpDisplayName} Identity account`
+ - `subject_for_mfa_manager_help` - Email subject text for mfa manager help emails. Default: `An access code for your {idpDisplayName} Identity account has been sent to your manager`
+ - `subject_for_mfa_option_added` - Email subject text for mfa option added emails. Default: `A 2-Step Verification option was added to your {idpDisplayName} Identity account`
+ - `subject_for_mfa_option_removed` - Email subject text for mfa option removed emails. Default: `A 2-Step Verification option was removed from your {idpDisplayName} Identity account`
+ - `subject_for_mfa_rate_limit` - Email subject text for MFA rate limit emails. Default: `Too many 2-step verification attempts on your {idpDisplayName} Identity account`
+ - `subject_for_password_changed` - Email subject text for password changed emails. Default: `Your {idpDisplayName} Identity account password has been changed`
+ - `subject_for_password_expired` - Email subject text for password expired emails. Default: `Your {idpDisplayName} Identity account password has expired`
+ - `subject_for_password_expiring` - Email subject text for password expiring emails. Default: `The password for your {idpDisplayName} Identity account is about to expire`
+ - `subject_for_refresh_backup_codes` - Email subject text for refresh backup codes emails. Default: `Get a new set of printable codes for your {idpDisplayName} Identity account`
+ - `subject_for_welcome` - Email subject text for welcome emails. Default: `Welcome to your new {idpDisplayName} Identity account`
  - `support_name` - Name for support. Default: `support`
 
 
@@ -115,7 +121,7 @@ This module is used to create an ECS service running id-broker.
 
 ```hcl
 module "broker" {
-  source                           = "github.com/silinternational/idp-in-a-box//terraform/040-id-broker?ref=3.1.0"
+  source                           = "github.com/silinternational/idp-in-a-box//terraform/040-id-broker"
   app_env                          = "${var.app_env}"
   app_name                         = "${var.app_name}"
   cloudflare_domain                = "${var.cloudflare_domain}"
@@ -175,16 +181,20 @@ module "broker" {
   password_mfa_lifespan_extension  = "${var.password_mfa_lifespan_extension}"
   password_profile_url             = "${var.password_profile_url}"
   password_reuse_limit             = "${var.password_reuse_limit}"
-  profile_review_interval           = "${var.profile_review_interval}"
+  profile_review_interval          = "${var.profile_review_interval}"
   send_get_backup_codes_emails     = "${var.send_get_backup_codes_emails}"
   send_invite_emails               = "${var.send_invite_emails}"
   send_lost_security_key_emails    = "${var.send_lost_security_key_emails}"
+  send_method_purged_emails        = "${var.send_method_purged_emails}"
+  send_method_reminder_emails      = "${var.send_method_reminder_emails}"
   send_mfa_disabled_emails         = "${var.send_mfa_disabled_emails}"
   send_mfa_enabled_emails          = "${var.send_mfa_enabled_emails}"
   send_mfa_option_added_emails     = "${var.send_mfa_option_added_emails}"
   send_mfa_option_removed_emails   = "${var.send_mfa_option_removed_emails}"
   send_mfa_rate_limit_emails       = "${var.send_mfa_rate_limit_emails}"
   send_password_changed_emails     = "${var.send_password_changed_emails}"
+  send_password_expired_emails     = "${var.send_password_expired_emails}"
+  send_password_expiring_emails    = "${var.send_password_expiring_emails}"
   send_refresh_backup_codes_emails = "${var.send_refresh_backup_codes_emails}"
   send_welcome_emails              = "${var.send_welcome_emails}"
   ssl_policy                       = "${var.ssl_policy}"
@@ -192,6 +202,8 @@ module "broker" {
   subject_for_get_backup_codes     = "${var.subject_for_get_backup_codes}"
   subject_for_invite               = "${var.subject_for_invite}"
   subject_for_lost_security_key    = "${var.subject_for_lost_security_key}"
+  subject_for_method_purged        = "${var.subject_for_method_purged}"
+  subject_for_method_reminder      = "${var.subject_for_method_reminder}"
   subject_for_method_verify        = "${var.subject_for_method_verify}"
   subject_for_mfa_disabled         = "${var.subject_for_mfa_disabled}"
   subject_for_mfa_enabled          = "${var.subject_for_mfa_enabled}"
@@ -201,6 +213,8 @@ module "broker" {
   subject_for_mfa_option_removed   = "${var.subject_for_mfa_option_removed}"
   subject_for_mfa_rate_limit       = "${var.subject_for_mfa_rate_limit}"
   subject_for_password_changed     = "${var.subject_for_password_changed}"
+  subject_for_password_expired     = "${var.subject_for_password_expired}"
+  subject_for_password_expiring    = "${var.subject_for_password_expiring}"
   subject_for_refresh_backup_codes = "${var.subject_for_refresh_backup_codes}"
   subject_for_welcome              = "${var.subject_for_welcome}"
   support_email                    = "${var.support_email}"
