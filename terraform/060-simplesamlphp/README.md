@@ -44,7 +44,7 @@ This module is used to create an ECS service running simpleSAMLphp.
  - `trusted_ip_addresses` - A list of ip addresses or ranges that should not be rate limited
  - `analytics_id` - The ID used by an analytics provider such as Google Analytics, e.g., "UA-XXXX-YY"
  - `show_saml_errors` - Whether or not to show saml errors. Default: `false`
- - `delete_remember_me_on_logout` - Whether or not to delete remember me cookie on logout. Default: `true`
+ - `delete_remember_me_on_logout` - Whether or not to delete remember me cookie on logout. Default: `false`
 
 ## Outputs
 
