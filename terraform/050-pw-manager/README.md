@@ -125,7 +125,7 @@ module "pwmanager" {
   password_rule_minscore              = "${var.password_rule_minscore}"
   recaptcha_key                       = "${var.recaptcha_key}"
   recaptcha_secret                    = "${var.recaptcha_secret}"
-  source                              = "github.com/silinternational/idp-in-a-box//terraform/050-pw-manager?ref=3.1.0"
+  source                              = "github.com/silinternational/idp-in-a-box//terraform/050-pw-manager"
   support_email                       = "${var.support_email}"
   support_feedback                    = "${var.support_feedback}"
   support_phone                       = "${var.support_phone}"

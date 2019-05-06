@@ -121,7 +121,7 @@ This module is used to create an ECS service running id-broker.
 
 ```hcl
 module "broker" {
-  source                           = "github.com/silinternational/idp-in-a-box//terraform/040-id-broker?ref=3.1.0"
+  source                           = "github.com/silinternational/idp-in-a-box//terraform/040-id-broker"
   app_env                          = "${var.app_env}"
   app_name                         = "${var.app_name}"
   cloudflare_domain                = "${var.cloudflare_domain}"
