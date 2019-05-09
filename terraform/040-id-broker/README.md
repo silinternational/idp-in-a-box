@@ -116,6 +116,7 @@ This module is used to create an ECS service running id-broker.
  - `access_token_ssp` - Access token for simpleSAMLphp to use in API calls to id-broker
  - `access_token_idsync` - Access token for id-sync to use in API calls to id-broker
  - `help_center_url` - URL for general user help information
+ - `email_signature` - Text for use as the signature line of emails.
 
 ## Usage Example
 
