@@ -89,6 +89,8 @@ data "template_file" "task_def" {
     idp_display_name                    = "${var.idp_display_name}"
     idp_name                            = "${var.idp_name}"
     logentries_key                      = "${logentries_log.log.token}"
+    memcache_config1_host               = "${var.memcache_config1_host}"
+    memcache_config2_host               = "${var.memcache_config2_host}"
     memory                              = "${var.memory}"
     mysql_host                          = "${var.mysql_host}"
     mysql_password                      = "${var.mysql_pass}"
