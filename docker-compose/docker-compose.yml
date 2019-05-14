@@ -181,6 +181,8 @@ services:
       ID_BROKER_baseUrl: http://broker
       ID_BROKER_accessToken: abc123abc123
       ID_BROKER_assertValidBrokerIp: "false"
+      MEMCACHE_CONFIG1_host: memcache1
+      MEMCACHE_CONFIG2_host: memcache2
 
   phpmyadmin-pw:
     image: phpmyadmin/phpmyadmin:latest
@@ -297,3 +299,14 @@ services:
       PMA_HOST: db-email
       PMA_USER: email
       PMA_PASSWORD: email
+
+  memcache1:
+    image: memcached:1.4-alpine
+    ports:
+      - "11211"
+
+  memcache2:
+    image: memcached:1.4-alpine
+    ports:
+      - "11211"
+
