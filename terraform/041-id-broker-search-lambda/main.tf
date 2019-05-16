@@ -1,5 +1,5 @@
 resource "aws_lambda_function" "search" {
-  filename      = "idp-id-broker-search.zip"
+  filename      = "${path.module}/idp-id-broker-search.zip"
   function_name = "${var.function_name}"
   handler       = "${var.function_name}"
   memory_size   = "${var.memory_size}"
