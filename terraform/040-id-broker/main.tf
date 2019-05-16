@@ -67,7 +67,7 @@ data "template_file" "task_def" {
   template = "${file("${path.module}/task-definition.json")}"
 
   vars {
-    api_access_keys                  = "${random_id.access_token_pwmanager.hex},${random_id.access_token_ssp.hex},${random_id.access_token_idsync.hex}"
+    api_access_keys                  = "${random_id.access_token_pwmanager.hex},${random_id.access_token_search.hex},${random_id.access_token_ssp.hex},${random_id.access_token_idsync.hex}"
     app_env                          = "${var.app_env}"
     contingent_user_duration         = "${var.contingent_user_duration}"
     cpu                              = "${var.cpu}"
