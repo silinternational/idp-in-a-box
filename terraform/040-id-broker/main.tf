@@ -39,6 +39,10 @@ resource "random_id" "access_token_pwmanager" {
   byte_length = 16
 }
 
+resource "random_id" "access_token_search" {
+  byte_length = 16
+}
+
 resource "random_id" "access_token_ssp" {
   byte_length = 16
 }
