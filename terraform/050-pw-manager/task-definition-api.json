@@ -186,6 +186,10 @@
         "value": "${support_feedback}"
       },
       {
+        "name": "SUPPORT_NAME",
+        "value": "${support_name}"
+      },
+      {
         "name": "SUPPORT_PHONE",
         "value": "${support_phone}"
       },
