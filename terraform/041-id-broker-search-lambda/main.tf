@@ -16,6 +16,7 @@ resource "aws_lambda_function" "search" {
     variables = {
       BROKER_BASE_URL = "${var.broker_base_url}"
       BROKER_TOKEN    = "${var.broker_token}"
+      IDP_NAME        = "${var.idp_name}"
     }
   }
 
