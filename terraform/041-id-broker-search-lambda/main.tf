@@ -1,7 +1,7 @@
 resource "aws_lambda_function" "search" {
   s3_bucket     = "${var.function_bucket_name}"
   s3_key        = "${var.function_zip_name}"
-  function_name = "${var.function_name}"
+  function_name = "${var.function_name}-${var.idp_name}"
   handler       = "${var.function_name}"
   memory_size   = "${var.memory_size}"
   role          = "${var.role_arn}"
