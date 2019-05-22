@@ -14,6 +14,14 @@ variable "broker_token" {
   type = "string"
 }
 
+variable "function_bucket_name" {
+  type = "string"
+}
+
+variable "function_zip_name" {
+  default = "idp-id-broker-search.zip"
+}
+
 variable "function_name" {
   default = "idp-id-broker-search"
 }

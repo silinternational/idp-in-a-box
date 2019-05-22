@@ -1,16 +1,12 @@
 resource "aws_lambda_function" "search" {
-  filename      = "${path.module}/idp-id-broker-search.zip"
+  s3_bucket     = "${var.function_bucket_name}"
+  s3_key        = "${var.function_zip_name}"
   function_name = "${var.function_name}"
   handler       = "${var.function_name}"
   memory_size   = "${var.memory_size}"
   role          = "${var.role_arn}"
   runtime       = "go1.x"
   timeout       = "${var.timeout}"
-
-  # The filebase64sha256() function is available in Terraform 0.11.12 and later
-  # For Terraform 0.11.11 and earlier, use the base64sha256() function and the file() function:
-  # source_code_hash = "${base64sha256(file("lambda_function_payload.zip"))}"
-  source_code_hash = "${filebase64sha256("${path.module}/idp-id-broker-search.zip")}"
 
   environment {
     variables = {
