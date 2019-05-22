@@ -10,6 +10,10 @@ output "access_token_pwmanager" {
   value = "${random_id.access_token_pwmanager.hex}"
 }
 
+output "access_token_search" {
+  value = "${random_id.access_token_search.hex}"
+}
+
 output "access_token_ssp" {
   value = "${random_id.access_token_ssp.hex}"
 }
