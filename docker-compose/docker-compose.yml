@@ -164,7 +164,8 @@ services:
       UI_CORS_ORIGIN: http://localhost:51052
       HELP_CENTER_URL: https://google.com/
       SUPPORT_PHONE:
-      SUPPORT_EMAIL:
+      SUPPORT_EMAIL: helpdesk@example.org
+      SUPPORT_NAME: Help Desk
       SUPPORT_URL:
       SUPPORT_FEEDBACK:
       ZXCVBN_API_BASEURL: http://zxcvbn:3000

@@ -53,6 +53,7 @@ This module is used to create an ECS service running the password manager API an
  - `recaptcha_key` - Recaptcha site key
  - `recaptcha_secret` - Recaptcha secret
  - `support_email` - Email address for end user support
+ - `support_name` - Name for end user support
  - `ui_subdomain` - Subdomain for PW UI
  - `vpc_id` - ID for VPC
  - `wildcard_cert_arn` - ARN to ACM wildcard cert
@@ -130,8 +131,9 @@ module "pwmanager" {
   recaptcha_key                       = "${var.recaptcha_key}"
   recaptcha_secret                    = "${var.recaptcha_secret}"
   source                              = "github.com/silinternational/idp-in-a-box//terraform/050-pw-manager"
-  support_email                       = "${var.support_email}"
+  support_email                       = "${data.terraform_remote_state.broker.support_email}"
   support_feedback                    = "${var.support_feedback}"
+  support_name                        = "${data.terraform_remote_state.broker.support_name}"
   support_phone                       = "${var.support_phone}"
   support_url                         = "${var.support_url}"
   ui_subdomain                        = "${var.ui_subdomain}"

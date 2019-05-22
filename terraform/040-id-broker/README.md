@@ -38,6 +38,7 @@ This module is used to create an ECS service running id-broker.
  - `password_profile_url` - URL to password manager profile
  - `ssl_policy` - SSL policy
  - `support_email` - Email address for support
+ - `support_name` - Name for support. Default: `support`
  - `vpc_id` - ID for VPC
  - `wildcard_cert_arn` - ARN to ACM wildcard certificate
 
@@ -105,7 +106,6 @@ This module is used to create an ECS service running id-broker.
  - `subject_for_password_expiring` - Email subject text for password expiring emails. Default: `The password for your {idpDisplayName} Identity account is about to expire`
  - `subject_for_refresh_backup_codes` - Email subject text for refresh backup codes emails. Default: `Get a new set of printable codes for your {idpDisplayName} Identity account`
  - `subject_for_welcome` - Email subject text for welcome emails. Default: `Welcome to your new {idpDisplayName} Identity account`
- - `support_name` - Name for support. Default: `support`
 
 
 ## Outputs
@@ -117,6 +117,8 @@ This module is used to create an ECS service running id-broker.
  - `access_token_idsync` - Access token for id-sync to use in API calls to id-broker
  - `help_center_url` - URL for general user help information
  - `email_signature` - Text for use as the signature line of emails.
+ - `support_email` - Email for support.
+ - `support_name` - Name for support.
 
 ## Usage Example
 

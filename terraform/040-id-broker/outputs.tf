@@ -29,3 +29,11 @@ output "help_center_url" {
 output "email_signature" {
   value = "${var.email_signature}"
 }
+
+output "support_email" {
+  value = "${var.support_email}"
+}
+
+output "support_name" {
+  value = "${var.support_name}"
+}

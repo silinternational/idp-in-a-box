@@ -226,12 +226,17 @@ variable "recaptcha_secret" {
 }
 
 variable "support_email" {
-  description = "Email address for end user support, displayed on PW UI"
+  description = "Email address for end user support, displayed on PW UI and in emails"
   type        = "string"
 }
 
 variable "support_feedback" {
   description = "Email address for end user feedback, displayed on PW UI"
+  type        = "string"
+}
+
+variable "support_name" {
+  description = "Name for end user support, displayed on PW UI and in emails"
   type        = "string"
 }
 
