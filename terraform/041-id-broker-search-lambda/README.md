@@ -14,6 +14,7 @@ This module is used to create a lambda function for calling id-broker's search a
  - `role_arn` - ARN to IAM Role the lambda function should assume
  - `security_group_ids` - Lust of security groups to place function in
  - `subnet_ids` - List of subnet ids to place function in
+ - `function_bucket_name` - Bucket name containing lambda function zip
  
 ## Optional Inputs
 
@@ -21,6 +22,7 @@ This module is used to create a lambda function for calling id-broker's search a
  - `function_name` - Default: `idp-id-broker-search`
  - `memory_size` - Default: `128`
  - `timeout` - Default: `5`
+ - `function_zip_name` - Key to file in S3 for function zip file, Default: `idp-id-broker-search.zip`
 
 ## Outputs
 
@@ -38,5 +40,7 @@ module "brokersearch" {
   role_arn             = "${var.role_arn}"
   security_group_ids   = ["${data.terraform_remote_state.cluster.vpc_default_sg_id}"]
   subnet_ids           = ["${data.terraform_remote_state.cluster.private_subnet_ids}"]
+  function_bucket_name = "idp-id-broker-search-${var.aws_region}"
+  function_zip_name    = "${var.function_release_version}/${var.function_zip_name}"
 }
 ```
