@@ -12,7 +12,7 @@ This module is used to create a lambda function for calling id-broker's search a
  - `broker_token` - Authentication token for ID Broker API
  - `idp_name` - IdP Name
  - `role_arn` - ARN to IAM Role the lambda function should assume
- - `security_group_ids` - Lust of security groups to place function in
+ - `security_group_ids` - List of security groups to place function in
  - `subnet_ids` - List of subnet ids to place function in
  - `function_bucket_name` - Bucket name containing lambda function zip
  
