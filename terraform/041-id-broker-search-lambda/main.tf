@@ -1,12 +1,11 @@
-data "aws_s3_bucket_object" "function-checksum" {
-  bucket = "${var.function_bucket_name}"
-  key    = "${var.function_zip_name}.sum"
+data "http" "function-checksum" {
+  url = "https://s3.amazonaws.com/${var.function_bucket_name}/${var.function_zip_name}.sum"
 }
 
 resource "aws_lambda_function" "search" {
   s3_bucket        = "${var.function_bucket_name}"
   s3_key           = "${var.function_zip_name}"
-  source_code_hash = "${data.aws_s3_bucket_object.function-checksum.body}"
+  source_code_hash = "${data.http.function-checksum.body}"
   function_name    = "${var.function_name}-${var.idp_name}"
   handler          = "${var.function_name}"
   memory_size      = "${var.memory_size}"
