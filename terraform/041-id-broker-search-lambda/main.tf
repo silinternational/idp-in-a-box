@@ -1,5 +1,5 @@
 data "http" "function-checksum" {
-  url = "https://s3.amazonaws.com/${var.function_bucket_name}/${var.function_zip_name}.sum"
+  url = "https://${var.function_bucket_name}.s3.amazonaws.com/${var.function_zip_name}.sum"
 }
 
 resource "aws_lambda_function" "search" {
