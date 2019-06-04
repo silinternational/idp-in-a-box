@@ -106,6 +106,7 @@ This module is used to create an ECS service running id-broker.
  - `subject_for_password_expiring` - Email subject text for password expiring emails. Default: `The password for your {idpDisplayName} Identity account is about to expire`
  - `subject_for_refresh_backup_codes` - Email subject text for refresh backup codes emails. Default: `Get a new set of printable codes for your {idpDisplayName} Identity account`
  - `subject_for_welcome` - Email subject text for welcome emails. Default: `Welcome to your new {idpDisplayName} Identity account`
+ - `user_inactive_period` - Time a user record can remain inactive before being deleted. Default: `+18 months`
 
 
 ## Outputs
@@ -222,6 +223,7 @@ module "broker" {
   subject_for_welcome              = "${var.subject_for_welcome}"
   support_email                    = "${var.support_email}"
   support_name                     = "${var.support_name}"
+  user_inactive_period             = "${var.user_inactive_period}"
   vpc_id                           = "${data.terraform_remote_state.cluster.vpc_id}"
   wildcard_cert_arn                = "${data.terraform_remote_state.cluster.wildcard_cert_arn}"
 }

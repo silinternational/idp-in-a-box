@@ -358,6 +358,10 @@
       {
         "name": "SUPPORT_NAME",
         "value": "${support_name}"
+      },
+      {
+        "name": "USER_INACTIVE_PERIOD",
+        "value": "${user_inactive_period}"
       }
     ],
     "links": null,

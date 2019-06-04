@@ -474,6 +474,11 @@ variable "support_name" {
   default = "support"
 }
 
+variable "user_inactive_period" {
+  type    = "string"
+  default = "+18 months"
+}
+
 variable "vpc_id" {
   type = "string"
 }
