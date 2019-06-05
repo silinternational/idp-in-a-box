@@ -104,6 +104,16 @@ variable "idp_name" {
   description = "Short name of IdP for logs, something like 'acme'"
 }
 
+variable "inactive_user_period" {
+  type    = "string"
+  default = "+18 months"
+}
+
+variable "inactive_user_deletion_enable" {
+  type    = "string"
+  default = "false"
+}
+
 variable "internal_alb_dns_name" {
   description = "The DNS name for the IdP-in-a-Box's internal Application Load Balancer."
   type        = "string"
@@ -472,11 +482,6 @@ variable "support_email" {
 variable "support_name" {
   type    = "string"
   default = "support"
-}
-
-variable "user_inactive_period" {
-  type    = "string"
-  default = "+18 months"
 }
 
 variable "vpc_id" {

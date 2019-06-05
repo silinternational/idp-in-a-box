@@ -78,6 +78,14 @@
         "value": "${idp_name}"
       },
       {
+        "name": "INACTIVE_USER_PERIOD",
+        "value": "${inactive_user_period}"
+      },
+      {
+        "name": "INACTIVE_USER_DELETION_ENABLE",
+        "value": "${inactive_user_deletion_enable}"
+      },
+      {
         "name": "INVITE_GRACE_PERIOD",
         "value": "${invite_grace_period}"
       },
@@ -364,10 +372,6 @@
       {
         "name": "SUPPORT_NAME",
         "value": "${support_name}"
-      },
-      {
-        "name": "USER_INACTIVE_PERIOD",
-        "value": "${user_inactive_period}"
       }
     ],
     "links": null,

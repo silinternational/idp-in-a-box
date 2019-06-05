@@ -84,6 +84,8 @@ data "template_file" "task_def" {
     help_center_url                  = "${var.help_center_url}"
     idp_display_name                 = "${var.idp_display_name}"
     idp_name                         = "${var.idp_name}"
+    inactive_user_period             = "${var.inactive_user_period}"
+    inactive_user_deletion_enable    = "${var.inactive_user_deletion_enable}"
     invite_grace_period              = "${var.invite_grace_period}"
     invite_lifespan                  = "${var.invite_lifespan}"
     ldap_admin_password              = "${var.ldap_admin_password}"
@@ -156,7 +158,6 @@ data "template_file" "task_def" {
     subject_for_welcome              = "${var.subject_for_welcome}"
     support_email                    = "${var.support_email}"
     support_name                     = "${var.support_name}"
-    user_inactive_period             = "${var.user_inactive_period}"
   }
 }
 
@@ -197,6 +198,8 @@ data "template_file" "task_def_cron" {
     help_center_url                  = "${var.help_center_url}"
     idp_display_name                 = "${var.idp_display_name}"
     idp_name                         = "${var.idp_name}"
+    inactive_user_period             = "${var.inactive_user_period}"
+    inactive_user_deletion_enable    = "${var.inactive_user_deletion_enable}"
     invite_grace_period              = "${var.invite_grace_period}"
     invite_lifespan                  = "${var.invite_lifespan}"
     ldap_admin_password              = "${var.ldap_admin_password}"
@@ -269,7 +272,6 @@ data "template_file" "task_def_cron" {
     subject_for_welcome              = "${var.subject_for_welcome}"
     support_email                    = "${var.support_email}"
     support_name                     = "${var.support_name}"
-    user_inactive_period             = "${var.user_inactive_period}"
   }
 }
 

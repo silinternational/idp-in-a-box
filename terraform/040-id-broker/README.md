@@ -52,6 +52,8 @@ This module is used to create an ECS service running id-broker.
  - `ga_client_id` - Used by Google Analytics to distinguish the user (e.g. IDP-<the idp name>-ID-BROKER)
  - `ga_tracking_id` - The Google Analytics property id (e.g. UA-12345678-12)
  - `idp_display_name` - Display name for IdP. Default is empty string
+ - `inactive_user_period` - Time a user record can remain inactive before being deleted. Default: `+18 months`
+ - `inactive_user_deletion_enable` - Enable deletion of inactive users after a period defined by inactive_user_period. Default: `false`
  - `invite_grace_period` - Grace period after the invite lifespan, after which the invite will be deleted. Default: `+3 months`
  - `invite_lifespan` - Time span before the invite code expires. Default: `+1 month`
  - `ldap_admin_password` - Password for LDAP user if using migrate passwords feature. Required if `migrate_pw_from_ldap` is true. 
@@ -106,7 +108,6 @@ This module is used to create an ECS service running id-broker.
  - `subject_for_password_expiring` - Email subject text for password expiring emails. Default: `The password for your {idpDisplayName} Identity account is about to expire`
  - `subject_for_refresh_backup_codes` - Email subject text for refresh backup codes emails. Default: `Get a new set of printable codes for your {idpDisplayName} Identity account`
  - `subject_for_welcome` - Email subject text for welcome emails. Default: `Welcome to your new {idpDisplayName} Identity account`
- - `user_inactive_period` - Time a user record can remain inactive before being deleted. Default: `+18 months`
 
 
 ## Outputs
@@ -148,6 +149,8 @@ module "broker" {
   help_center_url                  = "${var.help_center_url}"
   idp_display_name                 = "${var.idp_display_name}"
   idp_name                         = "${var.idp_name}"
+  inactive_user_period             = "${var.inactive_user_period}"
+  inactive_user_deletion_enable    = "${var.inactive_user_deletion_enable}"
   internal_alb_dns_name            = "${data.terraform_remote_state.cluster.internal_alb_dns_name}"
   internal_alb_listener_arn        = "${data.terraform_remote_state.cluster.internal_alb_https_listener_arn}"
   invite_grace_period              = "${var.invite_grace_period}"
@@ -223,7 +226,6 @@ module "broker" {
   subject_for_welcome              = "${var.subject_for_welcome}"
   support_email                    = "${var.support_email}"
   support_name                     = "${var.support_name}"
-  user_inactive_period             = "${var.user_inactive_period}"
   vpc_id                           = "${data.terraform_remote_state.cluster.vpc_id}"
   wildcard_cert_arn                = "${data.terraform_remote_state.cluster.wildcard_cert_arn}"
 }
