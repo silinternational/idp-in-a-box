@@ -114,6 +114,11 @@ variable "internal_alb_listener_arn" {
   type        = "string"
 }
 
+variable "invite_email_delay_seconds" {
+  type    = "string"
+  default = "0"
+}
+
 variable "invite_grace_period" {
   type    = "string"
   default = "+3 months"
