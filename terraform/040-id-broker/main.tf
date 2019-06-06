@@ -86,6 +86,7 @@ data "template_file" "task_def" {
     idp_name                         = "${var.idp_name}"
     inactive_user_period             = "${var.inactive_user_period}"
     inactive_user_deletion_enable    = "${var.inactive_user_deletion_enable}"
+    invite_email_delay_seconds       = "${var.invite_email_delay_seconds}"
     invite_grace_period              = "${var.invite_grace_period}"
     invite_lifespan                  = "${var.invite_lifespan}"
     ldap_admin_password              = "${var.ldap_admin_password}"
