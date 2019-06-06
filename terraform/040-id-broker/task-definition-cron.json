@@ -72,6 +72,10 @@
         "value": "${idp_name}"
       },
       {
+        "name": "INVITE_EMAIL_DELAY_SECONDS",
+        "value": "${invite_email_delay_seconds}"
+      },
+      {
         "name": "INVITE_GRACE_PERIOD",
         "value": "${invite_grace_period}"
       },

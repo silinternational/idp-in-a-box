@@ -52,6 +52,7 @@ This module is used to create an ECS service running id-broker.
  - `ga_client_id` - Used by Google Analytics to distinguish the user (e.g. IDP-<the idp name>-ID-BROKER)
  - `ga_tracking_id` - The Google Analytics property id (e.g. UA-12345678-12)
  - `idp_display_name` - Display name for IdP. Default is empty string
+ - `invite_email_delay_seconds` - How long to delay new user invite email. Default is 0 (no delay)
  - `invite_grace_period` - Grace period after the invite lifespan, after which the invite will be deleted. Default: `+3 months`
  - `invite_lifespan` - Time span before the invite code expires. Default: `+1 month`
  - `ldap_admin_password` - Password for LDAP user if using migrate passwords feature. Required if `migrate_pw_from_ldap` is true. 
@@ -149,6 +150,7 @@ module "broker" {
   idp_name                         = "${var.idp_name}"
   internal_alb_dns_name            = "${data.terraform_remote_state.cluster.internal_alb_dns_name}"
   internal_alb_listener_arn        = "${data.terraform_remote_state.cluster.internal_alb_https_listener_arn}"
+  invite_email_delay_seconds       = "${var.invite_email_delay_seconds}"
   invite_grace_period              = "${var.invite_grace_period}"
   invite_lifespan                  = "${var.invite_lifespan}"
   ldap_admin_password              = "${var.ldap_admin_password}"
