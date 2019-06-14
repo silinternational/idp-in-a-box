@@ -57,12 +57,6 @@ This module is used to create an ECS service running id-broker.
  - `invite_email_delay_seconds` - How long to delay new user invite email. Default is 0 (no delay)
  - `invite_grace_period` - Grace period after the invite lifespan, after which the invite will be deleted. Default: `+3 months`
  - `invite_lifespan` - Time span before the invite code expires. Default: `+1 month`
- - `ldap_admin_password` - Password for LDAP user if using migrate passwords feature. Required if `migrate_pw_from_ldap` is true. 
- - `ldap_admin_username` - Username for LDAP user if using migrate passwords feature. Required if `migrate_pw_from_ldap` is true.
- - `ldap_base_dn` - Base DN for LDAP queries if using migrate passwords feature. Required if `migrate_pw_from_ldap` is true.
- - `ldap_domain_controllers` - Hostname for LDAP server if using migrate passwords feature. Required if `migrate_pw_from_ldap` is true.
- - `ldap_use_ssl` - true/false. Required if `migrate_pw_from_ldap` is true.
- - `ldap_use_tls` - true/false. Required if `migrate_pw_from_ldap` is true.
  - `lost_security_key_email_days` - The number of days of not using a security key after which we email the user. Default: `62`
  - `memory_cron` - How much memory to allocate to cron service. Default: `64`
  - `method_add_interval` Interval between reminders to add recovery methods. Default: `+6 months`
@@ -71,7 +65,6 @@ This module is used to create an ECS service running id-broker.
  - `method_lifetime` - Defines the amount of time in which a recovery method must be verified. Default: `+1 day`
  - `method_maxAttempts` - Maximum number of recovery method verification attempts allowed. Default: `10`
  - `mfa_add_interval` - Interval between reminders to add MFAs. Default: `+30 days`
- - `migrate_pw_from_ldap` - Whether or not to attempt to migrate passwords from LDAP. Default: `false`
  - `mfa_lifetime` - Defines the amount of time in which an MFA must be verified. Default: `+2 hours`
  - `minimum_backup_codes_before_nag` - Nag the user if they have FEWER than this number of backup codes. Default: `4` 
  - `notification_email` - Email address to send alerts/notifications to. Default: notifications disabled
@@ -157,12 +150,6 @@ module "broker" {
   invite_email_delay_seconds       = "${var.invite_email_delay_seconds}"
   invite_grace_period              = "${var.invite_grace_period}"
   invite_lifespan                  = "${var.invite_lifespan}"
-  ldap_admin_password              = "${var.ldap_admin_password}"
-  ldap_admin_username              = "${var.ldap_admin_username}"
-  ldap_base_dn                     = "${var.ldap_base_dn}"
-  ldap_domain_controllers          = "${var.ldap_domain_controllers}"
-  ldap_use_ssl                     = "${var.ldap_use_ssl}"
-  ldap_use_tls                     = "${var.ldap_use_tls}"
   logentries_set_id                = "${data.terraform_remote_state.cluster.logentries_set_id}"
   lost_security_key_email_days     = "${var.lost_security_key_email_days}"
   memory                           = "${var.memory}"
@@ -179,7 +166,6 @@ module "broker" {
   mfa_u2f_apikey                   = "${var.mfa_u2f_apikey}"
   mfa_u2f_apisecret                = "${var.mfa_u2f_apisecret}"
   mfa_u2f_appid                    = "${var.mfa_u2f_appid}"
-  migrate_pw_from_ldap             = "${var.migrate_pw_from_ldap}"
   minimum_backup_codes_before_nag  = "${var.minimum_backup_codes_before_nag}"
   mysql_host                       = "${data.terraform_remote_state.database.rds_address}"
   mysql_pass                       = "${data.terraform_remote_state.database.db_idbroker_pass}"
