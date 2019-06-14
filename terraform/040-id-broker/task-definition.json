@@ -98,30 +98,6 @@
         "value": "${invite_lifespan}"
       },
       {
-        "name": "LDAP_ADMIN_PASSWORD",
-        "value": "${ldap_admin_password}"
-      },
-      {
-        "name": "LDAP_ADMIN_USERNAME",
-        "value": "${ldap_admin_username}"
-      },
-      {
-        "name": "LDAP_BASE_DN",
-        "value": "${ldap_base_dn}"
-      },
-      {
-        "name": "LDAP_DOMAIN_CONTROLLERS",
-        "value": "${ldap_domain_controllers}"
-      },
-      {
-        "name": "LDAP_USE_SSL",
-        "value": "${ldap_use_ssl}"
-      },
-      {
-        "name": "LDAP_USE_TLS",
-        "value": "${ldap_use_tls}"
-      },
-      {
         "name": "LOGENTRIES_KEY",
         "value": "${logentries_key}"
       },
@@ -184,10 +160,6 @@
       {
         "name": "MFA_U2F_appId",
         "value": "${mfa_u2f_appid}"
-      },
-      {
-        "name": "MIGRATE_PW_FROM_LDAP",
-        "value": "${migrate_pw_from_ldap}"
       },
       {
         "name": "MINIMUM_BACKUP_CODES_BEFORE_NAG",

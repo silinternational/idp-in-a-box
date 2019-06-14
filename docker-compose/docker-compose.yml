@@ -24,16 +24,9 @@ services:
       API_ACCESS_KEYS: abc123abc123
       APP_ENV: test
       IDP_NAME: development
-      LDAP_ADMIN_PASSWORD: admin
-      LDAP_ADMIN_USERNAME: cn=Manager,dc=acme,dc=org
-      LDAP_BASE_DN: dc=acme,dc=org
-      LDAP_DOMAIN_CONTROLLERS: ldap
-      LDAP_USE_SSL: "false"
-      LDAP_USE_TLS: "false"
       EMAIL_SERVICE_accessToken: abc123
       EMAIL_SERVICE_assertValidIp: "false"
       EMAIL_SERVICE_baseUrl: http://email
-      MIGRATE_PW_FROM_LDAP: "false"
       MYSQL_DATABASE: broker
       MYSQL_HOST: db-broker
       MYSQL_USER: broker
