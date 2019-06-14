@@ -104,6 +104,16 @@ variable "idp_name" {
   description = "Short name of IdP for logs, something like 'acme'"
 }
 
+variable "inactive_user_period" {
+  type    = "string"
+  default = "+18 months"
+}
+
+variable "inactive_user_deletion_enable" {
+  type    = "string"
+  default = "false"
+}
+
 variable "internal_alb_dns_name" {
   description = "The DNS name for the IdP-in-a-Box's internal Application Load Balancer."
   type        = "string"
@@ -112,6 +122,11 @@ variable "internal_alb_dns_name" {
 variable "internal_alb_listener_arn" {
   description = "The ARN for the IdP-in-a-Box's internal ALB's listener."
   type        = "string"
+}
+
+variable "invite_email_delay_seconds" {
+  type    = "string"
+  default = "0"
 }
 
 variable "invite_grace_period" {

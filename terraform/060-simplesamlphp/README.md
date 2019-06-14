@@ -24,7 +24,6 @@ This module is used to create an ECS service running simpleSAMLphp.
  - `id_broker_assert_valid_ip` - Whether or not to assert valid ip for calling id-broker
  - `id_broker_trusted_ip_ranges` - List of trusted ip blocks for ID Broker
  - `id_broker_base_uri` - Base URL to id-broker API
- - `mfa_learn_more_url` - URL to learn more about MFA
  - `mfa_setup_url` - URL to setup MFA
  - `memcache_host1` - First memcache host
  - `memcache_host2` - Second memcache host
@@ -40,11 +39,16 @@ This module is used to create an ECS service running simpleSAMLphp.
  - `ecsServiceRole_arn` - ARN for ECS Service Role
  - `alb_dns_name` - DNS name for application load balancer
  - `idp_name` - Short name of IdP for use in logs and email alerts
- - `theme_color_scheme` - The color scheme to use for SSP. Default: `'indigo-purple'`
  - `trusted_ip_addresses` - A list of ip addresses or ranges that should not be rate limited
  - `analytics_id` - The ID used by an analytics provider such as Google Analytics, e.g., "UA-XXXX-YY"
- - `show_saml_errors` - Whether or not to show saml errors. Default: `false`
+
+## Optional Inputs
+
  - `delete_remember_me_on_logout` - Whether or not to delete remember me cookie on logout. Default: `false`
+ - `mfa_learn_more_url` - URL to learn more about 2SV during profile review. Default: (link not displayed)
+ - `show_saml_errors` - Whether or not to show saml errors. Default: `false`
+ - `theme_color_scheme` - The color scheme to use for SSP. Default: `'indigo-purple'`
+
 
 ## Outputs
 
