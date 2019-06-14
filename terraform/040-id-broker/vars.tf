@@ -139,34 +139,6 @@ variable "invite_lifespan" {
   default = "+1 month"
 }
 
-variable "ldap_admin_password" {
-  type = "string"
-}
-
-variable "ldap_admin_username" {
-  type = "string"
-}
-
-variable "ldap_base_dn" {
-  description = "Base DN for LDAP search and bind. Ex: 'dc=acme,dc=org'"
-  type        = "string"
-}
-
-variable "ldap_domain_controllers" {
-  description = "Hostname for LDAP server. Ex: 'ldap.acme.org'"
-  type        = "string"
-}
-
-variable "ldap_use_ssl" {
-  description = "Whether or not to use SSL"
-  type        = "string"
-}
-
-variable "ldap_use_tls" {
-  description = "Whether or not to use TLS"
-  type        = "string"
-}
-
 variable "logentries_set_id" {
   type = "string"
 }
@@ -249,11 +221,6 @@ variable "mfa_u2f_apisecret" {
 
 variable "mfa_u2f_appid" {
   type = "string"
-}
-
-variable "migrate_pw_from_ldap" {
-  description = "Whether or not to attempt to migrate password from LDAP if not present in database"
-  type        = "string"
 }
 
 variable "minimum_backup_codes_before_nag" {
