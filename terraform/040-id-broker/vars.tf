@@ -195,6 +195,11 @@ variable "mfa_lifetime" {
   default = "+2 hours"
 }
 
+variable "mfa_manager_bcc" {
+  type    = "string"
+  default = ""
+}
+
 variable "mfa_totp_apibaseurl" {
   type = "string"
 }
