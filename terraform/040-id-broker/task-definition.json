@@ -134,6 +134,10 @@
         "value": "${mfa_lifetime}"
       },
       {
+        "name": "MFA_MANAGER_BCC",
+        "value": "mfa_manager_bcc"
+      },
+      {
         "name": "MFA_TOTP_apiBaseUrl",
         "value": "${mfa_totp_apibaseurl}"
       },
