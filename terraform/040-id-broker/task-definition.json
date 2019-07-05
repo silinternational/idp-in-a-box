@@ -135,7 +135,7 @@
       },
       {
         "name": "MFA_MANAGER_BCC",
-        "value": "mfa_manager_bcc"
+        "value": "${mfa_manager_bcc}"
       },
       {
         "name": "MFA_TOTP_apiBaseUrl",
