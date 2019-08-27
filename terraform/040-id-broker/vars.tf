@@ -200,6 +200,11 @@ variable "mfa_manager_bcc" {
   default = ""
 }
 
+variable "mfa_manager_help_bcc" {
+  type    = "string"
+  default = ""
+}
+
 variable "mfa_totp_apibaseurl" {
   type = "string"
 }

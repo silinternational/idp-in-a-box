@@ -138,6 +138,10 @@
         "value": "${mfa_manager_bcc}"
       },
       {
+        "name": "MFA_MANAGER_HELP_BCC",
+        "value": "${mfa_manager_help_bcc}"
+      },
+      {
         "name": "MFA_TOTP_apiBaseUrl",
         "value": "${mfa_totp_apibaseurl}"
       },
