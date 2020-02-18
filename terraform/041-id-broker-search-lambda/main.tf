@@ -59,7 +59,7 @@ resource "aws_lambda_function" "search" {
 }
 
 data "template_file" "remoteExecutePolicy" {
-  filename = "${file("${path.module}/remote-execute-policy.json")}"
+  template = "${file("${path.module}/remote-execute-policy.json")}"
   vars {
     remote_role_arn = "${var.remote_role_arn}"
     function_arn    = "${aws_lambda_function.search.arn}"
