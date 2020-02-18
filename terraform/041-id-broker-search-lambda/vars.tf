@@ -34,8 +34,8 @@ variable "memory_size" {
   default = "128"
 }
 
-variable "role_arn" {
-  type = "string"
+variable "remote_role_arn" {
+  description = "ARN to role from different AWS account to be given perission to invoke function"
 }
 
 variable "security_group_ids" {

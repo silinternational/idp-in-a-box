@@ -1,0 +1,21 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "lambda.amazonaws.com",
+        "AWS": "${remote_role_arn}"
+      },
+      "Action": "sts:AssumeRole"
+    },
+    {
+      "Action": [
+        "lambda:InvokeFunction",
+        "lambda:InvokeAsync"
+      ],
+      "Resource": "${function_arn}",
+      "Effect": "Allow"
+    }
+  ]
+}
