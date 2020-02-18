@@ -78,7 +78,7 @@ data "template_file" "executePolicy" {
 }
 
 resource "aws_iam_role_policy" "executePolicy" {
-  name   = "invoke functions"
+  name   = "invoke-function"
   role   = "${aws_iam_role.assumeRole.name}"
   policy = "${data.template_file.executePolicy.rendered}"
 }
