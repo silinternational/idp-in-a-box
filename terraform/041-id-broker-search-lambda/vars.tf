@@ -35,7 +35,7 @@ variable "memory_size" {
 }
 
 variable "remote_role_arn" {
-  description = "ARN to role from different AWS account to be given perission to invoke function"
+  description = "ARN to role from different AWS account to be given permission to invoke function"
 }
 
 variable "security_group_ids" {
