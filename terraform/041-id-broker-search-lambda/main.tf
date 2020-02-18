@@ -58,15 +58,27 @@ resource "aws_lambda_function" "search" {
   }
 }
 
-data "template_file" "remoteExecutePolicy" {
+data "template_file" "assumeRolePolicy" {
   template = "${file("${path.module}/remote-execute-policy.json")}"
   vars {
     remote_role_arn = "${var.remote_role_arn}"
-    function_arn    = "${aws_lambda_function.search.arn}"
   }
 }
 
-resource "aws_iam_role" "lambdaRemoteExecute" {
+resource "aws_iam_role" "assumeRole" {
   name               = "${var.idp_name}-${var.app_name}-${var.app_env}-lambda-remote-execute"
-  assume_role_policy = "${data.template_file.remoteExecutePolicy.rendered}"
+  assume_role_policy = "${data.template_file.assumeRolePolicy.rendered}"
+}
+
+data "template_file" "executePolicy" {
+  template = "${file("${path.module}/execute-policy.json")}"
+  vars {
+    function_arn = "${aws_lambda_function.search.arn}"
+  }
+}
+
+resource "aws_iam_role_policy" "executePolicy" {
+  name   = "invoke functions"
+  role   = "${aws_iam_role.assumeRole.name}"
+  policy = "${data.template_file.executePolicy.rendered}"
 }

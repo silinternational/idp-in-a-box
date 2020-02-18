@@ -8,14 +8,6 @@
         "AWS": "${remote_role_arn}"
       },
       "Action": "sts:AssumeRole"
-    },
-    {
-      "Action": [
-        "lambda:InvokeFunction",
-        "lambda:InvokeAsync"
-      ],
-      "Resource": "${function_arn}",
-      "Effect": "Allow"
     }
   ]
 }
