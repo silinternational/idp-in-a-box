@@ -130,7 +130,11 @@
         "value": "${mfa_add_interval}"
       },
       {
-        "name": "MFA_lifetime",
+        "name": "MFA_ALLOW_DISABLE",
+        "value": "${mfa_allow_disable}"
+      },
+      {
+        "name": "MFA_LIFETIME",
         "value": "${mfa_lifetime}"
       },
       {
@@ -140,6 +144,10 @@
       {
         "name": "MFA_MANAGER_HELP_BCC",
         "value": "${mfa_manager_help_bcc}"
+      },
+      {
+        "name": "MFA_REQUIRED_FOR_NEW_USERS",
+        "value": "${mfa_required_for_new_users}"
       },
       {
         "name": "MFA_TOTP_apiBaseUrl",
