@@ -190,6 +190,11 @@ variable "mfa_add_interval" {
   default = "+30 days"
 }
 
+variable "mfa_allow_disable" {
+  type    = "string"
+  default = "true"
+}
+
 variable "mfa_lifetime" {
   type    = "string"
   default = "+2 hours"
@@ -203,6 +208,11 @@ variable "mfa_manager_bcc" {
 variable "mfa_manager_help_bcc" {
   type    = "string"
   default = ""
+}
+
+variable "mfa_required_for_new_users" {
+  type    = "string"
+  default = "false"
 }
 
 variable "mfa_totp_apibaseurl" {
