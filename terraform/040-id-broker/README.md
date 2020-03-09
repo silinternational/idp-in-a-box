@@ -65,9 +65,11 @@ This module is used to create an ECS service running id-broker.
  - `method_lifetime` - Defines the amount of time in which a recovery method must be verified. Default: `+1 day`
  - `method_maxAttempts` - Maximum number of recovery method verification attempts allowed. Default: `10`
  - `mfa_add_interval` - Interval between reminders to add MFAs. Default: `+30 days`
+ - `mfa_allow_disable` - If false, `require_mfa` cannot be set to "no" for any user. Default: `true`
  - `mfa_lifetime` - Defines the amount of time in which an MFA must be verified. Default: `+2 hours`
  - `mfa_manager_bcc` - Email address to bcc on the manager mfa email. Default: ``
  - `mfa_manager_help_bcc` - Email address to bcc on the manager mfa help email. Default: ``
+ - `mfa_required_for_new_users` - Require MFA for all new users. Default: `false`
  - `minimum_backup_codes_before_nag` - Nag the user if they have FEWER than this number of backup codes. Default: `4` 
  - `notification_email` - Email address to send alerts/notifications to. Default: notifications disabled
  - `password_expiration_grace_period` - Grace period after `password_lifespan` after which the account will be locked. Default: `+30 days`
@@ -160,9 +162,11 @@ module "broker" {
   method_gracePeriod               = "${var.method_gracePeriod}"
   method_lifetime                  = "${var.method_lifetime}"
   method_maxAttempts               = "${var.method_maxAttempts}"
+  mfa_allow_disable                = "${var.mfa_allow_disable}"
   mfa_lifetime                     = "${var.mfa_lifetime}"
   mfa_manager_bcc                  = "${var.mfa_manager_bcc}"
   mfa_manager_help_bcc             = "${var.mfa_manager_help_bcc}"
+  mfa_required_for_new_users       = "${var.mfa_required_for_new_users}"
   mfa_totp_apibaseurl              = "${var.mfa_totp_apibaseurl}"
   mfa_totp_apikey                  = "${var.mfa_totp_apikey}"
   mfa_totp_apisecret               = "${var.mfa_totp_apisecret}"
