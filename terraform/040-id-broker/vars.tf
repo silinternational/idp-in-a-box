@@ -143,6 +143,10 @@ variable "invite_lifespan" {
   default = "+1 month"
 }
 
+variable "logentries_set_id" {
+  type = "string"
+}
+
 variable "lost_security_key_email_days" {
   type    = "string"
   default = "62"

@@ -52,6 +52,15 @@ resource "random_id" "access_token_idsync" {
 }
 
 /*
+ * Create Logentries log
+ */
+resource "logentries_log" "log" {
+  logset_id = "${var.logentries_set_id}"
+  name      = "${var.app_name}"
+  source    = "token"
+}
+
+/*
  * Create Cloudwatch log group
  */
 resource "aws_cloudwatch_log_group" "logs" {
@@ -94,6 +103,7 @@ data "template_file" "task_def" {
     invite_email_delay_seconds       = "${var.invite_email_delay_seconds}"
     invite_grace_period              = "${var.invite_grace_period}"
     invite_lifespan                  = "${var.invite_lifespan}"
+    logentries_key                   = "${logentries_log.log.token}"
     log_group                        = "${aws_cloudwatch_log_group.logs.name}"
     log_stream_prefix                = "${var.app_name}-${var.app_env}"
     lost_security_key_email_days     = "${var.lost_security_key_email_days}"
@@ -207,6 +217,7 @@ data "template_file" "task_def_cron" {
     invite_email_delay_seconds       = "${var.invite_email_delay_seconds}"
     invite_grace_period              = "${var.invite_grace_period}"
     invite_lifespan                  = "${var.invite_lifespan}"
+    logentries_key                   = "${logentries_log.log.token}"
     log_group                        = "${aws_cloudwatch_log_group.logs.name}"
     log_stream_prefix                = "${var.app_name}-${var.app_env}"
     lost_security_key_email_days     = "${var.lost_security_key_email_days}"
