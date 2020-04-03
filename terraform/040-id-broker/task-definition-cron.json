@@ -369,7 +369,14 @@
     ],
     "user": null,
     "dockerLabels": null,
-    "logConfiguration": null,
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "${log_group}",
+        "awslogs-region": "${region}",
+        "awslogs-stream-prefix": "${log_stream_prefix}"
+      }
+    },
     "cpu": ${cpu_cron},
     "privileged": null,
     "memoryReservation": ${memory_cron}

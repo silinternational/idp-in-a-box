@@ -9,6 +9,10 @@ variable "app_name" {
   description = "Used in ECS service names and logs, best to leave as default."
 }
 
+variable "aws_region" {
+  type = "string"
+}
+
 variable "cloudflare_domain" {
   type = "string"
 }

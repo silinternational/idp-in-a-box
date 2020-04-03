@@ -11,6 +11,7 @@ This module is used to create an ECS service running id-broker.
 
  - `app_env` - Application environment
  - `app_name` - Application name
+ - `aws_region` - AWS region
  - `broker_subdomain` - Subdomain for id-broker
  - `cloudflare_domain` - Top level domain name for use with Cloudflare
  - `db_name` - Name of MySQL database for id-broker
