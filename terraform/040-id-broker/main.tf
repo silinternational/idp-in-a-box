@@ -65,11 +65,11 @@ resource "logentries_log" "log" {
  * Create Cloudwatch log group
  */
 resource "aws_cloudwatch_log_group" "logs" {
-  name              = "${var.app_name}-${var.app_env}"
+  name              = "idp-${var.idp_name}-${var.app_env}"
   retention_in_days = 14
 
   tags {
-    app_name = "${var.app_name}"
+    idp_name = "${var.idp_name}"
     app_env  = "${var.app_env}"
   }
 }
