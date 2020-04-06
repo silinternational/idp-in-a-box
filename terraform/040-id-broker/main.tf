@@ -73,7 +73,7 @@ data "template_file" "task_def" {
   vars {
     api_access_keys                  = "${random_id.access_token_pwmanager.hex},${random_id.access_token_search.hex},${random_id.access_token_ssp.hex},${random_id.access_token_idsync.hex}"
     app_env                          = "${var.app_env}"
-    aws_region                       = "${aws_region}"
+    aws_region                       = "${var.aws_region}"
     contingent_user_duration         = "${var.contingent_user_duration}"
     cpu                              = "${var.cpu}"
     db_name                          = "${var.db_name}"
