@@ -185,6 +185,7 @@ data "template_file" "task_def_cron" {
   vars {
     api_access_keys                  = "${random_id.access_token_pwmanager.hex},${random_id.access_token_ssp.hex},${random_id.access_token_idsync.hex}"
     app_env                          = "${var.app_env}"
+    app_name                         = "${var.app_name}"
     aws_region                       = "${var.aws_region}"
     cloudwatch_log_group_name        = "${var.cloudwatch_log_group_name}"
     cpu_cron                         = "${var.cpu_cron}"
