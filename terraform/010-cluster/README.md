@@ -10,6 +10,7 @@ ssl certificate, core application load balancer, and a Logentries log set
  - Locate ACM certificate for use in ALB listeners
  - Create application load balancer (ALB)
  - Create Logentries logset
+ - Create CloudWatch log group
 
 ## Required Inputs
 
@@ -43,7 +44,8 @@ ssl certificate, core application load balancer, and a Logentries log set
  - `alb_id` - ID for ALB
  - `wildcard_cert_arn` - ARN to wildcard ACM certificate
  - `logentries_set_id` - ID to Logentries Logset
-
+ - `cloudwatch_log_group_name` - Name of the CloudWatch log group
+ 
 ## Example Usage
 
 ```hcl

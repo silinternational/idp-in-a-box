@@ -26,6 +26,7 @@ This module is used to create an ECS service running id-broker.
  - `internal_alb_dns_name` - DNS name for the IdP-in-a-Box's internal Application Load Balancer
  - `internal_alb_listener_arn` - ARN for the IdP-in-a-Box's internal ALB's listener
  - `logentries_set_id` - Logentries logset ID for creating new log in
+ - `log_group` - CloudWatch log group name
  - `mfa_totp_apibaseurl` - Base URL to TOTP api
  - `mfa_totp_apikey` - API key for TOTP api
  - `mfa_totp_apisecret` - API secret for TOTP api

@@ -17,6 +17,10 @@ variable "cloudflare_domain" {
   type = "string"
 }
 
+variable "cloudwatch_log_group_name" {
+  type = "string"
+}
+
 variable "contingent_user_duration" {
   type    = "string"
   default = "+4 weeks"

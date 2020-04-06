@@ -374,7 +374,7 @@
       "options": {
         "awslogs-group": "${log_group}",
         "awslogs-region": "${aws_region}",
-        "awslogs-stream-prefix": "${log_stream_prefix}"
+        "awslogs-stream-prefix": "${app_name}-${app_env}"
       }
     },
     "cpu": ${cpu_cron},

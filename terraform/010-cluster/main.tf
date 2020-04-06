@@ -89,6 +89,19 @@ resource "logentries_logset" "logset" {
 }
 
 /*
+ * Create Cloudwatch log group
+ */
+resource "aws_cloudwatch_log_group" "logs" {
+  name              = "idp-${var.idp_name}-${var.app_env}"
+  retention_in_days = 31
+
+  tags {
+    idp_name = "${var.idp_name}"
+    app_env  = "${var.app_env}"
+  }
+}
+
+/*
  * Create CloudWatch Dashboard for services that will be in this cluster
  */
 module "ecs-service-cloudwatch-dashboard" {

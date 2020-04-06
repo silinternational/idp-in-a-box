@@ -62,19 +62,6 @@ resource "logentries_log" "log" {
 }
 
 /*
- * Create Cloudwatch log group
- */
-resource "aws_cloudwatch_log_group" "logs" {
-  name              = "idp-${var.idp_name}-${var.app_env}"
-  retention_in_days = 14
-
-  tags {
-    idp_name = "${var.idp_name}"
-    app_env  = "${var.app_env}"
-  }
-}
-
-/*
  * Create ECS service
  */
 data "template_file" "task_def" {
@@ -83,6 +70,7 @@ data "template_file" "task_def" {
   vars {
     api_access_keys                  = "${random_id.access_token_pwmanager.hex},${random_id.access_token_search.hex},${random_id.access_token_ssp.hex},${random_id.access_token_idsync.hex}"
     app_env                          = "${var.app_env}"
+    app_name                         = "${var.app_name}"
     aws_region                       = "${var.aws_region}"
     contingent_user_duration         = "${var.contingent_user_duration}"
     cpu                              = "${var.cpu}"
@@ -105,8 +93,7 @@ data "template_file" "task_def" {
     invite_grace_period              = "${var.invite_grace_period}"
     invite_lifespan                  = "${var.invite_lifespan}"
     logentries_key                   = "${logentries_log.log.token}"
-    log_group                        = "${aws_cloudwatch_log_group.logs.name}"
-    log_stream_prefix                = "${var.app_name}-${var.app_env}"
+    log_group                        = "${var.cloudwatch_log_group_name}"
     lost_security_key_email_days     = "${var.lost_security_key_email_days}"
     memory                           = "${var.memory}"
     method_add_interval              = "${var.method_add_interval}"
@@ -220,8 +207,7 @@ data "template_file" "task_def_cron" {
     invite_grace_period              = "${var.invite_grace_period}"
     invite_lifespan                  = "${var.invite_lifespan}"
     logentries_key                   = "${logentries_log.log.token}"
-    log_group                        = "${aws_cloudwatch_log_group.logs.name}"
-    log_stream_prefix                = "${var.app_name}-${var.app_env}"
+    log_group                        = "${var.cloudwatch_log_group_name}"
     lost_security_key_email_days     = "${var.lost_security_key_email_days}"
     memory_cron                      = "${var.memory_cron}"
     method_add_interval              = "${var.method_add_interval}"
