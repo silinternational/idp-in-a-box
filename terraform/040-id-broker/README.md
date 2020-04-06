@@ -14,6 +14,7 @@ This module is used to create an ECS service running id-broker.
  - `aws_region` - AWS region
  - `broker_subdomain` - Subdomain for id-broker
  - `cloudflare_domain` - Top level domain name for use with Cloudflare
+ - `cloudwatch_log_group_name` - CloudWatch log group name
  - `db_name` - Name of MySQL database for id-broker
  - `desired_count` - Desired count of tasks running in ECS service
  - `ecs_cluster_id` - ID for ECS Cluster
@@ -26,7 +27,6 @@ This module is used to create an ECS service running id-broker.
  - `internal_alb_dns_name` - DNS name for the IdP-in-a-Box's internal Application Load Balancer
  - `internal_alb_listener_arn` - ARN for the IdP-in-a-Box's internal ALB's listener
  - `logentries_set_id` - Logentries logset ID for creating new log in
- - `log_group` - CloudWatch log group name
  - `mfa_totp_apibaseurl` - Base URL to TOTP api
  - `mfa_totp_apikey` - API key for TOTP api
  - `mfa_totp_apisecret` - API secret for TOTP api
