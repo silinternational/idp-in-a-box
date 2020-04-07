@@ -7,6 +7,14 @@ variable "app_name" {
   default = "db-backup"
 }
 
+variable "aws_region" {
+  type = "string"
+}
+
+variable "cloudwatch_log_group_name" {
+  type = "string"
+}
+
 variable "cpu" {
   type    = "string"
   default = "32"

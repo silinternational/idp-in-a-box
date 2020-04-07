@@ -27,11 +27,19 @@ variable "alb_https_listener_arn" {
   type = "string"
 }
 
+variable "aws_region" {
+  type = "string"
+}
+
 variable "subdomain" {
   type = "string"
 }
 
 variable "cloudflare_domain" {
+  type = "string"
+}
+
+variable "cloudwatch_log_group_name" {
   type = "string"
 }
 

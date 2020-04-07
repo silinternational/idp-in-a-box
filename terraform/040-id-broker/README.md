@@ -129,7 +129,9 @@ module "broker" {
   source                           = "github.com/silinternational/idp-in-a-box//terraform/040-id-broker"
   app_env                          = "${var.app_env}"
   app_name                         = "${var.app_name}"
+  aws_region                       = "${var.aws_region}"`
   cloudflare_domain                = "${var.cloudflare_domain}"
+  cloudwatch_log_group_name        = "${var.cloudwatch_log_group_name}"
   contingent_user_duration         = "${var.contingent_user_duration}"
   cpu                              = "${var.cpu}"
   cpu_cron                         = "${var.cpu_cron}"

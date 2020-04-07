@@ -27,8 +27,9 @@ resource "aws_alb_listener_rule" "email" {
   }
 
   condition {
-    field  = "host-header"
-    values = ["${var.subdomain}.${var.cloudflare_domain}"]
+    host_header {
+      values = ["${var.subdomain}.${var.cloudflare_domain}"]
+    }
   }
 }
 
@@ -63,28 +64,30 @@ data "template_file" "task_def_api" {
   template = "${file("${path.module}/task-definition-api.json")}"
 
   vars {
-    api_access_keys        = "${random_id.access_token_pwmanager.hex},${random_id.access_token_idbroker.hex},${random_id.access_token_idsync.hex}"
-    app_env                = "${var.app_env}"
-    app_name               = "${var.app_name}"
-    cpu_api                = "${var.cpu_api}"
-    db_name                = "${var.db_name}"
-    docker_image           = "${var.docker_image}"
-    email_brand_color      = "${var.email_brand_color}"
-    email_brand_logo       = "${var.email_brand_logo}"
-    email_queue_batch_size = "${var.email_queue_batch_size}"
-    from_email             = "${var.from_email}"
-    from_name              = "${var.from_name}"
-    idp_name               = "${var.idp_name}"
-    logentries_key         = "${logentries_log.log.token}"
-    mailer_host            = "${var.mailer_host}"
-    mailer_password        = "${var.mailer_password}"
-    mailer_usefiles        = "${var.mailer_usefiles}"
-    mailer_username        = "${var.mailer_username}"
-    mysql_host             = "${var.mysql_host}"
-    mysql_pass             = "${var.mysql_pass}"
-    mysql_user             = "${var.mysql_user}"
-    memory_api             = "${var.memory_api}"
-    notification_email     = "${var.notification_email}"
+    api_access_keys           = "${random_id.access_token_pwmanager.hex},${random_id.access_token_idbroker.hex},${random_id.access_token_idsync.hex}"
+    app_env                   = "${var.app_env}"
+    app_name                  = "${var.app_name}"
+    aws_region                = "${var.aws_region}"
+    cloudwatch_log_group_name = "${var.cloudwatch_log_group_name}"
+    cpu_api                   = "${var.cpu_api}"
+    db_name                   = "${var.db_name}"
+    docker_image              = "${var.docker_image}"
+    email_brand_color         = "${var.email_brand_color}"
+    email_brand_logo          = "${var.email_brand_logo}"
+    email_queue_batch_size    = "${var.email_queue_batch_size}"
+    from_email                = "${var.from_email}"
+    from_name                 = "${var.from_name}"
+    idp_name                  = "${var.idp_name}"
+    logentries_key            = "${logentries_log.log.token}"
+    mailer_host               = "${var.mailer_host}"
+    mailer_password           = "${var.mailer_password}"
+    mailer_usefiles           = "${var.mailer_usefiles}"
+    mailer_username           = "${var.mailer_username}"
+    mysql_host                = "${var.mysql_host}"
+    mysql_pass                = "${var.mysql_pass}"
+    mysql_user                = "${var.mysql_user}"
+    memory_api                = "${var.memory_api}"
+    notification_email        = "${var.notification_email}"
   }
 }
 
@@ -105,28 +108,30 @@ data "template_file" "task_def_cron" {
   template = "${file("${path.module}/task-definition-cron.json")}"
 
   vars {
-    api_access_keys        = "${random_id.access_token_pwmanager.hex},${random_id.access_token_idbroker.hex},${random_id.access_token_idsync.hex}"
-    app_env                = "${var.app_env}"
-    app_name               = "${var.app_name}"
-    cpu_cron               = "${var.cpu_cron}"
-    db_name                = "${var.db_name}"
-    docker_image           = "${var.docker_image}"
-    email_brand_color      = "${var.email_brand_color}"
-    email_brand_logo       = "${var.email_brand_logo}"
-    email_queue_batch_size = "${var.email_queue_batch_size}"
-    from_email             = "${var.from_email}"
-    from_name              = "${var.from_name}"
-    idp_name               = "${var.idp_name}"
-    logentries_key         = "${logentries_log.log.token}"
-    mailer_host            = "${var.mailer_host}"
-    mailer_password        = "${var.mailer_password}"
-    mailer_usefiles        = "${var.mailer_usefiles}"
-    mailer_username        = "${var.mailer_username}"
-    mysql_host             = "${var.mysql_host}"
-    mysql_pass             = "${var.mysql_pass}"
-    mysql_user             = "${var.mysql_user}"
-    memory_cron            = "${var.memory_cron}"
-    notification_email     = "${var.notification_email}"
+    api_access_keys           = "${random_id.access_token_pwmanager.hex},${random_id.access_token_idbroker.hex},${random_id.access_token_idsync.hex}"
+    app_env                   = "${var.app_env}"
+    app_name                  = "${var.app_name}"
+    aws_region                = "${var.aws_region}"
+    cloudwatch_log_group_name = "${var.cloudwatch_log_group_name}"
+    cpu_cron                  = "${var.cpu_cron}"
+    db_name                   = "${var.db_name}"
+    docker_image              = "${var.docker_image}"
+    email_brand_color         = "${var.email_brand_color}"
+    email_brand_logo          = "${var.email_brand_logo}"
+    email_queue_batch_size    = "${var.email_queue_batch_size}"
+    from_email                = "${var.from_email}"
+    from_name                 = "${var.from_name}"
+    idp_name                  = "${var.idp_name}"
+    logentries_key            = "${logentries_log.log.token}"
+    mailer_host               = "${var.mailer_host}"
+    mailer_password           = "${var.mailer_password}"
+    mailer_usefiles           = "${var.mailer_usefiles}"
+    mailer_username           = "${var.mailer_username}"
+    mysql_host                = "${var.mysql_host}"
+    mysql_pass                = "${var.mysql_pass}"
+    mysql_user                = "${var.mysql_user}"
+    memory_cron               = "${var.memory_cron}"
+    notification_email        = "${var.notification_email}"
   }
 }
 

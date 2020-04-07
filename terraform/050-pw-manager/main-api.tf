@@ -40,8 +40,9 @@ resource "aws_alb_listener_rule" "pwmanager" {
   }
 
   condition {
-    field  = "host-header"
-    values = ["${var.api_subdomain}.${var.cloudflare_domain}"]
+    host_header {
+      values = ["${var.api_subdomain}.${var.cloudflare_domain}"]
+    }
   }
 }
 
@@ -62,6 +63,9 @@ data "template_file" "task_def" {
     access_token_hash                   = "${random_id.access_token_hash.hex}"
     alerts_email                        = "${var.alerts_email}"
     app_env                             = "${var.app_env}"
+    app_name                            = "${var.app_name}"
+    aws_region                          = "${var.aws_region}"
+    cloudwatch_log_group_name           = "${var.cloudwatch_log_group_name}"
     auth_saml_checkResponseSigning      = "${var.auth_saml_checkResponseSigning}"
     auth_saml_entityId                  = "${var.auth_saml_entityId}"
     auth_saml_idpCertificate            = "${var.auth_saml_idpCertificate}"

@@ -36,8 +36,9 @@ resource "aws_alb_listener_rule" "ssp" {
   }
 
   condition {
-    field  = "host-header"
-    values = ["${var.subdomain}.${var.cloudflare_domain}"]
+    host_header {
+      values = ["${var.subdomain}.${var.cloudflare_domain}"]
+    }
   }
 }
 
@@ -59,7 +60,10 @@ data "template_file" "task_def" {
     memory                       = "${var.memory}"
     cpu                          = "${var.cpu}"
     admin_pass                   = "${random_id.admin_pass.hex}"
+    app_name                     = "${var.app_name}"
+    aws_region                   = "${var.aws_region}"
     base_url                     = "https://${var.subdomain}.${var.cloudflare_domain}/"
+    cloudwatch_log_group_name    = "${var.cloudwatch_log_group_name}"
     docker_image                 = "${var.docker_image}"
     password_change_url          = "${var.password_change_url}"
     password_forgot_url          = "${var.password_forgot_url}"
