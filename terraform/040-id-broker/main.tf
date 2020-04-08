@@ -305,8 +305,8 @@ resource "aws_cloudwatch_event_rule" "event_rule" {
 resource "aws_cloudwatch_event_target" "broker_event_target" {
   target_id = "run-dbbackup-${var.app_name}-${var.app_env}"
   rule      = "${aws_cloudwatch_event_rule.event_rule.name}"
-  arn       = "${ecs_cluster_id}"
-  role_arn  = "${ecsServiceRole_arn}"
+  arn       = "${var.ecs_cluster_id}"
+  role_arn  = "${var.ecsServiceRole_arn}"
 
   ecs_target {
     task_count          = 1
