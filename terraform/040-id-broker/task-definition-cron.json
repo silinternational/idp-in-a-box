@@ -369,7 +369,7 @@
     "readonlyRootFilesystem": null,
     "image": "${docker_image}",
     "command": [
-      "/data/run-cron.sh"
+      "/data/run.sh"
     ],
     "user": null,
     "dockerLabels": null,
