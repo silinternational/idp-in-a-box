@@ -362,7 +362,7 @@
       {
         "name": "SUPPORT_NAME",
         "value": "${support_name}"
-      },
+      }
     ],
     "links": null,
     "workingDirectory": null,
