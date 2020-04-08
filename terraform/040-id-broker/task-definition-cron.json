@@ -17,7 +17,7 @@
     "environment": [
       {
         "name": "RUN_TASK",
-        "value": "cron/all"
+        "value": "${run_task}"
       },
       {
         "name": "API_ACCESS_KEYS",

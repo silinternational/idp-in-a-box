@@ -307,6 +307,11 @@ variable "profile_review_interval" {
   default = "+12 months"
 }
 
+variable "run_task" {
+  type    = "string"
+  default = "cron/all"
+}
+
 variable "send_get_backup_codes_emails" {
   type    = "string"
   default = "true"
