@@ -283,7 +283,7 @@ data "template_file" "task_def_cron" {
  */
 resource "aws_ecs_task_definition" "cron_td" {
   family                = "${var.idp_name}-${var.app_name}-${var.app_env}"
-  container_definitions = data.template_file.task_def_cron.rendered
+  container_definitions = "${data.template_file.task_def_cron.rendered}"
   network_mode          = "bridge"
 }
 
@@ -297,21 +297,21 @@ resource "aws_cloudwatch_event_rule" "event_rule" {
   schedule_expression = "${var.event_schedule}"
 
   tags = {
-    app_name = var.app_name
-    app_env  = var.app_env
+    app_name = "${var.app_name}"
+    app_env  = "${var.app_env}"
   }
 }
 
 resource "aws_cloudwatch_event_target" "broker_event_target" {
   target_id = "run-dbbackup-${var.app_name}-${var.app_env}"
-  rule      = aws_cloudwatch_event_rule.event_rule.name
+  rule      = "${aws_cloudwatch_event_rule.event_rule.name}"
   arn       = "${ecs_cluster_id}"
   role_arn  = "${ecsServiceRole_arn}"
 
   ecs_target {
     task_count          = 1
     launch_type         = "EC2"
-    task_definition_arn = aws_ecs_task_definition.cron_td.arn
+    task_definition_arn = "${aws_ecs_task_definition.cron_td.arn}"
   }
 }
 
