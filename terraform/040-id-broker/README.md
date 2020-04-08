@@ -80,6 +80,7 @@ This module is used to create an ECS service running id-broker.
  - `password_mfa_lifespan_extension` - Extension to password lifespan for users with at least one 2-step Verification option. Default: `+4 years`
  - `password_reuse_limit` - Number of passwords to remember for "recent password" restriction. Default: `10`
  - `profile_review_interval` - Interval between reminders to review. Default: `+6 months`
+ - `run_task` - Task to run on the schedule defined by `event_schedule`. Default: `cron/all`
  - `send_get_backup_codes_emails` - Bool of whether or not to send get backup codes emails. Default: `true`
  - `send_invite_emails` - Bool of whether or not to send invite emails. Default: `true`
  - `send_lost_security_key_emails` - Bool of whether or not to send lost security key emails. Default: `true`
@@ -191,6 +192,7 @@ module "broker" {
   password_profile_url             = "${var.password_profile_url}"
   password_reuse_limit             = "${var.password_reuse_limit}"
   profile_review_interval          = "${var.profile_review_interval}"
+  run_task                         = "${var.run_task}"
   send_get_backup_codes_emails     = "${var.send_get_backup_codes_emails}"
   send_invite_emails               = "${var.send_invite_emails}"
   send_lost_security_key_emails    = "${var.send_lost_security_key_emails}"

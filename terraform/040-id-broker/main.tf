@@ -240,6 +240,7 @@ data "template_file" "task_def_cron" {
     password_profile_url             = "${var.password_profile_url}"
     password_reuse_limit             = "${var.password_reuse_limit}"
     profile_review_interval          = "${var.profile_review_interval}"
+    run_task                         = "${var.run_task}"
     send_get_backup_codes_emails     = "${var.send_get_backup_codes_emails}"
     send_invite_emails               = "${var.send_invite_emails}"
     send_lost_security_key_emails    = "${var.send_lost_security_key_emails}"
