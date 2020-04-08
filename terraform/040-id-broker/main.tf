@@ -278,15 +278,6 @@ data "template_file" "task_def_cron" {
   }
 }
 
-//module "ecsservice_cron" {
-//  source             = "github.com/silinternational/terraform-modules//aws/ecs/service-no-alb?ref=2.5.0"
-//  cluster_id         = "${var.ecs_cluster_id}"
-//  service_name       = "${var.idp_name}-${var.app_name}-cron"
-//  service_env        = "${var.app_env}"
-//  container_def_json = "${data.template_file.task_def_cron.rendered}"
-//  desired_count      = 1
-//}
-
 /*
  * Create cron task definition
  */
@@ -297,7 +288,7 @@ resource "aws_ecs_task_definition" "cron_td" {
 }
 
 /*
- * CloudWatch configuration to start database backup.
+ * CloudWatch configuration to start scheduled tasks.
  */
 resource "aws_cloudwatch_event_rule" "event_rule" {
   name        = "${var.app_name}-${var.app_env}"
