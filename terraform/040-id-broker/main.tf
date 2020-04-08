@@ -291,7 +291,7 @@ resource "aws_ecs_task_definition" "cron_td" {
  * CloudWatch configuration to start scheduled tasks.
  */
 resource "aws_cloudwatch_event_rule" "event_rule" {
-  name        = "${var.app_name}-${var.app_env}"
+  name        = "${var.idp_name}-${var.app_name}-cron-${var.app_env}"
   description = "Start broker scheduled tasks"
 
   schedule_expression = "${var.event_schedule}"
@@ -303,7 +303,7 @@ resource "aws_cloudwatch_event_rule" "event_rule" {
 }
 
 resource "aws_cloudwatch_event_target" "broker_event_target" {
-  target_id = "run-dbbackup-${var.app_name}-${var.app_env}"
+  target_id = "${var.idp_name}-${var.app_name}-cron-${var.app_env}"
   rule      = "${aws_cloudwatch_event_rule.event_rule.name}"
   arn       = "${var.ecs_cluster_id}"
   role_arn  = "${var.ecsServiceRole_arn}"
