@@ -87,6 +87,11 @@ variable "email_signature" {
   default = ""
 }
 
+variable "event_schedule" {
+  type    = "string"
+  default = "cron(0 0 * * ? *)"
+}
+
 variable "ga_client_id" {
   description = "Used by Google Analytics to distinguish the user."
   type        = "string"

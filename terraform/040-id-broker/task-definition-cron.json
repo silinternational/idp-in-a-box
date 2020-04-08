@@ -16,6 +16,10 @@
     "dockerSecurityOptions": null,
     "environment": [
       {
+        "name": "RUN_TASK",
+        "value": "cron/all"
+      },
+      {
         "name": "API_ACCESS_KEYS",
         "value": "${api_access_keys}"
       },
@@ -358,7 +362,7 @@
       {
         "name": "SUPPORT_NAME",
         "value": "${support_name}"
-      }
+      },
     ],
     "links": null,
     "workingDirectory": null,

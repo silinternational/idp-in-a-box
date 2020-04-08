@@ -278,13 +278,50 @@ data "template_file" "task_def_cron" {
   }
 }
 
-module "ecsservice_cron" {
-  source             = "github.com/silinternational/terraform-modules//aws/ecs/service-no-alb?ref=2.5.0"
-  cluster_id         = "${var.ecs_cluster_id}"
-  service_name       = "${var.idp_name}-${var.app_name}-cron"
-  service_env        = "${var.app_env}"
-  container_def_json = "${data.template_file.task_def_cron.rendered}"
-  desired_count      = 1
+//module "ecsservice_cron" {
+//  source             = "github.com/silinternational/terraform-modules//aws/ecs/service-no-alb?ref=2.5.0"
+//  cluster_id         = "${var.ecs_cluster_id}"
+//  service_name       = "${var.idp_name}-${var.app_name}-cron"
+//  service_env        = "${var.app_env}"
+//  container_def_json = "${data.template_file.task_def_cron.rendered}"
+//  desired_count      = 1
+//}
+
+/*
+ * Create cron task definition
+ */
+resource "aws_ecs_task_definition" "cron_td" {
+  family                = "${var.idp_name}-${var.app_name}-${var.app_env}"
+  container_definitions = data.template_file.task_def_cron.rendered
+  network_mode          = "bridge"
+}
+
+/*
+ * CloudWatch configuration to start database backup.
+ */
+resource "aws_cloudwatch_event_rule" "event_rule" {
+  name        = "${var.app_name}-${var.app_env}"
+  description = "Start broker scheduled tasks"
+
+  schedule_expression = "${var.event_schedule}"
+
+  tags = {
+    app_name = var.app_name
+    app_env  = var.app_env
+  }
+}
+
+resource "aws_cloudwatch_event_target" "broker_event_target" {
+  target_id = "run-dbbackup-${var.app_name}-${var.app_env}"
+  rule      = aws_cloudwatch_event_rule.event_rule.name
+  arn       = "${ecs_cluster_id}"
+  role_arn  = "${ecsServiceRole_arn}"
+
+  ecs_target {
+    task_count          = 1
+    launch_type         = "EC2"
+    task_definition_arn = aws_ecs_task_definition.cron_td.arn
+  }
 }
 
 /*
