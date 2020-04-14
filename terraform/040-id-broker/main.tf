@@ -280,6 +280,54 @@ data "template_file" "task_def_cron" {
 }
 
 /*
+ * Create role for scheduled running of backup task definitions.
+ */
+resource "aws_iam_role" "ecs_events" {
+  name = "ecs_events-${var.app_name}-${var.app_env}"
+
+  assume_role_policy = <<DOC
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "",
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "events.amazonaws.com"
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
+DOC
+
+}
+
+resource "aws_iam_role_policy" "ecs_events_run_task_with_any_role" {
+  name = "ecs_events_run_task_with_any_role"
+  role = aws_iam_role.ecs_events.id
+
+  policy = <<DOC
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": "iam:PassRole",
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "ecs:RunTask",
+            "Resource": "${replace(aws_ecs_task_definition.cron_td.arn, "/:\\d+$/", ":*")}"
+        },
+    ]
+}
+DOC
+
+}
+
+/*
  * Create cron task definition
  */
 resource "aws_ecs_task_definition" "cron_td" {
@@ -307,7 +355,7 @@ resource "aws_cloudwatch_event_target" "broker_event_target" {
   target_id = "${var.idp_name}-${var.app_name}-cron-${var.app_env}"
   rule      = "${aws_cloudwatch_event_rule.event_rule.name}"
   arn       = "${var.ecs_cluster_id}"
-  role_arn  = "${var.ecsServiceRole_arn}"
+  role_arn  = "${aws_iam_role.ecs_events.arn}"
 
   ecs_target {
     task_count          = 1
