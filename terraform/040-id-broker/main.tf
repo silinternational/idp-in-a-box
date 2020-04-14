@@ -303,6 +303,30 @@ EOF
 
 }
 
+resource "aws_iam_role_policy" "ecs_events_run_task_with_any_role" {
+  name = "ecs_events_run_task_with_any_role"
+  role = "${aws_iam_role.ecs_events.id}"
+
+  policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": "iam:PassRole",
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "ecs:RunTask",
+            "Resource": "${replace("${aws_ecs_task_definition.cron_td.arn}", "/:\\d+$/", ":*")}"
+        }
+    ]
+}
+EOF
+
+}
+
 /*
  * Create cron task definition
  */
