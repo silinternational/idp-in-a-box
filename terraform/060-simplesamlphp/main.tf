@@ -60,6 +60,7 @@ data "template_file" "task_def" {
     memory                       = "${var.memory}"
     cpu                          = "${var.cpu}"
     admin_pass                   = "${random_id.admin_pass.hex}"
+    app_env                      = "${var.app_env}"
     app_name                     = "${var.app_name}"
     aws_region                   = "${var.aws_region}"
     base_url                     = "https://${var.subdomain}.${var.cloudflare_domain}/"
