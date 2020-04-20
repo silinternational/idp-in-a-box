@@ -66,6 +66,26 @@
         "value": "${ga_client_id}"
       },
       {
+        "name": "HIBP_CHECK_INTERVAL",
+        "value": "${hibp_check_interval}"
+      },
+      {
+        "name": "HIBP_CHECK_ON_LOGIN",
+        "value": "${hibp_check_on_login}"
+      },
+      {
+        "name": "HIBP_GRACE_PERIOD",
+        "value": "${hibp_grace_period}"
+      },
+      {
+        "name": "HIBP_TRACKING_ONLY",
+        "value": "${hibp_tracking_only}"
+      },
+      {
+        "name": "HIBP_NOTIFICATION_BCC",
+        "value": "${hibp_notification_bcc}"
+      },
+      {
         "name": "HELP_CENTER_URL",
         "value": "${help_center_url}"
       },

@@ -51,6 +51,11 @@ This module is used to create an ECS service running id-broker.
  - `email_signature` - Signature for use in emails. Default is empty string
  - `ga_client_id` - Used by Google Analytics to distinguish the user (e.g. IDP-<the idp name>-ID-BROKER)
  - `ga_tracking_id` - The Google Analytics property id (e.g. UA-12345678-12)
+ - `hibp_check_interval` - How often should HIBP be checked during login. Default `+1 week`
+ - `hibp_check_on_login` - Whether to check HIBP during login. Default `true` 
+ - `hibp_grace_period` - How long to set grace period when a pwned password is discovered and force expired. Default: `+1 week`
+ - `hibp_tracking_only` - Whether to actually apply changes or just track when pwned passwords are discovered. Default: `false`
+ - `hibp_notification_bcc` - An optional email address to BCC pwned password alert emails to.
  - `idp_display_name` - Display name for IdP. Default is empty string
  - `inactive_user_period` - Time a user record can remain inactive before being deleted. Default: `+18 months`
  - `inactive_user_deletion_enable` - Enable deletion of inactive users after a period defined by inactive_user_period. Default: `false`
@@ -145,6 +150,11 @@ module "broker" {
   ga_client_id                     = "${var.ga_client_id}"
   ga_tracking_id                   = "${var.ga_tracking_id}"
   help_center_url                  = "${var.help_center_url}"
+  hibp_check_interval              = "${var.hibp_check_interval}"
+  hibp_check_on_login              = "${var.hibp_check_on_login}"
+  hibp_grace_period                = "${var.hibp_grace_period}"
+  hibp_tracking_only               = "${var.hibp_tracking_only}"
+  hibp_notification_bcc            = "${var.hibp_notification_bcc}"
   idp_display_name                 = "${var.idp_display_name}"
   idp_name                         = "${var.idp_name}"
   inactive_user_period             = "${var.inactive_user_period}"
