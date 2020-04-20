@@ -52,7 +52,7 @@ This module is used to create an ECS service running id-broker.
  - `ga_client_id` - Used by Google Analytics to distinguish the user (e.g. IDP-<the idp name>-ID-BROKER)
  - `ga_tracking_id` - The Google Analytics property id (e.g. UA-12345678-12)
  - `hibp_check_interval` - How often should HIBP be checked during login. Default `+1 week`
- - `hibp_check_on_login` - Whether to check HIBp during login. Default `true` 
+ - `hibp_check_on_login` - Whether to check HIBP during login. Default `true` 
  - `hibp_grace_period` - How long to set grace period when a pwned password is discovered and force expired. Default: `+1 week`
  - `hibp_tracking_only` - Whether to actually apply changes or just track when pwned passwords are discovered. Default: `false`
  - `hibp_notification_bcc` - An optional email address to BCC pwned password alert emails to.
