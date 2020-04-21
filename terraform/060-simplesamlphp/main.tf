@@ -1,4 +1,13 @@
 /*
+ * Create Logentries log
+ */
+resource "logentries_log" "log" {
+  logset_id = "${var.logentries_set_id}"
+  name      = "${var.app_name}"
+  source    = "token"
+}
+
+/*
  * Create target group for ALB
  */
 resource "aws_alb_target_group" "ssp" {
