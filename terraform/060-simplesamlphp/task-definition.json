@@ -50,6 +50,10 @@
         "value": "true"
       },
       {
+        "name": "LOGENTRIES_KEY",
+        "value": "${logentries_key}"
+      },
+      {
         "name": "MEMCACHE_HOST1",
         "value": "${memcache_host1}"
       },

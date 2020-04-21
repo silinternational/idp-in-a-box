@@ -77,6 +77,7 @@ data "template_file" "task_def" {
     mfa_learn_more_url           = "${var.mfa_learn_more_url}"
     mfa_setup_url                = "${var.mfa_setup_url}"
     idp_domain_name              = "${var.subdomain}.${var.cloudflare_domain}"
+    logentries_key               = "${logentries_log.log.token}"
     logging_level                = "${var.logging_level}"
     memcache_host1               = "${var.memcache_host1}"
     memcache_host2               = "${var.memcache_host2}"
