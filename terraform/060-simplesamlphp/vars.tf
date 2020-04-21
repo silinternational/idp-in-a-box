@@ -6,10 +6,6 @@ variable "cpu" {
   default = "150"
 }
 
-variable "logentries_set_id" {
-  type = "string"
-}
-
 variable "app_name" {
   type    = "string"
   default = "simplesamlphp"
@@ -52,6 +48,11 @@ variable "docker_image" {
   type = "string"
 }
 
+variable "enable_debug" {
+  type    = "string"
+  default = "false"
+}
+
 variable "password_change_url" {
   type = "string"
 }
@@ -81,6 +82,11 @@ variable "id_broker_base_uri" {
 variable "id_broker_trusted_ip_ranges" {
   type    = "list"
   default = []
+}
+
+variable "logging_level" {
+  type    = "string"
+  default = "notice"
 }
 
 variable "mfa_learn_more_url" {

@@ -11,7 +11,6 @@ This module is used to create an ECS service running simpleSAMLphp.
 
  - `app_name` - Application name
  - `app_env` - Application environment
- - `logentries_set_id` - Logentries logset ID for creating new log in
  - `vpc_id` - ID for VPC
  - `alb_https_listener_arn` - ARN for ALB HTTPS listener
  - `subdomain` - Subdomain for SSP IdP
@@ -48,6 +47,8 @@ This module is used to create an ECS service running simpleSAMLphp.
 ## Optional Inputs
 
  - `delete_remember_me_on_logout` - Whether or not to delete remember me cookie on logout. Default: `false`
+ - `enable_debug` - Enable debug logs. Default: `false`
+ - `logging_level` - Minimum log level to log. DO NOT use DEBUG in production. Allowed values: ERR, WARNING, NOTICE, INFO, DEBUG. Default: `NOTICE`
  - `mfa_learn_more_url` - URL to learn more about 2SV during profile review. Default: (link not displayed)
  - `show_saml_errors` - Whether or not to show saml errors. Default: `false`
  - `theme_color_scheme` - The color scheme to use for SSP. Default: `'indigo-purple'`
@@ -73,7 +74,6 @@ module "ssp" {
   desired_count                = "${var.desired_count}"
   app_name                     = "${var.app_name}"
   app_env                      = "${var.app_env}"
-  logentries_set_id            = "${data.terraform_remote_state.cluster.logentries_set_id}"
   vpc_id                       = "${data.terraform_remote_state.cluster.vpc_id}"
   alb_https_listener_arn       = "${data.terraform_remote_state.cluster.alb_https_listener_arn}"
   subdomain                    = "${var.ssp_subdomain}"
@@ -111,5 +111,7 @@ module "ssp" {
   show_saml_errors             = "${var.show_saml_errors}"
   delete_remember_me_on_logout = "${var.delete_remember_me_on_logout}"
   help_center_url              = "${data.terraform_remote_state.broker.help_center_url}"
+  enable_debug                 = "${var.enable_debug}"
+  logging_level                = "${var.logging_level}"
 }
 ```

@@ -1,13 +1,4 @@
 /*
- * Create Logentries log
- */
-resource "logentries_log" "log" {
-  logset_id = "${var.logentries_set_id}"
-  name      = "${var.app_name}"
-  source    = "token"
-}
-
-/*
  * Create target group for ALB
  */
 resource "aws_alb_target_group" "ssp" {
@@ -66,6 +57,7 @@ data "template_file" "task_def" {
     base_url                     = "https://${var.subdomain}.${var.cloudflare_domain}/"
     cloudwatch_log_group_name    = "${var.cloudwatch_log_group_name}"
     docker_image                 = "${var.docker_image}"
+    enable_debug                 = "${var.enable_debug}"
     password_change_url          = "${var.password_change_url}"
     password_forgot_url          = "${var.password_forgot_url}"
     hub_mode                     = "${var.hub_mode}"
@@ -76,7 +68,7 @@ data "template_file" "task_def" {
     mfa_learn_more_url           = "${var.mfa_learn_more_url}"
     mfa_setup_url                = "${var.mfa_setup_url}"
     idp_domain_name              = "${var.subdomain}.${var.cloudflare_domain}"
-    logentries_key               = "${logentries_log.log.token}"
+    logging_level                = "${var.logging_level}"
     memcache_host1               = "${var.memcache_host1}"
     memcache_host2               = "${var.memcache_host2}"
     mysql_database               = "${var.db_name}"

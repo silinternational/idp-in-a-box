@@ -42,12 +42,12 @@
         "value": "${delete_remember_me_on_logout}"
       },
       {
-        "name": "ENABLE_HUB_AUTHPROCS",
-        "value": "true"
+        "name": "ENABLE_DEBUG",
+        "value": "${enable_debug}"
       },
       {
-        "name": "LOGENTRIES_KEY",
-        "value": "${logentries_key}"
+        "name": "ENABLE_HUB_AUTHPROCS",
+        "value": "true"
       },
       {
         "name": "MEMCACHE_HOST1",
@@ -104,6 +104,10 @@
       {
         "name": "ID_BROKER_TRUSTED_IP_RANGES",
         "value": "${id_broker_trusted_ip_ranges}"
+      },
+      {
+        "name": "LOGGING_LEVEL",
+        "value": "${logging_level}"
       },
       {
         "name": "MFA_LEARN_MORE_URL",
