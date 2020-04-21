@@ -108,6 +108,31 @@ variable "help_center_url" {
   type = "string"
 }
 
+variable "hibp_check_interval" {
+  type    = "string"
+  default = "+1 week"
+}
+
+variable "hibp_check_on_login" {
+  type    = "string"
+  default = "true"
+}
+
+variable "hibp_grace_period" {
+  type    = "string"
+  default = "+1 week"
+}
+
+variable "hibp_tracking_only" {
+  type    = "string"
+  default = "false"
+}
+
+variable "hibp_notification_bcc" {
+  type    = "string"
+  default = ""
+}
+
 variable "idp_display_name" {
   type    = "string"
   default = ""
