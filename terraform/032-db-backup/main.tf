@@ -177,3 +177,4 @@ resource "aws_cloudwatch_event_target" "backup_event_target" {
     launch_type         = "EC2"
     task_definition_arn = "${aws_ecs_task_definition.cron_td.arn}"
   }
+}
