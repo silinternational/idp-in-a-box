@@ -90,7 +90,7 @@ variable "id_broker_trusted_ip_ranges" {
 
 variable "logging_level" {
   type    = "string"
-  default = "notice"
+  default = "NOTICE"
 }
 
 variable "mfa_learn_more_url" {
