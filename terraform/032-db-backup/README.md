@@ -26,7 +26,7 @@ This module is used to run mysqldump and backup files to S3
 
  - `app_name` - Application name
  - `cpu` - CPU resources to allot to each task instance
- - `cron_schedule` - Schedule for CRON execution. Default: `0 2 * * ? *`
+ - `cron_schedule` - Schedule for CRON execution. Default: `cron(0 2 * * ? *)`
  - `db_names` - List of database names to backup. Default: `["emailservice", "idbroker", "pwmanager", "ssp"]`
  - `memory` - Memory (RAM) resources to allot to each task instance
  - `service_mode` - Either `backup` or `restore`. Default: `backup`
