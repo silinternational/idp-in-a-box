@@ -94,11 +94,86 @@ data "template_file" "task_def_backup" {
   }
 }
 
-module "ecsservice" {
-  source             = "github.com/silinternational/terraform-modules//aws/ecs/service-no-alb?ref=2.5.0"
-  cluster_id         = "${var.ecs_cluster_id}"
-  service_name       = "${var.idp_name}-${var.app_name}"
-  service_env        = "${var.app_env}"
-  container_def_json = "${data.template_file.task_def_backup.rendered}"
-  desired_count      = 1
+/*
+ * Create role for scheduled running of cron task definitions.
+ */
+resource "aws_iam_role" "ecs_events" {
+  name = "ecs_events-${var.app_name}-${var.app_env}"
+
+  assume_role_policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "",
+            "Effect": "Allow",
+            "Principal": {
+              "Service": "events.amazonaws.com"
+            },
+            "Action": "sts:AssumeRole"
+        }
+    ]
 }
+EOF
+
+}
+
+resource "aws_iam_role_policy" "ecs_events_run_task_with_any_role" {
+  name = "ecs_events_run_task_with_any_role"
+  role = "${aws_iam_role.ecs_events.id}"
+
+  policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": "iam:PassRole",
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "ecs:RunTask",
+            "Resource": "${replace("${aws_ecs_task_definition.cron_td.arn}", "/:\\d+$/", ":*")}"
+        }
+    ]
+}
+EOF
+
+}
+
+/*
+ * Create cron task definition
+ */
+resource "aws_ecs_task_definition" "cron_td" {
+  family                = "${var.idp_name}-${var.app_name}-cron-${var.app_env}"
+  container_definitions = "${data.template_file.task_def_backup.rendered}"
+  network_mode          = "bridge"
+}
+
+/*
+ * CloudWatch configuration to start scheduled backup.
+ */
+resource "aws_cloudwatch_event_rule" "event_rule" {
+  name        = "${var.idp_name}-${var.app_name}-${var.app_env}"
+  description = "Start scheduled backup"
+
+  schedule_expression = "${var.cron_schedule}"
+
+  tags = {
+    app_name = "${var.app_name}"
+    app_env  = "${var.app_env}"
+  }
+}
+
+resource "aws_cloudwatch_event_target" "backup_event_target" {
+  target_id = "${var.idp_name}-${var.app_name}-${var.app_env}"
+  rule      = "${aws_cloudwatch_event_rule.event_rule.name}"
+  arn       = "${var.ecs_cluster_id}"
+  role_arn  = "${aws_iam_role.ecs_events.arn}"
+
+  ecs_target {
+    task_count          = 1
+    launch_type         = "EC2"
+    task_definition_arn = "${aws_ecs_task_definition.cron_td.arn}"
+  }

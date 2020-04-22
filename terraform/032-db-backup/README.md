@@ -26,7 +26,7 @@ This module is used to run mysqldump and backup files to S3
 
  - `app_name` - Application name
  - `cpu` - CPU resources to allot to each task instance
- - `cron_schedule` - Schedule for CRON execution. Default: `0 2 * * *`
+ - `cron_schedule` - Schedule for CRON execution. Default: `0 2 * * ? *`
  - `db_names` - List of database names to backup. Default: `["emailservice", "idbroker", "pwmanager", "ssp"]`
  - `memory` - Memory (RAM) resources to allot to each task instance
  - `service_mode` - Either `backup` or `restore`. Default: `backup`
@@ -47,6 +47,7 @@ module "dbbackup" {
   aws_region                = "${var.aws_region}"`
   cloudwatch_log_group_name = "${var.cloudwatch_log_group_name}"
   cpu                       = "${var.cpu}"
+  cron_schedule             = "${var.cron_schedule}"
   db_names                  = ["${var.db_names}"]
   docker_image              = "${data.terraform_remote_state.ecr.ecr_repo_dbbackup}"
   ecs_cluster_id            = "${data.terraform_remote_state.core.ecs_cluster_id}"

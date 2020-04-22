@@ -22,7 +22,7 @@ variable "cpu" {
 
 variable "cron_schedule" {
   type    = "string"
-  default = "0 2 * * *"
+  default = "0 2 * * ? *"
 }
 
 variable "db_names" {
