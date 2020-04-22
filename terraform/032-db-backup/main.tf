@@ -146,7 +146,7 @@ EOF
  * Create cron task definition
  */
 resource "aws_ecs_task_definition" "cron_td" {
-  family                = "${var.idp_name}-${var.app_name}-cron-${var.app_env}"
+  family                = "${var.idp_name}-${var.app_name}-${var.app_env}"
   container_definitions = "${data.template_file.task_def_backup.rendered}"
   network_mode          = "bridge"
 }
