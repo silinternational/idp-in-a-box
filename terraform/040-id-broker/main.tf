@@ -123,6 +123,7 @@ data "template_file" "task_def" {
     mysql_host                       = "${var.mysql_host}"
     mysql_pass                       = "${var.mysql_pass}"
     mysql_user                       = "${var.mysql_user}"
+    name                             = "web"
     notification_email               = "${var.notification_email}"
     password_expiration_grace_period = "${var.password_expiration_grace_period}"
     password_lifespan                = "${var.password_lifespan}"
@@ -130,6 +131,7 @@ data "template_file" "task_def" {
     password_profile_url             = "${var.password_profile_url}"
     password_reuse_limit             = "${var.password_reuse_limit}"
     profile_review_interval          = "${var.profile_review_interval}"
+    run_task                         = ""
     send_get_backup_codes_emails     = "${var.send_get_backup_codes_emails}"
     send_invite_emails               = "${var.send_invite_emails}"
     send_lost_security_key_emails    = "${var.send_lost_security_key_emails}"
@@ -185,7 +187,7 @@ module "ecsservice" {
  * Create ECS service
  */
 data "template_file" "task_def_cron" {
-  template = "${file("${path.module}/task-definition-cron.json")}"
+  template = "${file("${path.module}/task-definition.json")}"
 
   vars {
     api_access_keys                  = "${random_id.access_token_pwmanager.hex},${random_id.access_token_ssp.hex},${random_id.access_token_idsync.hex}"
@@ -193,7 +195,7 @@ data "template_file" "task_def_cron" {
     app_name                         = "${var.app_name}"
     aws_region                       = "${var.aws_region}"
     cloudwatch_log_group_name        = "${var.cloudwatch_log_group_name}"
-    cpu_cron                         = "${var.cpu_cron}"
+    cpu                              = "${var.cpu_cron}"
     contingent_user_duration         = "${var.contingent_user_duration}"
     db_name                          = "${var.db_name}"
     docker_image                     = "${var.docker_image}"
@@ -206,6 +208,11 @@ data "template_file" "task_def_cron" {
     ga_client_id                     = "${var.ga_client_id}"
     ga_tracking_id                   = "${var.ga_tracking_id}"
     help_center_url                  = "${var.help_center_url}"
+    hibp_check_interval              = "${var.hibp_check_interval}"
+    hibp_check_on_login              = "${var.hibp_check_on_login}"
+    hibp_grace_period                = "${var.hibp_grace_period}"
+    hibp_tracking_only               = "${var.hibp_tracking_only}"
+    hibp_notification_bcc            = "${var.hibp_notification_bcc}"
     idp_display_name                 = "${var.idp_display_name}"
     idp_name                         = "${var.idp_name}"
     inactive_user_period             = "${var.inactive_user_period}"
@@ -215,7 +222,7 @@ data "template_file" "task_def_cron" {
     invite_lifespan                  = "${var.invite_lifespan}"
     logentries_key                   = "${logentries_log.log.token}"
     lost_security_key_email_days     = "${var.lost_security_key_email_days}"
-    memory_cron                      = "${var.memory_cron}"
+    memory                           = "${var.memory_cron}"
     method_add_interval              = "${var.method_add_interval}"
     method_codeLength                = "${var.method_codeLength}"
     method_gracePeriod               = "${var.method_gracePeriod}"
@@ -238,6 +245,7 @@ data "template_file" "task_def_cron" {
     mysql_host                       = "${var.mysql_host}"
     mysql_pass                       = "${var.mysql_pass}"
     mysql_user                       = "${var.mysql_user}"
+    name                             = "cron"
     notification_email               = "${var.notification_email}"
     password_expiration_grace_period = "${var.password_expiration_grace_period}"
     password_lifespan                = "${var.password_lifespan}"

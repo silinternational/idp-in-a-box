@@ -17,7 +17,7 @@
     "essential": true,
     "entryPoint": null,
     "mountPoints": [],
-    "name": "web",
+    "name": "${name}"
     "ulimits": null,
     "dockerSecurityOptions": null,
     "environment": [
