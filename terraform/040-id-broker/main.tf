@@ -27,8 +27,9 @@ resource "aws_alb_listener_rule" "broker" {
   }
 
   condition {
-    field  = "host-header"
-    values = ["${var.subdomain}.${var.cloudflare_domain}"]
+    host_header {
+      values = ["${var.subdomain}.${var.cloudflare_domain}"]
+    }
   }
 }
 
@@ -69,6 +70,9 @@ data "template_file" "task_def" {
   vars {
     api_access_keys                  = "${random_id.access_token_pwmanager.hex},${random_id.access_token_search.hex},${random_id.access_token_ssp.hex},${random_id.access_token_idsync.hex}"
     app_env                          = "${var.app_env}"
+    app_name                         = "${var.app_name}"
+    aws_region                       = "${var.aws_region}"
+    cloudwatch_log_group_name        = "${var.cloudwatch_log_group_name}"
     contingent_user_duration         = "${var.contingent_user_duration}"
     cpu                              = "${var.cpu}"
     db_name                          = "${var.db_name}"
@@ -119,6 +123,7 @@ data "template_file" "task_def" {
     mysql_host                       = "${var.mysql_host}"
     mysql_pass                       = "${var.mysql_pass}"
     mysql_user                       = "${var.mysql_user}"
+    name                             = "web"
     notification_email               = "${var.notification_email}"
     password_expiration_grace_period = "${var.password_expiration_grace_period}"
     password_lifespan                = "${var.password_lifespan}"
@@ -126,6 +131,7 @@ data "template_file" "task_def" {
     password_profile_url             = "${var.password_profile_url}"
     password_reuse_limit             = "${var.password_reuse_limit}"
     profile_review_interval          = "${var.profile_review_interval}"
+    run_task                         = ""
     send_get_backup_codes_emails     = "${var.send_get_backup_codes_emails}"
     send_invite_emails               = "${var.send_invite_emails}"
     send_lost_security_key_emails    = "${var.send_lost_security_key_emails}"
@@ -181,12 +187,15 @@ module "ecsservice" {
  * Create ECS service
  */
 data "template_file" "task_def_cron" {
-  template = "${file("${path.module}/task-definition-cron.json")}"
+  template = "${file("${path.module}/task-definition.json")}"
 
   vars {
     api_access_keys                  = "${random_id.access_token_pwmanager.hex},${random_id.access_token_ssp.hex},${random_id.access_token_idsync.hex}"
     app_env                          = "${var.app_env}"
-    cpu_cron                         = "${var.cpu_cron}"
+    app_name                         = "${var.app_name}"
+    aws_region                       = "${var.aws_region}"
+    cloudwatch_log_group_name        = "${var.cloudwatch_log_group_name}"
+    cpu                              = "${var.cpu_cron}"
     contingent_user_duration         = "${var.contingent_user_duration}"
     db_name                          = "${var.db_name}"
     docker_image                     = "${var.docker_image}"
@@ -199,6 +208,11 @@ data "template_file" "task_def_cron" {
     ga_client_id                     = "${var.ga_client_id}"
     ga_tracking_id                   = "${var.ga_tracking_id}"
     help_center_url                  = "${var.help_center_url}"
+    hibp_check_interval              = "${var.hibp_check_interval}"
+    hibp_check_on_login              = "${var.hibp_check_on_login}"
+    hibp_grace_period                = "${var.hibp_grace_period}"
+    hibp_tracking_only               = "${var.hibp_tracking_only}"
+    hibp_notification_bcc            = "${var.hibp_notification_bcc}"
     idp_display_name                 = "${var.idp_display_name}"
     idp_name                         = "${var.idp_name}"
     inactive_user_period             = "${var.inactive_user_period}"
@@ -208,7 +222,7 @@ data "template_file" "task_def_cron" {
     invite_lifespan                  = "${var.invite_lifespan}"
     logentries_key                   = "${logentries_log.log.token}"
     lost_security_key_email_days     = "${var.lost_security_key_email_days}"
-    memory_cron                      = "${var.memory_cron}"
+    memory                           = "${var.memory_cron}"
     method_add_interval              = "${var.method_add_interval}"
     method_codeLength                = "${var.method_codeLength}"
     method_gracePeriod               = "${var.method_gracePeriod}"
@@ -231,6 +245,7 @@ data "template_file" "task_def_cron" {
     mysql_host                       = "${var.mysql_host}"
     mysql_pass                       = "${var.mysql_pass}"
     mysql_user                       = "${var.mysql_user}"
+    name                             = "cron"
     notification_email               = "${var.notification_email}"
     password_expiration_grace_period = "${var.password_expiration_grace_period}"
     password_lifespan                = "${var.password_lifespan}"
@@ -238,6 +253,7 @@ data "template_file" "task_def_cron" {
     password_profile_url             = "${var.password_profile_url}"
     password_reuse_limit             = "${var.password_reuse_limit}"
     profile_review_interval          = "${var.profile_review_interval}"
+    run_task                         = "${var.run_task}"
     send_get_backup_codes_emails     = "${var.send_get_backup_codes_emails}"
     send_invite_emails               = "${var.send_invite_emails}"
     send_lost_security_key_emails    = "${var.send_lost_security_key_emails}"
@@ -276,13 +292,89 @@ data "template_file" "task_def_cron" {
   }
 }
 
-module "ecsservice_cron" {
-  source             = "github.com/silinternational/terraform-modules//aws/ecs/service-no-alb?ref=2.5.0"
-  cluster_id         = "${var.ecs_cluster_id}"
-  service_name       = "${var.idp_name}-${var.app_name}-cron"
-  service_env        = "${var.app_env}"
-  container_def_json = "${data.template_file.task_def_cron.rendered}"
-  desired_count      = 1
+/*
+ * Create role for scheduled running of cron task definitions.
+ */
+resource "aws_iam_role" "ecs_events" {
+  name = "ecs_events-${var.app_name}-${var.app_env}"
+
+  assume_role_policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "",
+            "Effect": "Allow",
+            "Principal": {
+              "Service": "events.amazonaws.com"
+            },
+            "Action": "sts:AssumeRole"
+        }
+    ]
+}
+EOF
+
+}
+
+resource "aws_iam_role_policy" "ecs_events_run_task_with_any_role" {
+  name = "ecs_events_run_task_with_any_role"
+  role = "${aws_iam_role.ecs_events.id}"
+
+  policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": "iam:PassRole",
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "ecs:RunTask",
+            "Resource": "${replace("${aws_ecs_task_definition.cron_td.arn}", "/:\\d+$/", ":*")}"
+        }
+    ]
+}
+EOF
+
+}
+
+/*
+ * Create cron task definition
+ */
+resource "aws_ecs_task_definition" "cron_td" {
+  family                = "${var.idp_name}-${var.app_name}-cron-${var.app_env}"
+  container_definitions = "${data.template_file.task_def_cron.rendered}"
+  network_mode          = "bridge"
+}
+
+/*
+ * CloudWatch configuration to start scheduled tasks.
+ */
+resource "aws_cloudwatch_event_rule" "event_rule" {
+  name        = "${var.idp_name}-${var.app_name}-cron-${var.app_env}"
+  description = "Start broker scheduled tasks"
+
+  schedule_expression = "${var.event_schedule}"
+
+  tags = {
+    app_name = "${var.app_name}"
+    app_env  = "${var.app_env}"
+  }
+}
+
+resource "aws_cloudwatch_event_target" "broker_event_target" {
+  target_id = "${var.idp_name}-${var.app_name}-cron-${var.app_env}"
+  rule      = "${aws_cloudwatch_event_rule.event_rule.name}"
+  arn       = "${var.ecs_cluster_id}"
+  role_arn  = "${aws_iam_role.ecs_events.arn}"
+
+  ecs_target {
+    task_count          = 1
+    launch_type         = "EC2"
+    task_definition_arn = "${aws_ecs_task_definition.cron_td.arn}"
+  }
 }
 
 /*

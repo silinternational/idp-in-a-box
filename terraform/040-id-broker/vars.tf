@@ -9,7 +9,15 @@ variable "app_name" {
   description = "Used in ECS service names and logs, best to leave as default."
 }
 
+variable "aws_region" {
+  type = "string"
+}
+
 variable "cloudflare_domain" {
+  type = "string"
+}
+
+variable "cloudwatch_log_group_name" {
   type = "string"
 }
 
@@ -77,6 +85,11 @@ variable "email_service_validIpRanges" {
 variable "email_signature" {
   type    = "string"
   default = ""
+}
+
+variable "event_schedule" {
+  type    = "string"
+  default = "cron(0 0 * * ? *)"
 }
 
 variable "ga_client_id" {
@@ -317,6 +330,11 @@ variable "password_reuse_limit" {
 variable "profile_review_interval" {
   type    = "string"
   default = "+12 months"
+}
+
+variable "run_task" {
+  type    = "string"
+  default = "cron/all"
 }
 
 variable "send_get_backup_codes_emails" {

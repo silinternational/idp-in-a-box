@@ -10,7 +10,9 @@ This module is used to create an ECS service running email-service.
 ## Required Inputs
 
  - `app_env` - Application environment
+ - `aws_region` - AWS region
  - `cloudflare_domain` - Top level domain name for use with Cloudflare
+ - `cloudwatch_log_group_name` - CloudWatch log group name
  - `db_name` - Name of MySQL database for email-service
  - `docker_image` - The docker image to use for this
  - `ecs_cluster_id` - ID for ECS Cluster
@@ -61,7 +63,9 @@ module "email" {
   source                    = "github.com/silinternational/idp-in-a-box//terraform/031-email-service"
   app_env                   = "${var.app_env}"
   app_name                  = "${var.app_name}"
+  aws_region                = "${var.aws_region}"`
   cloudflare_domain         = "${var.cloudflare_domain}"
+  cloudwatch_log_group_name = "${var.cloudwatch_log_group_name}"
   cpu_api                   = "${var.cpu_api}"
   cpu_cron                  = "${var.cpu_cron}"
   db_name                   = "${var.db_name}"

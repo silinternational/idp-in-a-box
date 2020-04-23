@@ -36,8 +36,9 @@ resource "aws_alb_listener_rule" "ssp" {
   }
 
   condition {
-    field  = "host-header"
-    values = ["${var.subdomain}.${var.cloudflare_domain}"]
+    host_header {
+      values = ["${var.subdomain}.${var.cloudflare_domain}"]
+    }
   }
 }
 
@@ -59,8 +60,13 @@ data "template_file" "task_def" {
     memory                       = "${var.memory}"
     cpu                          = "${var.cpu}"
     admin_pass                   = "${random_id.admin_pass.hex}"
+    app_env                      = "${var.app_env}"
+    app_name                     = "${var.app_name}"
+    aws_region                   = "${var.aws_region}"
     base_url                     = "https://${var.subdomain}.${var.cloudflare_domain}/"
+    cloudwatch_log_group_name    = "${var.cloudwatch_log_group_name}"
     docker_image                 = "${var.docker_image}"
+    enable_debug                 = "${var.enable_debug}"
     password_change_url          = "${var.password_change_url}"
     password_forgot_url          = "${var.password_forgot_url}"
     hub_mode                     = "${var.hub_mode}"
@@ -72,6 +78,7 @@ data "template_file" "task_def" {
     mfa_setup_url                = "${var.mfa_setup_url}"
     idp_domain_name              = "${var.subdomain}.${var.cloudflare_domain}"
     logentries_key               = "${logentries_log.log.token}"
+    logging_level                = "${var.logging_level}"
     memcache_host1               = "${var.memcache_host1}"
     memcache_host2               = "${var.memcache_host2}"
     mysql_database               = "${var.db_name}"
