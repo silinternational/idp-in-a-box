@@ -246,6 +246,10 @@
         "value": "${profile_review_interval}"
       },
       {
+        "name": "RUN_TASK",
+        "value": "${run_task}"
+      },
+      {
         "name": "SEND_GET_BACKUP_CODES_EMAILS",
         "value": "${send_get_backup_codes_emails}"
       },
