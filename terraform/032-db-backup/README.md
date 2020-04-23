@@ -5,7 +5,7 @@ This module is used to run mysqldump and backup files to S3
 
  - Create an S3 bucket to store backups
  - Create a AWS backup user for script to use
- - Create task definition and ECS service for db-backup
+ - Create task definition and scheduled event for db-backup
 
 ## Required Inputs
 
