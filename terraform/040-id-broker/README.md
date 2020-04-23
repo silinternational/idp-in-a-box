@@ -11,8 +11,10 @@ This module is used to create an ECS service running id-broker.
 
  - `app_env` - Application environment
  - `app_name` - Application name
+ - `aws_region` - AWS region
  - `broker_subdomain` - Subdomain for id-broker
  - `cloudflare_domain` - Top level domain name for use with Cloudflare
+ - `cloudwatch_log_group_name` - CloudWatch log group name
  - `db_name` - Name of MySQL database for id-broker
  - `desired_count` - Desired count of tasks running in ECS service
  - `ecs_cluster_id` - ID for ECS Cluster
@@ -49,6 +51,7 @@ This module is used to create an ECS service running id-broker.
  - `email_repeat_delay_days` - Don't resend the same type of email to the same user for X days. Default: `31`
  - `email_service_assertValidIp` - Whether or not to assert IP address for Email Service API is trusted
  - `email_signature` - Signature for use in emails. Default is empty string
+ - `event_schedule` - Task run schedule. Default: `cron(0 0 * * ? *)`
  - `ga_client_id` - Used by Google Analytics to distinguish the user (e.g. IDP-<the idp name>-ID-BROKER)
  - `ga_tracking_id` - The Google Analytics property id (e.g. UA-12345678-12)
  - `hibp_check_interval` - How often should HIBP be checked during login. Default `+1 week`
@@ -82,6 +85,7 @@ This module is used to create an ECS service running id-broker.
  - `password_mfa_lifespan_extension` - Extension to password lifespan for users with at least one 2-step Verification option. Default: `+4 years`
  - `password_reuse_limit` - Number of passwords to remember for "recent password" restriction. Default: `10`
  - `profile_review_interval` - Interval between reminders to review. Default: `+6 months`
+ - `run_task` - Task to run on the schedule defined by `event_schedule`. Default: `cron/all`
  - `send_get_backup_codes_emails` - Bool of whether or not to send get backup codes emails. Default: `true`
  - `send_invite_emails` - Bool of whether or not to send invite emails. Default: `true`
  - `send_lost_security_key_emails` - Bool of whether or not to send lost security key emails. Default: `true`
@@ -132,7 +136,9 @@ module "broker" {
   source                           = "github.com/silinternational/idp-in-a-box//terraform/040-id-broker"
   app_env                          = "${var.app_env}"
   app_name                         = "${var.app_name}"
+  aws_region                       = "${var.aws_region}"`
   cloudflare_domain                = "${var.cloudflare_domain}"
+  cloudwatch_log_group_name        = "${var.cloudwatch_log_group_name}"
   contingent_user_duration         = "${var.contingent_user_duration}"
   cpu                              = "${var.cpu}"
   cpu_cron                         = "${var.cpu_cron}"
@@ -147,6 +153,7 @@ module "broker" {
   email_service_baseUrl            = "https://${data.terraform_remote_state.email.hostname}"
   email_service_validIpRanges      = ["${data.terraform_remote_state.cluster.private_subnet_cidr_blocks}"]
   email_signature                  = "${var.email_signature}"
+  event_schedule                   = "cron(1 0 * * ? 0)"
   ga_client_id                     = "${var.ga_client_id}"
   ga_tracking_id                   = "${var.ga_tracking_id}"
   help_center_url                  = "${var.help_center_url}"
@@ -195,6 +202,7 @@ module "broker" {
   password_profile_url             = "${var.password_profile_url}"
   password_reuse_limit             = "${var.password_reuse_limit}"
   profile_review_interval          = "${var.profile_review_interval}"
+  run_task                         = "${var.run_task}"
   send_get_backup_codes_emails     = "${var.send_get_backup_codes_emails}"
   send_invite_emails               = "${var.send_invite_emails}"
   send_lost_security_key_emails    = "${var.send_lost_security_key_emails}"

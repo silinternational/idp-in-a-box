@@ -13,6 +13,8 @@ store.
 
  - `app_name` - Application name
  - `app_env` - Application environment
+ - `aws_region` - AWS region
+ - `cloudwatch_log_group_name` - CloudWatch log group name
  - `logentries_set_id` - Logentries logset ID for creating new log in
  - `vpc_id` - ID for VPC
  - `alb_https_listener_arn` - ARN for ALB HTTPS listener
@@ -62,7 +64,9 @@ module "idsync" {
   vpc_id                      = "${data.terraform_remote_state.cluster.vpc_id}"
   alb_https_listener_arn      = "${data.terraform_remote_state.cluster.alb_https_listener_arn}"
   subdomain                   = "${var.sync_subdomain}"
+  aws_region                  = "${var.aws_region}"`
   cloudflare_domain           = "${var.cloudflare_domain}"
+  cloudwatch_log_group_name   = "${var.cloudwatch_log_group_name}"
   docker_image                = "${data.terraform_remote_state.ecr.ecr_repo_idsync}"
   email_service_accessToken   = "${data.terraform_remote_state.email.access_token_idsync}"
   email_service_assertValidIp = "${var.email_service_assertValidIp}"

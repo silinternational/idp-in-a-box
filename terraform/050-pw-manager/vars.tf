@@ -68,11 +68,19 @@ variable "auth_saml_ssoUrl" {
   type        = "string"
 }
 
+variable "aws_region" {
+  type = "string"
+}
+
 variable "cd_user_username" {
   type = "string"
 }
 
 variable "cloudflare_domain" {
+  type = "string"
+}
+
+variable "cloudwatch_log_group_name" {
   type = "string"
 }
 

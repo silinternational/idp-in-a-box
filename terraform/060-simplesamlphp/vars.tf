@@ -27,11 +27,19 @@ variable "alb_https_listener_arn" {
   type = "string"
 }
 
+variable "aws_region" {
+  type = "string"
+}
+
 variable "subdomain" {
   type = "string"
 }
 
 variable "cloudflare_domain" {
+  type = "string"
+}
+
+variable "cloudwatch_log_group_name" {
   type = "string"
 }
 
@@ -42,6 +50,11 @@ variable "delete_remember_me_on_logout" {
 
 variable "docker_image" {
   type = "string"
+}
+
+variable "enable_debug" {
+  type    = "string"
+  default = "false"
 }
 
 variable "password_change_url" {
@@ -73,6 +86,11 @@ variable "id_broker_base_uri" {
 variable "id_broker_trusted_ip_ranges" {
   type    = "list"
   default = []
+}
+
+variable "logging_level" {
+  type    = "string"
+  default = "NOTICE"
 }
 
 variable "mfa_learn_more_url" {

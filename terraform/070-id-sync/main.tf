@@ -36,8 +36,9 @@ resource "aws_alb_listener_rule" "idsync" {
   }
 
   condition {
-    field  = "host-header"
-    values = ["${var.subdomain}.${var.cloudflare_domain}"]
+    host_header {
+      values = ["${var.subdomain}.${var.cloudflare_domain}"]
+    }
   }
 }
 
@@ -66,6 +67,9 @@ data "template_file" "task_def" {
 
   vars {
     app_env                     = "${var.app_env}"
+    app_name                    = "${var.app_name}"
+    aws_region                  = "${var.aws_region}"
+    cloudwatch_log_group_name   = "${var.cloudwatch_log_group_name}"
     docker_image                = "${var.docker_image}"
     email_service_accessToken   = "${var.email_service_accessToken}"
     email_service_assertValidIp = "${var.email_service_assertValidIp}"
@@ -77,13 +81,12 @@ data "template_file" "task_def" {
     id_broker_base_url          = "${var.id_broker_base_url}"
     id_broker_trustedIpRanges   = "${join(",", var.id_broker_trustedIpRanges)}"
     id_store_adapter            = "${var.id_store_adapter}"
-    id_store_config             = "${var.id_store_config}"
+    id_store_config             = "${join(",", data.template_file.env_vars.*.rendered)}"
     id_sync_access_tokens       = "${random_id.access_token_external.hex}"
     idp_name                    = "${var.idp_name}"
     idp_display_name            = "${var.idp_display_name}"
     logentries_key              = "${logentries_log.log.token}"
     notifier_email_to           = "${var.notifier_email_to}"
-    id_store_config             = "${join(",", data.template_file.env_vars.*.rendered)}"
     memory                      = "${var.memory}"
     cpu                         = "${var.cpu}"
     sync_safety_cutoff          = "${var.sync_safety_cutoff}"

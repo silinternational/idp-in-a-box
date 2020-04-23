@@ -5,11 +5,13 @@ This module is used to run mysqldump and backup files to S3
 
  - Create an S3 bucket to store backups
  - Create a AWS backup user for script to use
- - Create task definition and ECS service for db-backup
+ - Create task definition and scheduled event for db-backup
 
 ## Required Inputs
 
  - `app_env` - Application environment
+ - `aws_region` - AWS region
+ - `cloudwatch_log_group_name` - CloudWatch log group name
  - `docker_image` - The docker image to use for this
  - `ecs_cluster_id` - ID for ECS Cluster
  - `ecsServiceRole_arn` - ARN for ECS Service Role
@@ -24,7 +26,7 @@ This module is used to run mysqldump and backup files to S3
 
  - `app_name` - Application name
  - `cpu` - CPU resources to allot to each task instance
- - `cron_schedule` - Schedule for CRON execution. Default: `0 2 * * *`
+ - `cron_schedule` - Schedule for CRON execution. Default: `cron(0 2 * * ? *)`
  - `db_names` - List of database names to backup. Default: `["emailservice", "idbroker", "pwmanager", "ssp"]`
  - `memory` - Memory (RAM) resources to allot to each task instance
  - `service_mode` - Either `backup` or `restore`. Default: `backup`
@@ -42,7 +44,10 @@ module "dbbackup" {
   source                    = "github.com/silinternational/idp-in-a-box//terraform/032-db-backup"
   app_env                   = "${var.app_env}"
   app_name                  = "${var.app_name}"
+  aws_region                = "${var.aws_region}"`
+  cloudwatch_log_group_name = "${var.cloudwatch_log_group_name}"
   cpu                       = "${var.cpu}"
+  cron_schedule             = "${var.cron_schedule}"
   db_names                  = ["${var.db_names}"]
   docker_image              = "${data.terraform_remote_state.ecr.ecr_repo_dbbackup}"
   ecs_cluster_id            = "${data.terraform_remote_state.core.ecs_cluster_id}"

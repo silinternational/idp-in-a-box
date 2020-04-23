@@ -102,7 +102,14 @@
     "command": null,
     "user": null,
     "dockerLabels": null,
-    "logConfiguration": null,
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "${cloudwatch_log_group_name}",
+        "awslogs-region": "${aws_region}",
+        "awslogs-stream-prefix": "${app_name}-${app_env}"
+      }
+    },
     "cpu": ${cpu},
     "privileged": null,
     "memoryReservation": ${memory}

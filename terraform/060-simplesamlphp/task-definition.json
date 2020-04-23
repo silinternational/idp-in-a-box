@@ -42,6 +42,10 @@
         "value": "${delete_remember_me_on_logout}"
       },
       {
+        "name": "ENABLE_DEBUG",
+        "value": "${enable_debug}"
+      },
+      {
         "name": "ENABLE_HUB_AUTHPROCS",
         "value": "true"
       },
@@ -104,6 +108,10 @@
       {
         "name": "ID_BROKER_TRUSTED_IP_RANGES",
         "value": "${id_broker_trusted_ip_ranges}"
+      },
+      {
+        "name": "LOGGING_LEVEL",
+        "value": "${logging_level}"
       },
       {
         "name": "MFA_LEARN_MORE_URL",
@@ -177,7 +185,14 @@
     "command": ["/data/run-idp.sh"],
     "user": null,
     "dockerLabels": null,
-    "logConfiguration": null,
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "${cloudwatch_log_group_name}",
+        "awslogs-region": "${aws_region}",
+        "awslogs-stream-prefix": "${app_name}-${app_env}"
+      }
+    },
     "cpu": ${cpu},
     "privileged": null,
     "memoryReservation": ${memory}
