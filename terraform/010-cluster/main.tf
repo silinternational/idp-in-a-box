@@ -12,7 +12,7 @@ module "vpc" {
  * Security group to limit traffic to Cloudflare IPs
  */
 module "cloudflare-sg" {
-  source = "github.com/silinternational/terraform-modules//aws/cloudflare-sg?ref=fixes-2.7"
+  source = "github.com/silinternational/terraform-modules//aws/cloudflare-sg?ref=2.7.1"
   vpc_id = "${module.vpc.id}"
 }
 
