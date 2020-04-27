@@ -296,7 +296,7 @@ data "template_file" "task_def_cron" {
  * Create role for scheduled running of cron task definitions.
  */
 resource "aws_iam_role" "ecs_events" {
-  name = "ecs_events-${var.app_name}-${var.app_env}"
+  name = "ecs_events-${var.idp_name}-${var.app_name}-${var.app_env}"
 
   assume_role_policy = <<EOF
 {
