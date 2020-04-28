@@ -194,8 +194,8 @@ variable "memory" {
 
 variable "memory_cron" {
   type        = "string"
-  description = "Amount of memory to allocate to cron container, recommend '64' for production"
-  default     = "50"
+  description = "Amount of memory to allocate to cron container, recommend '200' for production"
+  default     = "200"
 }
 
 variable "method_add_interval" {
