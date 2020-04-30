@@ -66,8 +66,6 @@ services:
     depends_on:
       - broker
       - db-ssp
-    env_file:
-      - ssp/local.env
     environment:
       ADMIN_EMAIL: "john_doe@there.com"
       ADMIN_PASS: "a"

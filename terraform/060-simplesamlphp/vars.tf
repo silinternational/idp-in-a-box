@@ -6,10 +6,6 @@ variable "cpu" {
   default = "150"
 }
 
-variable "logentries_set_id" {
-  type = "string"
-}
-
 variable "app_name" {
   type    = "string"
   default = "simplesamlphp"

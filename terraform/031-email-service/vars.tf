@@ -86,10 +86,6 @@ variable "internal_alb_listener_arn" {
   type        = "string"
 }
 
-variable "logentries_set_id" {
-  type = "string"
-}
-
 variable "mailer_host" {
   type = "string"
 }

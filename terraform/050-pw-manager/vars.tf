@@ -172,10 +172,6 @@ variable "idp_name" {
   type        = "string"
 }
 
-variable "logentries_set_id" {
-  type = "string"
-}
-
 variable "memcache_config1_host" {
   type = "string"
 }

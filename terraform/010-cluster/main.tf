@@ -82,13 +82,6 @@ module "internal_alb" {
 }
 
 /*
- * Create Logentries Logset
- */
-resource "logentries_logset" "logset" {
-  name = "${var.app_name}-${var.app_env}"
-}
-
-/*
  * Create Cloudwatch log group
  */
 resource "aws_cloudwatch_log_group" "logs" {

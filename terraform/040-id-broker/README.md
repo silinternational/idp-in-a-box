@@ -26,7 +26,6 @@ This module is used to create an ECS service running id-broker.
  - `idp_name` - Short name of IdP for use in logs and email alerts
  - `internal_alb_dns_name` - DNS name for the IdP-in-a-Box's internal Application Load Balancer
  - `internal_alb_listener_arn` - ARN for the IdP-in-a-Box's internal ALB's listener
- - `logentries_set_id` - Logentries logset ID for creating new log in
  - `mfa_totp_apibaseurl` - Base URL to TOTP api
  - `mfa_totp_apikey` - API key for TOTP api
  - `mfa_totp_apisecret` - API secret for TOTP api
@@ -171,7 +170,6 @@ module "broker" {
   invite_email_delay_seconds       = "${var.invite_email_delay_seconds}"
   invite_grace_period              = "${var.invite_grace_period}"
   invite_lifespan                  = "${var.invite_lifespan}"
-  logentries_set_id                = "${data.terraform_remote_state.cluster.logentries_set_id}"
   lost_security_key_email_days     = "${var.lost_security_key_email_days}"
   memory                           = "${var.memory}"
   memory_cron                      = "${var.memory_cron}"

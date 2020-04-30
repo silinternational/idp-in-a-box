@@ -49,15 +49,6 @@ resource "random_id" "access_token_idsync" {
 }
 
 /*
- * Create Logentries log
- */
-resource "logentries_log" "log" {
-  logset_id = "${var.logentries_set_id}"
-  name      = "${var.app_name}"
-  source    = "token"
-}
-
-/*
  * Create ECS services
  */
 data "template_file" "task_def_api" {
@@ -78,7 +69,6 @@ data "template_file" "task_def_api" {
     from_email                = "${var.from_email}"
     from_name                 = "${var.from_name}"
     idp_name                  = "${var.idp_name}"
-    logentries_key            = "${logentries_log.log.token}"
     mailer_host               = "${var.mailer_host}"
     mailer_password           = "${var.mailer_password}"
     mailer_usefiles           = "${var.mailer_usefiles}"
@@ -122,7 +112,6 @@ data "template_file" "task_def_cron" {
     from_email                = "${var.from_email}"
     from_name                 = "${var.from_name}"
     idp_name                  = "${var.idp_name}"
-    logentries_key            = "${logentries_log.log.token}"
     mailer_host               = "${var.mailer_host}"
     mailer_password           = "${var.mailer_password}"
     mailer_usefiles           = "${var.mailer_usefiles}"

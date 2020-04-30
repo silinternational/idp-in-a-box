@@ -78,10 +78,6 @@
         "value": "${idp_display_name}"
       },
       {
-        "name": "LOGENTRIES_KEY",
-        "value": "${logentries_key}"
-      },
-      {
         "name": "NOTIFIER_EMAIL_TO",
         "value": "${notifier_email_to}"
       },
