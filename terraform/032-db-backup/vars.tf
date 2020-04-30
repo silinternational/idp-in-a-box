@@ -52,10 +52,6 @@ variable "idp_name" {
   type = "string"
 }
 
-variable "logentries_set_id" {
-  type = "string"
-}
-
 variable "memory" {
   type    = "string"
   default = "32"

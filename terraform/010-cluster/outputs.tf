@@ -94,13 +94,6 @@ output "wildcard_cert_arn" {
   value = "${data.aws_acm_certificate.wildcard.arn}"
 }
 
-/*
- * Logentries outputs
- */
-output "logentries_set_id" {
-  value = "${logentries_logset.logset.id}"
-}
-
 output "cloudwatch_log_group_name" {
   value = "${aws_cloudwatch_log_group.logs.name}"
 }

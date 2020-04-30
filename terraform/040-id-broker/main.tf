@@ -53,15 +53,6 @@ resource "random_id" "access_token_idsync" {
 }
 
 /*
- * Create Logentries log
- */
-resource "logentries_log" "log" {
-  logset_id = "${var.logentries_set_id}"
-  name      = "${var.app_name}"
-  source    = "token"
-}
-
-/*
  * Create ECS service
  */
 data "template_file" "task_def" {
@@ -98,7 +89,6 @@ data "template_file" "task_def" {
     invite_email_delay_seconds       = "${var.invite_email_delay_seconds}"
     invite_grace_period              = "${var.invite_grace_period}"
     invite_lifespan                  = "${var.invite_lifespan}"
-    logentries_key                   = "${logentries_log.log.token}"
     lost_security_key_email_days     = "${var.lost_security_key_email_days}"
     memory                           = "${var.memory}"
     method_add_interval              = "${var.method_add_interval}"
@@ -220,7 +210,6 @@ data "template_file" "task_def_cron" {
     invite_email_delay_seconds       = "${var.invite_email_delay_seconds}"
     invite_grace_period              = "${var.invite_grace_period}"
     invite_lifespan                  = "${var.invite_lifespan}"
-    logentries_key                   = "${logentries_log.log.token}"
     lost_security_key_email_days     = "${var.lost_security_key_email_days}"
     memory                           = "${var.memory_cron}"
     method_add_interval              = "${var.method_add_interval}"

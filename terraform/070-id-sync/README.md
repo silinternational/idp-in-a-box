@@ -4,7 +4,6 @@ store.
 
 ## What this does
 
- - Create Logentries Log
  - Create ALB target group for SSP with hostname based routing
  - Create task definition and ECS service
  - Create Cloudflare DNS record
@@ -15,7 +14,6 @@ store.
  - `app_env` - Application environment
  - `aws_region` - AWS region
  - `cloudwatch_log_group_name` - CloudWatch log group name
- - `logentries_set_id` - Logentries logset ID for creating new log in
  - `vpc_id` - ID for VPC
  - `alb_https_listener_arn` - ARN for ALB HTTPS listener
  - `subdomain` - Subdomain for SSP IdP
@@ -60,7 +58,6 @@ module "idsync" {
   cpu                         = "${var.cpu}"
   app_name                    = "${var.app_name}"
   app_env                     = "${var.app_env}"
-  logentries_set_id           = "${data.terraform_remote_state.cluster.logentries_set_id}"
   vpc_id                      = "${data.terraform_remote_state.cluster.vpc_id}"
   alb_https_listener_arn      = "${data.terraform_remote_state.cluster.alb_https_listener_arn}"
   subdomain                   = "${var.sync_subdomain}"

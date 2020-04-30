@@ -58,10 +58,6 @@
         "value": "${idp_name}"
       },
       {
-        "name": "LOGENTRIES_KEY",
-        "value": "${logentries_key}"
-      },
-      {
         "name": "MAILER_HOST",
         "value": "${mailer_host}"
       },

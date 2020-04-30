@@ -16,7 +16,6 @@ This module is used to run mysqldump and backup files to S3
  - `ecs_cluster_id` - ID for ECS Cluster
  - `ecsServiceRole_arn` - ARN for ECS Service Role
  - `idp_name` - Short name of IdP for use in logs and email alerts
- - `logentries_set_id` - Logentries logset ID for creating new log in
  - `mysql_host` - Address for RDS instance
  - `mysql_pass` - MySQL password
  - `mysql_user` - MySQL username
@@ -53,7 +52,6 @@ module "dbbackup" {
   ecs_cluster_id            = "${data.terraform_remote_state.core.ecs_cluster_id}"
   ecsServiceRole_arn        = "${data.terraform_remote_state.core.ecsServiceRole_arn}"
   idp_name                  = "${var.idp_name}"
-  logentries_set_id         = "${data.terraform_remote_state.cluster.logentries_set_id}"
   memory                    = "${var.memory}"
   mysql_host                = "${data.terraform_remote_state.database.rds_address}"
   mysql_pass                = "${data.terraform_remote_state.database.mysql_pass}"
