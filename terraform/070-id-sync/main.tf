@@ -1,13 +1,4 @@
 /*
- * Create Logentries log
- */
-resource "logentries_log" "log" {
-  logset_id = "${var.logentries_set_id}"
-  name      = "${var.app_name}"
-  source    = "token"
-}
-
-/*
  * Create target group for ALB
  */
 resource "aws_alb_target_group" "idsync" {
@@ -85,7 +76,6 @@ data "template_file" "task_def" {
     id_sync_access_tokens       = "${random_id.access_token_external.hex}"
     idp_name                    = "${var.idp_name}"
     idp_display_name            = "${var.idp_display_name}"
-    logentries_key              = "${logentries_log.log.token}"
     notifier_email_to           = "${var.notifier_email_to}"
     memory                      = "${var.memory}"
     cpu                         = "${var.cpu}"

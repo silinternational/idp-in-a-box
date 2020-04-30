@@ -7,6 +7,3 @@ Documentation, examples, Docker Compose setup, Terraform modules, etc. for our I
 3. `docker-compose up -d`
 4. `docker-compose exec broker ./yii migrate --interactive=0`
 5. open browser to `localhost:51052`
-
-#### Optional
-1. Add `LOGENTRIES` tokens in `docker-compose.yml`

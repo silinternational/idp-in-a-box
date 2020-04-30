@@ -58,15 +58,6 @@ EOF
 }
 
 /*
- * Create Logentries log
- */
-resource "logentries_log" "log" {
-  logset_id = "${var.logentries_set_id}"
-  name      = "${var.app_name}"
-  source    = "token"
-}
-
-/*
  * Create ECS service
  */
 data "template_file" "task_def_backup" {
@@ -84,7 +75,6 @@ data "template_file" "task_def_backup" {
     db_names                  = "${join(" ", var.db_names)}"
     docker_image              = "${var.docker_image}"
     idp_name                  = "${var.idp_name}"
-    logentries_key            = "${logentries_log.log.token}"
     mysql_host                = "${var.mysql_host}"
     mysql_pass                = "${var.mysql_pass}"
     mysql_user                = "${var.mysql_user}"

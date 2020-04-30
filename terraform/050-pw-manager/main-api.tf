@@ -1,13 +1,4 @@
 /*
- * Create Logentries log
- */
-resource "logentries_log" "log" {
-  logset_id = "${var.logentries_set_id}"
-  name      = "${var.app_name}"
-  source    = "token"
-}
-
-/*
  * Create target group for ALB
  */
 resource "aws_alb_target_group" "pwmanager" {
@@ -92,7 +83,6 @@ data "template_file" "task_def" {
     id_broker_validIpRanges             = "${join(",", var.id_broker_validIpRanges)}"
     idp_display_name                    = "${var.idp_display_name}"
     idp_name                            = "${var.idp_name}"
-    logentries_key                      = "${logentries_log.log.token}"
     memcache_config1_host               = "${var.memcache_config1_host}"
     memcache_config2_host               = "${var.memcache_config2_host}"
     memory                              = "${var.memory}"

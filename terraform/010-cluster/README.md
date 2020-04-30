@@ -1,6 +1,6 @@
 # 010-cluster - Cluster setup
 This module is used to setup the cluster with VPC, security groups, auto-scaling group,
-ssl certificate, core application load balancer, and a Logentries log set
+ssl certificate, core application load balancer, and a CloudWatch log group
 
 ## What this does
 
@@ -9,7 +9,6 @@ ssl certificate, core application load balancer, and a Logentries log set
  - Create auto scaling group of defined size and distribute instances across `aws_zones`
  - Locate ACM certificate for use in ALB listeners
  - Create application load balancer (ALB)
- - Create Logentries logset
  - Create CloudWatch log group
 
 ## Required Inputs
@@ -43,7 +42,6 @@ ssl certificate, core application load balancer, and a Logentries log set
  - `alb_https_listener_arn` - ARN for HTTPS listener on ALB
  - `alb_id` - ID for ALB
  - `wildcard_cert_arn` - ARN to wildcard ACM certificate
- - `logentries_set_id` - ID to Logentries Logset
  - `cloudwatch_log_group_name` - Name of the CloudWatch log group
  
 ## Example Usage
