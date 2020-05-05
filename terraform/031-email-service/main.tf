@@ -49,6 +49,51 @@ resource "random_id" "access_token_idsync" {
 }
 
 /*
+ * Create role for access to SES
+ */
+resource "aws_iam_role" "ses" {
+  name = "ses-${var.idp_name}-${var.app_name}-${var.app_env}"
+
+  assume_role_policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "",
+            "Effect": "Allow",
+            "Principal": {
+              "Service": "ses.amazonaws.com"
+            },
+            "Action": "sts:AssumeRole"
+        }
+    ]
+}
+EOF
+
+}
+
+resource "aws_iam_role_policy" "ses" {
+  name   = "ses"
+  role   = "${aws_iam_role.ses.id}"
+  policy = <<EOM
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "SendEmail",
+      "Effect": "Allow",
+      "Action":[
+        "ses:SendEmail",
+        "ses:SendRawEmail"
+      ],
+      "Resource": "*"
+    }
+  ]
+}
+EOM
+}
+
+/*
  * Create ECS services
  */
 data "template_file" "task_def_api" {
@@ -90,6 +135,7 @@ module "ecsservice_api" {
   container_def_json = "${data.template_file.task_def_api.rendered}"
   desired_count      = "${var.desired_count_api}"
   tg_arn             = "${aws_alb_target_group.email.arn}"
+  task_role_arn      = "${aws_iam_role_policy.ses.id}"
   lb_container_name  = "api"
   lb_container_port  = "80"
 }
@@ -130,6 +176,7 @@ module "ecsservice_cron" {
   service_name       = "${var.idp_name}-${var.app_name}-cron"
   service_env        = "${var.app_env}"
   container_def_json = "${data.template_file.task_def_cron.rendered}"
+  task_role_arn      = "${aws_iam_role_policy.ses.id}"
   desired_count      = 1
 }
 
