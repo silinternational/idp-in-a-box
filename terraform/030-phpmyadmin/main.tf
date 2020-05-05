@@ -26,8 +26,9 @@ resource "aws_alb_listener_rule" "phpmyadmin" {
   }
 
   condition {
-    field  = "host-header"
-    values = ["${var.subdomain}.${var.cloudflare_domain}"]
+    host_header {
+      values = ["${var.subdomain}.${var.cloudflare_domain}"]
+    }
   }
 }
 
