@@ -68,10 +68,6 @@ variable "from_email" {
   type = "string"
 }
 
-variable "from_name" {
-  type = "string"
-}
-
 variable "idp_name" {
   type = "string"
 }
