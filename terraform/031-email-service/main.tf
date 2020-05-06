@@ -62,7 +62,10 @@ resource "aws_iam_role" "ses" {
             "Sid": "",
             "Effect": "Allow",
             "Principal": {
-              "Service": "ses.amazonaws.com"
+                "Service": [
+                    "ses.amazonaws.com",
+                    "ecs-tasks.amazonaws.com"
+                ]
             },
             "Action": "sts:AssumeRole"
         }
@@ -135,7 +138,7 @@ module "ecsservice_api" {
   container_def_json = "${data.template_file.task_def_api.rendered}"
   desired_count      = "${var.desired_count_api}"
   tg_arn             = "${aws_alb_target_group.email.arn}"
-  task_role_arn      = "${aws_iam_role_policy.ses.id}"
+  task_role_arn      = "${aws_iam_role.ses.arn}"
   lb_container_name  = "api"
   lb_container_port  = "80"
 }
@@ -176,7 +179,7 @@ module "ecsservice_cron" {
   service_name       = "${var.idp_name}-${var.app_name}-cron"
   service_env        = "${var.app_env}"
   container_def_json = "${data.template_file.task_def_cron.rendered}"
-  task_role_arn      = "${aws_iam_role_policy.ses.id}"
+  task_role_arn      = "${aws_iam_role.ses.arn}"
   desired_count      = 1
 }
 
