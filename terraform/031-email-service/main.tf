@@ -62,7 +62,10 @@ resource "aws_iam_role" "ses" {
             "Sid": "",
             "Effect": "Allow",
             "Principal": {
-              "Service": "ses.amazonaws.com"
+                "Service": [
+                    "ses.amazonaws.com",
+                    "ecs-tasks.amazonaws.com"
+                ]
             },
             "Action": "sts:AssumeRole"
         }
