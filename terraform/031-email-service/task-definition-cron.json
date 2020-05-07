@@ -44,12 +44,28 @@
         "value": "${from_email}"
       },
       {
+        "name": "FROM_NAME",
+        "value": "${from_name}"
+      },
+      {
         "name": "IDP_NAME",
         "value": "${idp_name}"
       },
       {
+        "name": "MAILER_HOST",
+        "value": "${mailer_host}"
+      },
+      {
+        "name": "MAILER_PASSWORD",
+        "value": "${mailer_password}"
+      },
+      {
         "name": "MAILER_USEFILES",
         "value": "${mailer_usefiles}"
+      },
+      {
+        "name": "MAILER_USERNAME",
+        "value": "${mailer_username}"
       },
       {
         "name": "MYSQL_DATABASE",

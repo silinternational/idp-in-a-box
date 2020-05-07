@@ -68,6 +68,10 @@ variable "from_email" {
   type = "string"
 }
 
+variable "from_name" {
+  type = "string"
+}
+
 variable "idp_name" {
   type = "string"
 }
@@ -82,9 +86,21 @@ variable "internal_alb_listener_arn" {
   type        = "string"
 }
 
+variable "mailer_host" {
+  type = "string"
+}
+
+variable "mailer_password" {
+  type = "string"
+}
+
 variable "mailer_usefiles" {
   type    = "string"
   default = "false"
+}
+
+variable "mailer_username" {
+  type = "string"
 }
 
 variable "memory_api" {
