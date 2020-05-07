@@ -6,6 +6,7 @@ This module is used to create an ECS service running email-service.
  - Create task definition and ECS service for email-service API
  - Create task definition and ECS service for email-service cron
  - Create Cloudflare DNS record
+ - Create ECS task role to send email via SES 
 
 ## Required Inputs
 
@@ -20,13 +21,9 @@ This module is used to create an ECS service running email-service.
  - `email_brand_color` - CSS color to use for branding in emails
  - `email_brand_logo` - The fully qualified URL to an image for logo in emails
  - `from_email` - Email address to send emails from
- - `from_name` - Email address to send emails from
  - `idp_name` - Short name of IdP for use in logs and email alerts
  - `internal_alb_dns_name` - DNS name for the IdP-in-a-Box's internal Application Load Balancer
  - `internal_alb_listener_arn` - ARN for the IdP-in-a-Box's internal ALB's listener
- - `mailer_host` - SMTP hostname
- - `mailer_password` - SMTP password
- - `mailer_username` - SMTP username
  - `mysql_host` - Address for RDS instance
  - `mysql_pass` - MySQL password for email-service
  - `mysql_user` - MySQL username for email-service
@@ -76,14 +73,10 @@ module "email" {
   email_brand_logo          = "${var.email_brand_logo}"
   email_queue_batch_size    = "${var.email_queue_batch_size}"
   from_email                = "${var.from_email}"
-  from_name                 = "${var.from_name}"
   idp_name                  = "${var.idp_name}"
   internal_alb_dns_name     = "${data.terraform_remote_state.cluster.internal_alb_dns_name}"
   internal_alb_listener_arn = "${data.terraform_remote_state.cluster.internal_alb_https_listener_arn}"
-  mailer_host               = "${var.mailer_host}"
-  mailer_password           = "${var.mailer_password}"
   mailer_usefiles           = "${var.mailer_usefiles}"
-  mailer_username           = "${var.mailer_username}"
   memory_api                = "${var.memory_api}"
   memory_cron               = "${var.memory_cron}"
   mysql_host                = "${data.terraform_remote_state.database.rds_address}"
