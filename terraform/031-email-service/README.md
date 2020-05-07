@@ -6,6 +6,7 @@ This module is used to create an ECS service running email-service.
  - Create task definition and ECS service for email-service API
  - Create task definition and ECS service for email-service cron
  - Create Cloudflare DNS record
+ - Create ECS task role to send email via SES 
 
 ## Required Inputs
 
