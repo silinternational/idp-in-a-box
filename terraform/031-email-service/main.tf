@@ -49,54 +49,6 @@ resource "random_id" "access_token_idsync" {
 }
 
 /*
- * Create role for access to SES
- */
-resource "aws_iam_role" "ses" {
-  name = "ses-${var.idp_name}-${var.app_name}-${var.app_env}"
-
-  assume_role_policy = <<EOF
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "",
-            "Effect": "Allow",
-            "Principal": {
-                "Service": [
-                    "ses.amazonaws.com",
-                    "ecs-tasks.amazonaws.com"
-                ]
-            },
-            "Action": "sts:AssumeRole"
-        }
-    ]
-}
-EOF
-
-}
-
-resource "aws_iam_role_policy" "ses" {
-  name   = "ses"
-  role   = "${aws_iam_role.ses.id}"
-  policy = <<EOM
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "SendEmail",
-      "Effect": "Allow",
-      "Action":[
-        "ses:SendEmail",
-        "ses:SendRawEmail"
-      ],
-      "Resource": "*"
-    }
-  ]
-}
-EOM
-}
-
-/*
  * Create ECS services
  */
 data "template_file" "task_def_api" {
@@ -115,8 +67,12 @@ data "template_file" "task_def_api" {
     email_brand_logo          = "${var.email_brand_logo}"
     email_queue_batch_size    = "${var.email_queue_batch_size}"
     from_email                = "${var.from_email}"
+    from_name                 = "${var.from_name}"
     idp_name                  = "${var.idp_name}"
+    mailer_host               = "${var.mailer_host}"
+    mailer_password           = "${var.mailer_password}"
     mailer_usefiles           = "${var.mailer_usefiles}"
+    mailer_username           = "${var.mailer_username}"
     mysql_host                = "${var.mysql_host}"
     mysql_pass                = "${var.mysql_pass}"
     mysql_user                = "${var.mysql_user}"
@@ -134,7 +90,6 @@ module "ecsservice_api" {
   container_def_json = "${data.template_file.task_def_api.rendered}"
   desired_count      = "${var.desired_count_api}"
   tg_arn             = "${aws_alb_target_group.email.arn}"
-  task_role_arn      = "${aws_iam_role.ses.arn}"
   lb_container_name  = "api"
   lb_container_port  = "80"
 }
@@ -155,8 +110,12 @@ data "template_file" "task_def_cron" {
     email_brand_logo          = "${var.email_brand_logo}"
     email_queue_batch_size    = "${var.email_queue_batch_size}"
     from_email                = "${var.from_email}"
+    from_name                 = "${var.from_name}"
     idp_name                  = "${var.idp_name}"
+    mailer_host               = "${var.mailer_host}"
+    mailer_password           = "${var.mailer_password}"
     mailer_usefiles           = "${var.mailer_usefiles}"
+    mailer_username           = "${var.mailer_username}"
     mysql_host                = "${var.mysql_host}"
     mysql_pass                = "${var.mysql_pass}"
     mysql_user                = "${var.mysql_user}"
@@ -171,7 +130,6 @@ module "ecsservice_cron" {
   service_name       = "${var.idp_name}-${var.app_name}-cron"
   service_env        = "${var.app_env}"
   container_def_json = "${data.template_file.task_def_cron.rendered}"
-  task_role_arn      = "${aws_iam_role.ses.arn}"
   desired_count      = 1
 }
 
