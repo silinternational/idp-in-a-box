@@ -1,3 +1,4 @@
 .idea/
 local.env
 google-auth.json
+.terraform/
