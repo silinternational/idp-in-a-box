@@ -7,7 +7,7 @@ resource "random_id" "db_root_pass" {
 }
 
 module "rds" {
-  source                  = "github.com/silinternational/terraform-modules//aws/rds/mariadb?ref=2.5.0"
+  source                  = "github.com/silinternational/terraform-modules//aws/rds/mariadb?ref=3.0.1"
   app_name                = "${var.app_name}"
   app_env                 = "${var.app_env}"
   db_name                 = "${var.db_name}"
@@ -15,7 +15,7 @@ module "rds" {
   db_root_pass            = "${random_id.db_root_pass.hex}"
   subnet_group_name       = "${var.subnet_group_name}"
   availability_zone       = "${var.availability_zone}"
-  security_groups         = ["${var.security_groups}"]
+  security_groups         = "${var.security_groups}"
   engine                  = "${var.engine}"
   engine_version          = "${var.engine_version}"
   allocated_storage       = "${var.allocated_storage}"
