@@ -2,37 +2,38 @@
  * Required Application settings
  */
 variable "app_name" {
-  type = "string"
+  type = string
 }
 
 variable "app_env" {
-  type = "string"
+  type = string
 }
 
 variable "aws_instance" {
-  type = "map"
+  type = map(string)
 }
 
 variable "aws_region" {
-  type = "string"
+  type = string
 }
 
 variable "aws_zones" {
-  type = "list"
+  type = list(string)
 }
 
 variable "cert_domain_name" {
-  type = "string"
+  type = string
 }
 
 variable "ecs_cluster_name" {
-  type = "string"
+  type = string
 }
 
 variable "ecs_instance_profile_id" {
-  type = "string"
+  type = string
 }
 
 variable "idp_name" {
-  type = "string"
+  type = string
 }
+
