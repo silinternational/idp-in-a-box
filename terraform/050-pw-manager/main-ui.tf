@@ -121,7 +121,7 @@ EOF
 resource "cloudflare_record" "uidns" {
   domain  = var.cloudflare_domain
   name    = var.ui_subdomain
-  value   = aws_cloudfront_distribution.ui[count.index]domain_name
+  value   = aws_cloudfront_distribution.ui[count.index].domain_name
   type    = "CNAME"
   proxied = true
 }
