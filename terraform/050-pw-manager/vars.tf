@@ -1,25 +1,25 @@
 variable "alb_dns_name" {
-  type = "string"
+  type = string
 }
 
 variable "alb_https_listener_arn" {
-  type = "string"
+  type = string
 }
 
 variable "alerts_email" {
-  type = "string"
+  type = string
 }
 
 variable "api_subdomain" {
-  type = "string"
+  type = string
 }
 
 variable "app_env" {
-  type = "string"
+  type = string
 }
 
 variable "app_name" {
-  type        = "string"
+  type        = string
   default     = "pw-manager"
   description = "Used in ECS service names and logs, best to leave as default."
 }
@@ -30,12 +30,12 @@ variable "auth_saml_checkResponseSigning" {
 
 variable "auth_saml_entityId" {
   description = "SP entity ID"
-  type        = "string"
+  type        = string
 }
 
 variable "auth_saml_idpCertificate" {
   description = "Public cert data for IdP"
-  type        = "string"
+  type        = string
 }
 
 variable "auth_saml_requireEncryptedAssertion" {
@@ -44,77 +44,77 @@ variable "auth_saml_requireEncryptedAssertion" {
 
 variable "auth_saml_signRequest" {
   description = "Whether or not to sign auth requests"
-  type        = "string"
+  type        = string
   default     = "true"
 }
 
 variable "auth_saml_sloUrl" {
   description = "SLO url for IdP"
-  type        = "string"
+  type        = string
 }
 
 variable "auth_saml_spCertificate" {
   description = "Public cert data for this SP"
-  type        = "string"
+  type        = string
 }
 
 variable "auth_saml_spPrivateKey" {
   description = "Private cert data for this SP"
-  type        = "string"
+  type        = string
 }
 
 variable "auth_saml_ssoUrl" {
   description = "SSO url for IdP"
-  type        = "string"
+  type        = string
 }
 
 variable "aws_region" {
-  type = "string"
+  type = string
 }
 
 variable "cd_user_username" {
-  type = "string"
+  type = string
 }
 
 variable "cloudflare_domain" {
-  type = "string"
+  type = string
 }
 
 variable "cloudwatch_log_group_name" {
-  type = "string"
+  type = string
 }
 
 variable "code_length" {
   description = "Number of digits in reset code."
-  type        = "string"
+  type        = string
   default     = "6"
 }
 
 variable "cpu" {
-  type        = "string"
+  type        = string
   description = "Amount of CPU to allocate to container, recommend '250' for production"
   default     = "64"
 }
 
 variable "db_name" {
-  type = "string"
+  type = string
 }
 
 variable "desired_count" {
-  type    = "string"
+  type    = string
   default = "1"
 }
 
 variable "docker_image" {
-  type = "string"
+  type = string
 }
 
 variable "ecs_cluster_id" {
-  type = "string"
+  type = string
 }
 
 variable "ecsServiceRole_arn" {
-  type = "string"
+  type = string
 }
 
 variable "email_service_accessToken" {
@@ -132,20 +132,20 @@ variable "email_service_baseUrl" {
 
 variable "email_service_validIpRanges" {
   description = "List of valid IP ranges to Email Service API"
-  type        = "list"
+  type        = list(string)
 }
 
 variable "email_signature" {
   description = "Email signature line"
-  type        = "string"
+  type        = string
 }
 
 variable "help_center_url" {
-  type = "string"
+  type = string
 }
 
 variable "id_broker_access_token" {
-  type = "string"
+  type = string
 }
 
 variable "id_broker_assertValidBrokerIp" {
@@ -154,30 +154,30 @@ variable "id_broker_assertValidBrokerIp" {
 }
 
 variable "id_broker_base_uri" {
-  type = "string"
+  type = string
 }
 
 variable "id_broker_validIpRanges" {
   description = "List of valid IP ranges to ID Broker API"
-  type        = "list"
+  type        = list(string)
 }
 
 variable "idp_display_name" {
   description = "Display name of IdP for UI, something like 'ACME Inc.'"
-  type        = "string"
+  type        = string
 }
 
 variable "idp_name" {
   description = "Short name of IdP for logs, something like 'acme'"
-  type        = "string"
+  type        = string
 }
 
 variable "memcache_config1_host" {
-  type = "string"
+  type = string
 }
 
 variable "memcache_config2_host" {
-  type = "string"
+  type = string
 }
 
 variable "memory" {
@@ -186,82 +186,83 @@ variable "memory" {
 }
 
 variable "mysql_host" {
-  type = "string"
+  type = string
 }
 
 variable "mysql_pass" {
-  type = "string"
+  type = string
 }
 
 variable "mysql_user" {
-  type = "string"
+  type = string
 }
 
 variable "password_rule_enablehibp" {
   description = "enable haveibeenpwned.com password check"
-  type        = "string"
+  type        = string
   default     = "true"
 }
 
 variable "password_rule_maxlength" {
   description = "maximum password length"
-  type        = "string"
+  type        = string
   default     = "255"
 }
 
 variable "password_rule_minlength" {
   description = "minimum password length"
-  type        = "string"
+  type        = string
   default     = "10"
 }
 
 variable "password_rule_minscore" {
   description = "minimum password score"
-  type        = "string"
+  type        = string
   default     = "3"
 }
 
 variable "recaptcha_key" {
-  type = "string"
+  type = string
 }
 
 variable "recaptcha_secret" {
-  type = "string"
+  type = string
 }
 
 variable "support_email" {
   description = "Email address for end user support, displayed on PW UI and in emails"
-  type        = "string"
+  type        = string
 }
 
 variable "support_feedback" {
   description = "Email address for end user feedback, displayed on PW UI"
-  type        = "string"
+  type        = string
 }
 
 variable "support_name" {
   description = "Name for end user support, displayed on PW UI and in emails"
-  type        = "string"
+  type        = string
 }
 
 variable "support_phone" {
   description = "Phone number for end user support, displayed on PW UI"
-  type        = "string"
+  type        = string
 }
 
 variable "support_url" {
   description = "URL for end user support, displayed on PW UI"
-  type        = "string"
+  type        = string
 }
 
 variable "ui_subdomain" {
-  type = "string"
+  type = string
 }
 
 variable "vpc_id" {
-  type = "string"
+  type = string
 }
 
 variable "wildcard_cert_arn" {
-  type = "string"
+  type = string
 }
+
