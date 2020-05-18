@@ -1,32 +1,32 @@
 variable "app_env" {
-  type = "string"
+  type = string
 }
 
 variable "app_name" {
-  type    = "string"
+  type    = string
   default = "db-backup"
 }
 
 variable "aws_region" {
-  type = "string"
+  type = string
 }
 
 variable "cloudwatch_log_group_name" {
-  type = "string"
+  type = string
 }
 
 variable "cpu" {
-  type    = "string"
+  type    = string
   default = "32"
 }
 
 variable "cron_schedule" {
-  type    = "string"
+  type    = string
   default = "cron(0 2 * * ? *)"
 }
 
 variable "db_names" {
-  type = "list"
+  type = list(string)
 
   default = [
     "emailservice",
@@ -37,43 +37,44 @@ variable "db_names" {
 }
 
 variable "docker_image" {
-  type = "string"
+  type = string
 }
 
 variable "ecs_cluster_id" {
-  type = "string"
+  type = string
 }
 
 variable "ecsServiceRole_arn" {
-  type = "string"
+  type = string
 }
 
 variable "idp_name" {
-  type = "string"
+  type = string
 }
 
 variable "memory" {
-  type    = "string"
+  type    = string
   default = "32"
 }
 
 variable "mysql_host" {
-  type = "string"
+  type = string
 }
 
 variable "mysql_pass" {
-  type = "string"
+  type = string
 }
 
 variable "mysql_user" {
-  type = "string"
+  type = string
 }
 
 variable "service_mode" {
-  type    = "string"
+  type    = string
   default = "backup"
 }
 
 variable "vpc_id" {
-  type = "string"
+  type = string
 }
+
