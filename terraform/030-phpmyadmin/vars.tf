@@ -2,48 +2,48 @@
  * Application settings
  */
 variable "app_name" {
-  type    = "string"
+  type    = string
   default = "phpmyadmin"
 }
 
 variable "app_env" {
-  type = "string"
+  type = string
 }
 
 variable "idp_name" {
-  type = "string"
+  type = string
 }
 
 variable "vpc_id" {
-  type = "string"
+  type = string
 }
 
 variable "alb_https_listener_arn" {
-  type = "string"
+  type = string
 }
 
 variable "subdomain" {
-  type = "string"
+  type = string
 }
 
 variable "cloudflare_domain" {
-  type = "string"
+  type = string
 }
 
 variable "rds_address" {
-  type = "string"
+  type = string
 }
 
 variable "ecs_cluster_id" {
-  type = "string"
+  type = string
 }
 
 variable "ecsServiceRole_arn" {
-  type = "string"
+  type = string
 }
 
 variable "alb_dns_name" {
-  type = "string"
+  type = string
 }
 
 variable "cpu" {
@@ -53,3 +53,4 @@ variable "cpu" {
 variable "memory" {
   default = "128"
 }
+
