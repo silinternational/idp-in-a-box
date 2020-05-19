@@ -2,9 +2,9 @@
  * Create ECS cluster
  */
 module "ecscluster" {
-  source   = "github.com/silinternational/terraform-modules//aws/ecs/cluster?ref=2.5.0"
-  app_name = "${var.app_name}"
-  app_env  = "${var.app_env}"
+  source   = "github.com/silinternational/terraform-modules//aws/ecs/cluster?ref=3.0.1"
+  app_name = var.app_name
+  app_env  = var.app_env
 }
 
 /*
@@ -15,12 +15,12 @@ resource "aws_iam_user" "cd" {
 }
 
 resource "aws_iam_access_key" "cduser" {
-  user = "${aws_iam_user.cd.name}"
+  user = aws_iam_user.cd.name
 }
 
 resource "aws_iam_user_policy" "cd_ecs" {
   name = "ECS-ECR"
-  user = "${aws_iam_user.cd.name}"
+  user = aws_iam_user.cd.name
 
   policy = <<EOF
 {
@@ -55,11 +55,12 @@ resource "aws_iam_user_policy" "cd_ecs" {
   ]
 }
 EOF
+
 }
 
 resource "aws_iam_user_policy" "cd_serverless" {
   name = "Serverless"
-  user = "${aws_iam_user.cd.name}"
+  user = aws_iam_user.cd.name
 
   policy = <<EOF
 {
@@ -140,4 +141,6 @@ resource "aws_iam_user_policy" "cd_serverless" {
     ]
 }
 EOF
+
 }
+

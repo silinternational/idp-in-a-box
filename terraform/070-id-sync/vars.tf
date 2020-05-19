@@ -7,40 +7,40 @@ variable "cpu" {
 }
 
 variable "app_name" {
-  type    = "string"
+  type    = string
   default = "id-sync"
 }
 
 variable "app_env" {
-  type = "string"
+  type = string
 }
 
 variable "vpc_id" {
-  type = "string"
+  type = string
 }
 
 variable "alb_https_listener_arn" {
-  type = "string"
+  type = string
 }
 
 variable "aws_region" {
-  type = "string"
+  type = string
 }
 
 variable "subdomain" {
-  type = "string"
+  type = string
 }
 
 variable "cloudflare_domain" {
-  type = "string"
+  type = string
 }
 
 variable "cloudwatch_log_group_name" {
-  type = "string"
+  type = string
 }
 
 variable "docker_image" {
-  type = "string"
+  type = string
 }
 
 variable "email_service_accessToken" {
@@ -58,15 +58,15 @@ variable "email_service_baseUrl" {
 
 variable "email_service_validIpRanges" {
   description = "List of valid IP ranges to Email Service API"
-  type        = "list"
+  type        = list(string)
 }
 
 variable "id_broker_access_token" {
-  type = "string"
+  type = string
 }
 
 variable "id_broker_adapter" {
-  type    = "string"
+  type    = string
   default = "idp"
 }
 
@@ -76,47 +76,47 @@ variable "id_broker_assertValidIp" {
 }
 
 variable "id_broker_base_url" {
-  type = "string"
+  type = string
 }
 
 variable "id_broker_trustedIpRanges" {
   description = "List of valid IP address ranges for ID Broker API"
-  type        = "list"
+  type        = list(string)
 }
 
 variable "id_store_adapter" {
-  type = "string"
+  type = string
 }
 
 variable "id_store_config" {
-  type        = "map"
+  type        = map(string)
   description = "A map of configuration data to pass into id-sync as env vars"
 }
 
 variable "idp_name" {
-  type = "string"
+  type = string
 }
 
 variable "idp_display_name" {
   default = ""
-  type    = "string"
+  type    = string
 }
 
 variable "ecs_cluster_id" {
-  type = "string"
+  type = string
 }
 
 variable "ecsServiceRole_arn" {
-  type = "string"
+  type = string
 }
 
 variable "alb_dns_name" {
-  type = "string"
+  type = string
 }
 
 variable "notifier_email_to" {
   default = ""
-  type    = "string"
+  type    = string
 }
 
 variable "sync_safety_cutoff" {
@@ -126,3 +126,4 @@ variable "sync_safety_cutoff" {
 variable "allow_empty_email" {
   default = "false"
 }
+

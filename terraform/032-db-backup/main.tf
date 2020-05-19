@@ -19,10 +19,10 @@ resource "aws_s3_bucket" "backup" {
     }
   }
 
-  tags {
-    idp_name = "${var.idp_name}"
-    app_name = "${var.app_name}"
-    app_env  = "${var.app_env}"
+  tags = {
+    idp_name = var.idp_name
+    app_name = var.app_name
+    app_env  = var.app_env
   }
 }
 
@@ -34,12 +34,12 @@ resource "aws_iam_user" "backup" {
 }
 
 resource "aws_iam_access_key" "backup" {
-  user = "${aws_iam_user.backup.name}"
+  user = aws_iam_user.backup.name
 }
 
 resource "aws_iam_user_policy" "backup" {
   name = "S3-DB-Backup"
-  user = "${aws_iam_user.backup.name}"
+  user = aws_iam_user.backup.name
 
   policy = <<EOF
 {
@@ -55,32 +55,33 @@ resource "aws_iam_user_policy" "backup" {
   ]
 }
 EOF
+
 }
 
 /*
  * Create ECS service
  */
 data "template_file" "task_def_backup" {
-  template = "${file("${path.module}/task-definition.json")}"
+  template = file("${path.module}/task-definition.json")
 
-  vars {
-    app_env                   = "${var.app_env}"
-    app_name                  = "${var.app_name}"
-    aws_region                = "${var.aws_region}"
-    cloudwatch_log_group_name = "${var.cloudwatch_log_group_name}"
-    aws_access_key            = "${aws_iam_access_key.backup.id}"
-    aws_secret_key            = "${aws_iam_access_key.backup.secret}"
-    cpu                       = "${var.cpu}"
-    cron_schedule             = "${var.cron_schedule}"
-    db_names                  = "${join(" ", var.db_names)}"
-    docker_image              = "${var.docker_image}"
-    idp_name                  = "${var.idp_name}"
-    mysql_host                = "${var.mysql_host}"
-    mysql_pass                = "${var.mysql_pass}"
-    mysql_user                = "${var.mysql_user}"
-    memory                    = "${var.memory}"
-    s3_bucket                 = "${aws_s3_bucket.backup.bucket}"
-    service_mode              = "${var.service_mode}"
+  vars = {
+    app_env                   = var.app_env
+    app_name                  = var.app_name
+    aws_region                = var.aws_region
+    cloudwatch_log_group_name = var.cloudwatch_log_group_name
+    aws_access_key            = aws_iam_access_key.backup.id
+    aws_secret_key            = aws_iam_access_key.backup.secret
+    cpu                       = var.cpu
+    cron_schedule             = var.cron_schedule
+    db_names                  = join(" ", var.db_names)
+    docker_image              = var.docker_image
+    idp_name                  = var.idp_name
+    mysql_host                = var.mysql_host
+    mysql_pass                = var.mysql_pass
+    mysql_user                = var.mysql_user
+    memory                    = var.memory
+    s3_bucket                 = aws_s3_bucket.backup.bucket
+    service_mode              = var.service_mode
   }
 }
 
@@ -110,7 +111,7 @@ EOF
 
 resource "aws_iam_role_policy" "ecs_events_run_task_with_any_role" {
   name = "ecs_events_run_task_with_any_role"
-  role = "${aws_iam_role.ecs_events.id}"
+  role = aws_iam_role.ecs_events.id
 
   policy = <<EOF
 {
@@ -124,7 +125,7 @@ resource "aws_iam_role_policy" "ecs_events_run_task_with_any_role" {
         {
             "Effect": "Allow",
             "Action": "ecs:RunTask",
-            "Resource": "${replace("${aws_ecs_task_definition.cron_td.arn}", "/:\\d+$/", ":*")}"
+            "Resource": "${replace(aws_ecs_task_definition.cron_td.arn, "/:\\d+$/", ":*")}"
         }
     ]
 }
@@ -137,7 +138,7 @@ EOF
  */
 resource "aws_ecs_task_definition" "cron_td" {
   family                = "${var.idp_name}-${var.app_name}-${var.app_env}"
-  container_definitions = "${data.template_file.task_def_backup.rendered}"
+  container_definitions = data.template_file.task_def_backup.rendered
   network_mode          = "bridge"
 }
 
@@ -148,23 +149,24 @@ resource "aws_cloudwatch_event_rule" "event_rule" {
   name        = "${var.idp_name}-${var.app_name}-${var.app_env}"
   description = "Start scheduled backup"
 
-  schedule_expression = "${var.cron_schedule}"
+  schedule_expression = var.cron_schedule
 
   tags = {
-    app_name = "${var.app_name}"
-    app_env  = "${var.app_env}"
+    app_name = var.app_name
+    app_env  = var.app_env
   }
 }
 
 resource "aws_cloudwatch_event_target" "backup_event_target" {
   target_id = "${var.idp_name}-${var.app_name}-${var.app_env}"
-  rule      = "${aws_cloudwatch_event_rule.event_rule.name}"
-  arn       = "${var.ecs_cluster_id}"
-  role_arn  = "${aws_iam_role.ecs_events.arn}"
+  rule      = aws_cloudwatch_event_rule.event_rule.name
+  arn       = var.ecs_cluster_id
+  role_arn  = aws_iam_role.ecs_events.arn
 
   ecs_target {
     task_count          = 1
     launch_type         = "EC2"
-    task_definition_arn = "${aws_ecs_task_definition.cron_td.arn}"
+    task_definition_arn = aws_ecs_task_definition.cron_td.arn
   }
 }
+

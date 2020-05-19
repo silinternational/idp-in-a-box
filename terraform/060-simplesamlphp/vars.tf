@@ -7,173 +7,173 @@ variable "cpu" {
 }
 
 variable "app_name" {
-  type    = "string"
+  type    = string
   default = "simplesamlphp"
 }
 
 variable "app_env" {
-  type = "string"
+  type = string
 }
 
 variable "vpc_id" {
-  type = "string"
+  type = string
 }
 
 variable "alb_https_listener_arn" {
-  type = "string"
+  type = string
 }
 
 variable "aws_region" {
-  type = "string"
+  type = string
 }
 
 variable "subdomain" {
-  type = "string"
+  type = string
 }
 
 variable "cloudflare_domain" {
-  type = "string"
+  type = string
 }
 
 variable "cloudwatch_log_group_name" {
-  type = "string"
+  type = string
 }
 
 variable "delete_remember_me_on_logout" {
-  type    = "string"
+  type    = string
   default = "false"
 }
 
 variable "docker_image" {
-  type = "string"
+  type = string
 }
 
 variable "enable_debug" {
-  type    = "string"
+  type    = string
   default = "false"
 }
 
 variable "password_change_url" {
-  type = "string"
+  type = string
 }
 
 variable "password_forgot_url" {
-  type = "string"
+  type = string
 }
 
 variable "hub_mode" {
-  type    = "string"
+  type    = string
   default = "false"
 }
 
 variable "id_broker_access_token" {
-  type = "string"
+  type = string
 }
 
 variable "id_broker_assert_valid_ip" {
-  type    = "string"
+  type    = string
   default = "true"
 }
 
 variable "id_broker_base_uri" {
-  type = "string"
+  type = string
 }
 
 variable "id_broker_trusted_ip_ranges" {
-  type    = "list"
+  type    = list(string)
   default = []
 }
 
 variable "logging_level" {
-  type    = "string"
+  type    = string
   default = "NOTICE"
 }
 
 variable "mfa_learn_more_url" {
-  type = "string"
+  type = string
 }
 
 variable "mfa_setup_url" {
-  type = "string"
+  type = string
 }
 
 variable "memcache_host1" {
-  type = "string"
+  type = string
 }
 
 variable "memcache_host2" {
-  type = "string"
+  type = string
 }
 
 variable "db_name" {
-  type = "string"
+  type = string
 }
 
 variable "mysql_host" {
-  type = "string"
+  type = string
 }
 
 variable "mysql_user" {
-  type = "string"
+  type = string
 }
 
 variable "mysql_pass" {
-  type = "string"
+  type = string
 }
 
 variable "profile_url" {
-  type = "string"
+  type = string
 }
 
 variable "recaptcha_key" {
-  type = "string"
+  type = string
 }
 
 variable "recaptcha_secret" {
-  type = "string"
+  type = string
 }
 
 variable "remember_me_secret" {
-  type = "string"
+  type = string
 }
 
 variable "ecs_cluster_id" {
-  type = "string"
+  type = string
 }
 
 variable "ecsServiceRole_arn" {
-  type = "string"
+  type = string
 }
 
 variable "alb_dns_name" {
-  type = "string"
+  type = string
 }
 
 variable "idp_name" {
-  type = "string"
+  type = string
 }
 
 variable "idp_display_name" {
-  type = "string"
+  type = string
 }
 
 variable "show_saml_errors" {
-  type    = "string"
+  type    = string
   default = "false"
 }
 
 variable "theme_color_scheme" {
-  type    = "string"
+  type    = string
   default = "indigo-purple"
 }
 
 variable "theme_use" {
-  type    = "string"
+  type    = string
   default = "material:material"
 }
 
 variable "trusted_ip_addresses" {
-  type = "list"
+  type = list(string)
 }
 
 variable "desired_count" {
@@ -181,9 +181,10 @@ variable "desired_count" {
 }
 
 variable "analytics_id" {
-  type = "string"
+  type = string
 }
 
 variable "help_center_url" {
-  type = "string"
+  type = string
 }
+
