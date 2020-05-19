@@ -2,14 +2,15 @@
  * Required Application settings
  */
 variable "app_name" {
-  type = "string"
+  type = string
 }
 
 variable "app_env" {
-  type = "string"
+  type = string
 }
 
 variable "aws_region" {
   default = "us-east-1"
-  type    = "string"
+  type    = string
 }
+

@@ -1,5 +1,5 @@
 variable "app_env" {
-  type = "string"
+  type = string
 }
 
 variable "app_name" {
@@ -7,15 +7,15 @@ variable "app_name" {
 }
 
 variable "broker_base_url" {
-  type = "string"
+  type = string
 }
 
 variable "broker_token" {
-  type = "string"
+  type = string
 }
 
 variable "function_bucket_name" {
-  type = "string"
+  type = string
 }
 
 variable "function_zip_name" {
@@ -27,7 +27,7 @@ variable "function_name" {
 }
 
 variable "idp_name" {
-  type = "string"
+  type = string
 }
 
 variable "memory_size" {
@@ -39,13 +39,14 @@ variable "remote_role_arn" {
 }
 
 variable "security_group_ids" {
-  type = "list"
+  type = list(string)
 }
 
 variable "subnet_ids" {
-  type = "list"
+  type = list(string)
 }
 
 variable "timeout" {
   default = "5"
 }
+

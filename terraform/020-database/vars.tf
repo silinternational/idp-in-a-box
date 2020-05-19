@@ -1,71 +1,72 @@
 variable "app_env" {
-  type = "string"
+  type = string
 }
 
 variable "app_name" {
-  type = "string"
+  type = string
 }
 
 variable "availability_zone" {
-  type    = "string"
+  type    = string
   default = ""
 }
 
 variable "mysql_user" {
-  type = "string"
+  type = string
 }
 
 variable "db_name" {
-  type = "string"
+  type = string
 }
 
 variable "security_groups" {
-  type = "list"
+  type = list(string)
 }
 
 variable "subnet_group_name" {
-  type = "string"
+  type = string
 }
 
 /*
  * Optional variables
  */
 variable "engine" {
-  type    = "string"
+  type    = string
   default = "mariadb"
 }
 
 variable "engine_version" {
-  type    = "string"
+  type    = string
   default = ""
 }
 
 variable "allocated_storage" {
-  type    = "string"
+  type    = string
   default = "8"
 }
 
 variable "storage_type" {
-  type    = "string"
+  type    = string
   default = "gp2"
 }
 
 variable "instance_class" {
-  type    = "string"
+  type    = string
   default = "db.t2.micro"
 }
 
 variable "backup_retention_period" {
-  type    = "string"
+  type    = string
   default = "14"
 }
 
 variable "multi_az" {
-  type    = "string"
+  type    = string
   default = false
 }
 
 variable "skip_final_snapshot" {
-  type    = "string"
+  type    = string
   default = true
 }
+

@@ -2,9 +2,9 @@
  * Create S3 bucket with appropriate permissions
  */
 data "template_file" "bucket_policy" {
-  template = "${file("${path.module}/bucket-policy.json")}"
+  template = file("${path.module}/bucket-policy.json")
 
-  vars {
+  vars = {
     bucket_name = "${var.ui_subdomain}.${var.cloudflare_domain}"
   }
 }
@@ -12,7 +12,7 @@ data "template_file" "bucket_policy" {
 resource "aws_s3_bucket" "ui" {
   bucket        = "${var.ui_subdomain}.${var.cloudflare_domain}"
   acl           = "public-read"
-  policy        = "${data.template_file.bucket_policy.rendered}"
+  policy        = data.template_file.bucket_policy.rendered
   force_destroy = true
 
   website {
@@ -28,7 +28,7 @@ resource "aws_cloudfront_distribution" "ui" {
   count = 1
 
   origin {
-    domain_name = "${aws_s3_bucket.ui.bucket_domain_name}"
+    domain_name = aws_s3_bucket.ui.bucket_domain_name
     origin_id   = "ui-s3-origin"
   }
 
@@ -60,13 +60,13 @@ resource "aws_cloudfront_distribution" "ui" {
 
   price_class = "PriceClass_All"
 
-  tags {
-    app_name = "${var.app_name}"
-    app_env  = "${var.app_env}"
+  tags = {
+    app_name = var.app_name
+    app_env  = var.app_env
   }
 
   viewer_certificate {
-    acm_certificate_arn      = "${var.wildcard_cert_arn}"
+    acm_certificate_arn      = var.wildcard_cert_arn
     ssl_support_method       = "sni-only"
     minimum_protocol_version = "TLSv1"
   }
@@ -83,7 +83,7 @@ resource "aws_cloudfront_distribution" "ui" {
  */
 resource "aws_iam_user_policy" "ci_ui" {
   name = "CloudFront-and-S3"
-  user = "${var.cd_user_username}"
+  user = var.cd_user_username
 
   policy = <<EOF
 {
@@ -96,7 +96,7 @@ resource "aws_iam_user_policy" "ci_ui" {
         "cloudfront:CreateInvalidation"
       ],
       "Resource": [
-        "${aws_cloudfront_distribution.ui.arn}"
+        aws_cloudfront_distribution.ui[0].arn
       ]
     },
     {
@@ -112,15 +112,16 @@ resource "aws_iam_user_policy" "ci_ui" {
   ]
 }
 EOF
+
 }
 
 /*
  * Create Cloudflare DNS record
  */
 resource "cloudflare_record" "uidns" {
-  domain  = "${var.cloudflare_domain}"
-  name    = "${var.ui_subdomain}"
-  value   = "${aws_cloudfront_distribution.ui.domain_name}"
+  domain  = var.cloudflare_domain
+  name    = var.ui_subdomain
+  value   = aws_cloudfront_distribution.ui[0].domain_name
   type    = "CNAME"
   proxied = true
 }
