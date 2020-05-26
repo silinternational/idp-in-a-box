@@ -54,6 +54,8 @@ data "template_file" "task_def" {
   vars = {
     memory                       = var.memory
     cpu                          = var.cpu
+    admin_email                  = var.admin_email
+    admin_name                   = var.admin_name
     admin_pass                   = random_id.admin_pass.hex
     app_env                      = var.app_env
     app_name                     = var.app_name

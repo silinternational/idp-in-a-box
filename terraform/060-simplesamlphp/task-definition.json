@@ -23,11 +23,11 @@
     "environment": [
       {
         "name": "ADMIN_EMAIL",
-        "value": "info@insitehome.org"
+        "value": "${admin_email}"
       },
       {
         "name": "ADMIN_NAME",
-        "value": "Insite Admin"
+        "value": "${admin_name}"
       },
       {
         "name": "ADMIN_PASS",
