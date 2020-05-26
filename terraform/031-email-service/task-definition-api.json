@@ -50,10 +50,6 @@
         "value": "${from_email}"
       },
       {
-        "name": "FROM_NAME",
-        "value": "${from_name}"
-      },
-      {
         "name": "IDP_NAME",
         "value": "${idp_name}"
       },
