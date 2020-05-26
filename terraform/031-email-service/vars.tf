@@ -32,8 +32,9 @@ variable "db_name" {
 }
 
 variable "desired_count_api" {
-  type    = string
-  default = "2"
+  description = "The number of API containers. Note that the cron container also runs apache."
+  type        = string
+  default     = "2"
 }
 
 variable "docker_image" {
