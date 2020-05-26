@@ -67,9 +67,9 @@ module "ecsservice" {
  * Create Cloudflare DNS record
 */
 resource "cloudflare_record" "pmadns" {
-  domain  = "var.cloudflare_domain"
-  name    = "var.subdomain"
-  value   = "var.alb_dns_name"
+  domain  = var.cloudflare_domain
+  name    = var.subdomain
+  value   = var.alb_dns_name
   type    = "CNAME"
   proxied = true
 }
