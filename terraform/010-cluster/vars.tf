@@ -37,3 +37,7 @@ variable "idp_name" {
   type = string
 }
 
+variable "asg_additional_user_data" {
+  type    = string
+  default = ""
+}

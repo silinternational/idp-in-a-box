@@ -56,6 +56,16 @@ resource "random_id" "access_token_idsync" {
   byte_length = 16
 }
 
+data "template_file" "env_vars" {
+  count    = length(var.google_config)
+  template = file("${path.module}/envvar.json")
+
+  vars = {
+    name  = "GOOGLE_${element(keys(var.google_config), count.index)}"
+    value = element(values(var.google_config), count.index)
+  }
+}
+
 /*
  * Create ECS service
  */
@@ -80,6 +90,7 @@ data "template_file" "task_def" {
     email_signature                  = var.email_signature
     ga_client_id                     = var.ga_client_id
     ga_tracking_id                   = var.ga_tracking_id
+    google_config                    = join(",", data.template_file.env_vars.*.rendered)
     help_center_url                  = var.help_center_url
     hibp_check_interval              = var.hibp_check_interval
     hibp_check_on_login              = var.hibp_check_on_login
