@@ -42,6 +42,7 @@ module "asg" {
   ecs_instance_profile_id = var.ecs_instance_profile_id
   ecs_cluster_name        = var.ecs_cluster_name
   ami_id                  = data.aws_ami.ecs_ami.id
+  additional_user_data    = var.asg_additional_user_data
 }
 
 /*
