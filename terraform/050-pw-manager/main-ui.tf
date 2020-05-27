@@ -96,7 +96,7 @@ resource "aws_iam_user_policy" "ci_ui" {
         "cloudfront:CreateInvalidation"
       ],
       "Resource": [
-        aws_cloudfront_distribution.ui[0].arn
+        "${aws_cloudfront_distribution.ui[0].arn}"
       ]
     },
     {

@@ -243,7 +243,6 @@ services:
       API_ACCESS_KEYS: abc123
       APP_NAME: email-service
       FROM_EMAIL: "dummy@example.com"
-      FROM_NAME: Test
       NOTIFICATION_EMAIL: "dummy@example.com"
       MYSQL_ROOT_PASSWORD: not-a-secret
       MYSQL_HOST: db-email
@@ -260,7 +259,6 @@ services:
       APP_ENV: dev
       APP_NAME: email-service
       FROM_EMAIL: "dummy@example.com"
-      FROM_NAME: Test
       NOTIFICATION_EMAIL: "dummy@example.com"
       MYSQL_ROOT_PASSWORD: not-a-secret
       MYSQL_HOST: db-email

@@ -188,3 +188,8 @@ variable "help_center_url" {
   type = string
 }
 
+variable "admin_email" {
+}
+
+variable "admin_name" {
+}
