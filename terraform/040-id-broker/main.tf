@@ -212,6 +212,7 @@ data "template_file" "task_def_cron" {
     email_signature                  = var.email_signature
     ga_client_id                     = var.ga_client_id
     ga_tracking_id                   = var.ga_tracking_id
+    google_config                    = join(",", data.template_file.env_vars.*.rendered)
     help_center_url                  = var.help_center_url
     hibp_check_interval              = var.hibp_check_interval
     hibp_check_on_login              = var.hibp_check_on_login
