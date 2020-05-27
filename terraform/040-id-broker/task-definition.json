@@ -65,6 +65,7 @@
         "name": "GA_CLIENT_ID",
         "value": "${ga_client_id}"
       },
+      ${google_config},
       {
         "name": "HIBP_CHECK_INTERVAL",
         "value": "${hibp_check_interval}"

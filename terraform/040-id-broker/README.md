@@ -53,6 +53,7 @@ This module is used to create an ECS service running id-broker.
  - `event_schedule` - Task run schedule. Default: `cron(0 0 * * ? *)`
  - `ga_client_id` - Used by Google Analytics to distinguish the user (e.g. IDP-<the idp name>-ID-BROKER)
  - `ga_tracking_id` - The Google Analytics property id (e.g. UA-12345678-12)
+ - `google_config` - A JSON object containing Google properties for Sheets export
  - `hibp_check_interval` - How often should HIBP be checked during login. Default `+1 week`
  - `hibp_check_on_login` - Whether to check HIBP during login. Default `true` 
  - `hibp_grace_period` - How long to set grace period when a pwned password is discovered and force expired. Default: `+1 week`
@@ -155,6 +156,7 @@ module "broker" {
   event_schedule                   = "cron(1 0 * * ? 0)"
   ga_client_id                     = "${var.ga_client_id}"
   ga_tracking_id                   = "${var.ga_tracking_id}"
+  google_config                    = "${var.google_config}"
   help_center_url                  = "${var.help_center_url}"
   hibp_check_interval              = "${var.hibp_check_interval}"
   hibp_check_on_login              = "${var.hibp_check_on_login}"

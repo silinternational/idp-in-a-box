@@ -104,6 +104,11 @@ variable "ga_tracking_id" {
   default     = ""
 }
 
+variable "google_config" {
+  type        = map(string)
+  description = "A map of Google properties for Sheets export"
+}
+
 variable "help_center_url" {
   type = string
 }
