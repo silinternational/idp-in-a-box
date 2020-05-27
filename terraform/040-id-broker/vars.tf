@@ -107,6 +107,7 @@ variable "ga_tracking_id" {
 variable "google_config" {
   type        = map(string)
   description = "A map of Google properties for Sheets export"
+  default     = { "enableSheetsExport" : "false" }
 }
 
 variable "help_center_url" {
