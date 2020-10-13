@@ -127,5 +127,5 @@ resource "cloudflare_record" "uidns" {
 }
 
 locals {
-  ui_hostname = "${var.ui_subdomain}.${cloudflare_record.uidns.hostname}"
+  ui_hostname = "${var.ui_subdomain}.${var.cloudflare_domain}"
 }
