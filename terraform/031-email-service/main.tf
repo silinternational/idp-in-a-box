@@ -139,7 +139,7 @@ module "ecsservice_cron" {
  * Create Cloudflare DNS record
  */
 resource "cloudflare_record" "emaildns" {
-  domain  = var.cloudflare_domain
+  zone_id = var.cloudflare_zone_id
   name    = var.subdomain
   value   = var.internal_alb_dns_name
   type    = "CNAME"

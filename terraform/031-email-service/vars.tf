@@ -15,6 +15,10 @@ variable "cloudflare_domain" {
   type = string
 }
 
+variable "cloudflare_zone_id" {
+  type = string
+}
+
 variable "cloudwatch_log_group_name" {
   type = string
 }
