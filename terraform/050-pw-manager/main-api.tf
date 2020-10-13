@@ -36,7 +36,7 @@ resource "aws_alb_listener_rule" "pwmanager" {
 
   condition {
     host_header {
-      values = ["${var.api_subdomain}.${var.cloudflare_domain}"]
+      values = ["${var.api_subdomain}.${cloudflare_record.apidns.hostname}"]
     }
   }
 }
@@ -104,8 +104,8 @@ data "template_file" "task_def" {
     support_name                        = var.support_name
     support_phone                       = var.support_phone
     support_url                         = var.support_url
-    ui_cors_origin                      = "https://${var.ui_subdomain}.${var.cloudflare_domain}"
-    ui_url                              = "https://${var.ui_subdomain}.${var.cloudflare_domain}/#"
+    ui_cors_origin                      = "https://${local.ui_hostname}"
+    ui_url                              = "https://${local.ui_hostname}/#"
   }
 }
 
@@ -126,7 +126,7 @@ module "ecsservice" {
  * Create Cloudflare DNS record
  */
 resource "cloudflare_record" "apidns" {
-  domain  = var.cloudflare_domain
+  zone_id = var.cloudflare_zone_id
   name    = var.api_subdomain
   value   = var.alb_dns_name
   type    = "CNAME"

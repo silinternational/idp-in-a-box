@@ -76,7 +76,11 @@ variable "cd_user_username" {
   type = string
 }
 
-variable "cloudflare_domain" {
+variable "cloudflare_account_id" {
+  type = string
+}
+
+variable "cloudflare_zone_id" {
   type = string
 }
 

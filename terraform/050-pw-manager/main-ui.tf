@@ -5,12 +5,12 @@ data "template_file" "bucket_policy" {
   template = file("${path.module}/bucket-policy.json")
 
   vars = {
-    bucket_name = "${var.ui_subdomain}.${var.cloudflare_domain}"
+    bucket_name = local.ui_hostname
   }
 }
 
 resource "aws_s3_bucket" "ui" {
-  bucket        = "${var.ui_subdomain}.${var.cloudflare_domain}"
+  bucket        = local.ui_hostname
   acl           = "public-read"
   policy        = data.template_file.bucket_policy.rendered
   force_destroy = true
@@ -36,7 +36,7 @@ resource "aws_cloudfront_distribution" "ui" {
   is_ipv6_enabled     = true
   default_root_object = "index.html"
 
-  aliases = ["${var.ui_subdomain}.${var.cloudflare_domain}"]
+  aliases = [local.ui_hostname]
 
   default_cache_behavior {
     allowed_methods  = ["GET", "HEAD", "OPTIONS"]
@@ -119,9 +119,13 @@ EOF
  * Create Cloudflare DNS record
  */
 resource "cloudflare_record" "uidns" {
-  domain  = var.cloudflare_domain
+  zone_id = var.cloudflare_zone_id
   name    = var.ui_subdomain
   value   = aws_cloudfront_distribution.ui[0].domain_name
   type    = "CNAME"
   proxied = true
+}
+
+locals {
+  ui_hostname = "${var.ui_subdomain}.${cloudflare_record.uidns.hostname}"
 }
