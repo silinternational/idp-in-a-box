@@ -119,7 +119,7 @@ EOF
  * Create Cloudflare DNS record
  */
 resource "cloudflare_record" "uidns" {
-  zone_id = var.cloudflare_zone_id
+  zone_id = data.cloudflare_zones.domain.zones[0].id
   name    = var.ui_subdomain
   value   = aws_cloudfront_distribution.ui[0].domain_name
   type    = "CNAME"
