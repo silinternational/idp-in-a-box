@@ -17,4 +17,3 @@ output "access_token_idbroker" {
 output "access_token_idsync" {
   value = random_id.access_token_idsync.hex
 }
-

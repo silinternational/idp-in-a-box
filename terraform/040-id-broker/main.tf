@@ -386,9 +386,17 @@ resource "aws_cloudwatch_event_target" "broker_event_target" {
  * Create Cloudflare DNS record
  */
 resource "cloudflare_record" "brokerdns" {
-  domain  = var.cloudflare_domain
+  zone_id = data.cloudflare_zones.domain.zones[0].id
   name    = var.subdomain
   value   = var.internal_alb_dns_name
   type    = "CNAME"
   proxied = false
+}
+
+data "cloudflare_zones" "domain" {
+  filter {
+    name        = var.cloudflare_domain
+    lookup_type = "exact"
+    status      = "active"
+  }
 }
