@@ -78,6 +78,10 @@
         "value": "${idp_display_name}"
       },
       {
+        "name": "ALERTS_EMAIL",
+        "value": "${alerts_email}"
+      },
+      {
         "name": "NOTIFIER_EMAIL_TO",
         "value": "${notifier_email_to}"
       },
