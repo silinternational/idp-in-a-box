@@ -80,6 +80,7 @@ data "template_file" "task_def" {
     email_service_baseUrl               = var.email_service_baseUrl
     email_service_validIpRanges         = join(",", var.email_service_validIpRanges)
     email_signature                     = var.email_signature
+    extra_hosts                         = var.extra_hosts
     help_center_url                     = var.help_center_url
     id_broker_access_token              = var.id_broker_access_token
     id_broker_assertValidBrokerIp       = var.id_broker_assertValidBrokerIp

@@ -2,7 +2,7 @@
   {
     "volumesFrom": [],
     "memory": ${memory},
-    "extraHosts": null,
+    "extraHosts": ${extra_hosts},
     "dnsServers": null,
     "disableNetworking": null,
     "dnsSearchDomains": null,

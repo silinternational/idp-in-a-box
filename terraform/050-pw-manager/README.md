@@ -62,6 +62,7 @@ This module is used to create an ECS service running the password manager API an
 ## Optional Inputs
 
  - `code_length` - Number of digits in reset code. Default: `6`
+ - `extra_hosts` - Extra hosts for the API task definition, e.g. `["hostname":"host.example.com","ipAddress":"192.168.1.1"]`
  - `password_rule_enablehibp` - Enable haveibeenpwned.com password check. Default: `true`
  - `password_rule_maxlength` - Maximum password length. Default: `255`
  - `password_rule_minlength` - Minimum password length. Default: `10`
@@ -113,6 +114,7 @@ module "pwmanager" {
   email_service_baseUrl               = "https://${data.terraform_remote_state.email.hostname}"
   email_service_validIpRanges         = ["${data.terraform_remote_state.cluster.private_subnet_cidr_blocks}"]
   email_signature                     = "${data.terraform_remote_state.broker.email_signature}"
+  extra_hosts                         = "${var.extra_hosts}"
   help_center_url                     = "${data.terraform_remote_state.broker.help_center_url}"
   id_broker_access_token              = "${data.terraform_remote_state.broker.access_token_pwmanager}"
   id_broker_assertValidBrokerIp       = "${var.id_broker_assertValidBrokerIp}"
