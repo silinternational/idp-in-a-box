@@ -33,13 +33,13 @@ This module is used to create a lambda function for calling id-broker's search a
 ```hcl
 module "brokersearch" {
   source               = "github.com/silinternational/idp-in-a-box//terraform/041-id-broker-search-lambda"
-  app_env              = "${var.app_env}"
+  app_env              = var.app_env
   broker_base_url      = "https://${data.terraform_remote_state.broker.hostname}"
-  broker_token         = "${data.terraform_remote_state.broker.access_token_search}"
-  idp_name             = "${var.idp_name}"
-  role_arn             = "${var.role_arn}"
-  security_group_ids   = ["${data.terraform_remote_state.cluster.vpc_default_sg_id}"]
-  subnet_ids           = ["${data.terraform_remote_state.cluster.private_subnet_ids}"]
+  broker_token         = data.terraform_remote_state.broker.access_token_search
+  idp_name             = var.idp_name
+  role_arn             = var.role_arn
+  security_group_ids   = [data.terraform_remote_state.cluster.vpc_default_sg_id]
+  subnet_ids           = data.terraform_remote_state.cluster.private_subnet_ids
   function_bucket_name = "idp-id-broker-search-${var.aws_region}"
   function_zip_name    = "${var.function_release_version}/${var.function_zip_name}"
 }
