@@ -69,49 +69,53 @@ module "cf_ips" {
 
 module "ssp" {
   source                       = "github.com/silinternational/idp-in-a-box//terraform/060-simplesamlphp"
-  memory                       = "${var.memory}"
-  cpu                          = "${var.cpu}"
-  desired_count                = "${var.desired_count}"
-  app_name                     = "${var.app_name}"
-  app_env                      = "${var.app_env}"
-  vpc_id                       = "${data.terraform_remote_state.cluster.vpc_id}"
-  alb_https_listener_arn       = "${data.terraform_remote_state.cluster.alb_https_listener_arn}"
-  subdomain                    = "${var.ssp_subdomain}"
-  aws_region                   = "${var.aws_region}"`
-  cloudflare_domain            = "${var.cloudflare_domain}"
-  cloudwatch_log_group_name    = "${var.cloudwatch_log_group_name}"
-  docker_image                 = "${data.terraform_remote_state.ecr.ecr_repo_simplesamlphp}"
+  memory                       = var.memory
+  cpu                          = var.cpu
+  desired_count                = var.desired_count
+  app_name                     = var.app_name
+  app_env                      = var.app_env
+  vpc_id                       = data.terraform_remote_state.cluster.vpc_id
+  alb_https_listener_arn       = data.terraform_remote_state.cluster.alb_https_listener_arn
+  subdomain                    = var.ssp_subdomain
+  aws_region                   = var.aws_region`
+  cloudflare_domain            = var.cloudflare_domain
+  cloudwatch_log_group_name    = var.cloudwatch_log_group_name
+  docker_image                 = data.terraform_remote_state.ecr.ecr_repo_simplesamlphp
   password_change_url          = "https://${data.terraform_remote_state.pwmanager.ui_hostname}/#/password/create"
   password_forgot_url          = "https://${data.terraform_remote_state.pwmanager.ui_hostname}/#/password/forgot"
-  hub_mode                     = "${var.hub_mode}"
-  id_broker_access_token       = "${data.terraform_remote_state.broker.access_token_ssp}"
-  id_broker_assert_valid_ip    = "${var.id_broker_assert_valid_ip}"
+  hub_mode                     = var.hub_mode
+  id_broker_access_token       = data.terraform_remote_state.broker.access_token_ssp
+  id_broker_assert_valid_ip    = var.id_broker_assert_valid_ip
   id_broker_base_uri           = "https://${data.terraform_remote_state.broker.hostname}"
-  id_broker_trusted_ip_ranges  = ["${data.terraform_remote_state.cluster.private_subnet_cidr_blocks}"]
-  mfa_learn_more_url           = "${var.mfa_learn_more_url}"
-  mfa_setup_url                = "${var.mfa_setup_url}"
-  memcache_host1               = "${data.terraform_remote_state.elasticache.cache_nodes.0.address}"
-  memcache_host2               = "${data.terraform_remote_state.elasticache.cache_nodes.1.address}"
-  db_name                      = "${var.db_ssp_name}"
-  mysql_host                   = "${data.terraform_remote_state.database.rds_address}"
-  mysql_user                   = "${var.db_ssp_user}"
-  mysql_pass                   = "${data.terraform_remote_state.database.db_ssp_pass}"
-  profile_url                  = "${var.profile_url}"
-  recaptcha_key                = "${var.recaptcha_key}"
-  recaptcha_secret             = "${var.recaptcha_secret}"
-  remember_me_secret           = "${var.remember_me_secret}"
-  ecs_cluster_id               = "${data.terraform_remote_state.core.ecs_cluster_id}"
-  ecsServiceRole_arn           = "${data.terraform_remote_state.core.ecsServiceRole_arn}"
-  alb_dns_name                 = "${data.terraform_remote_state.cluster.alb_dns_name}"
-  idp_name                     = "${var.idp_name}"
-  theme_color_scheme           = "${var.theme_color_scheme}"
-  theme_use                    = "${var.theme_use}"
-  trusted_ip_addresses         = ["${concat(module.cf_ips.ipv4_cidrs, var.trusted_ip_addresses, data.terraform_remote_state.cluster.public_subnet_cidr_blocks)}"]
-  analytics_id                 = "${var.analytics_id}"
-  show_saml_errors             = "${var.show_saml_errors}"
-  delete_remember_me_on_logout = "${var.delete_remember_me_on_logout}"
-  help_center_url              = "${data.terraform_remote_state.broker.help_center_url}"
-  enable_debug                 = "${var.enable_debug}"
-  logging_level                = "${var.logging_level}"
+  id_broker_trusted_ip_ranges  = data.terraform_remote_state.cluster.private_subnet_cidr_blocks
+  mfa_learn_more_url           = var.mfa_learn_more_url
+  mfa_setup_url                = var.mfa_setup_url
+  memcache_host1               = data.terraform_remote_state.elasticache.cache_nodes.0.address
+  memcache_host2               = data.terraform_remote_state.elasticache.cache_nodes.1.address
+  db_name                      = var.db_ssp_name
+  mysql_host                   = data.terraform_remote_state.database.rds_address
+  mysql_user                   = var.db_ssp_user
+  mysql_pass                   = data.terraform_remote_state.database.db_ssp_pass
+  profile_url                  = var.profile_url
+  recaptcha_key                = var.recaptcha_key
+  recaptcha_secret             = var.recaptcha_secret
+  remember_me_secret           = var.remember_me_secret
+  ecs_cluster_id               = data.terraform_remote_state.core.ecs_cluster_id
+  ecsServiceRole_arn           = data.terraform_remote_state.core.ecsServiceRole_arn
+  alb_dns_name                 = data.terraform_remote_state.cluster.alb_dns_name
+  idp_name                     = var.idp_name
+  theme_color_scheme           = var.theme_color_scheme
+  theme_use                    = var.theme_use
+  trusted_ip_addresses = concat(
+    module.cf_ips.ipv4_cidrs,
+    var.trusted_ip_addresses,
+    data.terraform_remote_state.cluster.outputs.public_subnet_cidr_blocks,
+  )
+  analytics_id                 = var.analytics_id
+  show_saml_errors             = var.show_saml_errors
+  delete_remember_me_on_logout = var.delete_remember_me_on_logout
+  help_center_url              = data.terraform_remote_state.broker.help_center_url
+  enable_debug                 = var.enable_debug
+  logging_level                = var.logging_level
 }
 ```

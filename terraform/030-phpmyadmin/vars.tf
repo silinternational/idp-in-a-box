@@ -30,6 +30,11 @@ variable "cloudflare_domain" {
   type = string
 }
 
+variable "enable" {
+  type    = bool
+  default = "true"
+}
+
 variable "rds_address" {
   type = string
 }
