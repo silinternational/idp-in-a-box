@@ -5,4 +5,3 @@ output "idsync_url" {
 output "access_token_external" {
   value = random_id.access_token_external.hex
 }
-

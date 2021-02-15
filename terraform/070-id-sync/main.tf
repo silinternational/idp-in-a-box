@@ -80,6 +80,7 @@ data "template_file" "task_def" {
     id_sync_access_tokens       = random_id.access_token_external.hex
     idp_name                    = var.idp_name
     idp_display_name            = var.idp_display_name
+    alerts_email                = var.alerts_email
     notifier_email_to           = var.notifier_email_to
     memory                      = var.memory
     cpu                         = var.cpu

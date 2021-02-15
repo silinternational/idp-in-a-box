@@ -40,6 +40,7 @@ store.
 
 - `email_service_assertValidIp` - Whether or not to assert IP address for Email Service API is trusted
 - `id_broker_assertValidIp` - Whether or not to assert IP address for ID Broker API is trusted
+- `alerts_email` - Who to send alerts to about sync problems
 - `notifier_email_to` - Who to send notifications to about sync problems (e.g. users lacking email addresses)
 - `sync_safety_cutoff` - The percentage of records allowed to be changed during a sync, provided as a float, ex: `0.2` for `20%`
 - `allow_empty_email` - Whether or not to allow the primary email property to be empty. Default: `false`
@@ -61,7 +62,7 @@ module "idsync" {
   vpc_id                      = data.terraform_remote_state.cluster.vpc_id
   alb_https_listener_arn      = data.terraform_remote_state.cluster.alb_https_listener_arn
   subdomain                   = var.sync_subdomain
-  aws_region                  = var.aws_region`
+  aws_region                  = var.aws_region
   cloudflare_domain           = var.cloudflare_domain
   cloudwatch_log_group_name   = var.cloudwatch_log_group_name
   docker_image                = data.terraform_remote_state.ecr.ecr_repo_idsync
@@ -81,6 +82,7 @@ module "idsync" {
   ecs_cluster_id              = data.terraform_remote_state.core.ecs_cluster_id
   ecsServiceRole_arn          = data.terraform_remote_state.core.ecsServiceRole_arn
   alb_dns_name                = data.terraform_remote_state.cluster.alb_dns_name
+  alerts_email                = var.alerts_email
   notifier_email_to           = var.notifier_email_to
   allow_empty_email           = var.allow_empty_email
 }

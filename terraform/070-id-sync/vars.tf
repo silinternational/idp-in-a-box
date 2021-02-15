@@ -115,8 +115,15 @@ variable "alb_dns_name" {
 }
 
 variable "notifier_email_to" {
-  default = ""
-  type    = string
+  default     = ""
+  type        = string
+  description = "email address for Human Resources (HR) notification messages"
+}
+
+variable "alerts_email" {
+  default     = ""
+  type        = string
+  description = "email address for exception messages"
 }
 
 variable "sync_safety_cutoff" {
@@ -126,4 +133,3 @@ variable "sync_safety_cutoff" {
 variable "allow_empty_email" {
   default = "false"
 }
-
