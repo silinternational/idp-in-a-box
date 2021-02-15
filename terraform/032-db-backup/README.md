@@ -41,22 +41,22 @@ This module is used to run mysqldump and backup files to S3
 ```hcl
 module "dbbackup" {
   source                    = "github.com/silinternational/idp-in-a-box//terraform/032-db-backup"
-  app_env                   = "${var.app_env}"
-  app_name                  = "${var.app_name}"
-  aws_region                = "${var.aws_region}"`
-  cloudwatch_log_group_name = "${var.cloudwatch_log_group_name}"
-  cpu                       = "${var.cpu}"
-  cron_schedule             = "${var.cron_schedule}"
-  db_names                  = ["${var.db_names}"]
-  docker_image              = "${data.terraform_remote_state.ecr.ecr_repo_dbbackup}"
-  ecs_cluster_id            = "${data.terraform_remote_state.core.ecs_cluster_id}"
-  ecsServiceRole_arn        = "${data.terraform_remote_state.core.ecsServiceRole_arn}"
-  idp_name                  = "${var.idp_name}"
-  memory                    = "${var.memory}"
-  mysql_host                = "${data.terraform_remote_state.database.rds_address}"
-  mysql_pass                = "${data.terraform_remote_state.database.mysql_pass}"
-  mysql_user                = "${data.terraform_remote_state.database.mysql_user}"
-  service_mode              = "${var.service_mode}"
-  vpc_id                    = "${data.terraform_remote_state.cluster.vpc_id}"
+  app_env                   = var.app_env
+  app_name                  = var.app_name
+  aws_region                = var.aws_region`
+  cloudwatch_log_group_name = var.cloudwatch_log_group_name
+  cpu                       = var.cpu
+  cron_schedule             = var.cron_schedule
+  db_names                  = var.db_names
+  docker_image              = data.terraform_remote_state.ecr.ecr_repo_dbbackup
+  ecs_cluster_id            = data.terraform_remote_state.core.ecs_cluster_id
+  ecsServiceRole_arn        = data.terraform_remote_state.core.ecsServiceRole_arn
+  idp_name                  = var.idp_name
+  memory                    = var.memory
+  mysql_host                = data.terraform_remote_state.database.rds_address
+  mysql_pass                = data.terraform_remote_state.database.mysql_pass
+  mysql_user                = data.terraform_remote_state.database.mysql_user
+  service_mode              = var.service_mode
+  vpc_id                    = data.terraform_remote_state.cluster.vpc_id
 }
 ```

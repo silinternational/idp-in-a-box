@@ -140,6 +140,12 @@ variable "email_signature" {
   type        = string
 }
 
+variable "extra_hosts" {
+  description = "Extra hosts for the API task definition, e.g. [\"host.example.com:192.168.1.1\"]"
+  type        = string
+  default     = "null"
+}
+
 variable "help_center_url" {
   type = string
 }
