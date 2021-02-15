@@ -114,6 +114,11 @@ variable "alb_dns_name" {
   type = string
 }
 
+variable "alerts_email" {
+  default = ""
+  type    = string
+}
+
 variable "notifier_email_to" {
   default = ""
   type    = string
@@ -126,4 +131,3 @@ variable "sync_safety_cutoff" {
 variable "allow_empty_email" {
   default = "false"
 }
-
