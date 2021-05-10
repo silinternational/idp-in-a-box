@@ -163,7 +163,7 @@ services:
       ACCESS_TOKEN_HASH_KEY: nice long random string here
       ALERTS_EMAIL: admin@domain.com
       AUTH_SAML_signRequest: "false"
-      AUTH_SAML_checkResponseSigning: "true"
+      AUTH_SAML_checkResponseSigning: "false"
       AUTH_SAML_requireEncryptedAssertion: "false"
       AUTH_SAML_entityId: pw-api.local:51050
       AUTH_SAML_ssoUrl: http://ssp.local/saml2/idp/SSOService.php
