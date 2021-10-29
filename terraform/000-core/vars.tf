@@ -21,7 +21,3 @@ variable "create_acm_cert" {
 variable "cert_domain" {
   description = "TLD for certificate domain"
 }
-
-variable "cloudflare_token" {
-  description = "The Cloudflare limited access API token"
-}

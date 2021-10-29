@@ -13,8 +13,7 @@ used by later workspaces for HTTPS with the ALB.
 
  - `app_name` - Name of application, ex: Doorman, IdP, etc.
  - `app_env` - Name of environment, ex: prod, test, etc.
- - `cert_domain` - The TLD for the certificate domain. 
- - `cloudflare_token` - The Cloudflare limited access API token
+ - `cert_domain` - The TLD for the certificate domain.
 
 ## Optional Inputs
 
@@ -43,6 +42,5 @@ module "core" {
   app_env          = var.app_env
   cert_domain      = var.cert_domain
   create_acm_cert  = var.create_acm_cert
-  cloudflare_token = var.cloudflare_token
 }
 ```
