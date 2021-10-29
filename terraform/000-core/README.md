@@ -1,20 +1,25 @@
 # 000-core - Core setup: IAM users, ECS cluster
 This module is used to create an ECS cluster along with the necessary
-IAM roles to function.
+IAM roles to function. It can also optionally create an ACM certificate
+used by later workspaces for HTTPS with the ALB.
 
 ## What this does
 
  - Create ECS cluster named after `app_name` and `app_env`
  - Create IAM roles and policies for ECS services and instances
+ - Optionally create and validate an ACM certificate using DNS
 
 ## Required Inputs
 
  - `app_name` - Name of application, ex: Doorman, IdP, etc.
  - `app_env` - Name of environment, ex: prod, test, etc.
+ - `cert_domain` - The TLD for the certificate domain. 
+ - `cloudflare_token` - The Cloudflare limited access API token
 
 ## Optional Inputs
 
  - `aws_region` - Region to deploy in, ex: `us-east-1`
+ - `create_acm_cert` - Bool of whether or not to create an ACM cert. Default: `false`
 
 ## Outputs
 
@@ -33,8 +38,11 @@ IAM roles to function.
 
 ```hcl
 module "core" {
-  source   = "github.com/silinternational/idp-in-a-box//terraform/000-core"
-  app_name = var.app_name
-  app_env  = var.app_env
+  source           = "github.com/silinternational/idp-in-a-box//terraform/000-core"
+  app_name         = var.app_name
+  app_env          = var.app_env
+  cert_domain      = var.cert_domain
+  create_acm_cert  = var.create_acm_cert
+  cloudflare_token = var.cloudflare_token
 }
 ```
