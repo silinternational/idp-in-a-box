@@ -19,6 +19,5 @@ variable "create_acm_cert" {
 }
 
 variable "cert_domain" {
-  default     = ""
-  description = "TLD for certificate domain, required when create_acm_cert is true"
+  description = "TLD for certificate domain"
 }
