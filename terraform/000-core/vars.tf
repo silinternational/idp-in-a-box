@@ -14,3 +14,10 @@ variable "aws_region" {
   type    = string
 }
 
+variable "create_acm_cert" {
+  default = false
+}
+
+variable "cert_domain" {
+  description = "TLD for certificate domain"
+}

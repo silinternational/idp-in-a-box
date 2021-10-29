@@ -144,3 +144,36 @@ EOF
 
 }
 
+/*
+ * Create ACM certificate
+ */
+data "cloudflare_zones" "idp" {
+  filter {
+    name = var.cert_domain
+  }
+}
+resource "aws_acm_certificate" "idp" {
+  count                     = var.create_acm_cert ? 1 : 0
+  domain_name               = var.cert_domain
+  subject_alternative_names = ["*.${var.cert_domain}"]
+  validation_method         = "DNS"
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+resource "cloudflare_record" "idp-verification" {
+  count   = var.create_acm_cert ? 1 : 0
+  name    = aws_acm_certificate.idp.domain_validation_options[0].resource_record_name
+  value   = aws_acm_certificate.idp.domain_validation_options[0].resource_record_value
+  type    = aws_acm_certificate.idp.domain_validation_options[0].resource_record_type
+  zone_id = data.cloudflare_zones.idp.zones[0].id
+  proxied = false
+}
+
+resource "aws_acm_certificate_validation" "idp" {
+  count                   = var.create_acm_cert ? 1 : 0
+  certificate_arn         = aws_acm_certificate.idp.arn
+  validation_record_fqdns = [cloudflare_record.idp-verification.hostname]
+}
