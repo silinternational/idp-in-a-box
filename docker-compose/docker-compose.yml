@@ -3,7 +3,7 @@ version: "3"
 services:
 
   db-broker:
-    image: silintl/mariadb:latest
+    image: mariadb:latest
     ports:
       - "3306"
     environment:
@@ -113,7 +113,7 @@ services:
       PMA_PASSWORD: ssp
 
   db-pw:
-    image: silintl/mariadb:latest
+    image: mariadb:latest
     ports:
       - "3306"
     environment:
@@ -270,7 +270,7 @@ services:
     command: /data/run-cron.sh
 
   db-email:
-    image: silintl/mariadb:latest
+    image: mariadb:latest
     ports:
       - "3306"
     environment:
