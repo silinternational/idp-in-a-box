@@ -126,7 +126,7 @@ data "template_file" "task_def" {
     mfa_webauthn_appid               = var.mfa_webauthn_appid
     mfa_webauthn_rpdisplayname       = var.mfa_webauthn_rpdisplayname
     mfa_webauthn_rpid                = var.mfa_webauthn_rpid
-    mfa_webauthn_rporigins           = var.mfa_webauthn_rporigins
+    rp_origins                       = var.rp_origins
     minimum_backup_codes_before_nag  = var.minimum_backup_codes_before_nag
     mysql_host                       = var.mysql_host
     mysql_pass                       = var.mysql_pass

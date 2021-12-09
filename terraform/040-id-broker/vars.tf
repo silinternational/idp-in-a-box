@@ -291,7 +291,7 @@ variable "mfa_webauthn_rpid" {
   type = string
 }
 
-variable "mfa_webauthn_rporigins" {
+variable "rp_origins" {
   type = string
 }
 
