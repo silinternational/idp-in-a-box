@@ -267,19 +267,31 @@ variable "mfa_totp_apisecret" {
   type = string
 }
 
-variable "mfa_u2f_apibaseurl" {
+variable "mfa_webauthn_apibaseurl" {
   type = string
 }
 
-variable "mfa_u2f_apikey" {
+variable "mfa_webauthn_apikey" {
   type = string
 }
 
-variable "mfa_u2f_apisecret" {
+variable "mfa_webauthn_apisecret" {
   type = string
 }
 
-variable "mfa_u2f_appid" {
+variable "mfa_webauthn_appid" {
+  type = string
+}
+
+variable "mfa_webauthn_rpdisplayname" {
+  type = string
+}
+
+variable "mfa_webauthn_rpid" {
+  type = string
+}
+
+variable "mfa_webauthn_rporigins" {
   type = string
 }
 
