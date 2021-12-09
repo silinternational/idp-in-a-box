@@ -245,10 +245,13 @@ data "template_file" "task_def_cron" {
     mfa_totp_apibaseurl              = var.mfa_totp_apibaseurl
     mfa_totp_apikey                  = var.mfa_totp_apikey
     mfa_totp_apisecret               = var.mfa_totp_apisecret
-    mfa_u2f_apibaseurl               = var.mfa_u2f_apibaseurl
-    mfa_u2f_apikey                   = var.mfa_u2f_apikey
-    mfa_u2f_apisecret                = var.mfa_u2f_apisecret
-    mfa_u2f_appid                    = var.mfa_u2f_appid
+    mfa_webauthn_apibaseurl          = var.mfa_webauthn_apibaseurl
+    mfa_webauthn_apikey              = var.mfa_webauthn_apikey
+    mfa_webauthn_apisecret           = var.mfa_webauthn_apisecret
+    mfa_webauthn_appid               = var.mfa_webauthn_appid
+    mfa_webauthn_rpdisplayname       = var.mfa_webauthn_rpdisplayname
+    mfa_webauthn_rpid                = var.mfa_webauthn_rpid
+    rp_origins                       = var.rp_origins
     minimum_backup_codes_before_nag  = var.minimum_backup_codes_before_nag
     mysql_host                       = var.mysql_host
     mysql_pass                       = var.mysql_pass
