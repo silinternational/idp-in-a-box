@@ -29,10 +29,13 @@ This module is used to create an ECS service running id-broker.
  - `mfa_totp_apibaseurl` - Base URL to TOTP api
  - `mfa_totp_apikey` - API key for TOTP api
  - `mfa_totp_apisecret` - API secret for TOTP api
- - `mfa_u2f_apibaseurl` - Base URL for U2F api
- - `mfa_u2f_apikey` - API key for U2F api
- - `mfa_u2f_apisecret` - API secret for U2F api
- - `mfa_u2f_appid` - AppID for U2F api
+ - `mfa_webauthn_apibaseurl` - Base URL for WebAuthn api
+ - `mfa_webauthn_apikey` - API key for WebAuthn api
+ - `mfa_webauthn_apisecret` - API secret for WebAuthn api
+ - `mfa_webauthn_appid` - AppID for WebAuthn api
+ - `mfa_webauthn_rpdisplayname` - Relying Party Display Name
+ - `mfa_webauthn_rpid` - Relying Party ID 
+ - `rp_origins` - CSV list of allowed Relying Party Origins
  - `mysql_host` - Address for RDS instance
  - `mysql_pass` - MySQL password for id-broker
  - `mysql_user` - MySQL username for id-broker
@@ -136,7 +139,7 @@ module "broker" {
   source                           = "github.com/silinternational/idp-in-a-box//terraform/040-id-broker"
   app_env                          = var.app_env
   app_name                         = var.app_name
-  aws_region                       = var.aws_region`
+  aws_region                       = var.aws_region
   cloudflare_domain                = var.cloudflare_domain
   cloudwatch_log_group_name        = var.cloudwatch_log_group_name
   contingent_user_duration         = var.contingent_user_duration
@@ -187,10 +190,13 @@ module "broker" {
   mfa_totp_apibaseurl              = var.mfa_totp_apibaseurl
   mfa_totp_apikey                  = var.mfa_totp_apikey
   mfa_totp_apisecret               = var.mfa_totp_apisecret
-  mfa_u2f_apibaseurl               = var.mfa_u2f_apibaseurl
-  mfa_u2f_apikey                   = var.mfa_u2f_apikey
-  mfa_u2f_apisecret                = var.mfa_u2f_apisecret
-  mfa_u2f_appid                    = var.mfa_u2f_appid
+  mfa_webauthn_apibaseurl          = var.mfa_webauthn_apibaseurl
+  mfa_webauthn_apikey              = var.mfa_webauthn_apikey
+  mfa_webauthn_apisecret           = var.mfa_webauthn_apisecret
+  mfa_webauthn_appid               = var.mfa_webauthn_appid
+  mfa_webauthn_rpdisplayname       = var.mfa_webauthn_rpdisplayname
+  mfa_webauthn_rpid                = var.mfa_webauthn_rpid
+  rp_origins                       = var.rp_origins
   minimum_backup_codes_before_nag  = var.minimum_backup_codes_before_nag
   mysql_host                       = data.terraform_remote_state.database.rds_address
   mysql_pass                       = data.terraform_remote_state.database.db_idbroker_pass
