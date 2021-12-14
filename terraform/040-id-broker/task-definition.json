@@ -179,20 +179,32 @@
         "value": "${mfa_totp_apisecret}"
       },
       {
-        "name": "MFA_U2F_apiBaseUrl",
-        "value": "${mfa_u2f_apibaseurl}"
+        "name": "MFA_WEBAUTHN_apiBaseUrl",
+        "value": "${mfa_webauthn_apibaseurl}"
       },
       {
-        "name": "MFA_U2F_apiKey",
-        "value": "${mfa_u2f_apikey}"
+        "name": "MFA_WEBAUTHN_apiKey",
+        "value": "${mfa_webauthn_apikey}"
       },
       {
-        "name": "MFA_U2F_apiSecret",
-        "value": "${mfa_u2f_apisecret}"
+        "name": "MFA_WEBAUTHN_apiSecret",
+        "value": "${mfa_webauthn_apisecret}"
       },
       {
-        "name": "MFA_U2F_appId",
-        "value": "${mfa_u2f_appid}"
+        "name": "MFA_WEBAUTHN_appId",
+        "value": "${mfa_webauthn_appid}"
+      },
+      {
+        "name": "MFA_WEBAUTHN_rpDisplayName",
+        "value": "${mfa_webauthn_rpdisplayname}"
+      },
+      {
+        "name": "MFA_WEBAUTHN_rpId",
+        "value": "${mfa_webauthn_rpid}"
+      },
+      {
+        "name": "RP_ORIGINS",
+        "value": "${rp_origins}"
       },
       {
         "name": "MINIMUM_BACKUP_CODES_BEFORE_NAG",
