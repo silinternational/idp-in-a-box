@@ -2,7 +2,7 @@
  * Create ECS cluster
  */
 module "ecscluster" {
-  source   = "github.com/silinternational/terraform-modules//aws/ecs/cluster?ref=3.5.0"
+  source   = "github.com/silinternational/terraform-modules//aws/ecs/cluster?ref=4.0.0"
   app_name = var.app_name
   app_env  = var.app_env
 }
