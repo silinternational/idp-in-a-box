@@ -22,6 +22,18 @@
     "dockerSecurityOptions": null,
     "environment": [
       {
+        "name": "ABANDONED_USER_abandonedPeriod",
+        "value": "${abandoned_user_abandoned_period}"
+      },
+      {
+        "name": "ABANDONED_USER_bestPracticeUrl",
+        "value": "${abandoned_user_best_practice_url}"
+      },
+      {
+        "name": "ABANDONED_USER_deactivateInstructionsUrl",
+        "value": "${abandoned_user_deactivate_instructions_url}"
+      },
+      {
         "name": "API_ACCESS_KEYS",
         "value": "${api_access_keys}"
       },
@@ -89,6 +101,10 @@
       {
         "name": "HELP_CENTER_URL",
         "value": "${help_center_url}"
+      },
+      {
+        "name": "HR_NOTIFICATIONS_EMAIL",
+        "value": "${hr_notifications_email}"
       },
       {
         "name": "IDP_DISPLAY_NAME",
@@ -317,6 +333,10 @@
       {
         "name": "SEND_WELCOME_EMAILS",
         "value": "${send_welcome_emails}"
+      },
+      {
+        "name": "SUBJECT_FOR_ABANDONED_USERS",
+        "value": "${subject_for_abandoned_users}"
       },
       {
         "name": "SUBJECT_FOR_GET_BACKUP_CODES",
