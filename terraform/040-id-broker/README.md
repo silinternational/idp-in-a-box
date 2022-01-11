@@ -48,6 +48,9 @@ This module is used to create an ECS service running id-broker.
 
 ## Optional Inputs
 
+ - `abandoned_user_abandoned_period` - Time a user record can remain abandoned before HR is notified. Default: `+6 months`
+ - `abandoned_user_best_practice_url` - URL for best practices, referenced in notification email. Default: (none)
+ - `abandoned_user_deactivate_instructions_url` - URL for instruction on how to deactivate user accounts, referenced in notification email. Default: (none)
  - `contingent_user_duration` - How long before a new user without a primary email address expires. Default: `+4 weeks`
  - `cpu_cron` - How much CPU to allocate to cron service. Default: `128`
  - `email_repeat_delay_days` - Don't resend the same type of email to the same user for X days. Default: `31`
@@ -62,6 +65,7 @@ This module is used to create an ECS service running id-broker.
  - `hibp_grace_period` - How long to set grace period when a pwned password is discovered and force expired. Default: `+1 week`
  - `hibp_tracking_only` - Whether to actually apply changes or just track when pwned passwords are discovered. Default: `false`
  - `hibp_notification_bcc` - An optional email address to BCC pwned password alert emails to.
+ - `hr_notifications_email` - If this is defined, HR notification emails (e.g. abandoned user account) will be sent here. Default (none)
  - `idp_display_name` - Display name for IdP. Default is empty string
  - `inactive_user_period` - Time a user record can remain inactive before being deleted. Default: `+18 months`
  - `inactive_user_deletion_enable` - Enable deletion of inactive users after a period defined by inactive_user_period. Default: `false`
@@ -100,6 +104,7 @@ This module is used to create an ECS service running id-broker.
  - `send_password_changed_emails` - Bool of whether or not to send password changed emails. Default: `true`
  - `send_refresh_backup_codes_emails` - Bool of whether or not to send refresh backup codes emails. Default: `true`
  - `send_welcome_emails` - Bool of whether or not to send welcome emails. Default: `true`
+ - `subject_for_abandoned_users` - Email subject text for abandoned user emails. Default: `Unused {idpDisplayName} Identity Accounts`
  - `subject_for_get_backup_codes` - Email subject text for get backup codes emails. Default: `Get printable codes for your {idpDisplayName} Identity account`
  - `subject_for_invite` - Email subject text for invite emails. Default: `Your new {idpDisplayName} Identity account`
  - `subject_for_lost_security_key` - Email subject text for lost security key emails. Default: `Have you lost the security key you use with your {idpDisplayName} Identity account?`
@@ -118,7 +123,6 @@ This module is used to create an ECS service running id-broker.
  - `subject_for_password_expiring` - Email subject text for password expiring emails. Default: `The password for your {idpDisplayName} Identity account is about to expire`
  - `subject_for_refresh_backup_codes` - Email subject text for refresh backup codes emails. Default: `Get a new set of printable codes for your {idpDisplayName} Identity account`
  - `subject_for_welcome` - Email subject text for welcome emails. Default: `Welcome to your new {idpDisplayName} Identity account`
-
 
 ## Outputs
 
