@@ -133,3 +133,7 @@ variable "sync_safety_cutoff" {
 variable "allow_empty_email" {
   default = "false"
 }
+
+variable "enable_new_user_notification" {
+  default = "false"
+}
