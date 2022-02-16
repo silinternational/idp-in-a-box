@@ -6,5 +6,5 @@ read -p "Also delete all stopped containers? " -n 1 -r
 echo    # (optional) move to a new line
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-  docker system prune -f
+  docker-compose rm -f
 fi
