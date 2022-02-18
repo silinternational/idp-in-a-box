@@ -1,3 +1,18 @@
+variable "abandoned_user_abandoned_period" {
+  type    = string
+  default = "+6 months"
+}
+
+variable "abandoned_user_best_practice_url" {
+  type    = string
+  default = ""
+}
+
+variable "abandoned_user_deactivate_instructions_url" {
+  type    = string
+  default = ""
+}
+
 variable "app_env" {
   type        = string
   description = "Environment name, ex: 'stg' or 'prod'"
@@ -135,6 +150,11 @@ variable "hibp_tracking_only" {
 }
 
 variable "hibp_notification_bcc" {
+  type    = string
+  default = ""
+}
+
+variable "hr_notifications_email" {
   type    = string
   default = ""
 }
@@ -432,6 +452,11 @@ variable "ssl_policy" {
 
 variable "subdomain" {
   type = string
+}
+
+variable "subject_for_abandoned_users" {
+  type    = string
+  default = ""
 }
 
 variable "subject_for_get_backup_codes" {

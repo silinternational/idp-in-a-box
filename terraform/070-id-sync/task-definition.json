@@ -93,6 +93,10 @@
         "name": "ALLOW_EMPTY_EMAIL",
         "value": "${allow_empty_email}"
       },
+      {
+        "name": "ENABLE_NEW_USER_NOTIFICATION",
+        "value": "${enable_new_user_notification}"
+      },
       ${id_store_config}
     ],
     "links": null,

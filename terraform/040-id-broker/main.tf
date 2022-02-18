@@ -73,7 +73,12 @@ data "template_file" "task_def" {
   template = file("${path.module}/task-definition.json")
 
   vars = {
-    api_access_keys                  = "${random_id.access_token_pwmanager.hex},${random_id.access_token_search.hex},${random_id.access_token_ssp.hex},${random_id.access_token_idsync.hex}"
+    api_access_keys = "${random_id.access_token_pwmanager.hex},${random_id.access_token_search.hex},${random_id.access_token_ssp.hex},${random_id.access_token_idsync.hex}"
+
+    abandoned_user_abandoned_period            = var.abandoned_user_abandoned_period
+    abandoned_user_best_practice_url           = var.abandoned_user_best_practice_url
+    abandoned_user_deactivate_instructions_url = var.abandoned_user_deactivate_instructions_url
+
     app_env                          = var.app_env
     app_name                         = var.app_name
     aws_region                       = var.aws_region
@@ -97,6 +102,7 @@ data "template_file" "task_def" {
     hibp_grace_period                = var.hibp_grace_period
     hibp_tracking_only               = var.hibp_tracking_only
     hibp_notification_bcc            = var.hibp_notification_bcc
+    hr_notifications_email           = var.hr_notifications_email
     idp_display_name                 = var.idp_display_name
     idp_name                         = var.idp_name
     inactive_user_period             = var.inactive_user_period
@@ -155,6 +161,7 @@ data "template_file" "task_def" {
     send_password_expiring_emails    = var.send_password_expiring_emails
     send_refresh_backup_codes_emails = var.send_refresh_backup_codes_emails
     send_welcome_emails              = var.send_welcome_emails
+    subject_for_abandoned_users      = var.subject_for_abandoned_users
     subject_for_get_backup_codes     = var.subject_for_get_backup_codes
     subject_for_invite               = var.subject_for_invite
     subject_for_lost_security_key    = var.subject_for_lost_security_key
@@ -198,7 +205,12 @@ data "template_file" "task_def_cron" {
   template = file("${path.module}/task-definition.json")
 
   vars = {
-    api_access_keys                  = "${random_id.access_token_pwmanager.hex},${random_id.access_token_ssp.hex},${random_id.access_token_idsync.hex}"
+    api_access_keys = "${random_id.access_token_pwmanager.hex},${random_id.access_token_ssp.hex},${random_id.access_token_idsync.hex}"
+
+    abandoned_user_abandoned_period            = var.abandoned_user_abandoned_period
+    abandoned_user_best_practice_url           = var.abandoned_user_best_practice_url
+    abandoned_user_deactivate_instructions_url = var.abandoned_user_deactivate_instructions_url
+
     app_env                          = var.app_env
     app_name                         = var.app_name
     aws_region                       = var.aws_region
@@ -222,6 +234,7 @@ data "template_file" "task_def_cron" {
     hibp_grace_period                = var.hibp_grace_period
     hibp_tracking_only               = var.hibp_tracking_only
     hibp_notification_bcc            = var.hibp_notification_bcc
+    hr_notifications_email           = var.hr_notifications_email
     idp_display_name                 = var.idp_display_name
     idp_name                         = var.idp_name
     inactive_user_period             = var.inactive_user_period
@@ -280,6 +293,7 @@ data "template_file" "task_def_cron" {
     send_password_expiring_emails    = var.send_password_expiring_emails
     send_refresh_backup_codes_emails = var.send_refresh_backup_codes_emails
     send_welcome_emails              = var.send_welcome_emails
+    subject_for_abandoned_users      = var.subject_for_abandoned_users
     subject_for_get_backup_codes     = var.subject_for_get_backup_codes
     subject_for_invite               = var.subject_for_invite
     subject_for_lost_security_key    = var.subject_for_lost_security_key
