@@ -1,19 +1,20 @@
 /*
  * Create S3 bucket with appropriate permissions
  */
-data "template_file" "bucket_policy" {
-  template = file("${path.module}/bucket-policy.json")
-
-  vars = {
-    bucket_name = local.ui_hostname
-  }
-}
-
 resource "aws_s3_bucket" "ui" {
   bucket        = local.ui_hostname
   acl           = "public-read"
-  policy        = data.template_file.bucket_policy.rendered
   force_destroy = true
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Sid       = "AddPerm"
+      Effect    = "Allow"
+      Principal = "*"
+      Action    = "s3:GetObject"
+      Resource  = "arn:aws:s3:::${local.ui_hostname}/*"
+    }]
+  })
 
   website {
     index_document = "index.html"

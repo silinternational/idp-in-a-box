@@ -44,23 +44,17 @@ resource "random_id" "access_token_external" {
   byte_length = 16
 }
 
-data "template_file" "env_vars" {
-  count    = length(var.id_store_config)
-  template = file("${path.module}/envvar.json")
-
-  vars = {
-    name  = "ID_STORE_CONFIG_${element(keys(var.id_store_config), count.index)}"
-    value = element(values(var.id_store_config), count.index)
-  }
-}
-
 /*
  * Create ECS service
  */
-data "template_file" "task_def" {
-  template = file("${path.module}/task-definition.json")
-
-  vars = {
+locals {
+  id_store_config = join(",",
+    [for k, v in var.id_store_config : jsonencode({
+      name  = "ID_STORE_CONFIG_${k}"
+      value = v
+    })]
+  )
+  task_def = templatefile("${path.module}/task-definition.json", {
     app_env                      = var.app_env
     app_name                     = var.app_name
     aws_region                   = var.aws_region
@@ -76,7 +70,7 @@ data "template_file" "task_def" {
     id_broker_base_url           = var.id_broker_base_url
     id_broker_trustedIpRanges    = join(",", var.id_broker_trustedIpRanges)
     id_store_adapter             = var.id_store_adapter
-    id_store_config              = join(",", data.template_file.env_vars.*.rendered)
+    id_store_config              = local.id_store_config
     id_sync_access_tokens        = random_id.access_token_external.hex
     idp_name                     = var.idp_name
     idp_display_name             = var.idp_display_name
@@ -87,7 +81,7 @@ data "template_file" "task_def" {
     sync_safety_cutoff           = var.sync_safety_cutoff
     allow_empty_email            = var.allow_empty_email
     enable_new_user_notification = var.enable_new_user_notification
-  }
+  })
 }
 
 module "ecsservice" {
@@ -95,7 +89,7 @@ module "ecsservice" {
   cluster_id         = var.ecs_cluster_id
   service_name       = "${var.idp_name}-${var.app_name}"
   service_env        = var.app_env
-  container_def_json = data.template_file.task_def.rendered
+  container_def_json = local.task_def
   desired_count      = 1
   tg_arn             = aws_alb_target_group.idsync.arn
   lb_container_name  = "web"

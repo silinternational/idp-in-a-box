@@ -3,23 +3,18 @@ data "http" "function-checksum" {
 }
 
 resource "aws_iam_role" "functionRole" {
-  name               = "${var.idp_name}-${var.app_name}-${var.app_env}-lambda-function-role"
-  assume_role_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "",
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "lambda.amazonaws.com"
-      },
-      "Action": "sts:AssumeRole"
-    }
-  ]
-}
-EOF
-
+  name = "${var.idp_name}-${var.app_name}-${var.app_env}-lambda-function-role"
+  assume_role_policy = jsonencode({
+    "Version" : "2012-10-17",
+    "Statement" : [{
+      Sid    = ""
+      Effect = "Allow"
+      Principal = {
+        Service = "lambda.amazonaws.com"
+      }
+      Action = "sts:AssumeRole"
+    }]
+  })
 }
 
 resource "aws_iam_role_policy_attachment" "AWSLambdaVPCAccessExecutionRole" {
@@ -58,28 +53,33 @@ resource "aws_lambda_function" "search" {
   }
 }
 
-data "template_file" "assumeRolePolicy" {
-  template = file("${path.module}/assume-role-policy.json")
-  vars = {
-    remote_role_arn = var.remote_role_arn
-  }
-}
-
 resource "aws_iam_role" "assumeRole" {
-  name               = "${var.idp_name}-${var.app_name}-${var.app_env}-lambda-remote-execute"
-  assume_role_policy = data.template_file.assumeRolePolicy.rendered
-}
-
-data "template_file" "executePolicy" {
-  template = file("${path.module}/execute-policy.json")
-  vars = {
-    function_arn = aws_lambda_function.search.arn
-  }
+  name = "${var.idp_name}-${var.app_name}-${var.app_env}-lambda-remote-execute"
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Effect = "Allow"
+      Principal = {
+        Service = "lambda.amazonaws.com"
+        AWS     = var.remote_role_arn
+      }
+      Action = "sts:AssumeRole"
+    }]
+  })
 }
 
 resource "aws_iam_role_policy" "executePolicy" {
-  name   = "invoke-function"
-  role   = aws_iam_role.assumeRole.name
-  policy = data.template_file.executePolicy.rendered
+  name = "invoke-function"
+  role = aws_iam_role.assumeRole.name
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Action = [
+        "lambda:InvokeFunction",
+        "lambda:InvokeAsync",
+      ],
+      Resource = aws_lambda_function.search.arn
+      Effect   = "Allow"
+    }]
+  })
 }
-

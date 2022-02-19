@@ -14,8 +14,5 @@ terraform {
       source  = "hashicorp/random"
       version = "~> 2.2"
     }
-    template = {
-      source = "hashicorp/template"
-    }
   }
 }

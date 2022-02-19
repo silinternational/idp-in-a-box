@@ -61,10 +61,8 @@ EOF
 /*
  * Create ECS service
  */
-data "template_file" "task_def_backup" {
-  template = file("${path.module}/task-definition.json")
-
-  vars = {
+locals {
+  task_def_backup = templatefile("${path.module}/task-definition.json", {
     app_env                   = var.app_env
     app_name                  = var.app_name
     aws_region                = var.aws_region
@@ -82,7 +80,7 @@ data "template_file" "task_def_backup" {
     memory                    = var.memory
     s3_bucket                 = aws_s3_bucket.backup.bucket
     service_mode              = var.service_mode
-  }
+  })
 }
 
 /*
@@ -138,7 +136,7 @@ EOF
  */
 resource "aws_ecs_task_definition" "cron_td" {
   family                = "${var.idp_name}-${var.app_name}-${var.app_env}"
-  container_definitions = data.template_file.task_def_backup.rendered
+  container_definitions = local.task_def_backup
   network_mode          = "bridge"
 }
 
