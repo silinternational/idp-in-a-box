@@ -26,7 +26,6 @@ used by later workspaces for HTTPS with the ALB.
  - `cduser_access_key_secret` - AWS access key secret for continuous delivery user
  - `cduser_arn` - ARN for continuous delivery IAM user
  - `cduser_username` - Username for contiuous delivery IAM user
- - `ecs_ami_id` - The ID for the latest ECS optimized AMI
  - `ecs_cluster_name` - The ECS cluster name
  - `ecs_instance_profile_id` - The ID for created IAM profile `ecsInstanceProfile`
  - `ecsInstanceRole_arn` - The ARN for created IAM role `ecsInstanceRole`

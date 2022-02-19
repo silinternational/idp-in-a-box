@@ -20,10 +20,6 @@ output "cduser_username" {
 /*
  * ECS cluster outputs
  */
-output "ecs_ami_id" {
-  value = module.ecscluster.ami_id
-}
-
 output "ecs_cluster_id" {
   value = module.ecscluster.ecs_cluster_id
 }
