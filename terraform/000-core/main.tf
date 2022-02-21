@@ -59,38 +59,38 @@ resource "aws_iam_user_policy" "cd_serverless" {
 
   policy = jsonencode(
     {
-      "Version" = "2012-10-17",
-      "Statement" = [
+      Version = "2012-10-17",
+      Statement = [
         {
-          "Effect" = "Allow",
-          "Action" = [
+          Effect = "Allow",
+          Action = [
             "apigateway:*"
           ],
-          "Resource" = [
+          Resource = [
             "*"
           ]
         },
         {
-          "Effect" = "Allow",
-          "Action" = [
+          Effect = "Allow",
+          Action = [
             "cloudformation:*"
           ],
-          "Resource" = [
+          Resource = [
             "*"
           ]
         },
         {
-          "Effect" = "Allow",
-          "Action" = [
+          Effect = "Allow",
+          Action = [
             "dynamodb:*"
           ],
-          "Resource" = [
+          Resource = [
             "*"
           ]
         },
         {
-          "Effect" = "Allow",
-          "Action" = [
+          Effect = "Allow",
+          Action = [
             "iam:AttachRolePolicy",
             "iam:CreatePolicy",
             "iam:CreateRole",
@@ -100,35 +100,35 @@ resource "aws_iam_user_policy" "cd_serverless" {
             "iam:PassRole",
             "iam:PutRolePolicy"
           ],
-          "Resource" = [
+          Resource = [
             "arn:aws:iam::*:*",
             "arn:aws:iam::*:role/*"
           ]
         },
         {
-          "Effect" = "Allow",
-          "Action" = [
+          Effect = "Allow",
+          Action = [
             "lambda:*"
           ],
-          "Resource" = [
+          Resource = [
             "*"
           ]
         },
         {
-          "Effect" = "Allow",
-          "Action" = [
+          Effect = "Allow",
+          Action = [
             "logs:*"
           ],
-          "Resource" = [
+          Resource = [
             "arn:aws:logs:${var.aws_region}:*:log-group:*:log-stream:"
           ]
         },
         {
-          "Effect" = "Allow",
-          "Action" = [
+          Effect = "Allow",
+          Action = [
             "s3:*"
           ],
-          "Resource" = [
+          Resource = [
             "arn:aws:s3:::*",
             "arn:aws:s3:::*/*"
           ]

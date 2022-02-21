@@ -5,8 +5,8 @@ data "http" "function-checksum" {
 resource "aws_iam_role" "functionRole" {
   name = "${var.idp_name}-${var.app_name}-${var.app_env}-lambda-function-role"
   assume_role_policy = jsonencode({
-    "Version" = "2012-10-17",
-    "Statement" = [{
+    Version = "2012-10-17",
+    Statement = [{
       Sid    = ""
       Effect = "Allow"
       Principal = {
