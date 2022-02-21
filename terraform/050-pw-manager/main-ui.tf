@@ -88,24 +88,24 @@ resource "aws_iam_user_policy" "ci_ui" {
 
   policy = jsonencode(
     {
-      Version : "2012-10-17"
-      Statement : [
+      Version = "2012-10-17"
+      Statement = [
         {
-          Sid : "Stmt1433518318000"
-          Effect : "Allow"
-          Action : [
+          Sid    = "Stmt1433518318000"
+          Effect = "Allow"
+          Action = [
             "cloudfront:CreateInvalidation",
           ],
-          Resource : [
+          Resource = [
             aws_cloudfront_distribution.ui[0].arn,
           ]
         },
         {
-          Effect : "Allow"
-          Action : [
+          Effect = "Allow"
+          Action = [
             "s3:*",
           ],
-          Resource : [
+          Resource = [
             aws_s3_bucket.ui.arn,
             "${aws_s3_bucket.ui.arn}/*",
           ]

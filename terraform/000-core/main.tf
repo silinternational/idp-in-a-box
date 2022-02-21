@@ -23,11 +23,11 @@ resource "aws_iam_user_policy" "cd_ecs" {
   user = aws_iam_user.cd.name
 
   policy = jsonencode({
-    "Version" : "2012-10-17"
-    "Statement" : [
+    Version = "2012-10-17"
+    Statement = [
       {
-        Effect : "Allow"
-        Action : [
+        Effect = "Allow"
+        Action = [
           "ecs:DeregisterTaskDefinition",
           "ecs:DescribeServices",
           "ecs:DescribeTaskDefinition",
@@ -40,14 +40,14 @@ resource "aws_iam_user_policy" "cd_ecs" {
           "ecs:UpdateService",
           "iam:PassRole",
         ],
-        Resource : "*"
+        Resource = "*"
       },
       {
-        Effect : "Allow"
-        Action : [
+        Effect = "Allow"
+        Action = [
           "ecr:GetAuthorizationToken",
         ],
-        Resource : "*"
+        Resource = "*"
       }
     ]
   })
@@ -58,84 +58,84 @@ resource "aws_iam_user_policy" "cd_serverless" {
   user = aws_iam_user.cd.name
 
   policy = jsonencode(
-{
-    "Version": "2012-10-17",
-    "Statement": [
+    {
+      "Version" = "2012-10-17",
+      "Statement" = [
         {
-            "Effect": "Allow",
-            "Action": [
-                "apigateway:*"
-            ],
-            "Resource": [
-                "*"
-            ]
+          "Effect" = "Allow",
+          "Action" = [
+            "apigateway:*"
+          ],
+          "Resource" = [
+            "*"
+          ]
         },
         {
-            "Effect": "Allow",
-            "Action": [
-                "cloudformation:*"
-            ],
-            "Resource": [
-                "*"
-            ]
+          "Effect" = "Allow",
+          "Action" = [
+            "cloudformation:*"
+          ],
+          "Resource" = [
+            "*"
+          ]
         },
         {
-            "Effect": "Allow",
-            "Action": [
-                "dynamodb:*"
-            ],
-            "Resource": [
-                "*"
-            ]
+          "Effect" = "Allow",
+          "Action" = [
+            "dynamodb:*"
+          ],
+          "Resource" = [
+            "*"
+          ]
         },
         {
-            "Effect": "Allow",
-            "Action": [
-                "iam:AttachRolePolicy",
-                "iam:CreatePolicy",
-                "iam:CreateRole",
-                "iam:DeleteRole",
-                "iam:DeleteRolePolicy",
-                "iam:GetRole",
-                "iam:PassRole",
-                "iam:PutRolePolicy"
-            ],
-            "Resource": [
-                "arn:aws:iam::*:*",
-                "arn:aws:iam::*:role/*"
-            ]
+          "Effect" = "Allow",
+          "Action" = [
+            "iam:AttachRolePolicy",
+            "iam:CreatePolicy",
+            "iam:CreateRole",
+            "iam:DeleteRole",
+            "iam:DeleteRolePolicy",
+            "iam:GetRole",
+            "iam:PassRole",
+            "iam:PutRolePolicy"
+          ],
+          "Resource" = [
+            "arn:aws:iam::*:*",
+            "arn:aws:iam::*:role/*"
+          ]
         },
         {
-            "Effect": "Allow",
-            "Action": [
-                "lambda:*"
-            ],
-            "Resource": [
-                "*"
-            ]
+          "Effect" = "Allow",
+          "Action" = [
+            "lambda:*"
+          ],
+          "Resource" = [
+            "*"
+          ]
         },
         {
-            "Effect": "Allow",
-            "Action": [
-                "logs:*"
-            ],
-            "Resource": [
-                "arn:aws:logs:${var.aws_region}:*:log-group:*:log-stream:"
-            ]
+          "Effect" = "Allow",
+          "Action" = [
+            "logs:*"
+          ],
+          "Resource" = [
+            "arn:aws:logs:${var.aws_region}:*:log-group:*:log-stream:"
+          ]
         },
         {
-            "Effect": "Allow",
-            "Action": [
-                "s3:*"
-            ],
-            "Resource": [
-                "arn:aws:s3:::*",
-                "arn:aws:s3:::*/*"
-            ]
+          "Effect" = "Allow",
+          "Action" = [
+            "s3:*"
+          ],
+          "Resource" = [
+            "arn:aws:s3:::*",
+            "arn:aws:s3:::*/*"
+          ]
         }
-    ]
-}
-)
+      ]
+    }
+  )
 
 }
 

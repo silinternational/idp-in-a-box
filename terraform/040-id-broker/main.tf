@@ -319,15 +319,15 @@ resource "aws_iam_role" "ecs_events" {
 
   assume_role_policy = jsonencode(
     {
-      Version : "2012-10-17"
-      Statement : [
+      Version = "2012-10-17"
+      Statement = [
         {
-          Sid : ""
-          Effect : "Allow"
-          Principal : {
-            Service : "events.amazonaws.com"
+          Sid    = ""
+          Effect = "Allow"
+          Principal = {
+            Service = "events.amazonaws.com"
           }
-          Action : "sts:AssumeRole"
+          Action = "sts:AssumeRole"
         },
       ]
     }
@@ -340,17 +340,17 @@ resource "aws_iam_role_policy" "ecs_events_run_task_with_any_role" {
 
   policy = jsonencode(
     {
-      Version : "2012-10-17"
-      Statement : [
+      Version = "2012-10-17"
+      Statement = [
         {
-          Effect : "Allow"
-          Action : "iam:PassRole"
-          Resource : "*"
+          Effect   = "Allow"
+          Action   = "iam:PassRole"
+          Resource = "*"
         },
         {
-          Effect : "Allow"
-          Action : "ecs:RunTask"
-          Resource : replace(aws_ecs_task_definition.cron_td.arn, "/:\\d+$/", ":*")
+          Effect   = "Allow"
+          Action   = "ecs:RunTask"
+          Resource = replace(aws_ecs_task_definition.cron_td.arn, "/:\\d+$/", ":*")
         },
       ]
     }
