@@ -66,12 +66,12 @@ locals {
       value = v
     })]
   )
-  api_access_keys = join(",",
+  api_access_keys = join(",", [
     random_id.access_token_pwmanager.hex,
     random_id.access_token_search.hex,
     random_id.access_token_ssp.hex,
     random_id.access_token_idsync.hex
-  )
+  ])
   task_def = templatefile("${path.module}/task-definition.json", {
     api_access_keys                            = local.api_access_keys
     abandoned_user_abandoned_period            = var.abandoned_user_abandoned_period
