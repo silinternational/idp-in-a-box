@@ -86,34 +86,32 @@ resource "aws_iam_user_policy" "ci_ui" {
   name = "CloudFront-and-S3"
   user = var.cd_user_username
 
-  policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
+  policy = jsonencode(
     {
-      "Sid": "Stmt1433518318000",
-      "Effect": "Allow",
-      "Action": [
-        "cloudfront:CreateInvalidation"
-      ],
-      "Resource": [
-        "${aws_cloudfront_distribution.ui[0].arn}"
+      Version : "2012-10-17"
+      Statement : [
+        {
+          Sid : "Stmt1433518318000"
+          Effect : "Allow"
+          Action : [
+            "cloudfront:CreateInvalidation",
+          ],
+          Resource : [
+            aws_cloudfront_distribution.ui[0].arn,
+          ]
+        },
+        {
+          Effect : "Allow"
+          Action : [
+            "s3:*",
+          ],
+          Resource : [
+            aws_s3_bucket.ui.arn,
+            "${aws_s3_bucket.ui.arn}/*",
+          ]
+        }
       ]
-    },
-    {
-      "Effect": "Allow",
-      "Action": [
-        "s3:*"
-      ],
-      "Resource": [
-          "${aws_s3_bucket.ui.arn}",
-          "${aws_s3_bucket.ui.arn}/*"
-      ]
-    }
-  ]
-}
-EOF
-
+  })
 }
 
 /*

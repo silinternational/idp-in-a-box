@@ -22,47 +22,42 @@ resource "aws_iam_user_policy" "cd_ecs" {
   name = "ECS-ECR"
   user = aws_iam_user.cd.name
 
-  policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": [
-        "ecs:DeregisterTaskDefinition",
-        "ecs:DescribeServices",
-        "ecs:DescribeTaskDefinition",
-        "ecs:DescribeTasks",
-        "ecs:ListTasks",
-        "ecs:ListTaskDefinitions",
-        "ecs:RegisterTaskDefinition",
-        "ecs:StartTask",
-        "ecs:StopTask",
-        "ecs:UpdateService",
-        "iam:PassRole"
-      ],
-      "Resource": "*"
-    },
-    {
-        "Effect": "Allow",
-        "Action": [
-            "ecr:GetAuthorizationToken"
+  policy = jsonencode({
+    "Version" : "2012-10-17"
+    "Statement" : [
+      {
+        Effect : "Allow"
+        Action : [
+          "ecs:DeregisterTaskDefinition",
+          "ecs:DescribeServices",
+          "ecs:DescribeTaskDefinition",
+          "ecs:DescribeTasks",
+          "ecs:ListTasks",
+          "ecs:ListTaskDefinitions",
+          "ecs:RegisterTaskDefinition",
+          "ecs:StartTask",
+          "ecs:StopTask",
+          "ecs:UpdateService",
+          "iam:PassRole",
         ],
-        "Resource": [
-            "*"
-        ]
-    }
-  ]
-}
-EOF
-
+        Resource : "*"
+      },
+      {
+        Effect : "Allow"
+        Action : [
+          "ecr:GetAuthorizationToken",
+        ],
+        Resource : "*"
+      }
+    ]
+  })
 }
 
 resource "aws_iam_user_policy" "cd_serverless" {
   name = "Serverless"
   user = aws_iam_user.cd.name
 
-  policy = <<EOF
+  policy = jsonencode(
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -140,7 +135,7 @@ resource "aws_iam_user_policy" "cd_serverless" {
         }
     ]
 }
-EOF
+)
 
 }
 
