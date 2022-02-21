@@ -1,0 +1,121 @@
+[
+  {
+    "volumesFrom": [],
+    "memory": ${memory},
+    "extraHosts": null,
+    "dnsServers": null,
+    "disableNetworking": null,
+    "dnsSearchDomains": null,
+    "portMappings": [
+      {
+        "hostPort": 0,
+        "containerPort": 80,
+        "protocol": "tcp"
+      }
+    ],
+    "hostname": null,
+    "essential": true,
+    "entryPoint": null,
+    "mountPoints": [],
+    "name": "web",
+    "ulimits": null,
+    "dockerSecurityOptions": null,
+    "environment": [
+      {
+        "name": "APP_ENV",
+        "value": "${app_env}"
+      },
+      {
+        "name": "EMAIL_SERVICE_accessToken",
+        "value": "${email_service_accessToken}"
+      },
+      {
+        "name": "EMAIL_SERVICE_assertValidIp",
+        "value": "${email_service_assertValidIp}"
+      },
+      {
+        "name": "EMAIL_SERVICE_baseUrl",
+        "value": "${email_service_baseUrl}"
+      },
+      {
+        "name": "EMAIL_SERVICE_validIpRanges",
+        "value": "${email_service_validIpRanges}"
+      },
+      {
+        "name": "ID_BROKER_CONFIG_accessToken",
+        "value": "${id_broker_access_token}"
+      },
+      {
+        "name": "ID_BROKER_ADAPTER",
+        "value": "${id_broker_adapter}"
+      },
+      {
+        "name": "ID_BROKER_CONFIG_assertValidIp",
+        "value": "${id_broker_assertValidIp}"
+      },
+      {
+        "name": "ID_BROKER_CONFIG_baseUrl",
+        "value": "${id_broker_base_url}"
+      },
+      {
+        "name": "ID_BROKER_CONFIG_trustedIpRanges",
+        "value": "${id_broker_trustedIpRanges}"
+      },
+      {
+        "name": "ID_STORE_ADAPTER",
+        "value": "${id_store_adapter}"
+      },
+      {
+        "name": "ID_SYNC_ACCESS_TOKENS",
+        "value": "${id_sync_access_tokens}"
+      },
+      {
+        "name": "IDP_NAME",
+        "value": "${idp_name}"
+      },
+      {
+        "name": "IDP_DISPLAY_NAME",
+        "value": "${idp_display_name}"
+      },
+      {
+        "name": "ALERTS_EMAIL",
+        "value": "${alerts_email}"
+      },
+      {
+        "name": "NOTIFIER_EMAIL_TO",
+        "value": "${notifier_email_to}"
+      },
+      {
+        "name": "SYNC_SAFETY_CUTOFF",
+        "value": "${sync_safety_cutoff}"
+      },
+      {
+        "name": "ALLOW_EMPTY_EMAIL",
+        "value": "${allow_empty_email}"
+      },
+      {
+        "name": "ENABLE_NEW_USER_NOTIFICATION",
+        "value": "${enable_new_user_notification}"
+      },
+      ${id_store_config}
+    ],
+    "links": null,
+    "workingDirectory": null,
+    "readonlyRootFilesystem": null,
+    "image": "${docker_image}",
+    "command": null,
+    "user": null,
+    "dockerLabels": null,
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "${cloudwatch_log_group_name}",
+        "awslogs-region": "${aws_region}",
+        "awslogs-stream-prefix": "${app_name}-${app_env}"
+      }
+    },
+    "cpu": ${cpu},
+    "privileged": null,
+    "memoryReservation": ${memory}
+  }
+]

@@ -1,0 +1,112 @@
+[
+  {
+    "volumesFrom": [],
+    "memory": ${memory_api},
+    "extraHosts": null,
+    "dnsServers": null,
+    "disableNetworking": null,
+    "dnsSearchDomains": null,
+    "portMappings": [
+      {
+        "hostPort": 0,
+        "containerPort": 80,
+        "protocol": "tcp"
+      }
+    ],
+    "hostname": null,
+    "essential": true,
+    "entryPoint": null,
+    "mountPoints": [],
+    "name": "api",
+    "ulimits": null,
+    "dockerSecurityOptions": null,
+    "environment": [
+      {
+        "name": "API_ACCESS_KEYS",
+        "value": "${api_access_keys}"
+      },
+      {
+        "name": "APP_ENV",
+        "value": "${app_env}"
+      },
+      {
+        "name": "APP_NAME",
+        "value": "${app_name}"
+      },
+      {
+        "name": "EMAIL_BRAND_COLOR",
+        "value": "${email_brand_color}"
+      },
+      {
+        "name": "EMAIL_BRAND_LOGO",
+        "value": "${email_brand_logo}"
+      },
+      {
+        "name": "EMAIL_QUEUE_BATCH_SIZE",
+        "value": "${email_queue_batch_size}"
+      },
+      {
+        "name": "FROM_EMAIL",
+        "value": "${from_email}"
+      },
+      {
+        "name": "IDP_NAME",
+        "value": "${idp_name}"
+      },
+      {
+        "name": "MAILER_HOST",
+        "value": "${mailer_host}"
+      },
+      {
+        "name": "MAILER_PASSWORD",
+        "value": "${mailer_password}"
+      },
+      {
+        "name": "MAILER_USEFILES",
+        "value": "${mailer_usefiles}"
+      },
+      {
+        "name": "MAILER_USERNAME",
+        "value": "${mailer_username}"
+      },
+      {
+        "name": "MYSQL_DATABASE",
+        "value": "${db_name}"
+      },
+      {
+        "name": "MYSQL_HOST",
+        "value": "${mysql_host}"
+      },
+      {
+        "name": "MYSQL_PASSWORD",
+        "value": "${mysql_pass}"
+      },
+      {
+        "name": "MYSQL_USER",
+        "value": "${mysql_user}"
+      },
+      {
+        "name": "NOTIFICATION_EMAIL",
+        "value": "${notification_email}"
+      }
+    ],
+    "links": null,
+    "workingDirectory": null,
+    "readonlyRootFilesystem": null,
+    "image": "${docker_image}",
+    "command": null,
+    "user": null,
+    "dockerLabels": null,
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "${cloudwatch_log_group_name}",
+        "awslogs-region": "${aws_region}",
+        "awslogs-stream-prefix": "${app_name}-${app_env}"
+      }
+    },
+    "cpu": ${cpu_api},
+    "privileged": null,
+    "memoryReservation": ${memory_api}
+  }
+]

@@ -1,0 +1,196 @@
+[
+  {
+    "volumesFrom": [],
+    "memory": ${memory},
+    "extraHosts": null,
+    "dnsServers": null,
+    "disableNetworking": null,
+    "dnsSearchDomains": null,
+    "portMappings": [
+      {
+        "hostPort": 0,
+        "containerPort": 80,
+        "protocol": "tcp"
+      }
+    ],
+    "hostname": null,
+    "essential": true,
+    "entryPoint": null,
+    "mountPoints": [],
+    "name": "web",
+    "ulimits": null,
+    "dockerSecurityOptions": null,
+    "environment": [
+      {
+        "name": "ADMIN_EMAIL",
+        "value": "${admin_email}"
+      },
+      {
+        "name": "ADMIN_NAME",
+        "value": "${admin_name}"
+      },
+      {
+        "name": "ADMIN_PASS",
+        "value": "${admin_pass}"
+      },
+      {
+        "name": "BASE_URL_PATH",
+        "value": "${base_url}"
+      },
+      {
+        "name": "DELETE_REMEMBER_ME_ON_LOGOUT",
+        "value": "${delete_remember_me_on_logout}"
+      },
+      {
+        "name": "ENABLE_DEBUG",
+        "value": "${enable_debug}"
+      },
+      {
+        "name": "ENABLE_HUB_AUTHPROCS",
+        "value": "true"
+      },
+      {
+        "name": "MEMCACHE_HOST1",
+        "value": "${memcache_host1}"
+      },
+      {
+        "name": "MEMCACHE_HOST2",
+        "value": "${memcache_host2}"
+      },
+      {
+        "name": "SECRET_SALT",
+        "value": "${secret_salt}"
+      },
+      {
+        "name": "SESSION_STORE_TYPE",
+        "value": "memcache"
+      },
+      {
+        "name": "SHOW_SAML_ERRORS",
+        "value": "${show_saml_errors}"
+      },
+      {
+        "name": "THEME_COLOR_SCHEME",
+        "value": "${theme_color_scheme}"
+      },
+      {
+        "name": "THEME_USE",
+        "value": "${theme_use}"
+      },
+      {
+        "name": "PASSWORD_CHANGE_URL",
+        "value": "${password_change_url}"
+      },
+      {
+        "name": "PASSWORD_FORGOT_URL",
+        "value": "${password_forgot_url}"
+      },
+      {
+        "name": "HUB_MODE",
+        "value": "${hub_mode}"
+      },
+      {
+        "name": "ID_BROKER_ACCESS_TOKEN",
+        "value": "${id_broker_access_token}"
+      },
+      {
+        "name": "ID_BROKER_ASSERT_VALID_IP",
+        "value": "${id_broker_assert_valid_ip}"
+      },
+      {
+        "name": "ID_BROKER_BASE_URI",
+        "value": "${id_broker_base_uri}"
+      },
+      {
+        "name": "ID_BROKER_TRUSTED_IP_RANGES",
+        "value": "${id_broker_trusted_ip_ranges}"
+      },
+      {
+        "name": "LOGGING_LEVEL",
+        "value": "${logging_level}"
+      },
+      {
+        "name": "MFA_LEARN_MORE_URL",
+        "value": "${mfa_learn_more_url}"
+      },
+      {
+        "name": "MFA_SETUP_URL",
+        "value": "${mfa_setup_url}"
+      },
+      {
+        "name": "MYSQL_HOST",
+        "value": "${mysql_host}"
+      },
+      {
+        "name": "MYSQL_DATABASE",
+        "value": "${mysql_database}"
+      },
+      {
+        "name": "MYSQL_USER",
+        "value": "${mysql_user}"
+      },
+      {
+        "name": "MYSQL_PASSWORD",
+        "value": "${mysql_password}"
+      },
+      {
+        "name": "PROFILE_URL",
+        "value":  "${profile_url}"
+      },
+      {
+        "name": "RECAPTCHA_SITE_KEY",
+        "value": "${recaptcha_key}"
+      },
+      {
+        "name": "RECAPTCHA_SECRET",
+        "value": "${recaptcha_secret}"
+      },
+      {
+        "name": "REMEMBER_ME_SECRET",
+        "value": "${remember_me_secret}"
+      },
+      {
+        "name": "IDP_DOMAIN_NAME",
+        "value": "${idp_domain_name}"
+      },
+      {
+        "name": "IDP_NAME",
+        "value": "${idp_name}"
+      },
+      {
+        "name": "IDP_DISPLAY_NAME",
+        "value": "${idp_display_name}"
+      },
+      {
+        "name": "TRUSTED_IP_ADDRESSES",
+        "value": "${trusted_ip_addresses}"
+      },
+      {
+        "name": "ANALYTICS_ID",
+        "value": "${analytics_id}"
+      },
+      {
+        "name": "HELP_CENTER_URL",
+        "value": "${help_center_url}"
+      }
+    ],
+    "links": null,
+    "workingDirectory": null,
+    "readonlyRootFilesystem": null,
+    "image": "${docker_image}",
+    "command": ["/data/run-idp.sh"],
+    "user": null,
+    "dockerLabels": null,
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "${cloudwatch_log_group_name}",
+        "awslogs-region": "${aws_region}",
+        "awslogs-stream-prefix": "${app_name}-${app_env}"
+      }
+    },
+    "cpu": ${cpu},
+    "privileged": null,
+    "memoryReservation": ${memory}
+  }
+]
