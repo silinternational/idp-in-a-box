@@ -55,10 +55,8 @@ resource "random_id" "access_token_idsync" {
 /*
  * Create ECS services
  */
-data "template_file" "task_def_api" {
-  template = file("${path.module}/task-definition-api.json")
-
-  vars = {
+locals {
+  task_def_api = templatefile("${path.module}/task-definition-api.json", {
     api_access_keys           = "${random_id.access_token_pwmanager.hex},${random_id.access_token_idbroker.hex},${random_id.access_token_idsync.hex}"
     app_env                   = var.app_env
     app_name                  = var.app_name
@@ -81,7 +79,7 @@ data "template_file" "task_def_api" {
     mysql_user                = var.mysql_user
     memory_api                = var.memory_api
     notification_email        = var.notification_email
-  }
+  })
 }
 
 module "ecsservice_api" {
@@ -90,17 +88,15 @@ module "ecsservice_api" {
   service_name       = "${var.idp_name}-${var.app_name}-api"
   service_env        = var.app_env
   ecsServiceRole_arn = var.ecsServiceRole_arn
-  container_def_json = data.template_file.task_def_api.rendered
+  container_def_json = local.task_def_api
   desired_count      = var.desired_count_api
   tg_arn             = aws_alb_target_group.email.arn
   lb_container_name  = "api"
   lb_container_port  = "80"
 }
 
-data "template_file" "task_def_cron" {
-  template = file("${path.module}/task-definition-cron.json")
-
-  vars = {
+locals {
+  task_def_cron = templatefile("${path.module}/task-definition-cron.json", {
     api_access_keys           = "${random_id.access_token_pwmanager.hex},${random_id.access_token_idbroker.hex},${random_id.access_token_idsync.hex}"
     app_env                   = var.app_env
     app_name                  = var.app_name
@@ -123,7 +119,7 @@ data "template_file" "task_def_cron" {
     mysql_user                = var.mysql_user
     memory_cron               = var.memory_cron
     notification_email        = var.notification_email
-  }
+  })
 }
 
 module "ecsservice_cron" {
@@ -131,7 +127,7 @@ module "ecsservice_cron" {
   cluster_id         = var.ecs_cluster_id
   service_name       = "${var.idp_name}-${var.app_name}-cron"
   service_env        = var.app_env
-  container_def_json = data.template_file.task_def_cron.rendered
+  container_def_json = local.task_def_cron
   desired_count      = 1
 }
 

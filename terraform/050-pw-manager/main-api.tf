@@ -51,10 +51,8 @@ resource "random_id" "access_token_hash" {
 /*
  * Create ECS service for API
  */
-data "template_file" "task_def" {
-  template = file("${path.module}/task-definition-api.json")
-
-  vars = {
+locals {
+  task_def = templatefile("${path.module}/task-definition-api.json", {
     access_token_hash                   = random_id.access_token_hash.hex
     alerts_email                        = var.alerts_email
     app_env                             = var.app_env
@@ -107,7 +105,7 @@ data "template_file" "task_def" {
     support_url                         = var.support_url
     ui_cors_origin                      = "https://${local.ui_hostname}"
     ui_url                              = "https://${local.ui_hostname}/#"
-  }
+  })
 }
 
 module "ecsservice" {
@@ -115,7 +113,7 @@ module "ecsservice" {
   cluster_id         = var.ecs_cluster_id
   service_name       = "${var.idp_name}-${var.app_name}"
   service_env        = var.app_env
-  container_def_json = data.template_file.task_def.rendered
+  container_def_json = local.task_def
   desired_count      = var.desired_count
   tg_arn             = aws_alb_target_group.pwmanager.arn
   lb_container_name  = "web"

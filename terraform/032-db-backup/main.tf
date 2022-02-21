@@ -41,30 +41,27 @@ resource "aws_iam_user_policy" "backup" {
   name = "S3-DB-Backup"
   user = aws_iam_user.backup.name
 
-  policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
+  policy = jsonencode(
     {
-      "Effect": "Allow",
-      "Action": [
-        "s3:PutObject"
-      ],
-      "Resource": "${aws_s3_bucket.backup.arn}*"
+      Version = "2012-10-17"
+      Statement = [
+        {
+          Effect = "Allow"
+          Action = [
+            "s3:PutObject",
+          ]
+          Resource = "${aws_s3_bucket.backup.arn}*"
+        },
+      ]
     }
-  ]
-}
-EOF
-
+  )
 }
 
 /*
  * Create ECS service
  */
-data "template_file" "task_def_backup" {
-  template = file("${path.module}/task-definition.json")
-
-  vars = {
+locals {
+  task_def_backup = templatefile("${path.module}/task-definition.json", {
     app_env                   = var.app_env
     app_name                  = var.app_name
     aws_region                = var.aws_region
@@ -82,7 +79,7 @@ data "template_file" "task_def_backup" {
     memory                    = var.memory
     s3_bucket                 = aws_s3_bucket.backup.bucket
     service_mode              = var.service_mode
-  }
+  })
 }
 
 /*
@@ -91,46 +88,44 @@ data "template_file" "task_def_backup" {
 resource "aws_iam_role" "ecs_events" {
   name = "ecs_events-${var.idp_name}-${var.app_name}-${var.app_env}"
 
-  assume_role_policy = <<EOF
-{
-    "Version": "2012-10-17",
-    "Statement": [
+  assume_role_policy = jsonencode(
+    {
+      Version = "2012-10-17"
+      Statement = [
         {
-            "Sid": "",
-            "Effect": "Allow",
-            "Principal": {
-              "Service": "events.amazonaws.com"
-            },
-            "Action": "sts:AssumeRole"
-        }
-    ]
-}
-EOF
-
+          Sid    = ""
+          Effect = "Allow"
+          Principal = {
+            Service = "events.amazonaws.com"
+          },
+          Action = "sts:AssumeRole"
+        },
+      ]
+    }
+  )
 }
 
 resource "aws_iam_role_policy" "ecs_events_run_task_with_any_role" {
   name = "ecs_events_run_task_with_any_role"
   role = aws_iam_role.ecs_events.id
 
-  policy = <<EOF
-{
-    "Version": "2012-10-17",
-    "Statement": [
+  policy = jsonencode(
+    {
+      Version = "2012-10-17"
+      Statement = [
         {
-            "Effect": "Allow",
-            "Action": "iam:PassRole",
-            "Resource": "*"
+          Effect   = "Allow"
+          Action   = "iam:PassRole"
+          Resource = "*"
         },
         {
-            "Effect": "Allow",
-            "Action": "ecs:RunTask",
-            "Resource": "${replace(aws_ecs_task_definition.cron_td.arn, "/:\\d+$/", ":*")}"
-        }
-    ]
-}
-EOF
-
+          Effect   = "Allow"
+          Action   = "ecs:RunTask"
+          Resource = replace(aws_ecs_task_definition.cron_td.arn, "/:\\d+$/", ":*")
+        },
+      ]
+    }
+  )
 }
 
 /*
@@ -138,7 +133,7 @@ EOF
  */
 resource "aws_ecs_task_definition" "cron_td" {
   family                = "${var.idp_name}-${var.app_name}-${var.app_env}"
-  container_definitions = data.template_file.task_def_backup.rendered
+  container_definitions = local.task_def_backup
   network_mode          = "bridge"
 }
 

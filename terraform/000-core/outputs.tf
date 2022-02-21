@@ -6,7 +6,8 @@ output "cduser_access_key_id" {
 }
 
 output "cduser_access_key_secret" {
-  value = aws_iam_access_key.cduser.secret
+  value     = aws_iam_access_key.cduser.secret
+  sensitive = true
 }
 
 output "cduser_arn" {

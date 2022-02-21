@@ -48,10 +48,8 @@ resource "random_id" "secretsalt" {
   byte_length = 32
 }
 
-data "template_file" "task_def" {
-  template = file("${path.module}/task-definition.json")
-
-  vars = {
+locals {
+  task_def = templatefile("${path.module}/task-definition.json", {
     memory                       = var.memory
     cpu                          = var.cpu
     admin_email                  = var.admin_email
@@ -95,7 +93,7 @@ data "template_file" "task_def" {
     analytics_id                 = var.analytics_id
     delete_remember_me_on_logout = var.delete_remember_me_on_logout
     help_center_url              = var.help_center_url
-  }
+  })
 }
 
 module "ecsservice" {
@@ -103,7 +101,7 @@ module "ecsservice" {
   cluster_id         = var.ecs_cluster_id
   service_name       = "${var.idp_name}-${var.app_name}"
   service_env        = var.app_env
-  container_def_json = data.template_file.task_def.rendered
+  container_def_json = local.task_def
   desired_count      = var.desired_count
   tg_arn             = aws_alb_target_group.ssp.arn
   lb_container_name  = "web"
