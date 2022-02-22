@@ -83,7 +83,7 @@ locals {
 }
 
 module "ecsservice_api" {
-  source             = "github.com/silinternational/terraform-modules//aws/ecs/service-only?ref=develop"
+  source             = "github.com/silinternational/terraform-modules//aws/ecs/service-only?ref=5.0.0"
   cluster_id         = var.ecs_cluster_id
   service_name       = "${var.idp_name}-${var.app_name}-api"
   service_env        = var.app_env
@@ -123,7 +123,7 @@ locals {
 }
 
 module "ecsservice_cron" {
-  source             = "github.com/silinternational/terraform-modules//aws/ecs/service-no-alb?ref=develop"
+  source             = "github.com/silinternational/terraform-modules//aws/ecs/service-no-alb?ref=5.0.0"
   cluster_id         = var.ecs_cluster_id
   service_name       = "${var.idp_name}-${var.app_name}-cron"
   service_env        = var.app_env
