@@ -48,7 +48,15 @@ resource "random_id" "secretsalt" {
   byte_length = 32
 }
 
+module "cf_ips" {
+  source = "github.com/silinternational/terraform-modules//cloudflare/ips?ref=4.0.0"
+}
+
 locals {
+  other_ip_addresses = var.trust_cloudflare_ips == "ipv4" ? module.cf_ips.ipv4_cidrs : []
+
+  trusted_ip_addresses = concat(module.cf_ips.ipv4_cidrs, var.trusted_ip_addresses)
+
   task_def = templatefile("${path.module}/task-definition.json", {
     memory                       = var.memory
     cpu                          = var.cpu
@@ -89,7 +97,7 @@ locals {
     idp_display_name             = var.idp_display_name
     theme_color_scheme           = var.theme_color_scheme
     theme_use                    = var.theme_use
-    trusted_ip_addresses         = join(",", var.trusted_ip_addresses)
+    trusted_ip_addresses         = join(",", local.trusted_ip_addresses)
     analytics_id                 = var.analytics_id
     delete_remember_me_on_logout = var.delete_remember_me_on_logout
     help_center_url              = var.help_center_url

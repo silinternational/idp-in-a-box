@@ -193,3 +193,7 @@ variable "admin_email" {
 
 variable "admin_name" {
 }
+
+variable "trust_cloudflare_ips" {
+  default = ""
+}
