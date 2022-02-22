@@ -3,16 +3,8 @@
  */
 resource "aws_s3_bucket" "ui" {
   bucket        = local.ui_hostname
+  acl           = "public-read"
   force_destroy = true
-}
-
-resource "aws_s3_bucket_acl" "ui" {
-  bucket = aws_s3_bucket.ui.id
-  acl    = "public-read"
-}
-
-resource "aws_s3_bucket_policy" "ui" {
-  bucket = "ui"
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [{
@@ -23,16 +15,10 @@ resource "aws_s3_bucket_policy" "ui" {
       Resource  = "arn:aws:s3:::${local.ui_hostname}/*"
     }]
   })
-}
 
-resource "aws_s3_bucket_website_configuration" "ui" {
-  bucket = aws_s3_bucket.ui.id
-  index_document {
-    suffix = "index.html"
-  }
-
-  error_document {
-    key = "error.html"
+  website {
+    index_document = "index.html"
+    error_document = "error.html"
   }
 }
 
