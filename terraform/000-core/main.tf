@@ -160,9 +160,9 @@ resource "aws_acm_certificate" "idp" {
 
 resource "cloudflare_record" "idp-verification" {
   count   = var.create_acm_cert ? 1 : 0
-  name    = aws_acm_certificate.idp[0].domain_validation_options[0].resource_record_name
-  value   = aws_acm_certificate.idp[0].domain_validation_options[0].resource_record_value
-  type    = aws_acm_certificate.idp[0].domain_validation_options[0].resource_record_type
+  name    = tolist(aws_acm_certificate.idp[0].domain_validation_options)[0].resource_record_name
+  value   = tolist(aws_acm_certificate.idp[0].domain_validation_options)[0].resource_record_value
+  type    = tolist(aws_acm_certificate.idp[0].domain_validation_options)[0].resource_record_type
   zone_id = data.cloudflare_zones.idp.zones[0].id
   proxied = false
 }
