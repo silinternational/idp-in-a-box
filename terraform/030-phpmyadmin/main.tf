@@ -1,5 +1,6 @@
 module "phpmyadmin" {
-  source                 = "github.com/silinternational/terraform-aws-phpmyadmin?ref=1.0.1"
+  source                 = "silinternational/phpmyadmin/aws"
+  version                = "~> 1.1.0"
   app_name               = "${var.idp_name}-${var.app_name}"
   app_env                = var.app_env
   vpc_id                 = var.vpc_id

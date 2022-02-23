@@ -52,7 +52,7 @@ This module is used to create an ECS service running simpleSAMLphp.
  - `mfa_learn_more_url` - URL to learn more about 2SV during profile review. Default: (link not displayed)
  - `show_saml_errors` - Whether or not to show saml errors. Default: `false`
  - `theme_color_scheme` - The color scheme to use for SSP. Default: `'indigo-purple'`
-
+ - `trust_cloudflare_ips` - If set to `"ipv4"` Cloudflare IPV4 addresses will be included in `trusted_ip_addresses`
 
 ## Outputs
 
@@ -64,7 +64,7 @@ This module is used to create an ECS service running simpleSAMLphp.
 
 ```hcl
 module "cf_ips" {
-  source = "github.com/silinternational/terraform-modules//cloudflare/ips?ref=4.0.0"
+  source = "github.com/silinternational/terraform-modules//cloudflare/ips?ref=5.0.0"
 }
 
 module "ssp" {
@@ -107,7 +107,6 @@ module "ssp" {
   theme_color_scheme           = var.theme_color_scheme
   theme_use                    = var.theme_use
   trusted_ip_addresses = concat(
-    module.cf_ips.ipv4_cidrs,
     var.trusted_ip_addresses,
     data.terraform_remote_state.cluster.outputs.public_subnet_cidr_blocks,
   )
@@ -117,5 +116,6 @@ module "ssp" {
   help_center_url              = data.terraform_remote_state.broker.help_center_url
   enable_debug                 = var.enable_debug
   logging_level                = var.logging_level
+  trust_cloudflare_ips         = "ipv4"
 }
 ```
