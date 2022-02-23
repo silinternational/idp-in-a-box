@@ -3,26 +3,35 @@
  */
 resource "aws_s3_bucket" "backup" {
   bucket        = "${var.idp_name}-${var.app_name}-${var.app_env}"
-  acl           = "private"
   force_destroy = true
-
-  versioning {
-    enabled = true
-  }
-
-  lifecycle_rule {
-    id      = "delete-old-versions"
-    enabled = true
-
-    noncurrent_version_expiration {
-      days = 30
-    }
-  }
-
   tags = {
     idp_name = var.idp_name
     app_name = var.app_name
     app_env  = var.app_env
+  }
+}
+
+resource "aws_s3_bucket_acl" "backup" {
+  bucket = aws_s3_bucket.backup.id
+  acl    = "private"
+}
+
+resource "aws_s3_bucket_lifecycle_configuration" "backup" {
+  bucket = aws_s3_bucket.backup.id
+  rule {
+    id     = "delete-old-versions"
+    status = "Enabled"
+
+    noncurrent_version_expiration {
+      noncurrent_days = 30
+    }
+  }
+}
+
+resource "aws_s3_bucket_versioning" "backup" {
+  bucket = aws_s3_bucket.backup.id
+  versioning_configuration {
+    status = "Enabled"
   }
 }
 
