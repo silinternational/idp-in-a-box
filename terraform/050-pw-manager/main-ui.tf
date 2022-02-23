@@ -12,7 +12,7 @@ resource "aws_s3_bucket_acl" "ui" {
 }
 
 resource "aws_s3_bucket_policy" "ui" {
-  bucket = "ui"
+  bucket = aws_s3_bucket.ui.id
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [{
