@@ -184,6 +184,12 @@ variable "analytics_id" {
   type = string
 }
 
+variable "analytics_id_ga4" {
+  type = string
+  default = ""
+  description = "The id for a Google Analytics 4 project(e.g. G-G123ABC789)"
+}
+
 variable "help_center_url" {
   type = string
 }

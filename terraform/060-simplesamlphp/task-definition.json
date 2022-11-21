@@ -170,6 +170,10 @@
         "value": "${analytics_id}"
       },
       {
+        "name": "ANALYTICS_ID_GA4",
+        "value": "${analytics_id_ga4}"
+      },
+      {
         "name": "HELP_CENTER_URL",
         "value": "${help_center_url}"
       }
