@@ -53,6 +53,7 @@ This module is used to create an ECS service running simpleSAMLphp.
  - `show_saml_errors` - Whether or not to show saml errors. Default: `false`
  - `theme_color_scheme` - The color scheme to use for SSP. Default: `'indigo-purple'`
  - `trust_cloudflare_ips` - If set to `"ipv4"` Cloudflare IPV4 addresses will be included in `trusted_ip_addresses`
+ - `analytics_id_ga4` - The Google Analytics 4 project ID
 
 ## Outputs
 
