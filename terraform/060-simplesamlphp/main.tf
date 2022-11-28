@@ -99,7 +99,6 @@ locals {
     theme_use                    = var.theme_use
     trusted_ip_addresses         = join(",", local.trusted_ip_addresses)
     analytics_id                 = var.analytics_id
-    analytics_id_ga4             = var.analytics_id_ga4
     delete_remember_me_on_logout = var.delete_remember_me_on_logout
     help_center_url              = var.help_center_url
   })
