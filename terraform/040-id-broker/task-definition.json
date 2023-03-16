@@ -70,12 +70,16 @@
         "value": "${email_signature}"
       },
       {
-        "name": "GA_TRACKING_ID",
-        "value": "${ga_tracking_id}"
+        "name": "GA_API_SECRET",
+        "value": "${ga_api_secret}"
       },
       {
         "name": "GA_CLIENT_ID",
         "value": "${ga_client_id}"
+      },
+      {
+        "name": "GA_MEASUREMENT_ID",
+        "value": "${ga_measurement_id}"
       },
       ${google_config},
       {
