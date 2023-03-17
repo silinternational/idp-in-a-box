@@ -107,14 +107,20 @@ variable "event_schedule" {
   default = "cron(0 0 * * ? *)"
 }
 
+variable "ga_api_secret" {
+  description = "The Google Analytics API secret for the data stream (e.g. aB-abcdef7890123456789)"
+  type        = string
+  default     = ""
+}
+
 variable "ga_client_id" {
   description = "Used by Google Analytics to distinguish the user."
   type        = string
   default     = ""
 }
 
-variable "ga_tracking_id" {
-  description = "The Google Analytics property id (e.g. UA-12345678-12)"
+variable "ga_measurement_id" {
+  description = "The Google Analytics data stream id (e.g. G-ABCDE67890)"
   type        = string
   default     = ""
 }
