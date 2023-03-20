@@ -57,8 +57,9 @@ This module is used to create an ECS service running id-broker.
  - `email_service_assertValidIp` - Whether or not to assert IP address for Email Service API is trusted
  - `email_signature` - Signature for use in emails. Default is empty string
  - `event_schedule` - Task run schedule. Default: `cron(0 0 * * ? *)`
+ - `ga_api_secret` - The Google Analytics API secret for the data stream (e.g. aB-abcdef7890123456789)
  - `ga_client_id` - Used by Google Analytics to distinguish the user (e.g. IDP-<the idp name>-ID-BROKER)
- - `ga_tracking_id` - The Google Analytics property id (e.g. UA-12345678-12)
+ - `ga_measurement_id` - The Google Analytics data stream id (e.g. G-ABCDE67890)
  - `google_config` - A JSON object containing Google properties for Sheets export
  - `hibp_check_interval` - How often should HIBP be checked during login. Default `+1 week`
  - `hibp_check_on_login` - Whether to check HIBP during login. Default `true` 
@@ -161,8 +162,9 @@ module "broker" {
   email_service_validIpRanges      = data.terraform_remote_state.cluster.private_subnet_cidr_blocks
   email_signature                  = var.email_signature
   event_schedule                   = "cron(1 0 * * ? 0)"
+  ga_api_secret                    = var.ga_api_secret
   ga_client_id                     = var.ga_client_id
-  ga_tracking_id                   = var.ga_tracking_id
+  ga_measurement_id                = var.ga_measurement_id
   google_config                    = var.google_config
   help_center_url                  = var.help_center_url
   hibp_check_interval              = var.hibp_check_interval

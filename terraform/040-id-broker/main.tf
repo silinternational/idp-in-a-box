@@ -91,8 +91,9 @@ locals {
     email_service_baseUrl                      = var.email_service_baseUrl
     email_service_validIpRanges                = join(",", var.email_service_validIpRanges)
     email_signature                            = var.email_signature
+    ga_api_secret                              = var.ga_api_secret
     ga_client_id                               = var.ga_client_id
-    ga_tracking_id                             = var.ga_tracking_id
+    ga_measurement_id                          = var.ga_measurement_id
     google_config                              = local.google_vars
     help_center_url                            = var.help_center_url
     hibp_check_interval                        = var.hibp_check_interval
@@ -219,8 +220,9 @@ locals {
     email_service_baseUrl                      = var.email_service_baseUrl
     email_service_validIpRanges                = join(",", var.email_service_validIpRanges)
     email_signature                            = var.email_signature
+    ga_api_secret                              = var.ga_api_secret
     ga_client_id                               = var.ga_client_id
-    ga_tracking_id                             = var.ga_tracking_id
+    ga_measurement_id                          = var.ga_measurement_id
     google_config                              = local.google_vars
     help_center_url                            = var.help_center_url
     hibp_check_interval                        = var.hibp_check_interval
