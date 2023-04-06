@@ -2,11 +2,7 @@
  * Create target group for ALB
  */
 resource "aws_alb_target_group" "pwmanager" {
-  name = replace(
-    "tg-${var.idp_name}-${var.app_name}-${var.app_env}",
-    "/(.{0,32})(.*)/",
-    "$1",
-  )
+  name                 = substr("tg-${var.idp_name}-${var.app_name}-${var.app_env}", 0, 32)
   port                 = "80"
   protocol             = "HTTP"
   vpc_id               = var.vpc_id
