@@ -130,7 +130,7 @@ resource "aws_iam_role_policy" "ecs_events_run_task_with_any_role" {
         {
           Effect   = "Allow"
           Action   = "ecs:RunTask"
-          Resource = "${trim(aws_ecs_task_definition.cron_td.arn, "0123456789")}*"
+          Resource = "${aws_ecs_task_definition.cron_td.arn_without_revision}:*"
         },
       ]
     }
