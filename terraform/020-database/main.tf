@@ -7,7 +7,7 @@ resource "random_id" "db_root_pass" {
 }
 
 module "rds" {
-  source                  = "github.com/silinternational/terraform-modules//aws/rds/mariadb?ref=5.0.0"
+  source                  = "github.com/silinternational/terraform-modules//aws/rds/mariadb?ref=8.0.0"
   app_name                = var.app_name
   app_env                 = var.app_env
   db_name                 = var.db_name
