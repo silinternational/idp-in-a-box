@@ -199,10 +199,13 @@ services:
       - "51052:8000"
     depends_on:
       - pw-api
+    env_file:
+      - pw-ui/local.env
     environment:
       VUE_APP_API_BASE_URL: http://pw-api.local:51050
       VUE_APP_PRIMARY_COLOR: "#015d99"
       VUE_APP_SECONDARY_COLOR: "#791f5e"
+
 
   sync:
     image: silintl/idp-id-sync:develop
