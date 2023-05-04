@@ -2,11 +2,7 @@
  * Create target group for ALB
  */
 resource "aws_alb_target_group" "email" {
-  name = replace(
-    "tg-${var.idp_name}-${var.app_name}-${var.app_env}",
-    "/(.{0,32})(.*)/",
-    "$1",
-  )
+  name                 = substr("tg-${var.idp_name}-${var.app_name}-${var.app_env}", 0, 32)
   port                 = "80"
   protocol             = "HTTP"
   vpc_id               = var.vpc_id
@@ -83,7 +79,7 @@ locals {
 }
 
 module "ecsservice_api" {
-  source             = "github.com/silinternational/terraform-modules//aws/ecs/service-only?ref=5.0.0"
+  source             = "github.com/silinternational/terraform-modules//aws/ecs/service-only?ref=8.0.1"
   cluster_id         = var.ecs_cluster_id
   service_name       = "${var.idp_name}-${var.app_name}-api"
   service_env        = var.app_env
@@ -123,7 +119,7 @@ locals {
 }
 
 module "ecsservice_cron" {
-  source             = "github.com/silinternational/terraform-modules//aws/ecs/service-no-alb?ref=5.0.0"
+  source             = "github.com/silinternational/terraform-modules//aws/ecs/service-no-alb?ref=8.0.1"
   cluster_id         = var.ecs_cluster_id
   service_name       = "${var.idp_name}-${var.app_name}-cron"
   service_env        = var.app_env

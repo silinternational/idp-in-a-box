@@ -41,3 +41,9 @@ variable "asg_additional_user_data" {
   type    = string
   default = ""
 }
+
+variable "tags" {
+  description = "Tags to add to the autoscaling group and EC2 instances"
+  type        = map(string)
+  default     = {}
+}

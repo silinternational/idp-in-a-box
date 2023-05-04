@@ -2,11 +2,7 @@
  * Create target group for ALB
  */
 resource "aws_alb_target_group" "ssp" {
-  name = replace(
-    "tg-${var.idp_name}-${var.app_name}-${var.app_env}",
-    "/(.{0,32})(.*)/",
-    "$1",
-  )
+  name                 = substr("tg-${var.idp_name}-${var.app_name}-${var.app_env}", 0, 32)
   port                 = "80"
   protocol             = "HTTP"
   vpc_id               = var.vpc_id
@@ -49,7 +45,7 @@ resource "random_id" "secretsalt" {
 }
 
 module "cf_ips" {
-  source = "github.com/silinternational/terraform-modules//cloudflare/ips?ref=5.0.0"
+  source = "github.com/silinternational/terraform-modules//cloudflare/ips?ref=8.0.1"
 }
 
 locals {
@@ -105,7 +101,7 @@ locals {
 }
 
 module "ecsservice" {
-  source             = "github.com/silinternational/terraform-modules//aws/ecs/service-only?ref=5.0.0"
+  source             = "github.com/silinternational/terraform-modules//aws/ecs/service-only?ref=8.0.1"
   cluster_id         = var.ecs_cluster_id
   service_name       = "${var.idp_name}-${var.app_name}"
   service_env        = var.app_env
