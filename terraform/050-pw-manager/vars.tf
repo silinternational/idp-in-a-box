@@ -178,14 +178,6 @@ variable "idp_name" {
   type        = string
 }
 
-variable "memcache_config1_host" {
-  type = string
-}
-
-variable "memcache_config2_host" {
-  type = string
-}
-
 variable "memory" {
   description = "Amount of memory to allocate to container, recommend '128' for production"
   default     = "100"

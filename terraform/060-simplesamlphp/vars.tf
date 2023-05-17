@@ -97,14 +97,6 @@ variable "mfa_setup_url" {
   type = string
 }
 
-variable "memcache_host1" {
-  type = string
-}
-
-variable "memcache_host2" {
-  type = string
-}
-
 variable "db_name" {
   type = string
 }

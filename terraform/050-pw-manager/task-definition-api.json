@@ -126,14 +126,6 @@
         "value": "${idp_name}"
       },
       {
-        "name": "MEMCACHE_CONFIG1_host",
-        "value": "${memcache_config1_host}"
-      },
-      {
-        "name": "MEMCACHE_CONFIG2_host",
-        "value": "${memcache_config2_host}"
-      },
-      {
         "name": "MYSQL_DATABASE",
         "value": "${db_name}"
       },
