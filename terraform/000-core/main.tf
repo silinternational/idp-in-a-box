@@ -16,7 +16,7 @@ module "ecscluster_secondary" {
   count = var.aws_region_secondary == "" ? 0 : 1
 
   source       = "github.com/silinternational/terraform-modules//aws/ecs/cluster?ref=8.1.0"
-  cluster_name = "idp-secondary"
+  cluster_name = "${var.app_name}-${var.app_env}-secondary"
   providers = {
     aws = aws.secondary
   }

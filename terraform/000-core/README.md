@@ -6,7 +6,7 @@ used by later workspaces for HTTPS with the ALB.
 ## What this does
 
  - Create ECS cluster named after `app_name` and `app_env`
- - Optionally create a secondary ECS cluster named `app_name_secondary`
+ - Optionally create a secondary ECS cluster named `app_name_-app_env-secondary`
  - Create IAM roles and policies for ECS services and instances
  - Optionally create and validate an ACM certificate using DNS
 
