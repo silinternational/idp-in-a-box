@@ -77,8 +77,6 @@ locals {
     mfa_setup_url                = var.mfa_setup_url
     idp_domain_name              = "${var.subdomain}.${var.cloudflare_domain}"
     logging_level                = var.logging_level
-    memcache_host1               = var.memcache_host1
-    memcache_host2               = var.memcache_host2
     mysql_database               = var.db_name
     mysql_host                   = var.mysql_host
     mysql_password               = var.mysql_pass

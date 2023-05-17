@@ -82,8 +82,6 @@ locals {
     id_broker_validIpRanges             = join(",", var.id_broker_validIpRanges)
     idp_display_name                    = var.idp_display_name
     idp_name                            = var.idp_name
-    memcache_config1_host               = var.memcache_config1_host
-    memcache_config2_host               = var.memcache_config2_host
     memory                              = var.memory
     mysql_host                          = var.mysql_host
     mysql_password                      = var.mysql_pass

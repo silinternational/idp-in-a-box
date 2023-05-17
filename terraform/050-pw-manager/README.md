@@ -45,8 +45,6 @@ This module is used to create an ECS service running the password manager API an
  - `id_broker_base_uri` - Base URL to id-broker API
  - `id_broker_validIpRanges` - List of valid IP blocks for ID Broker
  - `idp_name` - Short name of IdP for use in logs and email alerts
- - `memcache_config1_host` - First memcache server
- - `memcache_config2_host` - Second memcache server
  - `memory` - Amount of memory to allocate to API container
  - `mysql_host` - Address for RDS instance
  - `mysql_pass` - MySQL password for id-broker
@@ -122,8 +120,6 @@ module "pwmanager" {
   id_broker_validIpRanges             = data.terraform_remote_state.cluster.private_subnet_cidr_blocks
   idp_display_name                    = var.idp_display_name
   idp_name                            = var.idp_name
-  memcache_config1_host               = data.terraform_remote_state.elasticache.cache_nodes.0.address
-  memcache_config2_host               = data.terraform_remote_state.elasticache.cache_nodes.1.address
   memory                              = var.memory
   mysql_host                          = data.terraform_remote_state.database.rds_address
   mysql_pass                          = data.terraform_remote_state.database.db_pwmanager_pass
