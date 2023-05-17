@@ -17,8 +17,19 @@ variable "aws_region" {
   type = string
 }
 
+variable "aws_region_secondary" {
+  description = "secondary AWS region - leave blank if a secondary region is not desired"
+  default     = ""
+  type        = string
+}
+
 variable "aws_zones" {
   type = list(string)
+}
+
+variable "aws_zones_secondary" {
+  type = list(string)
+  default = []
 }
 
 variable "cert_domain_name" {
