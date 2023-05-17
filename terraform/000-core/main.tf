@@ -5,6 +5,23 @@ module "ecscluster" {
   source   = "github.com/silinternational/terraform-modules//aws/ecs/cluster?ref=8.0.1"
   app_name = var.app_name
   app_env  = var.app_env
+  providers = {
+    aws = aws.primary
+  }
+}
+
+/*
+ * Create secondary ECS cluster
+ */
+module "ecscluster_secondary" {
+  count = var.aws_region_secondary == "" ? 0 : 1
+
+  source   = "github.com/silinternational/terraform-modules//aws/ecs/cluster?ref=8.0.1"
+  app_name = var.app_name
+  app_env  = "secondary"
+  providers = {
+    aws = aws.secondary
+  }
 }
 
 /*

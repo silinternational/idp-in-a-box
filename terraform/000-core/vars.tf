@@ -14,6 +14,12 @@ variable "aws_region" {
   type    = string
 }
 
+variable "aws_region_secondary" {
+  description = "secondary AWS region - leave blank if a secondary region is not desired"
+  default     = ""
+  type        = string
+}
+
 variable "create_acm_cert" {
   default = false
 }

@@ -1,6 +1,7 @@
 /*
  * IAM outputs
  */
+
 output "cduser_access_key_id" {
   value = aws_iam_access_key.cduser.id
 }
@@ -21,6 +22,7 @@ output "cduser_username" {
 /*
  * ECS cluster outputs
  */
+
 output "ecs_ami_id" {
   value = module.ecscluster.ami_id
 }
@@ -45,3 +47,26 @@ output "ecsServiceRole_arn" {
   value = module.ecscluster.ecsServiceRole_arn
 }
 
+/*
+ * ECS secondary cluster outputs
+ */
+
+output "ecs_secondary_cluster_id" {
+  value = one(module.ecscluster_secondary[*].ecs_cluster_id)
+}
+
+output "ecs_secondary_cluster_name" {
+  value = one(module.ecscluster_secondary[*].ecs_cluster_name)
+}
+
+output "ecs_secondary_instance_profile_id" {
+  value = one(module.ecscluster_secondary[*].ecs_instance_profile_id)
+}
+
+output "ecs_secondary_InstanceRole_arn" {
+  value = one(module.ecscluster_secondary[*].ecsInstanceRole_arn)
+}
+
+output "ecs_secondary_ServiceRole_arn" {
+  value = one(module.ecscluster_secondary[*].ecsServiceRole_arn)
+}
