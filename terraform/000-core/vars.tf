@@ -9,11 +9,6 @@ variable "app_env" {
   type = string
 }
 
-variable "aws_region" {
-  default = "us-east-1"
-  type    = string
-}
-
 variable "cert_domain" {
   description = "TLD for certificate domain"
   type        = string
