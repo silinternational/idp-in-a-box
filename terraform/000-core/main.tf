@@ -2,9 +2,8 @@
  * Create ECS cluster
  */
 module "ecscluster" {
-  source   = "github.com/silinternational/terraform-modules//aws/ecs/cluster?ref=8.0.1"
-  app_name = var.app_name
-  app_env  = var.app_env
+  source       = "github.com/silinternational/terraform-modules//aws/ecs/cluster?ref=8.1.0"
+  cluster_name = var.cluster_name
 }
 
 /*
@@ -13,7 +12,7 @@ module "ecscluster" {
 resource "aws_iam_user" "cd" {
   count = var.create_cd_user ? 1 : 0
 
-  name = "cd-${var.app_name}-${var.app_env}"
+  name = "cd-${var.cluster_name}"
 }
 
 resource "aws_iam_access_key" "cduser" {
