@@ -62,13 +62,9 @@ resource "aws_iam_user_policy" "cd_ecs" {
 /*
  * Create ACM certificate
  */
-data "cloudflare_zones" "idp" {
-  filter {
-    name = var.cert_domain
-  }
-}
 resource "aws_acm_certificate" "idp" {
-  count                     = var.create_acm_cert ? 1 : 0
+  count = var.create_acm_cert ? 1 : 0
+
   domain_name               = var.cert_domain
   subject_alternative_names = ["*.${var.cert_domain}"]
   validation_method         = "DNS"
@@ -79,7 +75,8 @@ resource "aws_acm_certificate" "idp" {
 }
 
 resource "cloudflare_record" "idp-verification" {
-  count   = var.create_acm_cert ? 1 : 0
+  count = var.create_acm_cert ? 1 : 0
+
   name    = tolist(aws_acm_certificate.idp[0].domain_validation_options)[0].resource_record_name
   value   = tolist(aws_acm_certificate.idp[0].domain_validation_options)[0].resource_record_value
   type    = tolist(aws_acm_certificate.idp[0].domain_validation_options)[0].resource_record_type
@@ -87,8 +84,15 @@ resource "cloudflare_record" "idp-verification" {
   proxied = false
 }
 
+data "cloudflare_zones" "idp" {
+  filter {
+    name = var.cert_domain
+  }
+}
+
 resource "aws_acm_certificate_validation" "idp" {
-  count                   = var.create_acm_cert ? 1 : 0
+  count = var.create_acm_cert ? 1 : 0
+
   certificate_arn         = aws_acm_certificate.idp[0].arn
   validation_record_fqdns = [cloudflare_record.idp-verification[0].hostname]
 }
