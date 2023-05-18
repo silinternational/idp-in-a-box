@@ -19,6 +19,7 @@ used by later workspaces for HTTPS with the ALB.
 
  - `aws_region` - Region to deploy in, ex: `us-east-1`
  - `create_acm_cert` - Bool of whether or not to create an ACM cert. Default: `false`
+ - `create_cd_user` - Set to false if an IAM user for continuous deployment is not needed. Default: `true`
 
 ## Outputs
 

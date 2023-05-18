@@ -11,16 +11,22 @@ module "ecscluster" {
  * Create user for CI/CD to perform ECS actions
  */
 resource "aws_iam_user" "cd" {
+  count = var.create_cd_user ? 1 : 0
+
   name = "cd-${var.app_name}-${var.app_env}"
 }
 
 resource "aws_iam_access_key" "cduser" {
-  user = aws_iam_user.cd.name
+  count = var.create_cd_user ? 1 : 0
+
+  user = aws_iam_user.cd[0].name
 }
 
 resource "aws_iam_user_policy" "cd_ecs" {
+  count = var.create_cd_user ? 1 : 0
+
   name = "ECS-ECR"
-  user = aws_iam_user.cd.name
+  user = aws_iam_user.cd[0].name
 
   policy = jsonencode({
     Version = "2012-10-17"
