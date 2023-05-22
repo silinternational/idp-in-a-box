@@ -13,7 +13,7 @@ module "rds" {
   app_env                 = var.app_env
   db_name                 = var.db_name
   db_root_user            = var.mysql_user
-  db_root_pass            = one(random_id.db_root_pass[*].hex)
+  db_root_pass            = local.root_pass
   subnet_group_name       = var.subnet_group_name
   availability_zone       = var.availability_zone
   security_groups         = var.security_groups
@@ -53,6 +53,7 @@ resource "random_id" "db_ssp_pass" {
 }
 
 locals {
+  root_pass         = one(random_id.db_root_pass[*].hex)
   pwmanager_pass    = one(random_id.db_pwmanager_pass[*].hex)
   idbroker_pass     = one(random_id.db_idbroker_pass[*].hex)
   ssp_pass          = one(random_id.db_ssp_pass[*].hex)

@@ -11,7 +11,7 @@ output "mysql_user" {
 }
 
 output "mysql_pass" {
-  value     = one(random_id.db_root_pass[*].hex)
+  value     = local.root_pass
   sensitive = true
 }
 

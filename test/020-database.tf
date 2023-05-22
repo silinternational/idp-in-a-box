@@ -9,7 +9,7 @@ module "defaults" {
   subnet_group_name = "db-subnet-test"
 }
 
-module "defaults" {
+module "read-replica" {
   source = "../terraform/020-database"
 
   app_env           = "test"
