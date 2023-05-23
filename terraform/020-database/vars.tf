@@ -70,3 +70,14 @@ variable "skip_final_snapshot" {
   default = true
 }
 
+variable "create_passwords" {
+  type        = bool
+  description = "Set to false to skip creation of database passwords"
+  default     = true
+}
+
+variable "replicate_source_db" {
+  type        = string
+  description = "To create a replica DB in a separate region, specify the source database ARN"
+  default     = ""
+}
