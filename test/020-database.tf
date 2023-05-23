@@ -1,4 +1,4 @@
-module "defaults" {
+module "default_database" {
   source = "../terraform/020-database"
 
   app_env           = "test"
