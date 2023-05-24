@@ -1,5 +1,5 @@
 variable "secret_salt" {
-  default = ""
+  default     = ""
   description = "This allows for porting the value over from a primary to a secondary workspace (a random string that is 64 characters long)."
 }
 
