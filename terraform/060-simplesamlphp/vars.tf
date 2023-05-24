@@ -1,3 +1,9 @@
+variable "secret_salt" {
+  type    = string
+  default = ""
+  description = "This allows for porting the value over from a primary to a secondary workspace (a random string that is 64 characters long)."
+}
+
 variable "memory" {
   default = "96"
 }

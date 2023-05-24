@@ -85,7 +85,7 @@ locals {
     recaptcha_key                = var.recaptcha_key
     recaptcha_secret             = var.recaptcha_secret
     remember_me_secret           = var.remember_me_secret
-    secret_salt                  = random_id.secretsalt.hex
+    secret_salt                  = var.secret_salt == "" ? random_id.secretsalt.hex : var.secret_salt
     show_saml_errors             = var.show_saml_errors
     idp_name                     = var.idp_name
     idp_display_name             = var.idp_display_name
