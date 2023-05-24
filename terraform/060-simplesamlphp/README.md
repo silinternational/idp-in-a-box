@@ -48,6 +48,8 @@ This module is used to create an ECS service running simpleSAMLphp.
  - `enable_debug` - Enable debug logs. Default: `false`
  - `logging_level` - Minimum log level to log. DO NOT use DEBUG in production. Allowed values: ERR, WARNING, NOTICE, INFO, DEBUG. Default: `NOTICE`
  - `mfa_learn_more_url` - URL to learn more about 2SV during profile review. Default: (link not displayed)
+ - `secret_salt` - This allows for porting the value over from a primary to a secondary workspace. 
+    A 64-character random string will be created automatically if not provided.
  - `show_saml_errors` - Whether or not to show saml errors. Default: `false`
  - `theme_color_scheme` - The color scheme to use for SSP. Default: `'indigo-purple'`
  - `trust_cloudflare_ips` - If set to `"ipv4"` Cloudflare IPV4 addresses will be included in `trusted_ip_addresses`
