@@ -17,6 +17,10 @@ resource "aws_iam_role" "functionRole" {
   })
 }
 
+/*
+ * AWS Managed Policy with minimum permissions for a Lambda function
+ * https://docs.aws.amazon.com/aws-managed-policy/latest/reference/AWSLambdaVPCAccessExecutionRole.html
+ */
 resource "aws_iam_role_policy_attachment" "AWSLambdaVPCAccessExecutionRole" {
   role       = aws_iam_role.functionRole.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole"
