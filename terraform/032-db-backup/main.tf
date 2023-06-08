@@ -58,7 +58,7 @@ resource "aws_s3_bucket_versioning" "backup" {
  * Create user for putting backup files into the bucket
  */
 resource "aws_iam_user" "backup" {
-  name = "db-backup-${var.idp_name}-${var.app_env}"
+  name = var.backup_user_name == null ? "db-backup-${var.idp_name}-${var.app_env}" : var.backup_user_name
 }
 
 resource "aws_iam_access_key" "backup" {
