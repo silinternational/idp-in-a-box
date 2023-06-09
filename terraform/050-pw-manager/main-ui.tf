@@ -9,6 +9,10 @@ resource "aws_s3_bucket" "ui" {
 resource "aws_s3_bucket_acl" "ui" {
   bucket = aws_s3_bucket.ui.id
   acl    = "public-read"
+  depends_on = [
+    aws_s3_bucket_ownership_controls.ui,
+    aws_s3_bucket_public_access_block.ui,
+  ]
 }
 
 resource "aws_s3_bucket_policy" "ui" {
