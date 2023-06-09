@@ -3,7 +3,7 @@ data "http" "function-checksum" {
 }
 
 resource "aws_iam_role" "functionRole" {
-  name = "${var.idp_name}-${var.app_name}-${var.app_env}-lambda-function-role"
+  name = substr("${var.idp_name}-${var.app_name}-${var.app_env}-lambda-function-role", 0, 64)
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
     Statement = [{
@@ -58,7 +58,7 @@ resource "aws_lambda_function" "search" {
 }
 
 resource "aws_iam_role" "assumeRole" {
-  name = "${var.idp_name}-${var.app_name}-${var.app_env}-lambda-remote-execute"
+  name = substr("${var.idp_name}-${var.app_name}-${var.app_env}-lambda-remote-execute", 0, 64)
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [{
