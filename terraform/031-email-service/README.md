@@ -45,6 +45,7 @@ This module is used to create an ECS service running email-service.
  - `mailer_usefiles` - Whether or not YiiMailer should write to files instead of sending emails
  - `memory_api` - Memory (RAM) resources to allot to each API instance
  - `memory_cron` - Memory (RAM) resources to allot to the cron instance
+ - `enable_cron` - Set to false to disable the cron instance
 
 ## Outputs
 
