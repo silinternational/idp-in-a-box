@@ -137,3 +137,7 @@ variable "allow_empty_email" {
 variable "enable_new_user_notification" {
   default = "false"
 }
+
+variable "enable_sync" {
+  default = true
+}
