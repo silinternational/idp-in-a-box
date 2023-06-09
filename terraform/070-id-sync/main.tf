@@ -86,7 +86,7 @@ module "ecsservice" {
   service_name       = "${var.idp_name}-${var.app_name}"
   service_env        = var.app_env
   container_def_json = local.task_def
-  desired_count      = 1
+  desired_count      = var.enable_sync ? 1 : 0
   tg_arn             = aws_alb_target_group.idsync.arn
   lb_container_name  = "web"
   lb_container_port  = "80"

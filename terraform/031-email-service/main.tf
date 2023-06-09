@@ -124,7 +124,7 @@ module "ecsservice_cron" {
   service_name       = "${var.idp_name}-${var.app_name}-cron"
   service_env        = var.app_env
   container_def_json = local.task_def_cron
-  desired_count      = 1
+  desired_count      = var.enable_cron ? 1 : 0
 }
 
 /*
