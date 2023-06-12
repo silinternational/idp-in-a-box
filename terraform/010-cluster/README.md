@@ -23,6 +23,9 @@ ssl certificate, core application load balancer, and a CloudWatch log group
  - `ecs_instance_profile_id` - IAM profile ID for ecsInstanceProfile
  - `idp_name` - Name of the IDP (all lowercase, no spaces), example: `acme`
 
+## Optional Inputs
+
+- `create_nat_gateway` - default `true`
 
 ## Outputs
 
