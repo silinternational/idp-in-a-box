@@ -25,6 +25,12 @@ variable "cert_domain_name" {
   type = string
 }
 
+variable "create_nat_gateway" {
+  description = "Set to false to remove NAT gateway and associated route"
+  type        = bool
+  default     = true
+}
+
 variable "ecs_cluster_name" {
   type = string
 }
