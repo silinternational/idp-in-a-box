@@ -43,9 +43,10 @@ func status() {
 	lib.SetToken(token)
 
 	workspaceName := fmt.Sprintf("idp-%s-prod-000-core", idp)
-	failoverActive, err := lib.GetWorkspaceVar(org, workspaceName, "aws_failover_active")
+	const varAwsFailoverActive = "aws_failover_active"
+	failoverActive, err := lib.GetWorkspaceVar(org, workspaceName, varAwsFailoverActive)
 	if err != nil {
-		return
+		log.Fatalf("failed to get the value of %q", varAwsFailoverActive)
 	}
 
 	if failoverActive.Value == "true" {
