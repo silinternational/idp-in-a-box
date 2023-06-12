@@ -69,7 +69,7 @@ func initDefaults() {
 		viper.AddConfigPath(".")
 
 		// Set the config file name to "idp", allowing any supported file extension, e.g. idp.toml
-		viper.SetConfigName("idp")
+		viper.SetConfigName("idp-cli")
 	}
 
 	// look for environment variables that match the uppercase of the viper key, prefixed with "IDP_"

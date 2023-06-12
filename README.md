@@ -12,8 +12,9 @@ in a second AWS region, and to initiate a secondary region failover action.
 All parameters can be set in a **Defaults** file, environment variables, or in command-line options. Command line
 options take precedence over environment variables, which take precedence over defaults file. The defaults file
 can be specified as a parameter, like `idp --defaults idp.toml`. If not specified the current directory is searched
-for a file with the name `idp`. The file can be in any of these formats: JSON, TOML, YAML, HCL, envfile. To set a 
-parameter by environment variable, uppercase the parameter name and prefix with `IDP_`.
+for a file with the name `idp-cli.toml`. The file can be in any of these formats: JSON, TOML, YAML, HCL, envfile. Change
+the file extension to match the format. To set a parameter by environment variable, uppercase the parameter name and
+prefix with `IDP_`.
 
 ## bringing up idp-in-a-box locally using Docker Compose
 1. Edit /etc/hosts or equivalent to assign `pw-api.local`, `pw-ui.local`, and
