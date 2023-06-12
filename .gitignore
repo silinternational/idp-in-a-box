@@ -2,3 +2,6 @@
 *.env
 google-auth.json
 .terraform/
+idp.toml
+idp.json
+idp.yaml
