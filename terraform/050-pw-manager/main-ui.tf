@@ -116,7 +116,7 @@ resource "aws_cloudfront_distribution" "ui" {
  * Give CI user access to s3 bucket and cloudfront
  */
 resource "aws_iam_user_policy" "ci_ui" {
-  name = "CloudFront-and-S3"
+  name = "CloudFront-and-S3-${var.aws_region}"
   user = var.cd_user_username
 
   policy = jsonencode(
