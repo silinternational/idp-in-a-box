@@ -9,7 +9,6 @@ import (
 
 	"github.com/silinternational/tfc-ops/lib"
 	"github.com/spf13/cobra"
-	"github.com/spf13/viper"
 )
 
 var statusCmd = &cobra.Command{
@@ -26,25 +25,13 @@ func setupStatusCmd(rootCmd *cobra.Command) {
 }
 
 func status() {
-	idp := viper.GetString("idp")
-	if idp == "" {
-		log.Fatalln("no IdP key is set, use --idp to set the IdP key")
-	}
+	pFlags := getPersistentFlags()
 
-	org := viper.GetString("org")
-	if org == "" {
-		log.Fatalln("no org is set, use --org to set the Terraform Cloud org")
-	}
+	lib.SetToken(pFlags.token)
 
-	token := viper.GetString("token")
-	if token == "" {
-		log.Fatalln("no token is set, use --token to set the Terraform Cloud API token")
-	}
-	lib.SetToken(token)
-
-	workspaceName := fmt.Sprintf("idp-%s-prod-000-core", idp)
+	workspaceName := fmt.Sprintf("idp-%s-prod-000-core", pFlags.idp)
 	const varAwsFailoverActive = "aws_failover_active"
-	failoverActive, err := lib.GetWorkspaceVar(org, workspaceName, varAwsFailoverActive)
+	failoverActive, err := lib.GetWorkspaceVar(pFlags.org, workspaceName, varAwsFailoverActive)
 	if err != nil {
 		log.Fatalf("failed to get the value of %q", varAwsFailoverActive)
 	}

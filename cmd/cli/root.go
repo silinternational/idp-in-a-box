@@ -13,6 +13,8 @@ import (
 	"github.com/spf13/viper"
 )
 
+const requiredPrefix = "required - "
+
 var defaultsFile string
 
 func Execute() {
@@ -27,21 +29,21 @@ in a second AWS region, and to initiate a secondary region failover action.`,
 	rootCmd.PersistentFlags().StringVar(&defaultsFile, "defaults", "", "Defaults file")
 
 	var org string
-	rootCmd.PersistentFlags().StringVar(&org, "org", "", "Terraform Cloud organization")
+	rootCmd.PersistentFlags().StringVar(&org, "org", "", requiredPrefix+"Terraform Cloud organization")
 	if err := viper.BindPFlag("org", rootCmd.PersistentFlags().Lookup("org")); err != nil {
-		log.Fatalln("unable to bind flag: ", err)
+		log.Fatalln("Error: unable to bind flag:", err)
 	}
 
 	var token string
-	rootCmd.PersistentFlags().StringVar(&token, "token", "", "Terraform Cloud token")
+	rootCmd.PersistentFlags().StringVar(&token, "token", "", requiredPrefix+"Terraform Cloud token")
 	if err := viper.BindPFlag("token", rootCmd.PersistentFlags().Lookup("token")); err != nil {
-		log.Fatalln("unable to bind flag: ", err)
+		log.Fatalln("Error: unable to bind flag:", err)
 	}
 
 	var idp string
-	rootCmd.PersistentFlags().StringVar(&idp, "idp", "", "IDP key (short name)")
+	rootCmd.PersistentFlags().StringVar(&idp, "idp", "", requiredPrefix+"IDP key (short name)")
 	if err := viper.BindPFlag("idp", rootCmd.PersistentFlags().Lookup("idp")); err != nil {
-		log.Fatalln("unable to bind flag: ", err)
+		log.Fatalln("Error: unable to bind flag:", err)
 	}
 
 	setupStatusCmd(rootCmd)
@@ -90,5 +92,34 @@ func initDefaults() {
 				panic(err.Error())
 			}
 		}
+	}
+}
+
+type PersistentFlags struct {
+	idp   string
+	org   string
+	token string
+}
+
+func getPersistentFlags() PersistentFlags {
+	idp := viper.GetString("idp")
+	if idp == "" {
+		log.Fatalln("no IdP key is set, use --idp to set the IdP key")
+	}
+
+	org := viper.GetString("org")
+	if org == "" {
+		log.Fatalln("no Org is set, use --org to set the Terraform Cloud org")
+	}
+
+	token := viper.GetString("token")
+	if token == "" {
+		log.Fatalln("no Token is set, use --token to set the Terraform Cloud API token")
+	}
+
+	return PersistentFlags{
+		idp:   idp,
+		org:   org,
+		token: token,
 	}
 }
