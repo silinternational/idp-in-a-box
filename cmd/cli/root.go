@@ -68,7 +68,7 @@ func initDefaults() {
 		// Add the current directory to the search path
 		viper.AddConfigPath(".")
 
-		// Set the config file name to "idp", allowing any supported file extension, e.g. idp.toml
+		// Set the config file name to "idp", allowing any supported file extension, e.g. idp-cli.toml
 		viper.SetConfigName("idp-cli")
 	}
 
