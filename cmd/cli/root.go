@@ -11,6 +11,8 @@ import (
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+
+	"github.com/silinternational/idp-in-a-box/cmd/cli/multiregion"
 )
 
 const requiredPrefix = "required - "
@@ -46,7 +48,15 @@ in a second AWS region, and to initiate a secondary region failover action.`,
 		log.Fatalln("Error: unable to bind flag:", err)
 	}
 
-	setupStatusCmd(rootCmd)
+	var readOnly bool
+	rootCmd.PersistentFlags().BoolVarP(&readOnly, "read-only-mode", "r", false,
+		`read-only mode persists no changes`,
+	)
+	if err := viper.BindPFlag("read-only-mode", rootCmd.PersistentFlags().Lookup("read-only-mode")); err != nil {
+		log.Fatalln("Error: unable to bind flag:", err)
+	}
+
+	multiregion.SetupMultiregionCmd(rootCmd)
 
 	cobra.OnInitialize(initDefaults)
 
@@ -92,34 +102,5 @@ func initDefaults() {
 				panic(err.Error())
 			}
 		}
-	}
-}
-
-type PersistentFlags struct {
-	idp   string
-	org   string
-	token string
-}
-
-func getPersistentFlags() PersistentFlags {
-	idp := viper.GetString("idp")
-	if idp == "" {
-		log.Fatalln("no IdP key is set, use --idp to set the IdP key")
-	}
-
-	org := viper.GetString("org")
-	if org == "" {
-		log.Fatalln("no Org is set, use --org to set the Terraform Cloud org")
-	}
-
-	token := viper.GetString("token")
-	if token == "" {
-		log.Fatalln("no Token is set, use --token to set the Terraform Cloud API token")
-	}
-
-	return PersistentFlags{
-		idp:   idp,
-		org:   org,
-		token: token,
 	}
 }
