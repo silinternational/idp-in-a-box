@@ -31,15 +31,32 @@ func runStatus() {
 	lib.SetToken(pFlags.token)
 
 	workspaceName := fmt.Sprintf("idp-%s-prod-000-core", pFlags.idp)
-	const varAwsFailoverActive = "aws_failover_active"
-	failoverActive, err := lib.GetWorkspaceVar(pFlags.org, workspaceName, varAwsFailoverActive)
+	vars, err := lib.GetVarsFromWorkspace(pFlags.org, workspaceName)
 	if err != nil {
-		log.Fatalf("failed to get the value of %q", varAwsFailoverActive)
+		log.Fatalf("failed to get the variables from %q", workspaceName)
 	}
 
-	if failoverActive.Value == "true" {
-		fmt.Println("IdP Failover is ACTIVE")
-	} else {
-		fmt.Println("IdP Failover is NOT active")
+	for _, v := range vars {
+		switch v.Key {
+		case "aws_region":
+			fmt.Println("Primary region: ", v.Value)
+
+		case "aws_region_secondary":
+			fmt.Println("Secondary region: ", v.Value)
+
+		case "aws_failover_active":
+			if v.Value == "true" {
+				fmt.Println("IdP Failover is ACTIVE")
+			} else {
+				fmt.Println("IdP Failover is NOT active")
+			}
+
+		case "aws_create_secondary":
+			if v.Value == "true" {
+				fmt.Println("Secondary resources are CREATED")
+			} else {
+				fmt.Println("Secondary resources are NOT created")
+			}
+		}
 	}
 }
