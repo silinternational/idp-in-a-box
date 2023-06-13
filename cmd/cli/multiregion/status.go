@@ -1,7 +1,8 @@
 /*
 Copyright © 2023 SIL International
 */
-package main
+
+package multiregion
 
 import (
 	"fmt"
@@ -11,20 +12,20 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var statusCmd = &cobra.Command{
-	Use:   "status",
-	Short: "Read the current status of the IdP",
-	Long:  `Read the current status of the IdP. Does not modify any infrastructure.`,
-	Run: func(cmd *cobra.Command, args []string) {
-		status()
-	},
+func InitStatusCmd(parentCmd *cobra.Command) {
+	statusCmd := &cobra.Command{
+		Use:   "status",
+		Short: "Read the current status of the IdP",
+		Long:  `Read the current status of the IdP. Does not modify any infrastructure.`,
+		Run: func(cmd *cobra.Command, args []string) {
+			runStatus()
+		},
+	}
+
+	parentCmd.AddCommand(statusCmd)
 }
 
-func setupStatusCmd(rootCmd *cobra.Command) {
-	rootCmd.AddCommand(statusCmd)
-}
-
-func status() {
+func runStatus() {
 	pFlags := getPersistentFlags()
 
 	lib.SetToken(pFlags.token)
