@@ -52,7 +52,7 @@ func status() {
 
 		case "aws_create_secondary":
 			if v.Value == "true" {
-				fmt.Println("Secondary resources ARE created")
+				fmt.Println("Secondary resources are CREATED")
 			} else {
 				fmt.Println("Secondary resources are NOT created")
 			}
