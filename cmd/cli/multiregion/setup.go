@@ -30,7 +30,49 @@ func runSetup() {
 
 	lib.SetToken(pFlags.token)
 
+	clonePrimaryWorkspaces(pFlags)
 	setMultiregionVariables(pFlags)
+}
+
+// clonePrimaryWorkspaces creates new secondary workspaces by cloning the corresponding primary workspace
+func clonePrimaryWorkspaces(pFlags PersistentFlags) {
+	fmt.Println("\ncloning workspaces...")
+
+	cloneWorkspace(pFlags, clusterWorkspace(pFlags))
+	cloneWorkspace(pFlags, databaseWorkspace(pFlags))
+	cloneWorkspace(pFlags, pmaWorkspace(pFlags))
+	cloneWorkspace(pFlags, emailWorkspace(pFlags))
+	cloneWorkspace(pFlags, brokerWorkspace(pFlags))
+	cloneWorkspace(pFlags, pwWorkspace(pFlags))
+	cloneWorkspace(pFlags, sspWorkspace(pFlags))
+	cloneWorkspace(pFlags, syncWorkspace(pFlags))
+}
+
+// cloneWorkspace creates a new secondary workspace by cloning the corresponding primary workspac
+func cloneWorkspace(pFlags PersistentFlags, workspace string) {
+	newWorkspace := workspace + "-secondary"
+	fmt.Printf("cloning %s to %s\n", workspace, newWorkspace)
+
+	if !pFlags.readOnlyMode {
+		config := lib.CloneConfig{
+			Organization:    pFlags.org,
+			SourceWorkspace: workspace,
+			NewWorkspace:    newWorkspace,
+			CopyVariables:   true,
+		}
+		sensitiveVars, err := lib.CloneWorkspace(config)
+		if err != nil {
+			log.Fatalf("Error: failed to clone workspace %s: %s", workspace, err)
+			return
+		}
+
+		if len(sensitiveVars) > 0 {
+			fmt.Printf("%s - these sensitive variables must be set manually:\n", workspace)
+			for _, v := range sensitiveVars {
+				fmt.Printf("  %s\n", v)
+			}
+		}
+	}
 }
 
 // setMultiregionVariables sets variables in Terraform Cloud as needed for a multiregion IdP
