@@ -32,6 +32,9 @@ func runSetup() {
 
 	clonePrimaryWorkspaces(pFlags)
 	setMultiregionVariables(pFlags)
+	deleteUnusedVariables(pFlags)
+	setProviderCredentials(pFlags)
+	setSensitiveVariables(pFlags)
 }
 
 // clonePrimaryWorkspaces creates new secondary workspaces by cloning the corresponding primary workspace
@@ -65,6 +68,8 @@ func cloneWorkspace(pFlags PersistentFlags, workspace string) {
 			log.Fatalf("Error: failed to clone workspace %s: %s", workspace, err)
 			return
 		}
+
+		// TODO: update the VCS working directory (add "-secondary")
 
 		if len(sensitiveVars) > 0 {
 			fmt.Printf("%s - these sensitive variables must be set manually:\n", workspace)
@@ -158,6 +163,24 @@ func setMultiregionVariables(pFlags PersistentFlags) {
 		{Key: "tf_remote_broker_secondary", Value: pFlags.org + "/" + brokerSecondaryWorkspace(pFlags)},
 	}
 	setVars(pFlags, syncSecondaryWorkspace(pFlags), syncVars)
+}
+
+func deleteUnusedVariables(pFlags PersistentFlags) {
+	fmt.Println("\nDeleting unused variables...")
+	fmt.Println("(This feature is not yet implemented.)")
+	// TODO: implement this, i.e. delete unused remotes and aws_region
+}
+
+func setProviderCredentials(pFlags PersistentFlags) {
+	fmt.Println("\nSetting provider credential variables...")
+	fmt.Println("(This feature is not yet implemented.)")
+	// TODO: look for a variable set and apply it, or create variables directly in each new workspace
+}
+
+func setSensitiveVariables(pFlags PersistentFlags) {
+	fmt.Println("\nSetting sensitive variables...")
+	fmt.Println("(This feature is not yet implemented.)")
+	// TODO: prompt for sensitive values or get them from config
 }
 
 // setVars sets a list of variables using the current variable values to decide whether to update or create
