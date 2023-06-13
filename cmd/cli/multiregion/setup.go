@@ -84,6 +84,13 @@ func cloneWorkspace(pFlags PersistentFlags, workspace string) {
 func setMultiregionVariables(pFlags PersistentFlags) {
 	fmt.Println("\nsetting variables...")
 
+	tfRemoteClusterSecondary := lib.TFVar{Key: "tf_remote_cluster_secondary", Value: pFlags.org + "/" + clusterSecondaryWorkspace(pFlags)}
+	tfRemoteDatabase := lib.TFVar{Key: "tf_remote_database", Value: pFlags.org + "/" + databaseWorkspace(pFlags)}
+	tfRemoteDatabaseSecondary := lib.TFVar{Key: "tf_remote_database_secondary", Value: pFlags.org + "/" + databaseSecondaryWorkspace(pFlags)}
+	tfRemoteEmailSecondary := lib.TFVar{Key: "tf_remote_email_secondary", Value: pFlags.org + "/" + emailSecondaryWorkspace(pFlags)}
+	tfRemoteBrokerSecondary := lib.TFVar{Key: "tf_remote_broker_secondary", Value: pFlags.org + "/" + brokerSecondaryWorkspace(pFlags)}
+	tfRemotePwManagerSecondary := lib.TFVar{Key: "tf_remote_pwmanager_secondary", Value: pFlags.org + "/" + pwSecondaryWorkspace(pFlags)}
+
 	// Set variables in primary workspaces that also point to secondary workspaces
 
 	coreVars := []lib.TFVar{
@@ -94,8 +101,8 @@ func setMultiregionVariables(pFlags PersistentFlags) {
 	setVars(pFlags, coreWorkspace(pFlags), coreVars)
 
 	backupVars := []lib.TFVar{
-		{Key: "tf_remote_cluster_secondary", Value: pFlags.org + "/" + clusterSecondaryWorkspace(pFlags)},
-		{Key: "tf_remote_database_secondary", Value: pFlags.org + "/" + databaseSecondaryWorkspace(pFlags)},
+		tfRemoteClusterSecondary,
+		tfRemoteDatabaseSecondary,
 	}
 	setVars(pFlags, backupWorkspace(pFlags), backupVars)
 
@@ -108,22 +115,22 @@ func setMultiregionVariables(pFlags PersistentFlags) {
 
 	databaseVars := []lib.TFVar{
 		{Key: "availability_zone", Value: pFlags.secondaryRegion + "a"}, // TODO: make this work in all regions
-		{Key: "tf_remote_cluster_secondary", Value: pFlags.org + "/" + clusterSecondaryWorkspace(pFlags)},
-		{Key: "tf_remote_database", Value: pFlags.org + "/" + databaseWorkspace(pFlags)},
+		tfRemoteClusterSecondary,
+		tfRemoteDatabase,
 	}
 	setVars(pFlags, databaseSecondaryWorkspace(pFlags), databaseVars)
 
 	pmaVars := []lib.TFVar{
 		{Key: "pma_subdomain", Value: pFlags.idp + "-pma-secondary"},
-		{Key: "tf_remote_cluster_secondary", Value: pFlags.org + "/" + clusterSecondaryWorkspace(pFlags)},
-		{Key: "tf_remote_database_secondary", Value: pFlags.org + "/" + databaseSecondaryWorkspace(pFlags)},
+		tfRemoteClusterSecondary,
+		tfRemoteDatabaseSecondary,
 	}
 	setVars(pFlags, pmaSecondaryWorkspace(pFlags), pmaVars)
 
 	emailVars := []lib.TFVar{
 		{Key: "email_subdomain", Value: pFlags.idp + "-email-secondary"},
-		{Key: "tf_remote_cluster_secondary", Value: pFlags.org + "/" + clusterSecondaryWorkspace(pFlags)},
-		{Key: "tf_remote_database_secondary", Value: pFlags.org + "/" + databaseSecondaryWorkspace(pFlags)},
+		tfRemoteClusterSecondary,
+		tfRemoteDatabaseSecondary,
 	}
 	setVars(pFlags, emailSecondaryWorkspace(pFlags), emailVars)
 
@@ -131,36 +138,36 @@ func setMultiregionVariables(pFlags PersistentFlags) {
 		{Key: "broker_subdomain", Value: pFlags.idp + "-broker-secondary"},
 		{Key: "mfa_totp_apibaseurl", Value: "TODO"},     // TODO: get this value
 		{Key: "mfa_webauthn_apibaseurl", Value: "TODO"}, // TODO: get this value
-		{Key: "tf_remote_cluster_secondary", Value: pFlags.org + "/" + clusterSecondaryWorkspace(pFlags)},
-		{Key: "tf_remote_database_secondary", Value: pFlags.org + "/" + databaseSecondaryWorkspace(pFlags)},
-		{Key: "tf_remote_email_secondary", Value: pFlags.org + "/" + emailSecondaryWorkspace(pFlags)},
+		tfRemoteClusterSecondary,
+		tfRemoteDatabaseSecondary,
+		tfRemoteEmailSecondary,
 	}
 	setVars(pFlags, brokerSecondaryWorkspace(pFlags), brokerVars)
 
 	pwVars := []lib.TFVar{
 		{Key: "api_subdomain", Value: pFlags.idp + "-pw-api-secondary"},
 		{Key: "ui_subdomain", Value: pFlags.idp + "-pw-secondary"},
-		{Key: "tf_remote_cluster_secondary", Value: pFlags.org + "/" + clusterSecondaryWorkspace(pFlags)},
-		{Key: "tf_remote_database_secondary", Value: pFlags.org + "/" + databaseSecondaryWorkspace(pFlags)},
-		{Key: "tf_remote_email_secondary", Value: pFlags.org + "/" + emailSecondaryWorkspace(pFlags)},
-		{Key: "tf_remote_broker_secondary", Value: pFlags.org + "/" + brokerSecondaryWorkspace(pFlags)},
+		tfRemoteClusterSecondary,
+		tfRemoteDatabaseSecondary,
+		tfRemoteEmailSecondary,
+		tfRemoteBrokerSecondary,
 	}
 	setVars(pFlags, pwSecondaryWorkspace(pFlags), pwVars)
 
 	sspVars := []lib.TFVar{
 		{Key: "ssp_subdomain", Value: pFlags.idp + "-secondary"},
-		{Key: "tf_remote_cluster_secondary", Value: pFlags.org + "/" + clusterSecondaryWorkspace(pFlags)},
-		{Key: "tf_remote_database_secondary", Value: pFlags.org + "/" + databaseSecondaryWorkspace(pFlags)},
-		{Key: "tf_remote_broker_secondary", Value: pFlags.org + "/" + brokerSecondaryWorkspace(pFlags)},
-		{Key: "tf_remote_pwmanager_secondary", Value: pFlags.org + "/" + pwSecondaryWorkspace(pFlags)},
+		tfRemoteClusterSecondary,
+		tfRemoteDatabaseSecondary,
+		tfRemoteBrokerSecondary,
+		tfRemotePwManagerSecondary,
 	}
 	setVars(pFlags, sspSecondaryWorkspace(pFlags), sspVars)
 
 	syncVars := []lib.TFVar{
 		{Key: "sync_subdomain", Value: pFlags.idp + "-sync-secondary"},
-		{Key: "tf_remote_cluster_secondary", Value: pFlags.org + "/" + clusterSecondaryWorkspace(pFlags)},
-		{Key: "tf_remote_email_secondary", Value: pFlags.org + "/" + emailSecondaryWorkspace(pFlags)},
-		{Key: "tf_remote_broker_secondary", Value: pFlags.org + "/" + brokerSecondaryWorkspace(pFlags)},
+		tfRemoteClusterSecondary,
+		tfRemoteEmailSecondary,
+		tfRemoteBrokerSecondary,
 	}
 	setVars(pFlags, syncSecondaryWorkspace(pFlags), syncVars)
 }
