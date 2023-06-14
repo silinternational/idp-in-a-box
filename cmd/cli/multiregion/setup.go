@@ -31,61 +31,95 @@ func runSetup() {
 
 	lib.SetToken(pFlags.token)
 
-	clonePrimaryWorkspaces(pFlags)
+	createSecondaryWorkspaces(pFlags)
 	setMultiregionVariables(pFlags)
 	deleteUnusedVariables(pFlags)
 	setProviderCredentials(pFlags)
 	setSensitiveVariables(pFlags)
 }
 
-// clonePrimaryWorkspaces creates new secondary workspaces by cloning the corresponding primary workspace
-func clonePrimaryWorkspaces(pFlags PersistentFlags) {
-	fmt.Println("\ncloning workspaces...")
+// createSecondaryWorkspaces creates new secondary workspaces by cloning the corresponding primary workspace
+func createSecondaryWorkspaces(pFlags PersistentFlags) {
+	fmt.Println("\nCreating secondary workspaces...")
 
-	cloneWorkspace(pFlags, clusterWorkspace(pFlags))
-	cloneWorkspace(pFlags, databaseWorkspace(pFlags))
-	cloneWorkspace(pFlags, pmaWorkspace(pFlags))
-	cloneWorkspace(pFlags, emailWorkspace(pFlags))
-	cloneWorkspace(pFlags, brokerWorkspace(pFlags))
-	cloneWorkspace(pFlags, pwWorkspace(pFlags))
-	cloneWorkspace(pFlags, sspWorkspace(pFlags))
-	cloneWorkspace(pFlags, syncWorkspace(pFlags))
+	createSecondaryWorkspace(pFlags, clusterWorkspace(pFlags))
+	createSecondaryWorkspace(pFlags, databaseWorkspace(pFlags))
+	createSecondaryWorkspace(pFlags, pmaWorkspace(pFlags))
+	createSecondaryWorkspace(pFlags, emailWorkspace(pFlags))
+	createSecondaryWorkspace(pFlags, brokerWorkspace(pFlags))
+	createSecondaryWorkspace(pFlags, pwWorkspace(pFlags))
+	createSecondaryWorkspace(pFlags, sspWorkspace(pFlags))
+	createSecondaryWorkspace(pFlags, syncWorkspace(pFlags))
 }
 
-// cloneWorkspace creates a new secondary workspace by cloning the corresponding primary workspace. It also changes
-// the working directory.
-func cloneWorkspace(pFlags PersistentFlags, workspace string) {
+// createSecondaryWorkspace creates a new secondary workspace by cloning the corresponding primary workspace. It also
+// changes workspace properties as necessary.
+func createSecondaryWorkspace(pFlags PersistentFlags, workspace string) {
 	newWorkspace := workspace + "-secondary"
-	fmt.Printf("cloning %s to %s\n", workspace, newWorkspace)
+	wsList := lib.FindWorkspaces(pFlags.org, newWorkspace)
 
-	if !pFlags.readOnlyMode {
-		config := lib.CloneConfig{
-			Organization:    pFlags.org,
-			SourceWorkspace: workspace,
-			NewWorkspace:    newWorkspace,
-			CopyVariables:   true,
-		}
-		sensitiveVars, err := lib.CloneWorkspace(config)
-		if err != nil {
-			log.Fatalf("Error: failed to clone workspace %s: %s", workspace, err)
-			return
-		}
+	if len(wsList) == 0 && !pFlags.readOnlyMode {
+		cloneWorkspace(pFlags, workspace, newWorkspace)
+	}
 
-		params := lib.WorkspaceUpdateParams{
-			Organization:    pFlags.org,
-			WorkspaceFilter: newWorkspace,
-			Attribute:       "working-directory",
-			Value:           strings.SplitN(newWorkspace, "-", 4)[3],
-		}
-		if err = lib.UpdateWorkspace(params); err != nil {
-			log.Fatalf("Error: failed to update workspace %s: %s", workspace, err)
-			return
-		}
+	setWorkspaceProperties(pFlags, newWorkspace)
+}
 
-		if len(sensitiveVars) > 0 {
-			fmt.Printf("%s - these sensitive variables must be set manually:\n", workspace)
-			for _, v := range sensitiveVars {
-				fmt.Printf("  %s\n", v)
+// cloneWorkspace clones a workspace
+func cloneWorkspace(pFlags PersistentFlags, workspace, newWorkspace string) {
+	fmt.Printf("Cloning %s to %s\n", workspace, newWorkspace)
+
+	config := lib.CloneConfig{
+		Organization:    pFlags.org,
+		SourceWorkspace: workspace,
+		NewWorkspace:    newWorkspace,
+		CopyVariables:   true,
+	}
+	sensitiveVars, err := lib.CloneWorkspace(config)
+	if err != nil {
+		log.Fatalf("Error: failed to clone workspace %s: %s", workspace, err)
+		return
+	}
+
+	if len(sensitiveVars) > 0 {
+		fmt.Printf("%s - these sensitive variables must be set manually:\n", workspace)
+		for _, v := range sensitiveVars {
+			fmt.Printf("  %s\n", v)
+		}
+	}
+}
+
+// setWorkspaceProperties
+func setWorkspaceProperties(pFlags PersistentFlags, workspace string) {
+	fmt.Printf("Setting %s properties\n", workspace)
+
+	wsProperties, err := lib.GetWorkspaceData(pFlags.org, workspace)
+	if err != nil {
+		if pFlags.readOnlyMode {
+			// In read-only mode, ignore the error since the workspace creation was skipped. The query is still
+			// useful, though, since the workspace may have been created previously.
+			wsProperties = lib.WorkspaceJSON{}
+		} else {
+			log.Fatalf("Error: failed to get workspace details for %q", workspace)
+		}
+	}
+
+	// strip the "idp-name-" from the front of "idp-name-env-000-workspace-name"
+	newWorkingDir := strings.SplitN(workspace, "-", 4)[3]
+
+	if wsProperties.Data.Attributes.WorkingDirectory == newWorkingDir {
+		fmt.Printf("%s - working-directory is already set to %s\n", workspace, newWorkingDir)
+	} else {
+		if !pFlags.readOnlyMode {
+			params := lib.WorkspaceUpdateParams{
+				Organization:    pFlags.org,
+				WorkspaceFilter: workspace,
+				Attribute:       "working-directory",
+				Value:           newWorkingDir,
+			}
+			if err := lib.UpdateWorkspace(params); err != nil {
+				log.Fatalf("Error: failed to update workspace %s: %s", workspace, err)
+				return
 			}
 		}
 	}
@@ -93,7 +127,7 @@ func cloneWorkspace(pFlags PersistentFlags, workspace string) {
 
 // setMultiregionVariables sets variables in Terraform Cloud as needed for a multiregion IdP
 func setMultiregionVariables(pFlags PersistentFlags) {
-	fmt.Println("\nsetting variables...")
+	fmt.Println("\nSetting variables...")
 
 	tfRemoteClusterSecondary := lib.TFVar{Key: "tf_remote_cluster_secondary", Value: pFlags.org + "/" + clusterSecondaryWorkspace(pFlags)}
 	tfRemoteDatabase := lib.TFVar{Key: "tf_remote_database", Value: pFlags.org + "/" + databaseWorkspace(pFlags)}
