@@ -7,6 +7,7 @@ package multiregion
 import (
 	"fmt"
 	"log"
+	"strings"
 
 	"github.com/silinternational/tfc-ops/lib"
 	"github.com/spf13/cobra"
@@ -51,7 +52,8 @@ func clonePrimaryWorkspaces(pFlags PersistentFlags) {
 	cloneWorkspace(pFlags, syncWorkspace(pFlags))
 }
 
-// cloneWorkspace creates a new secondary workspace by cloning the corresponding primary workspac
+// cloneWorkspace creates a new secondary workspace by cloning the corresponding primary workspace. It also changes
+// the working directory.
 func cloneWorkspace(pFlags PersistentFlags, workspace string) {
 	newWorkspace := workspace + "-secondary"
 	fmt.Printf("cloning %s to %s\n", workspace, newWorkspace)
@@ -69,7 +71,16 @@ func cloneWorkspace(pFlags PersistentFlags, workspace string) {
 			return
 		}
 
-		// TODO: update the VCS working directory (add "-secondary")
+		params := lib.WorkspaceUpdateParams{
+			Organization:    pFlags.org,
+			WorkspaceFilter: newWorkspace,
+			Attribute:       "working-directory",
+			Value:           strings.SplitN(newWorkspace, "-", 4)[3],
+		}
+		if err = lib.UpdateWorkspace(params); err != nil {
+			log.Fatalf("Error: failed to update workspace %s: %s", workspace, err)
+			return
+		}
 
 		if len(sensitiveVars) > 0 {
 			fmt.Printf("%s - these sensitive variables must be set manually:\n", workspace)
