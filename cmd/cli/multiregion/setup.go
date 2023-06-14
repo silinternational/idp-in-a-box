@@ -110,18 +110,20 @@ func setWorkspaceProperties(pFlags PersistentFlags, workspace string) {
 	if wsProperties.Data.Attributes.WorkingDirectory == newWorkingDir {
 		fmt.Printf("%s - working-directory is already set to %s\n", workspace, newWorkingDir)
 	} else {
-		if !pFlags.readOnlyMode {
-			params := lib.WorkspaceUpdateParams{
-				Organization:    pFlags.org,
-				WorkspaceFilter: workspace,
-				Attribute:       "working-directory",
-				Value:           newWorkingDir,
-			}
-			if err := lib.UpdateWorkspace(params); err != nil {
-				log.Fatalf("Error: failed to update workspace %s: %s", workspace, err)
-				return
-			}
+		if pFlags.readOnlyMode {
+			return
 		}
+		params := lib.WorkspaceUpdateParams{
+			Organization:    pFlags.org,
+			WorkspaceFilter: workspace,
+			Attribute:       "working-directory",
+			Value:           newWorkingDir,
+		}
+		if err = lib.UpdateWorkspace(params); err != nil {
+			log.Fatalf("Error: failed to update workspace %s: %s", workspace, err)
+			return
+		}
+
 	}
 }
 
