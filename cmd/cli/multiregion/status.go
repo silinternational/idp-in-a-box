@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/silinternational/tfc-ops/lib"
+	"github.com/silinternational/tfc-ops/v3/lib"
 	"github.com/spf13/cobra"
 )
 
