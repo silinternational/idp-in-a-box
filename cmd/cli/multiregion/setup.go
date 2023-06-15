@@ -70,10 +70,11 @@ func cloneWorkspace(pFlags PersistentFlags, workspace, newWorkspace string) {
 	fmt.Printf("Cloning %s to %s\n", workspace, newWorkspace)
 
 	config := lib.CloneConfig{
-		Organization:    pFlags.org,
-		SourceWorkspace: workspace,
-		NewWorkspace:    newWorkspace,
-		CopyVariables:   true,
+		Organization:      pFlags.org,
+		SourceWorkspace:   workspace,
+		NewWorkspace:      newWorkspace,
+		CopyVariables:     true,
+		ApplyVariableSets: true,
 	}
 	sensitiveVars, err := lib.CloneWorkspace(config)
 	if err != nil {
