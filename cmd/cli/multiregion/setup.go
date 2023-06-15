@@ -9,7 +9,7 @@ import (
 	"log"
 	"strings"
 
-	"github.com/silinternational/tfc-ops/lib"
+	"github.com/silinternational/tfc-ops/v3/lib"
 	"github.com/spf13/cobra"
 )
 
@@ -34,7 +34,6 @@ func runSetup() {
 	createSecondaryWorkspaces(pFlags)
 	setMultiregionVariables(pFlags)
 	deleteUnusedVariables(pFlags)
-	setProviderCredentials(pFlags)
 	setSensitiveVariables(pFlags)
 }
 
@@ -70,10 +69,11 @@ func cloneWorkspace(pFlags PersistentFlags, workspace, newWorkspace string) {
 	fmt.Printf("Cloning %s to %s\n", workspace, newWorkspace)
 
 	config := lib.CloneConfig{
-		Organization:    pFlags.org,
-		SourceWorkspace: workspace,
-		NewWorkspace:    newWorkspace,
-		CopyVariables:   true,
+		Organization:      pFlags.org,
+		SourceWorkspace:   workspace,
+		NewWorkspace:      newWorkspace,
+		CopyVariables:     true,
+		ApplyVariableSets: true,
 	}
 	sensitiveVars, err := lib.CloneWorkspace(config)
 	if err != nil {
@@ -223,12 +223,6 @@ func deleteUnusedVariables(pFlags PersistentFlags) {
 	fmt.Println("\nDeleting unused variables...")
 	fmt.Println("(This feature is not yet implemented.)")
 	// TODO: implement this, i.e. delete unused remotes and aws_region
-}
-
-func setProviderCredentials(pFlags PersistentFlags) {
-	fmt.Println("\nSetting provider credential variables...")
-	fmt.Println("(This feature is not yet implemented.)")
-	// TODO: look for a variable set and apply it, or create variables directly in each new workspace
 }
 
 func setSensitiveVariables(pFlags PersistentFlags) {
