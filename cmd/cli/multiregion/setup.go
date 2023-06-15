@@ -100,11 +100,11 @@ func setWorkspaceProperties(pFlags PersistentFlags, workspace string) {
 			// useful, though, since the workspace may have been created previously.
 			wsProperties = lib.WorkspaceJSON{}
 		} else {
-			log.Fatalf("Error: failed to get workspace details for %q", workspace)
+			log.Fatalf("Error: failed to get workspace details for %q: %s", workspace, err)
 		}
 	}
 
-	// strip the "idp-name-" from the front of "idp-name-env-000-workspace-name"
+	// strip the "idp-name-env-" from the front of "idp-name-env-000-workspace-name"
 	newWorkingDir := strings.SplitN(workspace, "-", 4)[3]
 
 	if wsProperties.Data.Attributes.WorkingDirectory == newWorkingDir {
