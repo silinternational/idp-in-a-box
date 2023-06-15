@@ -35,6 +35,7 @@ func runSetup() {
 	setMultiregionVariables(pFlags)
 	deleteUnusedVariables(pFlags)
 	setSensitiveVariables(pFlags)
+	setRemoteConsumers(pFlags)
 }
 
 // createSecondaryWorkspaces creates new secondary workspaces by cloning the corresponding primary workspace
@@ -282,4 +283,93 @@ func getZonesHCL(region string) string {
   "%[1]sd",
 ]`
 	return fmt.Sprintf(template, region)
+}
+
+func setRemoteConsumers(pFlags PersistentFlags) error {
+	workspacesToUpdate := []string{
+		coreWorkspace(pFlags),
+		clusterSecondaryWorkspace(pFlags),
+		databaseWorkspace(pFlags),
+		databaseSecondaryWorkspace(pFlags),
+		ecrWorkspace(pFlags),
+		emailSecondaryWorkspace(pFlags),
+		brokerSecondaryWorkspace(pFlags),
+		pwSecondaryWorkspace(pFlags),
+	}
+
+	for _, workspace := range workspacesToUpdate {
+		data, err := lib.GetWorkspaceData(pFlags.org, workspace)
+		if err != nil {
+			return fmt.Errorf("setRemoteConsumers: %w", err)
+		}
+
+		consumers := getWorkspaceConsumers(pFlags, workspace)
+		consumerIDs := make([]string, len(consumers))
+		for i, consumer := range consumers {
+			data, err := lib.GetWorkspaceData(pFlags.org, consumer)
+			if err != nil {
+				return fmt.Errorf("setRemoteConsumers: %w", err)
+			}
+			consumerIDs[i] = data.Data.ID
+		}
+
+		if err := lib.AddRemoteStateConsumers(data.Data.ID, consumerIDs); err != nil {
+			return fmt.Errorf("setRemoteConsumers: %w", err)
+		}
+	}
+	return nil
+}
+
+func getWorkspaceConsumers(pFlags PersistentFlags, workspace string) []string {
+	consumers := map[string][]string{
+		coreWorkspace(pFlags): {
+			clusterSecondaryWorkspace(pFlags),
+			databaseSecondaryWorkspace(pFlags),
+			pmaSecondaryWorkspace(pFlags),
+			emailSecondaryWorkspace(pFlags),
+			brokerSecondaryWorkspace(pFlags),
+			pwSecondaryWorkspace(pFlags),
+			sspSecondaryWorkspace(pFlags),
+			syncSecondaryWorkspace(pFlags),
+		},
+		clusterSecondaryWorkspace(pFlags): {
+			databaseSecondaryWorkspace(pFlags),
+			pmaSecondaryWorkspace(pFlags),
+			emailSecondaryWorkspace(pFlags),
+			brokerSecondaryWorkspace(pFlags),
+			pwSecondaryWorkspace(pFlags),
+			sspSecondaryWorkspace(pFlags),
+			syncSecondaryWorkspace(pFlags),
+		},
+		databaseWorkspace(pFlags): {
+			databaseSecondaryWorkspace(pFlags),
+		},
+		databaseSecondaryWorkspace(pFlags): {
+			pmaSecondaryWorkspace(pFlags),
+			emailSecondaryWorkspace(pFlags),
+			brokerSecondaryWorkspace(pFlags),
+			pwSecondaryWorkspace(pFlags),
+			sspSecondaryWorkspace(pFlags),
+		},
+		ecrWorkspace(pFlags): {
+			brokerSecondaryWorkspace(pFlags),
+			pwSecondaryWorkspace(pFlags),
+			sspSecondaryWorkspace(pFlags),
+			syncSecondaryWorkspace(pFlags),
+		},
+		emailSecondaryWorkspace(pFlags): {
+			brokerSecondaryWorkspace(pFlags),
+			pwSecondaryWorkspace(pFlags),
+			syncSecondaryWorkspace(pFlags),
+		},
+		brokerSecondaryWorkspace(pFlags): {
+			pwSecondaryWorkspace(pFlags),
+			sspSecondaryWorkspace(pFlags),
+			syncSecondaryWorkspace(pFlags),
+		},
+		pwSecondaryWorkspace(pFlags): {
+			sspSecondaryWorkspace(pFlags),
+		},
+	}
+	return consumers[workspace]
 }
