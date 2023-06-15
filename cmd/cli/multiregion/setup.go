@@ -34,7 +34,6 @@ func runSetup() {
 	createSecondaryWorkspaces(pFlags)
 	setMultiregionVariables(pFlags)
 	deleteUnusedVariables(pFlags)
-	setProviderCredentials(pFlags)
 	setSensitiveVariables(pFlags)
 }
 
@@ -224,12 +223,6 @@ func deleteUnusedVariables(pFlags PersistentFlags) {
 	fmt.Println("\nDeleting unused variables...")
 	fmt.Println("(This feature is not yet implemented.)")
 	// TODO: implement this, i.e. delete unused remotes and aws_region
-}
-
-func setProviderCredentials(pFlags PersistentFlags) {
-	fmt.Println("\nSetting provider credential variables...")
-	fmt.Println("(This feature is not yet implemented.)")
-	// TODO: look for a variable set and apply it, or create variables directly in each new workspace
 }
 
 func setSensitiveVariables(pFlags PersistentFlags) {
