@@ -20,8 +20,9 @@ func SetupMultiregionCmd(parentCommand *cobra.Command) {
 	}
 
 	parentCommand.AddCommand(multiregionCmd)
-	InitStatusCmd(multiregionCmd)
+	InitFailoverCmd(multiregionCmd)
 	InitSetupCmd(multiregionCmd)
+	InitStatusCmd(multiregionCmd)
 
 	var env string
 	multiregionCmd.PersistentFlags().StringVar(&env, "env", "prod", "Execution environment (default: prod)")
