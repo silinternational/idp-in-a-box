@@ -59,4 +59,6 @@ func runStatus() {
 			}
 		}
 	}
+
+	// TODO: check all workspaces for necessary configuration, sort of an audit of the setup command
 }

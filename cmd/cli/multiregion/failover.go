@@ -77,6 +77,7 @@ func runFailover() {
 	f := newFailover(pFlags)
 
 	f.setFailoverActiveVariable("true")
+	f.createRun(Core, "set "+awsFailoverActive+" to true")
 }
 
 func newFailover(pFlags PersistentFlags) *Failover {
@@ -121,7 +122,7 @@ func newFailover(pFlags PersistentFlags) *Failover {
 }
 
 func (f *Failover) setFailoverActiveVariable(value string) {
-	fmt.Printf("Setting %q variable to true.", awsFailoverActive)
+	fmt.Printf("Setting %q variable to true.\n", awsFailoverActive)
 	v := f.findVariable(Core, awsFailoverActive)
 
 	if f.testMode {
@@ -141,4 +142,21 @@ func (f *Failover) findVariable(workspace, key string) lib.Var {
 		}
 	}
 	return lib.Var{}
+}
+
+func (f *Failover) createRun(workspaceKey, message string) {
+	workspace := f.workspaces[workspaceKey]
+	fmt.Printf("Starting run on %s, message: %q\n", workspace.Attributes.Name, message)
+
+	if f.testMode {
+		return
+	}
+
+	err := lib.CreateRun(lib.RunConfig{
+		Message:     message,
+		WorkspaceID: workspace.ID,
+	})
+	if err != nil {
+		log.Fatalf("failed to create a new run on workspace %s: %s", workspace.Attributes.Name, err)
+	}
 }
