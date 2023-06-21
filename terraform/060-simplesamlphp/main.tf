@@ -45,7 +45,7 @@ resource "random_id" "secretsalt" {
 }
 
 module "cf_ips" {
-  source = "github.com/silinternational/terraform-modules//cloudflare/ips?ref=8.0.1"
+  source = "github.com/silinternational/terraform-modules//cloudflare/ips?ref=8.3.0"
 }
 
 locals {
@@ -85,7 +85,7 @@ locals {
     recaptcha_key                = var.recaptcha_key
     recaptcha_secret             = var.recaptcha_secret
     remember_me_secret           = var.remember_me_secret
-    secret_salt                  = random_id.secretsalt.hex
+    secret_salt                  = var.secret_salt == "" ? random_id.secretsalt.hex : var.secret_salt
     show_saml_errors             = var.show_saml_errors
     idp_name                     = var.idp_name
     idp_display_name             = var.idp_display_name
@@ -99,7 +99,7 @@ locals {
 }
 
 module "ecsservice" {
-  source             = "github.com/silinternational/terraform-modules//aws/ecs/service-only?ref=8.0.1"
+  source             = "github.com/silinternational/terraform-modules//aws/ecs/service-only?ref=8.3.0"
   cluster_id         = var.ecs_cluster_id
   service_name       = "${var.idp_name}-${var.app_name}"
   service_env        = var.app_env

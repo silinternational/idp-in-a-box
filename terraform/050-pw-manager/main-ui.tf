@@ -9,6 +9,10 @@ resource "aws_s3_bucket" "ui" {
 resource "aws_s3_bucket_acl" "ui" {
   bucket = aws_s3_bucket.ui.id
   acl    = "public-read"
+  depends_on = [
+    aws_s3_bucket_ownership_controls.ui,
+    aws_s3_bucket_public_access_block.ui,
+  ]
 }
 
 resource "aws_s3_bucket_policy" "ui" {
@@ -23,6 +27,21 @@ resource "aws_s3_bucket_policy" "ui" {
       Resource  = "arn:aws:s3:::${local.ui_hostname}/*"
     }]
   })
+}
+
+resource "aws_s3_bucket_ownership_controls" "ui" {
+  bucket = aws_s3_bucket.ui.id
+  rule {
+    object_ownership = "BucketOwnerPreferred"
+  }
+}
+
+resource "aws_s3_bucket_public_access_block" "ui" {
+  bucket                  = aws_s3_bucket.ui.id
+  block_public_acls       = false
+  block_public_policy     = false
+  ignore_public_acls      = false
+  restrict_public_buckets = false
 }
 
 resource "aws_s3_bucket_website_configuration" "ui" {
@@ -97,7 +116,7 @@ resource "aws_cloudfront_distribution" "ui" {
  * Give CI user access to s3 bucket and cloudfront
  */
 resource "aws_iam_user_policy" "ci_ui" {
-  name = "CloudFront-and-S3"
+  name = "CloudFront-and-S3-${var.aws_region}"
   user = var.cd_user_username
 
   policy = jsonencode(

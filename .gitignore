@@ -1,4 +1,7 @@
 .idea/
-local.env
+*.env
 google-auth.json
 .terraform/
+idp-cli.toml
+idp-cli.json
+idp-cli.yaml

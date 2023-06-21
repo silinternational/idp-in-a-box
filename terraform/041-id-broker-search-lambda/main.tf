@@ -3,7 +3,7 @@ data "http" "function-checksum" {
 }
 
 resource "aws_iam_role" "functionRole" {
-  name = "${var.idp_name}-${var.app_name}-${var.app_env}-lambda-function-role"
+  name = substr("${var.idp_name}-${var.app_name}-${var.app_env}-lambda-function-role", 0, 64)
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
     Statement = [{
@@ -17,6 +17,10 @@ resource "aws_iam_role" "functionRole" {
   })
 }
 
+/*
+ * AWS Managed Policy with minimum permissions for a Lambda function
+ * https://docs.aws.amazon.com/aws-managed-policy/latest/reference/AWSLambdaVPCAccessExecutionRole.html
+ */
 resource "aws_iam_role_policy_attachment" "AWSLambdaVPCAccessExecutionRole" {
   role       = aws_iam_role.functionRole.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole"
@@ -54,7 +58,7 @@ resource "aws_lambda_function" "search" {
 }
 
 resource "aws_iam_role" "assumeRole" {
-  name = "${var.idp_name}-${var.app_name}-${var.app_env}-lambda-remote-execute"
+  name = substr("${var.idp_name}-${var.app_name}-${var.app_env}-lambda-remote-execute", 0, 64)
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [{

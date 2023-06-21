@@ -140,3 +140,6 @@ variable "wildcard_cert_arn" {
   type = string
 }
 
+variable "enable_cron" {
+  default = true
+}

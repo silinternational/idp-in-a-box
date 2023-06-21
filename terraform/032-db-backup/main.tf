@@ -14,6 +14,25 @@ resource "aws_s3_bucket" "backup" {
 resource "aws_s3_bucket_acl" "backup" {
   bucket = aws_s3_bucket.backup.id
   acl    = "private"
+  depends_on = [
+    aws_s3_bucket_ownership_controls.backup,
+    aws_s3_bucket_public_access_block.backup,
+  ]
+}
+
+resource "aws_s3_bucket_ownership_controls" "backup" {
+  bucket = aws_s3_bucket.backup.id
+  rule {
+    object_ownership = "BucketOwnerPreferred"
+  }
+}
+
+resource "aws_s3_bucket_public_access_block" "backup" {
+  bucket                  = aws_s3_bucket.backup.id
+  block_public_acls       = false
+  block_public_policy     = false
+  ignore_public_acls      = false
+  restrict_public_buckets = false
 }
 
 resource "aws_s3_bucket_lifecycle_configuration" "backup" {
@@ -39,7 +58,7 @@ resource "aws_s3_bucket_versioning" "backup" {
  * Create user for putting backup files into the bucket
  */
 resource "aws_iam_user" "backup" {
-  name = "db-backup-${var.idp_name}-${var.app_env}"
+  name = var.backup_user_name == null ? "db-backup-${var.idp_name}-${var.app_env}" : var.backup_user_name
 }
 
 resource "aws_iam_access_key" "backup" {
