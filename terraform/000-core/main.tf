@@ -79,14 +79,12 @@ resource "cloudflare_record" "idp-verification" {
   name    = tolist(aws_acm_certificate.idp[0].domain_validation_options)[0].resource_record_name
   value   = tolist(aws_acm_certificate.idp[0].domain_validation_options)[0].resource_record_value
   type    = tolist(aws_acm_certificate.idp[0].domain_validation_options)[0].resource_record_type
-  zone_id = data.cloudflare_zones.idp.zones[0].id
+  zone_id = data.cloudflare_zone.domain.id
   proxied = false
 }
 
-data "cloudflare_zones" "idp" {
-  filter {
-    name = var.cert_domain
-  }
+data "cloudflare_zone" "domain" {
+  name = var.cert_domain
 }
 
 resource "aws_acm_certificate_validation" "idp" {

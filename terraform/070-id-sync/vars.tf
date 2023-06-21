@@ -141,3 +141,9 @@ variable "enable_new_user_notification" {
 variable "enable_sync" {
   default = true
 }
+
+variable "dns_allow_overwrite" {
+  description = "Controls whether this module can overwrite an existing DNS record with the same name. Should be set true in a multiregion IdP."
+  type        = bool
+  default     = false
+}

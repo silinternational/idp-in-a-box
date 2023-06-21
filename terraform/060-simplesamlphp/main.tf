@@ -115,17 +115,14 @@ module "ecsservice" {
  * Create Cloudflare DNS record
  */
 resource "cloudflare_record" "sspdns" {
-  zone_id = data.cloudflare_zones.domain.zones[0].id
-  name    = var.subdomain
-  value   = var.alb_dns_name
-  type    = "CNAME"
-  proxied = true
+  zone_id         = data.cloudflare_zone.domain.name
+  name            = var.subdomain
+  value           = var.alb_dns_name
+  type            = "CNAME"
+  proxied         = true
+  allow_overwrite = var.dns_allow_overwrite
 }
 
-data "cloudflare_zones" "domain" {
-  filter {
-    name        = var.cloudflare_domain
-    lookup_type = "exact"
-    status      = "active"
-  }
+data "cloudflare_zone" "domain" {
+  name = var.cloudflare_domain
 }
