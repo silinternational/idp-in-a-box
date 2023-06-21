@@ -131,17 +131,14 @@ module "ecsservice_cron" {
  * Create Cloudflare DNS record
  */
 resource "cloudflare_record" "emaildns" {
-  zone_id = data.cloudflare_zones.domain.zones[0].id
-  name    = var.subdomain
-  value   = var.internal_alb_dns_name
-  type    = "CNAME"
-  proxied = false
+  zone_id         = data.cloudflare_zone.domain.name
+  name            = var.subdomain
+  value           = var.internal_alb_dns_name
+  type            = "CNAME"
+  proxied         = false
+  allow_overwrite = var.dns_allow_overwrite
 }
 
-data "cloudflare_zones" "domain" {
-  filter {
-    name        = var.cloudflare_domain
-    lookup_type = "exact"
-    status      = "active"
-  }
+data "cloudflare_zone" "domain" {
+  name = var.cloudflare_domain
 }

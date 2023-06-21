@@ -151,13 +151,15 @@ resource "aws_iam_user_policy" "ci_ui" {
  * Create Cloudflare DNS record
  */
 resource "cloudflare_record" "uidns" {
-  zone_id = data.cloudflare_zones.domain.zones[0].id
-  name    = var.ui_subdomain
-  value   = aws_cloudfront_distribution.ui[0].domain_name
-  type    = "CNAME"
-  proxied = true
+  zone_id         = data.cloudflare_zone.domain.name
+  name            = var.ui_subdomain
+  value           = aws_cloudfront_distribution.ui[0].domain_name
+  type            = "CNAME"
+  proxied         = true
+  allow_overwrite = var.dns_allow_overwrite
 }
 
-locals {
-  ui_hostname = "${var.ui_subdomain}.${var.cloudflare_domain}"
+data "cloudflare_zone" "domain" {
+  name = var.cloudflare_domain
 }
+
