@@ -158,8 +158,3 @@ resource "cloudflare_record" "uidns" {
   proxied         = true
   allow_overwrite = var.dns_allow_overwrite
 }
-
-data "cloudflare_zone" "domain" {
-  name = var.cloudflare_domain
-}
-
