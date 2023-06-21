@@ -41,7 +41,7 @@ This module is used to create an ECS service running email-service.
  - `cpu_api` - CPU resources to allot to each API instance
  - `cpu_cron` - CPU resources to allot to the cron instance
  - `desired_count_api` - Desired count of email-service API instances (there will only be 1 cron instance)
- - `dns_allow_overwrite` - Controls whether this module can overwrite an existing DNS record with the same name. Should be set true in a multiregion IdP.
+ - `dns_allow_overwrite` - Controls whether this module can overwrite an existing DNS record with the same name. Should be set true in a multiregion IdP. Default: `false`
  - `email_queue_batch_size` - How many queued emails to process per run
  - `enable_cron` - Set to false to disable the cron instance
  - `mailer_usefiles` - Whether or not YiiMailer should write to files instead of sending emails
