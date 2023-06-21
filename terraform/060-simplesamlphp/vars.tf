@@ -194,3 +194,9 @@ variable "admin_name" {
 variable "trust_cloudflare_ips" {
   default = ""
 }
+
+variable "dns_allow_overwrite" {
+  description = "Controls whether this module can overwrite an existing DNS record with the same name."
+  type        = bool
+  default     = false
+}
