@@ -121,7 +121,7 @@ module "ecsservice" {
 resource "cloudflare_record" "apidns" {
   count = var.create_dns_record ? 1 : 0
 
-  zone_id         = data.cloudflare_zone.domain.name
+  zone_id         = data.cloudflare_zone.domain.id
   name            = var.api_subdomain
   value           = var.alb_dns_name
   type            = "CNAME"
