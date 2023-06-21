@@ -60,6 +60,7 @@ This module is used to create an ECS service running the password manager API an
 ## Optional Inputs
 
  - `code_length` - Number of digits in reset code. Default: `6`
+ - `create_dns_record` - Controls creation of a DNS CNAME record for the ECS service. Default: `true`
  - `dns_allow_overwrite` - Controls whether this module can overwrite an existing DNS record with the same name. Should be set true in a multiregion IdP. Default: `false`
  - `extra_hosts` - Extra hosts for the API task definition, e.g. "\["hostname":"host.example.com","ipAddress":"192.168.1.1"\]"
  - `password_rule_enablehibp` - Enable haveibeenpwned.com password check. Default: `true`

@@ -1,5 +1,5 @@
 output "hostname" {
-  value = cloudflare_record.emaildns.hostname
+  value = one(cloudflare_record.emaildns[*].hostname)
 }
 
 output "db_emailservice_user" {

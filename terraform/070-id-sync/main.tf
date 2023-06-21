@@ -97,6 +97,8 @@ module "ecsservice" {
  * Create Cloudflare DNS record
  */
 resource "cloudflare_record" "idsyncdns" {
+  count = var.create_dns_record ? 1 : 0
+
   zone_id         = data.cloudflare_zone.domain.name
   name            = var.subdomain
   value           = var.alb_dns_name
