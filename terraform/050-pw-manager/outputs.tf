@@ -11,7 +11,7 @@ output "ui_hostname" {
 }
 
 output "api_hostname" {
-  value = cloudflare_record.apidns.hostname
+  value = one(cloudflare_record.apidns[*].hostname)
 }
 
 output "db_pwmanager_user" {
