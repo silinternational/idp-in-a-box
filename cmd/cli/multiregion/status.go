@@ -28,7 +28,7 @@ func InitStatusCmd(parentCmd *cobra.Command) {
 func runStatus() {
 	pFlags := getPersistentFlags()
 
-	lib.SetToken(pFlags.token)
+	lib.SetToken(pFlags.tfcToken)
 
 	workspaceName := fmt.Sprintf("idp-%s-prod-000-core", pFlags.idp)
 	vars, err := lib.GetVarsFromWorkspace(pFlags.org, workspaceName)

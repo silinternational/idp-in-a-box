@@ -65,7 +65,7 @@ func InitFailoverCmd(parentCmd *cobra.Command) {
 func runFailover() {
 	pFlags := getPersistentFlags()
 
-	lib.SetToken(pFlags.token)
+	lib.SetToken(pFlags.tfcToken)
 
 	fmt.Println(`Please confirm activation of failover mode. Type "yes" to continue.`)
 	var prompt string

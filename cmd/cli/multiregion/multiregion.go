@@ -43,7 +43,7 @@ type PersistentFlags struct {
 	org             string
 	readOnlyMode    bool
 	secondaryRegion string
-	token           string
+	tfcToken        string
 }
 
 func getPersistentFlags() PersistentFlags {
@@ -62,9 +62,9 @@ func getPersistentFlags() PersistentFlags {
 		log.Fatalln("no Org is set, use --org to set the Terraform Cloud org")
 	}
 
-	token := viper.GetString("token")
-	if token == "" {
-		log.Fatalln("no Token is set, use --token to set the Terraform Cloud API token")
+	tfcToken := viper.GetString("tfc-token")
+	if tfcToken == "" {
+		log.Fatalln("no Terraform Cloud Token is set, use --tfc-token parameter")
 	}
 
 	secondaryRegion := viper.GetString("region2")
@@ -78,7 +78,7 @@ func getPersistentFlags() PersistentFlags {
 		env:             env,
 		idp:             idp,
 		org:             org,
-		token:           token,
+		tfcToken:        tfcToken,
 		secondaryRegion: secondaryRegion,
 		readOnlyMode:    readOnlyMode,
 	}

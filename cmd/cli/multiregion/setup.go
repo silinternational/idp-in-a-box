@@ -29,7 +29,7 @@ func InitSetupCmd(parentCmd *cobra.Command) {
 func runSetup() {
 	pFlags := getPersistentFlags()
 
-	lib.SetToken(pFlags.token)
+	lib.SetToken(pFlags.tfcToken)
 
 	createSecondaryWorkspaces(pFlags)
 	setMultiregionVariables(pFlags)
