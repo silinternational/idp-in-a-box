@@ -97,8 +97,8 @@ locals {
     support_name                        = var.support_name
     support_phone                       = var.support_phone
     support_url                         = var.support_url
-    ui_cors_origin                      = "https://${local.ui_hostname}"
-    ui_url                              = "https://${local.ui_hostname}/#"
+    ui_cors_origin                      = "https://${var.ui_subdomain}.${var.cloudflare_domain}"
+    ui_url                              = "https://${var.ui_subdomain}.${var.cloudflare_domain}/#"
   })
 }
 
