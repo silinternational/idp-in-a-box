@@ -308,8 +308,7 @@ func setRemoteConsumers(pFlags PersistentFlags) error {
 	}
 
 	for _, workspace := range workspacesToUpdate {
-		d, err := lib.GetWorkspaceData(pFlags.org, workspace)
-		workspaceID := d.Data.ID
+		workspaceID, err := getWorkspaceID(pFlags.org, workspace)
 		if err != nil {
 			return fmt.Errorf("setRemoteConsumers: %w", err)
 		}
@@ -325,7 +324,7 @@ func setRemoteConsumers(pFlags PersistentFlags) error {
 		}
 
 		if pFlags.readOnlyMode {
-			fmt.Printf("  %s: %+v\n", workspace, consumers)
+			fmt.Printf("  %s: %+v\n", workspaceID, consumers)
 			continue
 		}
 
