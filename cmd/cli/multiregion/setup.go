@@ -402,6 +402,14 @@ func setRunTriggers(pFlags PersistentFlags) error {
 		pwSecondaryWorkspace(pFlags):       coreWorkspace(pFlags),
 		sspSecondaryWorkspace(pFlags):      coreWorkspace(pFlags),
 		syncSecondaryWorkspace(pFlags):     coreWorkspace(pFlags),
+		clusterSecondaryWorkspace(pFlags):  clusterSecondaryWorkspace(pFlags),
+		databaseSecondaryWorkspace(pFlags): clusterSecondaryWorkspace(pFlags),
+		pmaSecondaryWorkspace(pFlags):      clusterSecondaryWorkspace(pFlags),
+		emailSecondaryWorkspace(pFlags):    clusterSecondaryWorkspace(pFlags),
+		brokerSecondaryWorkspace(pFlags):   clusterSecondaryWorkspace(pFlags),
+		pwSecondaryWorkspace(pFlags):       clusterSecondaryWorkspace(pFlags),
+		sspSecondaryWorkspace(pFlags):      clusterSecondaryWorkspace(pFlags),
+		syncSecondaryWorkspace(pFlags):     clusterSecondaryWorkspace(pFlags),
 	}
 
 	for workspace, source := range runTriggers {
