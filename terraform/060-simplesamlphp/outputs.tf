@@ -1,5 +1,5 @@
 output "hostname" {
-  value = cloudflare_record.sspdns.hostname
+  value = one(cloudflare_record.sspdns[*].hostname)
 }
 
 output "db_ssp_user" {

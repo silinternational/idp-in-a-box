@@ -194,3 +194,15 @@ variable "admin_name" {
 variable "trust_cloudflare_ips" {
   default = ""
 }
+
+variable "create_dns_record" {
+  description = "Controls creation of a DNS CNAME record for the ECS service."
+  type        = bool
+  default     = true
+}
+
+variable "dns_allow_overwrite" {
+  description = "Controls whether this module can overwrite an existing DNS record with the same name. Should be set true in a multiregion IdP."
+  type        = bool
+  default     = false
+}
