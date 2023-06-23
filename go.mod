@@ -3,7 +3,7 @@ module github.com/silinternational/idp-in-a-box
 go 1.20
 
 require (
-	github.com/silinternational/tfc-ops/v3 v3.3.0
+	github.com/silinternational/tfc-ops/v3 v3.5.0
 	github.com/spf13/cobra v1.7.0
 	github.com/spf13/viper v1.16.0
 )
