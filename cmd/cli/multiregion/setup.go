@@ -444,6 +444,7 @@ func createRunTrigger(pFlags PersistentFlags, workspaceName, sourceName string) 
 	}
 
 	if pFlags.readOnlyMode {
+		fmt.Printf("(Read-only Mode) Run trigger %s -> %s would be set\n", sourceName, workspaceName)
 		return nil
 	}
 
