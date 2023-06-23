@@ -176,14 +176,12 @@ func setMultiregionVariables(pFlags PersistentFlags) {
 	setVars(pFlags, pmaSecondaryWorkspace(pFlags), pmaVars)
 
 	emailVars := []lib.TFVar{
-		{Key: "email_subdomain", Value: pFlags.idp + "-email-secondary"},
 		tfRemoteClusterSecondary,
 		tfRemoteDatabaseSecondary,
 	}
 	setVars(pFlags, emailSecondaryWorkspace(pFlags), emailVars)
 
 	brokerVars := []lib.TFVar{
-		{Key: "broker_subdomain", Value: pFlags.idp + "-broker-secondary"},
 		{Key: "mfa_totp_apibaseurl", Value: "TODO"},     // TODO: get this value
 		{Key: "mfa_webauthn_apibaseurl", Value: "TODO"}, // TODO: get this value
 		tfRemoteClusterSecondary,
@@ -193,7 +191,6 @@ func setMultiregionVariables(pFlags PersistentFlags) {
 	setVars(pFlags, brokerSecondaryWorkspace(pFlags), brokerVars)
 
 	pwVars := []lib.TFVar{
-		{Key: "api_subdomain", Value: pFlags.idp + "-pw-api-secondary"},
 		{Key: "ui_subdomain", Value: pFlags.idp + "-pw-secondary"},
 		tfRemoteClusterSecondary,
 		tfRemoteDatabaseSecondary,
@@ -203,7 +200,6 @@ func setMultiregionVariables(pFlags PersistentFlags) {
 	setVars(pFlags, pwSecondaryWorkspace(pFlags), pwVars)
 
 	sspVars := []lib.TFVar{
-		{Key: "ssp_subdomain", Value: pFlags.idp + "-secondary"},
 		tfRemoteClusterSecondary,
 		tfRemoteDatabaseSecondary,
 		tfRemoteBrokerSecondary,
@@ -212,7 +208,6 @@ func setMultiregionVariables(pFlags PersistentFlags) {
 	setVars(pFlags, sspSecondaryWorkspace(pFlags), sspVars)
 
 	syncVars := []lib.TFVar{
-		{Key: "sync_subdomain", Value: pFlags.idp + "-sync-secondary"},
 		tfRemoteClusterSecondary,
 		tfRemoteEmailSecondary,
 		tfRemoteBrokerSecondary,
