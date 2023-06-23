@@ -191,7 +191,6 @@ func setMultiregionVariables(pFlags PersistentFlags) {
 	setVars(pFlags, brokerSecondaryWorkspace(pFlags), brokerVars)
 
 	pwVars := []lib.TFVar{
-		{Key: "ui_subdomain", Value: pFlags.idp + "-pw-secondary"},
 		tfRemoteClusterSecondary,
 		tfRemoteDatabaseSecondary,
 		tfRemoteEmailSecondary,
