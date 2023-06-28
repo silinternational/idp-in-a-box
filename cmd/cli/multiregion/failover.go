@@ -8,7 +8,6 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/cloudflare/cloudflare-go"
 	"github.com/silinternational/tfc-ops/v3/lib"
 	"github.com/spf13/cobra"
 )
@@ -41,8 +40,6 @@ const awsFailoverActive = "aws_failover_active"
 type Failover struct {
 	testMode bool
 	tfcOrg   string
-	cfClient *cloudflare.API
-	cfZone   *cloudflare.ResourceContainer
 
 	workspaces map[string]Workspace
 }
@@ -79,10 +76,6 @@ func runFailover() {
 
 	f.setFailoverActiveVariable("true")
 	f.createRun(Core, "set "+awsFailoverActive+" to true")
-
-	_ = simplePrompt("Review and apply Terraform plans, then press Enter to continue.")
-
-	f.setDnsToSecondary()
 }
 
 func newFailover(pFlags PersistentFlags) *Failover {
@@ -122,19 +115,6 @@ func newFailover(pFlags PersistentFlags) *Failover {
 			variables: variables,
 		}
 	}
-
-	api, err := cloudflare.NewWithAPIToken(pFlags.cloudflareToken)
-	if err != nil {
-		log.Fatal("failed to initialize the Cloudflare API:", err)
-	}
-	f.cfClient = api
-
-	zoneID, err := f.cfClient.ZoneIDByName(pFlags.domainName)
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Printf("Using domain name %s with ID %s\n", pFlags.domainName, zoneID)
-	f.cfZone = cloudflare.ZoneIdentifier(zoneID)
 
 	return &f
 }
@@ -184,7 +164,4 @@ func simplePrompt(message string) string {
 	var prompt string
 	_, _ = fmt.Scanln(&prompt)
 	return prompt
-}
-
-func (f *Failover) setDnsToSecondary() {
 }

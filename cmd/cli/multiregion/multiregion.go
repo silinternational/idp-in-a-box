@@ -20,16 +20,10 @@ func SetupMultiregionCmd(parentCommand *cobra.Command) {
 	}
 
 	parentCommand.AddCommand(multiregionCmd)
+	InitDnsCmd(multiregionCmd)
 	InitFailoverCmd(multiregionCmd)
 	InitSetupCmd(multiregionCmd)
 	InitStatusCmd(multiregionCmd)
-
-	var cloudflareToken string
-	multiregionCmd.PersistentFlags().StringVar(&cloudflareToken, "cloudflare-token", "", "Cloudflare API token")
-	cfTokenFlag := multiregionCmd.PersistentFlags().Lookup("cloudflare-token")
-	if err := viper.BindPFlag("cloudflare-token", cfTokenFlag); err != nil {
-		log.Fatalln("Error: unable to bind flag:", err)
-	}
 
 	var domainName string
 	multiregionCmd.PersistentFlags().StringVar(&domainName, "domain-name", "", "Domain name")
@@ -52,8 +46,6 @@ func SetupMultiregionCmd(parentCommand *cobra.Command) {
 
 type PersistentFlags struct {
 	env             string
-	cloudflareToken string
-	domainName      string
 	idp             string
 	org             string
 	readOnlyMode    bool
@@ -62,52 +54,30 @@ type PersistentFlags struct {
 }
 
 func getPersistentFlags() PersistentFlags {
-	cloudflareToken := viper.GetString("cloudflare-token")
-	if cloudflareToken == "" {
-		log.Fatalln("no Cloudflare API Token is set, use --cloudflare-token parameter")
-	}
-
-	domainName := viper.GetString("domain-name")
-	if domainName == "" {
-		log.Fatalln("no domain name is set, use --domain-name parameter")
-	}
-
-	env := viper.GetString("env")
-	if env == "" {
-		log.Fatalln("no operating environment is set, use --env parameter")
-	}
-
-	idp := viper.GetString("idp")
-	if idp == "" {
-		log.Fatalln("no IdP key is set, use --idp parameter")
-	}
-
-	org := viper.GetString("org")
-	if org == "" {
-		log.Fatalln("no Terraform Cloud organization is set, use --org parameter")
-	}
-
-	tfcToken := viper.GetString("tfc-token")
-	if tfcToken == "" {
-		log.Fatalln("no Terraform Cloud Token is set, use --tfc-token parameter")
-	}
-
-	secondaryRegion := viper.GetString("region2")
-	if secondaryRegion == "" {
-		log.Fatalln("no secondary region is set, use --region2 parameter")
-	}
-
-	readOnlyMode := viper.GetBool("read-only-mode")
-
 	return PersistentFlags{
-		cloudflareToken: cloudflareToken,
-		env:             env,
-		idp:             idp,
-		org:             org,
-		tfcToken:        tfcToken,
-		secondaryRegion: secondaryRegion,
-		readOnlyMode:    readOnlyMode,
+		env:             getRequiredParam("env"),
+		idp:             getRequiredParam("idp"),
+		org:             getRequiredParam("org"),
+		tfcToken:        getRequiredParam("tfc-token"),
+		secondaryRegion: getRequiredParam("region2"),
+		readOnlyMode:    viper.GetBool("read-only-mode"),
 	}
+}
+
+func getRequiredParam(key string) string {
+	value := viper.GetString(key)
+	if value == "" {
+		log.Fatalf("parameter %[1]s is not set, use --%[1]s on command line or include in idp-cli file", key)
+	}
+	return value
+}
+
+func getOption(key, defaultValue string) string {
+	value := viper.GetString(key)
+	if value == "" {
+		value = defaultValue
+	}
+	return value
 }
 
 func coreWorkspace(pFlags PersistentFlags) string {
