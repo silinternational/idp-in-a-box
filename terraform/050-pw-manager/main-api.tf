@@ -97,8 +97,8 @@ locals {
     support_name                        = var.support_name
     support_phone                       = var.support_phone
     support_url                         = var.support_url
-    ui_cors_origin                      = "https://${local.ui_hostname}"
-    ui_url                              = "https://${local.ui_hostname}/#"
+    ui_cors_origin                      = "https://${var.ui_subdomain}.${var.cloudflare_domain}"
+    ui_url                              = "https://${var.ui_subdomain}.${var.cloudflare_domain}/#"
   })
 }
 
@@ -119,17 +119,17 @@ module "ecsservice" {
  * Create Cloudflare DNS record
  */
 resource "cloudflare_record" "apidns" {
-  zone_id = data.cloudflare_zones.domain.zones[0].id
-  name    = var.api_subdomain
-  value   = var.alb_dns_name
-  type    = "CNAME"
-  proxied = true
+  count = var.create_dns_record ? 1 : 0
+
+  zone_id         = data.cloudflare_zone.domain.id
+  name            = var.api_subdomain
+  value           = var.alb_dns_name
+  type            = "CNAME"
+  proxied         = true
+  allow_overwrite = var.dns_allow_overwrite
 }
 
-data "cloudflare_zones" "domain" {
-  filter {
-    name        = var.cloudflare_domain
-    lookup_type = "exact"
-    status      = "active"
-  }
+data "cloudflare_zone" "domain" {
+  name = var.cloudflare_domain
 }
+

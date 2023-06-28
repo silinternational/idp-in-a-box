@@ -75,12 +75,11 @@ func runFailover() {
 	f := newFailover(pFlags)
 
 	f.setFailoverActiveVariable("true")
-	f.createRun(Core, "set "+awsFailoverActive+" to true")
+	f.createRun(ClusterSecondary, "set "+awsFailoverActive+" to true")
 }
 
 func newFailover(pFlags PersistentFlags) *Failover {
 	allWorkspaces := map[string]func(flags PersistentFlags) string{
-		Core:                   coreWorkspace,
 		ClusterSecondary:       clusterSecondaryWorkspace,
 		DatabaseSecondary:      databaseSecondaryWorkspace,
 		PhpmyadminSecondary:    pmaSecondaryWorkspace,
@@ -120,15 +119,19 @@ func newFailover(pFlags PersistentFlags) *Failover {
 }
 
 func (f *Failover) setFailoverActiveVariable(value string) {
-	fmt.Printf("Setting %q variable to true.\n", awsFailoverActive)
-	v := f.findVariable(Core, awsFailoverActive)
+	f.setVariable(ClusterSecondary, awsFailoverActive, value)
+}
+
+func (f *Failover) setVariable(workspaceKey, variableKey, value string) {
+	fmt.Printf("Setting workspace %s variable %q to true.\n", workspaceKey, variableKey)
+	v := f.findVariable(workspaceKey, variableKey)
 
 	if f.testMode {
 		return
 	}
 
-	lib.UpdateVariable(f.tfcOrg, f.workspaces[Core].Attributes.Name, v.ID, lib.TFVar{
-		Key:   awsFailoverActive,
+	lib.UpdateVariable(f.tfcOrg, f.workspaces[workspaceKey].Attributes.Name, v.ID, lib.TFVar{
+		Key:   variableKey,
 		Value: value,
 	})
 }

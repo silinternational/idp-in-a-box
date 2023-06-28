@@ -35,7 +35,15 @@ func runSetup() {
 	setMultiregionVariables(pFlags)
 	deleteUnusedVariables(pFlags)
 	setSensitiveVariables(pFlags)
-	setRemoteConsumers(pFlags)
+
+	if err := setRemoteConsumers(pFlags); err != nil {
+		log.Fatalf("Error: " + err.Error())
+	}
+
+	err := setRunTriggers(pFlags)
+	if err != nil {
+		log.Fatalf("Error: " + err.Error())
+	}
 }
 
 // createSecondaryWorkspaces creates new secondary workspaces by cloning the corresponding primary workspace
@@ -176,14 +184,12 @@ func setMultiregionVariables(pFlags PersistentFlags) {
 	setVars(pFlags, pmaSecondaryWorkspace(pFlags), pmaVars)
 
 	emailVars := []lib.TFVar{
-		{Key: "email_subdomain", Value: pFlags.idp + "-email-secondary"},
 		tfRemoteClusterSecondary,
 		tfRemoteDatabaseSecondary,
 	}
 	setVars(pFlags, emailSecondaryWorkspace(pFlags), emailVars)
 
 	brokerVars := []lib.TFVar{
-		{Key: "broker_subdomain", Value: pFlags.idp + "-broker-secondary"},
 		{Key: "mfa_totp_apibaseurl", Value: "TODO"},     // TODO: get this value
 		{Key: "mfa_webauthn_apibaseurl", Value: "TODO"}, // TODO: get this value
 		tfRemoteClusterSecondary,
@@ -193,8 +199,6 @@ func setMultiregionVariables(pFlags PersistentFlags) {
 	setVars(pFlags, brokerSecondaryWorkspace(pFlags), brokerVars)
 
 	pwVars := []lib.TFVar{
-		{Key: "api_subdomain", Value: pFlags.idp + "-pw-api-secondary"},
-		{Key: "ui_subdomain", Value: pFlags.idp + "-pw-secondary"},
 		tfRemoteClusterSecondary,
 		tfRemoteDatabaseSecondary,
 		tfRemoteEmailSecondary,
@@ -203,7 +207,6 @@ func setMultiregionVariables(pFlags PersistentFlags) {
 	setVars(pFlags, pwSecondaryWorkspace(pFlags), pwVars)
 
 	sspVars := []lib.TFVar{
-		{Key: "ssp_subdomain", Value: pFlags.idp + "-secondary"},
 		tfRemoteClusterSecondary,
 		tfRemoteDatabaseSecondary,
 		tfRemoteBrokerSecondary,
@@ -212,7 +215,6 @@ func setMultiregionVariables(pFlags PersistentFlags) {
 	setVars(pFlags, sspSecondaryWorkspace(pFlags), sspVars)
 
 	syncVars := []lib.TFVar{
-		{Key: "sync_subdomain", Value: pFlags.idp + "-sync-secondary"},
 		tfRemoteClusterSecondary,
 		tfRemoteEmailSecondary,
 		tfRemoteBrokerSecondary,
@@ -286,6 +288,8 @@ func getZonesHCL(region string) string {
 }
 
 func setRemoteConsumers(pFlags PersistentFlags) error {
+	fmt.Println("\nCreating workspace remote consumers ...")
+
 	workspacesToUpdate := []string{
 		coreWorkspace(pFlags),
 		clusterSecondaryWorkspace(pFlags),
@@ -298,7 +302,7 @@ func setRemoteConsumers(pFlags PersistentFlags) error {
 	}
 
 	for _, workspace := range workspacesToUpdate {
-		data, err := lib.GetWorkspaceData(pFlags.org, workspace)
+		workspaceID, err := getWorkspaceID(pFlags.org, workspace)
 		if err != nil {
 			return fmt.Errorf("setRemoteConsumers: %w", err)
 		}
@@ -313,7 +317,12 @@ func setRemoteConsumers(pFlags PersistentFlags) error {
 			consumerIDs[i] = data.Data.ID
 		}
 
-		if err := lib.AddRemoteStateConsumers(data.Data.ID, consumerIDs); err != nil {
+		if pFlags.readOnlyMode {
+			fmt.Printf("  %s: %+v\n", workspaceID, consumers)
+			continue
+		}
+
+		if err := lib.AddRemoteStateConsumers(workspaceID, consumerIDs); err != nil {
 			return fmt.Errorf("setRemoteConsumers: %w", err)
 		}
 	}
@@ -372,4 +381,80 @@ func getWorkspaceConsumers(pFlags PersistentFlags, workspace string) []string {
 		},
 	}
 	return consumers[workspace]
+}
+
+func setRunTriggers(pFlags PersistentFlags) error {
+	fmt.Println("\nSetting workspace run triggers ...")
+
+	// map of workspaces (key) and source workspaces (value) for run triggers to be created
+	runTriggers := map[string]string{
+		clusterSecondaryWorkspace(pFlags):  coreWorkspace(pFlags),
+		databaseSecondaryWorkspace(pFlags): coreWorkspace(pFlags),
+		pmaSecondaryWorkspace(pFlags):      coreWorkspace(pFlags),
+		emailSecondaryWorkspace(pFlags):    coreWorkspace(pFlags),
+		brokerSecondaryWorkspace(pFlags):   coreWorkspace(pFlags),
+		pwSecondaryWorkspace(pFlags):       coreWorkspace(pFlags),
+		sspSecondaryWorkspace(pFlags):      coreWorkspace(pFlags),
+		syncSecondaryWorkspace(pFlags):     coreWorkspace(pFlags),
+		clusterSecondaryWorkspace(pFlags):  clusterSecondaryWorkspace(pFlags),
+		databaseSecondaryWorkspace(pFlags): clusterSecondaryWorkspace(pFlags),
+		pmaSecondaryWorkspace(pFlags):      clusterSecondaryWorkspace(pFlags),
+		emailSecondaryWorkspace(pFlags):    clusterSecondaryWorkspace(pFlags),
+		brokerSecondaryWorkspace(pFlags):   clusterSecondaryWorkspace(pFlags),
+		pwSecondaryWorkspace(pFlags):       clusterSecondaryWorkspace(pFlags),
+		sspSecondaryWorkspace(pFlags):      clusterSecondaryWorkspace(pFlags),
+		syncSecondaryWorkspace(pFlags):     clusterSecondaryWorkspace(pFlags),
+	}
+
+	for workspace, source := range runTriggers {
+		if err := createRunTrigger(pFlags, workspace, source); err != nil {
+			return fmt.Errorf("failed to set run trigger from %s to %s: %w", source, workspace, err)
+		}
+	}
+	return nil
+}
+
+func getWorkspaceID(org, workspaceName string) (string, error) {
+	data, err := lib.GetWorkspaceData(org, workspaceName)
+	if err != nil {
+		return "", fmt.Errorf("failed to get workspace data: %w", err)
+	}
+	return data.Data.ID, nil
+}
+
+func createRunTrigger(pFlags PersistentFlags, workspaceName, sourceName string) error {
+	workspaceID, err := getWorkspaceID(pFlags.org, workspaceName)
+	if err != nil {
+		return fmt.Errorf("failed to get workspace ID for run trigger: %w", err)
+	}
+
+	sourceID, err := getWorkspaceID(pFlags.org, sourceName)
+	if err != nil {
+		return fmt.Errorf("failed to get source workspace ID for run trigger: %w", err)
+	}
+
+	t, err := lib.FindRunTrigger(lib.FindRunTriggerConfig{
+		WorkspaceID:       workspaceID,
+		SourceWorkspaceID: sourceID,
+	})
+	if err != nil {
+		return fmt.Errorf("failed to get run triggers for workspace %s: %w", workspaceName, err)
+	}
+	if t != nil {
+		fmt.Printf("Run trigger %s -> %s is already set\n", sourceName, workspaceName)
+		return nil
+	}
+
+	if pFlags.readOnlyMode {
+		fmt.Printf("(Read-only Mode) Run trigger %s -> %s would be set\n", sourceName, workspaceName)
+		return nil
+	}
+
+	if err := lib.CreateRunTrigger(lib.RunTriggerConfig{
+		WorkspaceID:       workspaceID,
+		SourceWorkspaceID: sourceID,
+	}); err != nil {
+		return fmt.Errorf("create run trigger API error: %w", err)
+	}
+	return nil
 }
