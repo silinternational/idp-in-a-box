@@ -36,12 +36,6 @@ in a second AWS region, and to initiate a secondary region failover action.`,
 		log.Fatalln("Error: unable to bind flag:", err)
 	}
 
-	var token string
-	rootCmd.PersistentFlags().StringVar(&token, "tfc-token", "", requiredPrefix+"Terraform Cloud token")
-	if err := viper.BindPFlag("tfc-token", rootCmd.PersistentFlags().Lookup("tfc-token")); err != nil {
-		log.Fatalln("Error: unable to bind flag:", err)
-	}
-
 	var idp string
 	rootCmd.PersistentFlags().StringVar(&idp, "idp", "", requiredPrefix+"IDP key (short name)")
 	if err := viper.BindPFlag("idp", rootCmd.PersistentFlags().Lookup("idp")); err != nil {

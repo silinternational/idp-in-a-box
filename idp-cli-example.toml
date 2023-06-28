@@ -1,10 +1,13 @@
-# These parameters are required for the setup and failover commainds. They can be specified on the
+# These parameters are required for the setup and failover commainds. Some can be specified on the
 # command line, e.g. "--org my-tf-org".
 
 idp = "my-idp"
 region2 = "us-west-2"
 org = "my-tfc-org"
+
+# Terraform Cloud token. Cannot be specified on the command line.
 tfc-token = ""
+
 
 # These parameters are required for the dns commands. They can only be specified in the config file.
 
