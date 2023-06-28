@@ -17,7 +17,7 @@ import (
 
 const requiredPrefix = "required - "
 
-var defaultsFile string
+var configFile string
 
 func Execute() {
 	rootCmd := &cobra.Command{
@@ -28,7 +28,7 @@ It can be used to check the status of the IdP. It can also be used to establish 
 in a second AWS region, and to initiate a secondary region failover action.`,
 	}
 
-	rootCmd.PersistentFlags().StringVar(&defaultsFile, "defaults", "", "Defaults file")
+	rootCmd.PersistentFlags().StringVar(&configFile, "config", "", "Config file")
 
 	var org string
 	rootCmd.PersistentFlags().StringVar(&org, "org", "", requiredPrefix+"Terraform Cloud organization")
@@ -58,7 +58,7 @@ in a second AWS region, and to initiate a secondary region failover action.`,
 
 	multiregion.SetupMultiregionCmd(rootCmd)
 
-	cobra.OnInitialize(initDefaults)
+	cobra.OnInitialize(initConfig)
 
 	err := rootCmd.Execute()
 	if err != nil {
@@ -66,11 +66,11 @@ in a second AWS region, and to initiate a secondary region failover action.`,
 	}
 }
 
-// initDefaults reads in a Defaults file and ENV variables if set.
-func initDefaults() {
-	if defaultsFile != "" {
-		// Use defaults file from the flag.
-		viper.SetConfigFile(defaultsFile)
+// initConfig reads in a Config file and ENV variables if set.
+func initConfig() {
+	if configFile != "" {
+		// Use config file from the flag.
+		viper.SetConfigFile(configFile)
 	} else {
 		// Find home directory and add ~/.config/ to the config search path
 		home, err := os.UserHomeDir()
@@ -88,16 +88,16 @@ func initDefaults() {
 	viper.SetEnvPrefix("IDP")
 	viper.AutomaticEnv()
 
-	// If a defaults file is found, read it in.
+	// If a config file is found, read it in.
 	if err := viper.ReadInConfig(); err == nil {
-		_, err = fmt.Fprintln(os.Stderr, "Using defaults file:", viper.ConfigFileUsed())
+		_, err = fmt.Fprintln(os.Stderr, "Using config file:", viper.ConfigFileUsed())
 		if err != nil {
 			panic(err.Error())
 		}
 	} else {
 		var vErr viper.ConfigFileNotFoundError
 		if !errors.As(err, &vErr) {
-			_, err = fmt.Fprintf(os.Stderr, "Problem with defaults file: %s %T\n", err, err)
+			_, err = fmt.Fprintf(os.Stderr, "Problem with config file: %s %T\n", err, err)
 			if err != nil {
 				panic(err.Error())
 			}
