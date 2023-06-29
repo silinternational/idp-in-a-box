@@ -132,7 +132,6 @@ func setWorkspaceProperties(pFlags PersistentFlags, workspace string) {
 			log.Fatalf("Error: failed to update workspace %s: %s", workspace, err)
 			return
 		}
-
 	}
 }
 
@@ -190,8 +189,6 @@ func setMultiregionVariables(pFlags PersistentFlags) {
 	setVars(pFlags, emailSecondaryWorkspace(pFlags), emailVars)
 
 	brokerVars := []lib.TFVar{
-		{Key: "mfa_totp_apibaseurl", Value: "TODO"},     // TODO: get this value
-		{Key: "mfa_webauthn_apibaseurl", Value: "TODO"}, // TODO: get this value
 		tfRemoteClusterSecondary,
 		tfRemoteDatabaseSecondary,
 		tfRemoteEmailSecondary,
