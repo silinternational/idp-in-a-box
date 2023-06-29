@@ -1,0 +1,30 @@
+# These parameters are required for the setup and failover commainds. Some can be specified on the
+# command line, e.g. "--org my-tf-org".
+
+idp = "my-idp"
+region2 = "us-west-2"
+org = "my-tfc-org"
+
+# Terraform Cloud token. Cannot be specified on the command line.
+tfc-token = ""
+
+
+# These parameters are required for the dns commands. They can only be specified in the config file.
+
+domain-name = "example.net"
+cloudflare-token = ""
+
+# The "name" parameters specify the DNS subdomain.
+# The "value" parameters specify the hostname.
+
+# "mfa-api" is the TOTP API, also known as serverless-mfa-api
+mfa-api-name = "mfa-api"
+mfa-api-value = "abcde01234.execute-api.us-west-2.amazonaws.com"
+
+# "twosv-api" is the Webauthn API, also known as serverless-mfa-api-go
+twosv-api-name = "twosv-api"
+twosv-api-value = "abcde12345.execute-api.us-west-2.amazonaws.com"
+
+# "support-bot" is the idp-support-bot API that is configured in the Slack API dashboard
+support-bot-name = "sherlock"
+support-bot-value = "abcde23456.execute-api.us-west-2.amazonaws.com"
