@@ -47,12 +47,12 @@ func newDnsCommand(pFlags PersistentFlags) *DnsCommand {
 	}
 
 	if d.domainName == "" {
-		log.Fatalf("Cloudflare Domain Name is not configured. Use 'domain-name' parameter.")
+		log.Fatalln("Cloudflare Domain Name is not configured. Use 'domain-name' parameter.")
 	}
 
 	cfToken := viper.GetString("cloudflare-token")
 	if cfToken == "" {
-		log.Fatalf("Cloudflare Token is not configured. Use 'cloudflare-token' parameter.")
+		log.Fatalln("Cloudflare Token is not configured. Use 'cloudflare-token' parameter.")
 	}
 
 	api, err := cloudflare.NewWithAPIToken(cfToken)
@@ -74,14 +74,17 @@ func newDnsCommand(pFlags PersistentFlags) *DnsCommand {
 func (d *DnsCommand) setDnsToSecondary() {
 	fmt.Println("Setting DNS records to secondary...")
 
+	// "mfa-api" is the TOTP API, also known as serverless-mfa-api
 	mfaApiName := getOption("mfa-api-name", "mfa-api")
 	mfaApiValue := getOption("mfa-api-value", "")
 	d.setCloudflareCname(mfaApiName, mfaApiValue)
 
+	// "twosv-api" is the Webauthn API, also known as serverless-mfa-api-go
 	twosvApiName := getOption("twosv-api-name", "twosv-api")
 	twosvApiValue := getOption("twosv-api-value", "")
 	d.setCloudflareCname(twosvApiName, twosvApiValue)
 
+	// "support-bot" is the idp-support-bot API that is configured in the Slack API dashboard
 	supportBotName := getOption("support-bot-name", "sherlock")
 	supportBotValue := getOption("support-bot-value", "")
 	d.setCloudflareCname(supportBotName, supportBotValue)
