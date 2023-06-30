@@ -150,7 +150,6 @@ func setMultiregionVariables(pFlags PersistentFlags) {
 
 	coreVars := []lib.TFVar{
 		{Key: "aws_create_secondary", Value: "true"},
-		{Key: "aws_failover_active", Value: "false"},
 		{Key: "aws_region_secondary", Value: pFlags.secondaryRegion},
 	}
 	setVars(pFlags, coreWorkspace(pFlags), coreVars)
@@ -393,7 +392,6 @@ func setRunTriggers(pFlags PersistentFlags) error {
 		pwSecondaryWorkspace(pFlags):       coreWorkspace(pFlags),
 		sspSecondaryWorkspace(pFlags):      coreWorkspace(pFlags),
 		syncSecondaryWorkspace(pFlags):     coreWorkspace(pFlags),
-		clusterSecondaryWorkspace(pFlags):  clusterSecondaryWorkspace(pFlags),
 		databaseSecondaryWorkspace(pFlags): clusterSecondaryWorkspace(pFlags),
 		pmaSecondaryWorkspace(pFlags):      clusterSecondaryWorkspace(pFlags),
 		emailSecondaryWorkspace(pFlags):    clusterSecondaryWorkspace(pFlags),
