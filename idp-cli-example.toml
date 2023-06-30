@@ -1,15 +1,23 @@
-# These parameters are required for the setup and failover commainds. Some can be specified on the
-# command line, e.g. "--org my-tf-org".
 
-idp = "my-idp"
+# -------------------------------------------------------------------------------------------------
+# The "idp" parameter is the short name ("IdP key") required for all commands.
+
+idp = "myidp"
+
+# -------------------------------------------------------------------------------------------------
+# These parameters are required for the "multiregion setup" and "multiregion failover" commands.
+
+# AWS secondary region
 region2 = "us-west-2"
+
+# Terraform Cloud organization name.
 org = "my-tfc-org"
 
-# Terraform Cloud token. Cannot be specified on the command line.
+# Terraform Cloud token.
 tfc-token = ""
 
-
-# These parameters are required for the dns commands. They can only be specified in the config file.
+# -------------------------------------------------------------------------------------------------
+# These parameters are required for the "dns" commands.
 
 domain-name = "example.net"
 cloudflare-token = ""
@@ -17,14 +25,35 @@ cloudflare-token = ""
 # The "name" parameters specify the DNS subdomain.
 # The "value" parameters specify the hostname.
 
-# "mfa-api" is the TOTP API, also known as serverless-mfa-api
+# "mfa-api" is the TOTP API, also known as serverless-mfa-api.
+# The default mfa-api-name is "mfa-api".
 mfa-api-name = "mfa-api"
 mfa-api-value = "abcde01234.execute-api.us-west-2.amazonaws.com"
 
-# "twosv-api" is the Webauthn API, also known as serverless-mfa-api-go
+# "twosv-api" is the Webauthn API, also known as serverless-mfa-api-go.
+# The default twosv-api-name is "twosv-api".
 twosv-api-name = "twosv-api"
 twosv-api-value = "abcde12345.execute-api.us-west-2.amazonaws.com"
 
-# "support-bot" is the idp-support-bot API that is configured in the Slack API dashboard
+# "support-bot" is the idp-support-bot API that is configured in the Slack API dashboard.
+# The default support-bot-value is "sherlock".
 support-bot-name = "sherlock"
 support-bot-value = "abcde23456.execute-api.us-west-2.amazonaws.com"
+
+# These are the DNS name and value for each of the ECS services.
+# The default name for each is the IdP key followed by the service name.
+
+email-service-name = "myidp-email-service"
+email-service-value = "internal-alb-idp-myidp-prod-int-123456789.us-west-2.elb.amazonaws.com"
+
+broker-name = "myidp-broker"
+broker-value = "internal-alb-idp-myidp-prod-int-123456789.us-west-2.elb.amazonaws.com"
+
+pw-api-name = "myidp-pw-api"
+pw-api-value = "alb-idp-myidp-prod-987654321-us-west-2.elb.amazonaws.com"
+
+ssp-name = "myidp"
+ssp-value = "alb-idp-myidp-prod-987654321-us-west-2.elb.amazonaws.com"
+
+sync-name = "myidp-sync"
+sync-value = "alb-idp-myidp-prod-987654321-us-west-2.elb.amazonaws.com"

@@ -37,7 +37,7 @@ func runDnsCommand() {
 
 	f := newDnsCommand(pFlags)
 
-	f.setDnsToSecondary()
+	f.setDnsToSecondary(pFlags.idp)
 }
 
 func newDnsCommand(pFlags PersistentFlags) *DnsCommand {
@@ -71,23 +71,36 @@ func newDnsCommand(pFlags PersistentFlags) *DnsCommand {
 	return &d
 }
 
-func (d *DnsCommand) setDnsToSecondary() {
+func (d *DnsCommand) setDnsToSecondary(idpKey string) {
 	fmt.Println("Setting DNS records to secondary...")
 
-	// "mfa-api" is the TOTP API, also known as serverless-mfa-api
-	mfaApiName := getOption("mfa-api-name", "mfa-api")
-	mfaApiValue := getOption("mfa-api-value", "")
-	d.setCloudflareCname(mfaApiName, mfaApiValue)
+	dnsRecords := []struct {
+		optionName  string
+		defaultName string
+		optionValue string
+	}{
+		// "mfa-api" is the TOTP API, also known as serverless-mfa-api
+		{"mfa-api-name", "mfa-api", "mfa-api-value"},
 
-	// "twosv-api" is the Webauthn API, also known as serverless-mfa-api-go
-	twosvApiName := getOption("twosv-api-name", "twosv-api")
-	twosvApiValue := getOption("twosv-api-value", "")
-	d.setCloudflareCname(twosvApiName, twosvApiValue)
+		// "twosv-api" is the Webauthn API, also known as serverless-mfa-api-go
+		{"twosv-api-name", "twosv-api", "twosv-api-value"},
 
-	// "support-bot" is the idp-support-bot API that is configured in the Slack API dashboard
-	supportBotName := getOption("support-bot-name", "sherlock")
-	supportBotValue := getOption("support-bot-value", "")
-	d.setCloudflareCname(supportBotName, supportBotValue)
+		// "support-bot" is the idp-support-bot API that is configured in the Slack API dashboard
+		{"support-bot-name", "sherlock", "support-bot-value"},
+
+		// ECS services
+		{"email-service-name", idpKey + "-email-service", "email-service-value"},
+		{"id-broker-name", idpKey + "-id-broker", "id-broker-value"},
+		{"pw-api-name", idpKey + "-pw-api", "pw-api-value"},
+		{"ssp-name", idpKey + "-ssp", "ssp-value"},
+		{"id-sync-name", idpKey + "-id-sync", "id-sync-value"},
+	}
+
+	for _, record := range dnsRecords {
+		name := getOption(record.optionName, record.defaultName)
+		value := getOption(record.optionValue, "")
+		d.setCloudflareCname(name, value)
+	}
 }
 
 func (d *DnsCommand) setCloudflareCname(name, value string) {
