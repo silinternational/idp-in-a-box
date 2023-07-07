@@ -1,5 +1,5 @@
 output "hostname" {
-  value = one(cloudflare_record.brokerdns[*].hostname)
+  value = "${var.subdomain}.${var.cloudflare_domain}"
 }
 
 output "db_idbroker_user" {
