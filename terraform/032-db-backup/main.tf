@@ -4,14 +4,23 @@
 resource "aws_s3_bucket" "backup" {
   bucket        = "${var.idp_name}-${var.app_name}-${var.app_env}"
   force_destroy = true
+
   tags = {
     idp_name = var.idp_name
     app_name = var.app_name
     app_env  = var.app_env
   }
 }
+resource "aws_s3_bucket_ownership_controls" "backup" {
+  bucket = aws_s3_bucket.backup.id
+  rule {
+    object_ownership = "BucketOwnerPreferred"
+  }
+}
 
 resource "aws_s3_bucket_acl" "backup" {
+  depends_on = [aws_s3_bucket_ownership_controls.backup]
+
   bucket = aws_s3_bucket.backup.id
   acl    = "private"
 }
