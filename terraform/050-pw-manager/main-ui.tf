@@ -18,7 +18,7 @@ resource "aws_s3_bucket_public_access_block" "ui" {
 resource "aws_s3_bucket_ownership_controls" "ui" {
   bucket = aws_s3_bucket.ui.id
   rule {
-    object_ownership = "ObjectWriter"
+    object_ownership = "BucketOwnerPreferred"
   }
 }
 
