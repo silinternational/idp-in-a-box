@@ -11,22 +11,11 @@ resource "aws_s3_bucket" "backup" {
     app_env  = var.app_env
   }
 }
-resource "aws_s3_bucket_ownership_controls" "backup" {
-  bucket = aws_s3_bucket.backup.id
-  rule {
-    object_ownership = "BucketOwnerPreferred"
-  }
-}
 
 resource "aws_s3_bucket_acl" "backup" {
-  depends_on = [aws_s3_bucket_ownership_controls.backup]
-
   bucket = aws_s3_bucket.backup.id
   acl    = "private"
-  depends_on = [
-    aws_s3_bucket_ownership_controls.backup,
-    aws_s3_bucket_public_access_block.backup,
-  ]
+  depends_on = [aws_s3_bucket_ownership_controls.backup]
 }
 
 resource "aws_s3_bucket_ownership_controls" "backup" {
@@ -34,14 +23,6 @@ resource "aws_s3_bucket_ownership_controls" "backup" {
   rule {
     object_ownership = "BucketOwnerPreferred"
   }
-}
-
-resource "aws_s3_bucket_public_access_block" "backup" {
-  bucket                  = aws_s3_bucket.backup.id
-  block_public_acls       = false
-  block_public_policy     = false
-  ignore_public_acls      = false
-  restrict_public_buckets = false
 }
 
 resource "aws_s3_bucket_lifecycle_configuration" "backup" {
