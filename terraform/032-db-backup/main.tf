@@ -4,6 +4,8 @@
 resource "aws_s3_bucket" "backup" {
   bucket        = "${var.idp_name}-${var.app_name}-${var.app_env}"
   force_destroy = true
+  acl    = "private"
+
   tags = {
     idp_name = var.idp_name
     app_name = var.app_name
