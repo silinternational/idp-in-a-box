@@ -13,8 +13,8 @@ resource "aws_s3_bucket" "backup" {
 }
 
 resource "aws_s3_bucket_acl" "backup" {
-  bucket = aws_s3_bucket.backup.id
-  acl    = "private"
+  bucket     = aws_s3_bucket.backup.id
+  acl        = "private"
   depends_on = [aws_s3_bucket_ownership_controls.backup]
 }
 
