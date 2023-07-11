@@ -4,6 +4,7 @@
 resource "aws_s3_bucket" "backup" {
   bucket        = "${var.idp_name}-${var.app_name}-${var.app_env}"
   force_destroy = true
+
   tags = {
     idp_name = var.idp_name
     app_name = var.app_name
@@ -12,12 +13,9 @@ resource "aws_s3_bucket" "backup" {
 }
 
 resource "aws_s3_bucket_acl" "backup" {
-  bucket = aws_s3_bucket.backup.id
-  acl    = "private"
-  depends_on = [
-    aws_s3_bucket_ownership_controls.backup,
-    aws_s3_bucket_public_access_block.backup,
-  ]
+  bucket     = aws_s3_bucket.backup.id
+  acl        = "private"
+  depends_on = [aws_s3_bucket_ownership_controls.backup]
 }
 
 resource "aws_s3_bucket_ownership_controls" "backup" {
@@ -25,14 +23,6 @@ resource "aws_s3_bucket_ownership_controls" "backup" {
   rule {
     object_ownership = "BucketOwnerPreferred"
   }
-}
-
-resource "aws_s3_bucket_public_access_block" "backup" {
-  bucket                  = aws_s3_bucket.backup.id
-  block_public_acls       = false
-  block_public_policy     = false
-  ignore_public_acls      = false
-  restrict_public_buckets = false
 }
 
 resource "aws_s3_bucket_lifecycle_configuration" "backup" {
