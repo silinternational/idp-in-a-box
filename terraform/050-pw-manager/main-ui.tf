@@ -33,6 +33,8 @@ resource "aws_s3_bucket_acl" "ui" {
 }
 
 resource "aws_s3_bucket_policy" "ui" {
+  depends_on = [aws_s3_bucket_public_access_block.ui]
+
   bucket = aws_s3_bucket.ui.id
   policy = jsonencode({
     Version = "2012-10-17"
