@@ -11,7 +11,7 @@ output "admin_pass" {
 }
 
 output "secret_salt" {
-  value = local.secret_salt
+  value     = local.secret_salt
   sensitive = true
 }
 
