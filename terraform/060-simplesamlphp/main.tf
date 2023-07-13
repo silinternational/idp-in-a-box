@@ -53,6 +53,8 @@ locals {
 
   trusted_ip_addresses = concat(module.cf_ips.ipv4_cidrs, var.trusted_ip_addresses)
 
+  secret_salt = var.secret_salt == "" ? random_id.secretsalt.hex : var.secret_salt
+
   task_def = templatefile("${path.module}/task-definition.json", {
     memory                       = var.memory
     cpu                          = var.cpu
@@ -85,7 +87,7 @@ locals {
     recaptcha_key                = var.recaptcha_key
     recaptcha_secret             = var.recaptcha_secret
     remember_me_secret           = var.remember_me_secret
-    secret_salt                  = var.secret_salt == "" ? random_id.secretsalt.hex : var.secret_salt
+    secret_salt                  = local.secret_salt
     show_saml_errors             = var.show_saml_errors
     idp_name                     = var.idp_name
     idp_display_name             = var.idp_display_name
