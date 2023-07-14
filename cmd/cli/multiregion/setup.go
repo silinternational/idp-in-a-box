@@ -341,7 +341,9 @@ func getWorkspaceConsumers(pFlags PersistentFlags, workspace string) []string {
 			databaseSecondaryWorkspace(pFlags),
 			pmaSecondaryWorkspace(pFlags),
 			emailSecondaryWorkspace(pFlags),
+			backupWorkspace(pFlags),
 			brokerSecondaryWorkspace(pFlags),
+			searchWorkspace(pFlags),
 			pwSecondaryWorkspace(pFlags),
 			sspSecondaryWorkspace(pFlags),
 			syncSecondaryWorkspace(pFlags),
@@ -352,11 +354,13 @@ func getWorkspaceConsumers(pFlags PersistentFlags, workspace string) []string {
 		databaseSecondaryWorkspace(pFlags): {
 			pmaSecondaryWorkspace(pFlags),
 			emailSecondaryWorkspace(pFlags),
+			backupWorkspace(pFlags),
 			brokerSecondaryWorkspace(pFlags),
 			pwSecondaryWorkspace(pFlags),
 			sspSecondaryWorkspace(pFlags),
 		},
 		ecrWorkspace(pFlags): {
+			emailSecondaryWorkspace(pFlags),
 			brokerSecondaryWorkspace(pFlags),
 			pwSecondaryWorkspace(pFlags),
 			sspSecondaryWorkspace(pFlags),
@@ -368,6 +372,7 @@ func getWorkspaceConsumers(pFlags PersistentFlags, workspace string) []string {
 			syncSecondaryWorkspace(pFlags),
 		},
 		brokerSecondaryWorkspace(pFlags): {
+			searchWorkspace(pFlags),
 			pwSecondaryWorkspace(pFlags),
 			sspSecondaryWorkspace(pFlags),
 			syncSecondaryWorkspace(pFlags),

@@ -1,4 +1,9 @@
+# IntelliJ folder
 .idea/
+
+# Go executable for the Terraform Cloud cli
+cmd/go-exe/
+
 *.env
 google-auth.json
 .terraform/

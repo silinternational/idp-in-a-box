@@ -28,20 +28,31 @@ func SetupMultiregionCmd(parentCommand *cobra.Command) {
 	var domainName string
 	multiregionCmd.PersistentFlags().StringVar(&domainName, "domain-name", "", "Domain name")
 	if err := viper.BindPFlag("domain-name", multiregionCmd.PersistentFlags().Lookup("domain-name")); err != nil {
-		log.Fatalln("Error: unable to bind flag:", err)
+		outputFlagError(multiregionCmd, err)
 	}
 
 	var env string
 	multiregionCmd.PersistentFlags().StringVar(&env, "env", "prod", "Execution environment (default: prod)")
 	if err := viper.BindPFlag("env", multiregionCmd.PersistentFlags().Lookup("env")); err != nil {
-		log.Fatalln("Error: unable to bind flag:", err)
+		outputFlagError(multiregionCmd, err)
 	}
 
 	var region2 string
 	multiregionCmd.PersistentFlags().StringVar(&region2, "region2", "", "Secondary AWS region")
 	if err := viper.BindPFlag("region2", multiregionCmd.PersistentFlags().Lookup("region2")); err != nil {
-		log.Fatalln("Error: unable to bind flag:", err)
+		outputFlagError(multiregionCmd, err)
 	}
+
+	var tfcToken string
+	multiregionCmd.PersistentFlags().StringVar(&tfcToken, "tfc-token", "", "Token for Terraform Cloud authentication")
+	if err := viper.BindPFlag("tfc-token", multiregionCmd.PersistentFlags().Lookup("tfc-token")); err != nil {
+		outputFlagError(multiregionCmd, err)
+	}
+}
+
+func outputFlagError(cmd *cobra.Command, err error) {
+	cmd.Help()
+	log.Fatalln("Error: unable to bind flag:", err)
 }
 
 type PersistentFlags struct {
@@ -66,8 +77,9 @@ func getPersistentFlags() PersistentFlags {
 
 func getRequiredParam(key string) string {
 	value := viper.GetString(key)
+
 	if value == "" {
-		log.Fatalf("parameter %[1]s is not set, use --%[1]s on command line or include in idp-cli file", key)
+		log.Fatalf("parameter %[1]s is not set, use --%[1]s on command line or include in idp-cli.toml file", key)
 	}
 	return value
 }
