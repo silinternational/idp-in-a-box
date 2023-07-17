@@ -50,6 +50,7 @@ in a second AWS region, and to initiate a secondary region failover action.`,
 		log.Fatalln("Error: unable to bind flag:", err)
 	}
 
+	SetupVersionCmd(rootCmd)
 	multiregion.SetupMultiregionCmd(rootCmd)
 
 	cobra.OnInitialize(initConfig)

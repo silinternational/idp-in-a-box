@@ -3,6 +3,7 @@
 
 # Go executable for the Terraform Cloud cli
 cmd/go-exe/
+dist/
 
 *.env
 google-auth.json

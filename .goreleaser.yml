@@ -1,0 +1,45 @@
+# This is the configuration for goreleaser
+# Check the documentation at http://goreleaser.com for details
+before:
+  hooks:
+    - go mod tidy
+builds:
+  - binary: idp-cli
+    main: ./cmd/cli
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - windows
+      - darwin
+    goarch:
+      - amd64
+      - arm
+    ignore:
+      - goos: windows
+        goarch: arm
+    ldflags:
+    - -s -w
+    - -X 'main.version={{.Version}}'
+gomod:
+  proxy: true
+archives:
+  -
+    replacements:
+      darwin: Darwin
+      linux: Linux
+      windows: Windows
+      amd64: x86_64
+    format_overrides:
+      - goos: windows
+        format: zip
+checksum:
+  name_template: 'checksums.txt'
+snapshot:
+  name_template: "{{ .Tag }}-next"
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
