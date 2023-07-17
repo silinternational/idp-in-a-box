@@ -140,6 +140,7 @@ func setMultiregionVariables(pFlags PersistentFlags) {
 	tfRemoteEmailSecondary := lib.TFVar{Key: "tf_remote_email_secondary", Value: pFlags.org + "/" + emailSecondaryWorkspace(pFlags)}
 	tfRemoteBrokerSecondary := lib.TFVar{Key: "tf_remote_broker_secondary", Value: pFlags.org + "/" + brokerSecondaryWorkspace(pFlags)}
 	tfRemotePwManagerSecondary := lib.TFVar{Key: "tf_remote_pwmanager_secondary", Value: pFlags.org + "/" + pwSecondaryWorkspace(pFlags)}
+	tfRemoteSsp := lib.TFVar{Key: "tf_remote_simplesamlphp", Value: pFlags.org + "/" + sspWorkspace(pFlags)}
 
 	// Set variables in primary workspaces that also point to secondary workspaces
 
@@ -154,6 +155,12 @@ func setMultiregionVariables(pFlags PersistentFlags) {
 		tfRemoteDatabaseSecondary,
 	}
 	setVars(pFlags, backupWorkspace(pFlags), backupVars)
+
+	brokerSearchVars := []lib.TFVar{
+		tfRemoteClusterSecondary,
+		tfRemoteBrokerSecondary,
+	}
+	setVars(pFlags, searchWorkspace(pFlags), brokerSearchVars)
 
 	// Set variables in the new secondary workspaces
 
@@ -202,6 +209,7 @@ func setMultiregionVariables(pFlags PersistentFlags) {
 		tfRemoteDatabaseSecondary,
 		tfRemoteBrokerSecondary,
 		tfRemotePwManagerSecondary,
+		tfRemoteSsp,
 	}
 	setVars(pFlags, sspSecondaryWorkspace(pFlags), sspVars)
 
@@ -373,6 +381,9 @@ func getWorkspaceConsumers(pFlags PersistentFlags, workspace string) []string {
 			syncSecondaryWorkspace(pFlags),
 		},
 		pwSecondaryWorkspace(pFlags): {
+			sspSecondaryWorkspace(pFlags),
+		},
+		sspWorkspace(pFlags): {
 			sspSecondaryWorkspace(pFlags),
 		},
 	}
