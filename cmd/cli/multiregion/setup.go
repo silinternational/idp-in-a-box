@@ -39,11 +39,6 @@ func runSetup() {
 	if err := setRemoteConsumers(pFlags); err != nil {
 		log.Fatalf("Error: " + err.Error())
 	}
-
-	err := setRunTriggers(pFlags)
-	if err != nil {
-		log.Fatalf("Error: " + err.Error())
-	}
 }
 
 // createSecondaryWorkspaces creates new secondary workspaces by cloning the corresponding primary workspace
@@ -384,77 +379,10 @@ func getWorkspaceConsumers(pFlags PersistentFlags, workspace string) []string {
 	return consumers[workspace]
 }
 
-func setRunTriggers(pFlags PersistentFlags) error {
-	fmt.Println("\nSetting workspace run triggers ...")
-
-	// map of workspaces (key) and source workspaces (value) for run triggers to be created
-	runTriggers := map[string]string{
-		clusterSecondaryWorkspace(pFlags):  coreWorkspace(pFlags),
-		databaseSecondaryWorkspace(pFlags): coreWorkspace(pFlags),
-		pmaSecondaryWorkspace(pFlags):      coreWorkspace(pFlags),
-		emailSecondaryWorkspace(pFlags):    coreWorkspace(pFlags),
-		brokerSecondaryWorkspace(pFlags):   coreWorkspace(pFlags),
-		pwSecondaryWorkspace(pFlags):       coreWorkspace(pFlags),
-		sspSecondaryWorkspace(pFlags):      coreWorkspace(pFlags),
-		syncSecondaryWorkspace(pFlags):     coreWorkspace(pFlags),
-		databaseSecondaryWorkspace(pFlags): clusterSecondaryWorkspace(pFlags),
-		pmaSecondaryWorkspace(pFlags):      clusterSecondaryWorkspace(pFlags),
-		emailSecondaryWorkspace(pFlags):    clusterSecondaryWorkspace(pFlags),
-		brokerSecondaryWorkspace(pFlags):   clusterSecondaryWorkspace(pFlags),
-		pwSecondaryWorkspace(pFlags):       clusterSecondaryWorkspace(pFlags),
-		sspSecondaryWorkspace(pFlags):      clusterSecondaryWorkspace(pFlags),
-		syncSecondaryWorkspace(pFlags):     clusterSecondaryWorkspace(pFlags),
-	}
-
-	for workspace, source := range runTriggers {
-		if err := createRunTrigger(pFlags, workspace, source); err != nil {
-			return fmt.Errorf("failed to set run trigger from %s to %s: %w", source, workspace, err)
-		}
-	}
-	return nil
-}
-
 func getWorkspaceID(org, workspaceName string) (string, error) {
 	data, err := lib.GetWorkspaceData(org, workspaceName)
 	if err != nil {
 		return "", fmt.Errorf("failed to get workspace data: %w", err)
 	}
 	return data.Data.ID, nil
-}
-
-func createRunTrigger(pFlags PersistentFlags, workspaceName, sourceName string) error {
-	workspaceID, err := getWorkspaceID(pFlags.org, workspaceName)
-	if err != nil {
-		return fmt.Errorf("failed to get workspace ID for run trigger: %w", err)
-	}
-
-	sourceID, err := getWorkspaceID(pFlags.org, sourceName)
-	if err != nil {
-		return fmt.Errorf("failed to get source workspace ID for run trigger: %w", err)
-	}
-
-	t, err := lib.FindRunTrigger(lib.FindRunTriggerConfig{
-		WorkspaceID:       workspaceID,
-		SourceWorkspaceID: sourceID,
-	})
-	if err != nil {
-		return fmt.Errorf("failed to get run triggers for workspace %s: %w", workspaceName, err)
-	}
-	if t != nil {
-		fmt.Printf("Run trigger %s -> %s is already set\n", sourceName, workspaceName)
-		return nil
-	}
-
-	if pFlags.readOnlyMode {
-		fmt.Printf("(Read-only Mode) Run trigger %s -> %s would be set\n", sourceName, workspaceName)
-		return nil
-	}
-
-	if err := lib.CreateRunTrigger(lib.RunTriggerConfig{
-		WorkspaceID:       workspaceID,
-		SourceWorkspaceID: sourceID,
-	}); err != nil {
-		return fmt.Errorf("create run trigger API error: %w", err)
-	}
-	return nil
 }
