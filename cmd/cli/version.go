@@ -13,6 +13,7 @@ func SetupVersionCmd(parentCommand *cobra.Command) {
 	parentCommand.AddCommand(versionCmd)
 }
 
+// version is set at build time
 var version = "(unknown)"
 
 var versionCmd = &cobra.Command{
