@@ -7,6 +7,8 @@ IdP-in-a-Box service.
 The CLI can be used to check the status of the IdP. It can also be used to establish secondary resources
 in a second AWS region, and to initiate a secondary region failover action.
 
+Released builds are available in GitHub releases. To build for development, run `make cli`.
+
 ### Parameters
 
 All parameters can be set in a config file or environment variables. Some can also be specified as command-line flags.
