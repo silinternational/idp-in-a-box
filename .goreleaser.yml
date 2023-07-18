@@ -4,7 +4,8 @@ before:
   hooks:
     - go mod tidy
 builds:
-  - binary: idp-cli
+  - id: idp-cli
+    binary: idp-cli
     main: ./cmd/cli
     env:
       - CGO_ENABLED=0
@@ -25,18 +26,18 @@ gomod:
   proxy: true
 archives:
   -
-    replacements:
-      darwin: Darwin
-      linux: Linux
-      windows: Windows
-      amd64: x86_64
+    name_template: >-
+      idp-cli_
+      {{- title .Os }}_
+      {{- if eq .Arch "amd64" }}x86_64
+      {{- else }}{{ .Arch }}{{ end }}
     format_overrides:
       - goos: windows
         format: zip
 checksum:
   name_template: 'checksums.txt'
 snapshot:
-  name_template: "{{ .Tag }}-next"
+  name_template: "{{ .Tag }}-dev"
 changelog:
   sort: asc
   filters:
