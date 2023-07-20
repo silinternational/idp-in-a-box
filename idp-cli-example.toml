@@ -7,6 +7,9 @@ idp = "myidp"
 # -------------------------------------------------------------------------------------------------
 # These parameters are required for the "multiregion setup" and "multiregion failover" commands.
 
+# Operation environment, used for Terraform workspace name. Default is "prod"
+env = "prod"
+
 # AWS secondary region
 region2 = "us-west-2"
 
