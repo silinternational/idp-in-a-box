@@ -313,7 +313,7 @@ locals {
  * Create role for scheduled running of cron task definitions.
  */
 resource "aws_iam_role" "ecs_events" {
-  name = "ecs_events-${var.idp_name}-${var.app_name}-${var.app_env}"
+  name = "ecs_events-${var.idp_name}-${var.app_name}-${var.app_env}-${var.aws_region}"
 
   assume_role_policy = jsonencode(
     {
