@@ -1,13 +1,13 @@
 # 050-pw-manager - ECS service for password manager API and S3 config for UI
-This module is used to create an ECS service running the password manager API.
-
-The password manager UI should be deployed using the silinternational/terraform-cloudflare-pages module.
+This module is used to create an ECS service running the password manager API and static site hosting for the UI.
 
 ## What this does
 
  - Create ALB target group for API with hostname based routing
  - Create task definition and ECS service for password manager API service
- - Create Cloudflare DNS record
+ - Create S3 bucket for UI
+ - Create CloudFront distribution to provide SSL support for UI
+ - Create Cloudflare DNS records for API and UI
 
 ## Required Inputs
 
@@ -73,6 +73,9 @@ The password manager UI should be deployed using the silinternational/terraform-
 
 ## Outputs
 
+ - `ui_bucket` - ARN for S3 bucket for UI
+ - `cloudfront_distribution_id` - Cloudfront distribution ID
+ - `ui_hostname` - Full hostname for UI
  - `api_hostname` - Full hostname for API
  - `db_pwmanager_user` - Username for mysql
 
@@ -96,7 +99,7 @@ module "pwmanager" {
   auth_saml_spPrivateKey              = var.auth_saml_spPrivateKey
   auth_saml_ssoUrl                    = var.auth_saml_ssoUrl
   cd_user_username                    = data.terraform_remote_state.core.cduser_username
-  aws_region                          = var.aws_region
+  aws_region                          = var.aws_region`
   cloudflare_domain                   = var.cloudflare_domain
   cloudwatch_log_group_name           = var.cloudwatch_log_group_name
   code_length                         = var.code_length
