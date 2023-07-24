@@ -49,8 +49,8 @@ support-bot-value = "abcde23456.execute-api.us-west-2.amazonaws.com"
 email-service-name = "myidp-email-service"
 email-service-value = "internal-alb-idp-myidp-prod-int-123456789.us-west-2.elb.amazonaws.com"
 
-broker-name = "myidp-broker"
-broker-value = "internal-alb-idp-myidp-prod-int-123456789.us-west-2.elb.amazonaws.com"
+id-broker-name = "myidp-broker"
+id-broker-value = "internal-alb-idp-myidp-prod-int-123456789.us-west-2.elb.amazonaws.com"
 
 pw-api-name = "myidp-pw-api"
 pw-api-value = "alb-idp-myidp-prod-987654321-us-west-2.elb.amazonaws.com"
@@ -58,5 +58,5 @@ pw-api-value = "alb-idp-myidp-prod-987654321-us-west-2.elb.amazonaws.com"
 ssp-name = "myidp"
 ssp-value = "alb-idp-myidp-prod-987654321-us-west-2.elb.amazonaws.com"
 
-sync-name = "myidp-sync"
-sync-value = "alb-idp-myidp-prod-987654321-us-west-2.elb.amazonaws.com"
+id-sync-name = "myidp-sync"
+id-sync-value = "alb-idp-myidp-prod-987654321-us-west-2.elb.amazonaws.com"
