@@ -113,7 +113,7 @@ func (d *DnsCommand) setCloudflareCname(name, value string) {
 
 	ctx := context.Background()
 
-	r, _, err := d.cfClient.ListDNSRecords(ctx, d.cfZone, cloudflare.ListDNSRecordsParams{Name: name})
+	r, _, err := d.cfClient.ListDNSRecords(ctx, d.cfZone, cloudflare.ListDNSRecordsParams{Name: name + "." + d.domainName})
 	if err != nil {
 		log.Fatalf("error finding DNS record %s: %s", name, err)
 	}
