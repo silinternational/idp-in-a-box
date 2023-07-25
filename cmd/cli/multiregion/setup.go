@@ -36,8 +36,11 @@ func runSetup() {
 	deleteUnusedVariables(pFlags)
 	setSensitiveVariables(pFlags)
 
-	if err := setRemoteConsumers(pFlags); err != nil {
-		log.Fatalf("Error: " + err.Error())
+	answer := simplePrompt(`Set remote consumers? Type "yes" if workspace-specific sharing is used.`)
+	if answer == "yes" {
+		if err := setRemoteConsumers(pFlags); err != nil {
+			log.Fatalf("Error: " + err.Error())
+		}
 	}
 }
 
