@@ -223,8 +223,65 @@ func setMultiregionVariables(pFlags PersistentFlags) {
 
 func deleteUnusedVariables(pFlags PersistentFlags) {
 	fmt.Println("\nDeleting unused variables...")
-	fmt.Println("(This feature is not yet implemented.)")
-	// TODO: implement this, i.e. delete unused remotes and aws_region
+
+	deleteVariablesFromWorkspace(pFlags, databaseSecondaryWorkspace(pFlags), []string{
+		"backup_retention_period",
+		"multi_az",
+		"skip_final_snapshot",
+		"tf_remote_cluster",
+	})
+	deleteVariablesFromWorkspace(pFlags, pmaSecondaryWorkspace(pFlags), []string{
+		"tf_remote_cluster",
+		"tf_remote_database",
+	})
+	deleteVariablesFromWorkspace(pFlags, emailSecondaryWorkspace(pFlags), []string{
+		"aws_region",
+		"tf_remote_cluster",
+		"tf_remote_database",
+	})
+	deleteVariablesFromWorkspace(pFlags, brokerSecondaryWorkspace(pFlags), []string{
+		"aws_region",
+		"tf_remote_cluster",
+		"tf_remote_database",
+		"tf_remote_email",
+	})
+	deleteVariablesFromWorkspace(pFlags, pwSecondaryWorkspace(pFlags), []string{
+		"aws_region",
+		"tf_remote_broker",
+		"tf_remote_cluster",
+		"tf_remote_database",
+		"tf_remote_elasticache",
+		"tf_remote_email",
+	})
+	deleteVariablesFromWorkspace(pFlags, sspSecondaryWorkspace(pFlags), []string{
+		"aws_region",
+		"tf_remote_broker",
+		"tf_remote_cluster",
+		"tf_remote_database",
+		"tf_remote_elasticache",
+		"tf_remote_pwmanager",
+	})
+	deleteVariablesFromWorkspace(pFlags, syncSecondaryWorkspace(pFlags), []string{
+		"aws_region",
+		"tf_remote_broker",
+		"tf_remote_cluster",
+		"tf_remote_email",
+	})
+}
+
+func deleteVariablesFromWorkspace(pFlags PersistentFlags, workspace string, keysToDelete []string) {
+	currentVars, err := lib.GetVarsFromWorkspace(pFlags.org, workspace)
+	if err != nil {
+		log.Fatalf("failed to get the variables from %q", workspace)
+	}
+
+	for _, k := range keysToDelete {
+		v := findVar(currentVars, k)
+		if v == nil {
+			fmt.Printf("variable %s in workspace %s has already been deleted\n", k, workspace)
+		}
+		lib.DeleteVariable(v.ID)
+	}
 }
 
 func setSensitiveVariables(pFlags PersistentFlags) {
