@@ -12,4 +12,5 @@ module "phpmyadmin" {
   ecsServiceRole_arn     = var.ecsServiceRole_arn
   alb_dns_name           = var.alb_dns_name
   enable                 = var.enable
+  upload_limit           = var.upload_limit
 }
