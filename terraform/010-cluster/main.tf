@@ -2,7 +2,7 @@
  * Create VPC
  */
 module "vpc" {
-  source             = "github.com/silinternational/terraform-modules//aws/vpc?ref=8.3.0"
+  source             = "github.com/silinternational/terraform-modules//aws/vpc?ref=8.5.0"
   app_name           = var.app_name
   app_env            = var.app_env
   aws_zones          = var.aws_zones
@@ -13,7 +13,7 @@ module "vpc" {
  * Security group to limit traffic to Cloudflare IPs
  */
 module "cloudflare-sg" {
-  source = "github.com/silinternational/terraform-modules//aws/cloudflare-sg?ref=8.3.0"
+  source = "github.com/silinternational/terraform-modules//aws/cloudflare-sg?ref=8.5.0"
   vpc_id = module.vpc.id
 }
 
@@ -34,7 +34,7 @@ data "aws_ami" "ecs_ami" {
  * Create auto-scaling group
  */
 module "asg" {
-  source                  = "github.com/silinternational/terraform-modules//aws/asg?ref=8.3.0"
+  source                  = "github.com/silinternational/terraform-modules//aws/asg?ref=8.5.0"
   app_name                = var.app_name
   app_env                 = var.app_env
   aws_instance            = var.aws_instance
@@ -58,7 +58,7 @@ data "aws_acm_certificate" "wildcard" {
  * Create application load balancer for public access
  */
 module "alb" {
-  source          = "github.com/silinternational/terraform-modules//aws/alb?ref=8.3.0"
+  source          = "github.com/silinternational/terraform-modules//aws/alb?ref=8.5.0"
   app_name        = var.app_name
   app_env         = var.app_env
   internal        = "false"
@@ -72,7 +72,7 @@ module "alb" {
  * Create application load balancer for internal use
  */
 module "internal_alb" {
-  source          = "github.com/silinternational/terraform-modules//aws/alb?ref=8.3.0"
+  source          = "github.com/silinternational/terraform-modules//aws/alb?ref=8.5.0"
   alb_name        = "alb-${var.app_name}-${var.app_env}-int"
   app_name        = var.app_name
   app_env         = var.app_env
