@@ -102,7 +102,7 @@ resource "aws_cloudwatch_log_group" "logs" {
  */
 module "ecs-service-cloudwatch-dashboard" {
   source  = "silinternational/ecs-service-cloudwatch-dashboard/aws"
-  version = "~> 2.0.0"
+  version = "~> 3.0.1"
 
   cluster_name   = var.ecs_cluster_name
   dashboard_name = "${var.app_name}-${var.app_env}"
@@ -118,7 +118,5 @@ module "ecs-service-cloudwatch-dashboard" {
     "${var.idp_name}-pw-manager",
     "${var.idp_name}-simplesamlphp",
   ]
-
-  aws_region = var.aws_region
 }
 
