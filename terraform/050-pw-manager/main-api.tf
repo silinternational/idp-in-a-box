@@ -121,12 +121,11 @@ module "ecsservice" {
 resource "cloudflare_record" "apidns" {
   count = var.create_dns_record ? 1 : 0
 
-  zone_id         = data.cloudflare_zone.domain.id
-  name            = var.api_subdomain
-  value           = var.alb_dns_name
-  type            = "CNAME"
-  proxied         = true
-  allow_overwrite = var.dns_allow_overwrite
+  zone_id = data.cloudflare_zone.domain.id
+  name    = var.api_subdomain
+  value   = var.alb_dns_name
+  type    = "CNAME"
+  proxied = true
 }
 
 data "cloudflare_zone" "domain" {

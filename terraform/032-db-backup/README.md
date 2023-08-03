@@ -24,6 +24,7 @@ This module is used to run mysqldump and backup files to S3
 ## Optional Inputs
 
  - `app_name` - Application name
+ - `backup_user_name` - Name of IAM user for S3 access. Default: `db-backup-${var.idp_name}-${var.app_env}`
  - `cpu` - CPU resources to allot to each task instance
  - `cron_schedule` - Schedule for CRON execution. Default: `cron(0 2 * * ? *)`
  - `db_names` - List of database names to backup. Default: `["emailservice", "idbroker", "pwmanager", "ssp"]`
