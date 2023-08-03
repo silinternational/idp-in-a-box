@@ -48,6 +48,8 @@ resource "random_id" "access_token_hash" {
  * Create ECS service for API
  */
 locals {
+  api_subdomain_with_region = "${var.api_subdomain}-${var.aws_region}"
+
   task_def = templatefile("${path.module}/task-definition-api.json", {
     access_token_hash                   = random_id.access_token_hash.hex
     alerts_email                        = var.alerts_email
@@ -116,13 +118,21 @@ module "ecsservice" {
 }
 
 /*
- * Create Cloudflare DNS record
+ * Create Cloudflare DNS record(s)
  */
 resource "cloudflare_record" "apidns" {
   count = var.create_dns_record ? 1 : 0
 
   zone_id = data.cloudflare_zone.domain.id
   name    = var.api_subdomain
+  value   = "${local.api_subdomain_with_region}.${var.cloudflare_domain}"
+  type    = "CNAME"
+  proxied = true
+}
+
+resource "cloudflare_record" "apidns_intermediate" {
+  zone_id = data.cloudflare_zone.domain.id
+  name    = local.api_subdomain_with_region
   value   = var.alb_dns_name
   type    = "CNAME"
   proxied = true
