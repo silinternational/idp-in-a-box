@@ -1,6 +1,6 @@
 module "phpmyadmin" {
   source                 = "silinternational/phpmyadmin/aws"
-  version                = "~> 1.1.0"
+  version                = "~> 1.1.3"
   app_name               = "${var.idp_name}-${var.app_name}"
   app_env                = var.app_env
   vpc_id                 = var.vpc_id
