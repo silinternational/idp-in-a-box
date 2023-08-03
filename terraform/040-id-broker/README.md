@@ -12,7 +12,6 @@ This module is used to create an ECS service running id-broker.
  - `app_env` - Application environment
  - `app_name` - Application name
  - `aws_region` - AWS region
- - `broker_subdomain` - Subdomain for id-broker
  - `cloudflare_domain` - Top level domain name for use with Cloudflare
  - `cloudwatch_log_group_name` - CloudWatch log group name
  - `db_name` - Name of MySQL database for id-broker
@@ -41,6 +40,7 @@ This module is used to create an ECS service running id-broker.
  - `mysql_user` - MySQL username for id-broker
  - `password_profile_url` - URL to password manager profile
  - `ssl_policy` - SSL policy
+ - `subdomain` - Subdomain to use for this (id-broker) ECS service
  - `support_email` - Email address for support
  - `support_name` - Name for support. Default: `support`
  - `vpc_id` - ID for VPC
