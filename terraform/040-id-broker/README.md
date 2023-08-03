@@ -54,7 +54,6 @@ This module is used to create an ECS service running id-broker.
  - `contingent_user_duration` - How long before a new user without a primary email address expires. Default: `+4 weeks`
  - `cpu_cron` - How much CPU to allocate to cron service. Default: `128`
  - `create_dns_record` - Controls creation of a DNS CNAME record for the ECS service. Default: `true`
- - `dns_allow_overwrite` - Controls whether this module can overwrite an existing DNS record with the same name. Should be set true in a multiregion IdP. Default: `false`
  - `email_repeat_delay_days` - Don't resend the same type of email to the same user for X days. Default: `31`
  - `email_service_assertValidIp` - Whether or not to assert IP address for Email Service API is trusted
  - `email_signature` - Signature for use in emails. Default is empty string

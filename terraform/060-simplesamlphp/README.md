@@ -46,7 +46,6 @@ This module is used to create an ECS service running simpleSAMLphp.
 
  - `create_dns_record` - Controls creation of a DNS CNAME record for the ECS service. Default: `true`
  - `delete_remember_me_on_logout` - Whether or not to delete remember me cookie on logout. Default: `false`
- - `dns_allow_overwrite` - Controls whether this module can overwrite an existing DNS record with the same name. Should be set true in a multiregion IdP. Default: `false`
  - `enable_debug` - Enable debug logs. Default: `false`
  - `logging_level` - Minimum log level to log. DO NOT use DEBUG in production. Allowed values: ERR, WARNING, NOTICE, INFO, DEBUG. Default: `NOTICE`
  - `mfa_learn_more_url` - URL to learn more about 2SV during profile review. Default: (link not displayed)
