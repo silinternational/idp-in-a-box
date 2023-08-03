@@ -1,5 +1,5 @@
 output "hostname" {
-  value = "${var.subdomain}.${var.cloudflare_domain}"
+  value = cloudflare_record.sspdns.hostname
 }
 
 output "db_ssp_user" {

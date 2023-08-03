@@ -397,8 +397,6 @@ resource "aws_cloudwatch_event_target" "broker_event_target" {
  * Create Cloudflare DNS record
  */
 resource "cloudflare_record" "brokerdns" {
-  count = var.create_dns_record ? 1 : 0
-
   zone_id = data.cloudflare_zone.domain.id
   name    = var.subdomain
   value   = var.internal_alb_dns_name

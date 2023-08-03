@@ -22,7 +22,6 @@ module "pw" {
   cloudwatch_log_group_name           = ""
   code_length                         = ""
   cpu                                 = ""
-  create_dns_record                   = true
   db_name                             = ""
   desired_count                       = ""
   docker_image                        = ""

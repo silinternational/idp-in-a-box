@@ -12,7 +12,6 @@ module "ssp" {
   cloudflare_domain            = ""
   cloudwatch_log_group_name    = ""
   cpu                          = ""
-  create_dns_record            = true
   db_name                      = ""
   delete_remember_me_on_logout = ""
   desired_count                = ""

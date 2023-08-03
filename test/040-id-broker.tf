@@ -12,7 +12,6 @@ module "broker" {
   contingent_user_duration                   = ""
   cpu                                        = ""
   cpu_cron                                   = ""
-  create_dns_record                          = true
   db_name                                    = ""
   desired_count                              = ""
   docker_image                               = ""

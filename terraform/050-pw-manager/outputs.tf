@@ -11,7 +11,7 @@ output "ui_hostname" {
 }
 
 output "api_hostname" {
-  value = "${var.api_subdomain}.${var.cloudflare_domain}"
+  value = cloudflare_record.apidns.hostname
 }
 
 output "db_pwmanager_user" {

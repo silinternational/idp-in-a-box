@@ -11,7 +11,6 @@ module "sync" {
   cloudflare_domain            = ""
   cloudwatch_log_group_name    = ""
   cpu                          = ""
-  create_dns_record            = true
   docker_image                 = ""
   ecsServiceRole_arn           = ""
   ecs_cluster_id               = ""

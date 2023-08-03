@@ -263,9 +263,3 @@ variable "vpc_id" {
 variable "wildcard_cert_arn" {
   type = string
 }
-
-variable "create_dns_record" {
-  description = "Controls creation of a DNS CNAME record for the ECS service."
-  type        = bool
-  default     = true
-}

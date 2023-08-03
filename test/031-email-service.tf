@@ -8,7 +8,6 @@ module "email" {
   cloudwatch_log_group_name = ""
   cpu_api                   = ""
   cpu_cron                  = ""
-  create_dns_record         = true
   db_name                   = ""
   desired_count_api         = ""
   docker_image              = ""

@@ -1,5 +1,5 @@
 output "idsync_url" {
-  value = "${var.subdomain}.${var.cloudflare_domain}"
+  value = cloudflare_record.idsyncdns.hostname
 }
 
 output "access_token_external" {
