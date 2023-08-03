@@ -32,7 +32,10 @@ resource "aws_alb_listener_rule" "pwmanager" {
 
   condition {
     host_header {
-      values = ["${var.api_subdomain}.${var.cloudflare_domain}"]
+      values = [
+        "${var.api_subdomain}.${var.cloudflare_domain}",
+        "${local.api_subdomain_with_region}.${var.cloudflare_domain}"
+      ]
     }
   }
 }
