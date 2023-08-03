@@ -13,10 +13,6 @@ variable "aws_instance" {
   type = map(string)
 }
 
-variable "aws_region" {
-  type = string
-}
-
 variable "aws_zones" {
   type = list(string)
 }
