@@ -28,7 +28,10 @@ resource "aws_alb_listener_rule" "ssp" {
 
   condition {
     host_header {
-      values = ["${var.subdomain}.${var.cloudflare_domain}"]
+      values = [
+        "${var.subdomain}.${var.cloudflare_domain}",
+        "${local.subdomain_with_region}.${var.cloudflare_domain}"
+      ]
     }
   }
 }
@@ -49,6 +52,8 @@ module "cf_ips" {
 }
 
 locals {
+  subdomain_with_region = "${var.subdomain}-${var.aws_region}"
+
   other_ip_addresses = var.trust_cloudflare_ips == "ipv4" ? module.cf_ips.ipv4_cidrs : []
 
   trusted_ip_addresses = concat(module.cf_ips.ipv4_cidrs, var.trusted_ip_addresses)
@@ -114,13 +119,21 @@ module "ecsservice" {
 }
 
 /*
- * Create Cloudflare DNS record
+ * Create Cloudflare DNS record(s)
  */
 resource "cloudflare_record" "sspdns" {
   count = var.create_dns_record ? 1 : 0
 
   zone_id = data.cloudflare_zone.domain.id
   name    = var.subdomain
+  value   = cloudflare_record.sspdns_intermediate.hostname
+  type    = "CNAME"
+  proxied = true
+}
+
+resource "cloudflare_record" "sspdns_intermediate" {
+  zone_id = data.cloudflare_zone.domain.id
+  name    = local.subdomain_with_region
   value   = var.alb_dns_name
   type    = "CNAME"
   proxied = true
