@@ -137,3 +137,13 @@ variable "allow_empty_email" {
 variable "enable_new_user_notification" {
   default = "false"
 }
+
+variable "enable_sync" {
+  default = true
+}
+
+variable "create_dns_record" {
+  description = "Controls creation of a DNS CNAME record for the ECS service."
+  type        = bool
+  default     = true
+}

@@ -13,16 +13,18 @@ variable "aws_instance" {
   type = map(string)
 }
 
-variable "aws_region" {
-  type = string
-}
-
 variable "aws_zones" {
   type = list(string)
 }
 
 variable "cert_domain_name" {
   type = string
+}
+
+variable "create_nat_gateway" {
+  description = "Set to false to remove NAT gateway and associated route"
+  type        = bool
+  default     = true
 }
 
 variable "ecs_cluster_name" {

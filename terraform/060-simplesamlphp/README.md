@@ -44,10 +44,13 @@ This module is used to create an ECS service running simpleSAMLphp.
 
 ## Optional Inputs
 
+ - `create_dns_record` - Controls creation of a DNS CNAME record for the ECS service. Default: `true`
  - `delete_remember_me_on_logout` - Whether or not to delete remember me cookie on logout. Default: `false`
  - `enable_debug` - Enable debug logs. Default: `false`
  - `logging_level` - Minimum log level to log. DO NOT use DEBUG in production. Allowed values: ERR, WARNING, NOTICE, INFO, DEBUG. Default: `NOTICE`
  - `mfa_learn_more_url` - URL to learn more about 2SV during profile review. Default: (link not displayed)
+ - `secret_salt` - This allows for porting the value over from a primary to a secondary workspace. 
+    A 64-character random string will be created automatically if not provided.
  - `show_saml_errors` - Whether or not to show saml errors. Default: `false`
  - `theme_color_scheme` - The color scheme to use for SSP. Default: `'indigo-purple'`
  - `trust_cloudflare_ips` - If set to `"ipv4"` Cloudflare IPV4 addresses will be included in `trusted_ip_addresses`
@@ -62,7 +65,7 @@ This module is used to create an ECS service running simpleSAMLphp.
 
 ```hcl
 module "cf_ips" {
-  source = "github.com/silinternational/terraform-modules//cloudflare/ips?ref=8.0.1"
+  source = "github.com/silinternational/terraform-modules//cloudflare/ips?ref=8.5.0"
 }
 
 module "ssp" {

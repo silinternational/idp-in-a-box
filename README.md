@@ -1,8 +1,8 @@
 # idp-in-a-box
-Documentation, examples, Docker Compose setup, Terraform modules, etc. for our
-IdP-in-a-Box service
+Terraform Configuration, Documentation, examples, and Docker Compose dev setup for the
+IdP-in-a-Box service.
 
-## bringing up idp-in-a-box locally
+## bringing up idp-in-a-box locally using Docker Compose
 1. Edit /etc/hosts or equivalent to assign `pw-api.local`, `pw-ui.local`, and
    `ssp.local` to 127.0.0.1.
 2. Create `local.env` files in each of the subfolders there, using the existing

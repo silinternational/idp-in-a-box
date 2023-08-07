@@ -1,5 +1,5 @@
 output "hostname" {
-  value = cloudflare_record.emaildns.hostname
+  value = "${var.subdomain}.${var.cloudflare_domain}"
 }
 
 output "db_emailservice_user" {

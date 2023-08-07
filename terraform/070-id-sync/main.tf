@@ -81,12 +81,12 @@ locals {
 }
 
 module "ecsservice" {
-  source             = "github.com/silinternational/terraform-modules//aws/ecs/service-only?ref=8.0.1"
+  source             = "github.com/silinternational/terraform-modules//aws/ecs/service-only?ref=8.5.0"
   cluster_id         = var.ecs_cluster_id
   service_name       = "${var.idp_name}-${var.app_name}"
   service_env        = var.app_env
   container_def_json = local.task_def
-  desired_count      = 1
+  desired_count      = var.enable_sync ? 1 : 0
   tg_arn             = aws_alb_target_group.idsync.arn
   lb_container_name  = "web"
   lb_container_port  = "80"
@@ -97,17 +97,16 @@ module "ecsservice" {
  * Create Cloudflare DNS record
  */
 resource "cloudflare_record" "idsyncdns" {
-  zone_id = data.cloudflare_zones.domain.zones[0].id
+  count = var.create_dns_record ? 1 : 0
+
+  zone_id = data.cloudflare_zone.domain.id
   name    = var.subdomain
   value   = var.alb_dns_name
   type    = "CNAME"
   proxied = true
 }
 
-data "cloudflare_zones" "domain" {
-  filter {
-    name        = var.cloudflare_domain
-    lookup_type = "exact"
-    status      = "active"
-  }
+data "cloudflare_zone" "domain" {
+  name = var.cloudflare_domain
 }
+

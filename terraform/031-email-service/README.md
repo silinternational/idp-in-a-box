@@ -40,8 +40,10 @@ This module is used to create an ECS service running email-service.
  - `app_name` - Application name
  - `cpu_api` - CPU resources to allot to each API instance
  - `cpu_cron` - CPU resources to allot to the cron instance
+ - `create_dns_record` - Controls creation of a DNS CNAME record for the ECS service. Default: `true`
  - `desired_count_api` - Desired count of email-service API instances (there will only be 1 cron instance)
  - `email_queue_batch_size` - How many queued emails to process per run
+ - `enable_cron` - Set to false to disable the cron instance
  - `mailer_usefiles` - Whether or not YiiMailer should write to files instead of sending emails
  - `memory_api` - Memory (RAM) resources to allot to each API instance
  - `memory_cron` - Memory (RAM) resources to allot to the cron instance

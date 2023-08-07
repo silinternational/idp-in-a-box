@@ -1,3 +1,8 @@
+
+locals {
+  ui_hostname = "${var.ui_subdomain}.${var.cloudflare_domain}"
+}
+
 /*
  * Create S3 bucket with appropriate permissions
  */
@@ -6,30 +11,13 @@ resource "aws_s3_bucket" "ui" {
   force_destroy = true
 }
 
-resource "aws_s3_bucket_public_access_block" "ui" {
-  bucket = aws_s3_bucket.ui.id
-
-  block_public_acls       = false
-  block_public_policy     = false
-  ignore_public_acls      = false
-  restrict_public_buckets = false
-}
-
-resource "aws_s3_bucket_ownership_controls" "ui" {
-  bucket = aws_s3_bucket.ui.id
-  rule {
-    object_ownership = "ObjectWriter"
-  }
-}
-
 resource "aws_s3_bucket_acl" "ui" {
-  depends_on = [
-    aws_s3_bucket_public_access_block.ui,
-    aws_s3_bucket_ownership_controls.ui,
-  ]
-
   bucket = aws_s3_bucket.ui.id
   acl    = "public-read"
+  depends_on = [
+    aws_s3_bucket_ownership_controls.ui,
+    aws_s3_bucket_public_access_block.ui,
+  ]
 }
 
 resource "aws_s3_bucket_policy" "ui" {
@@ -46,6 +34,21 @@ resource "aws_s3_bucket_policy" "ui" {
       Resource  = "arn:aws:s3:::${local.ui_hostname}/*"
     }]
   })
+}
+
+resource "aws_s3_bucket_ownership_controls" "ui" {
+  bucket = aws_s3_bucket.ui.id
+  rule {
+    object_ownership = "BucketOwnerPreferred"
+  }
+}
+
+resource "aws_s3_bucket_public_access_block" "ui" {
+  bucket                  = aws_s3_bucket.ui.id
+  block_public_acls       = false
+  block_public_policy     = false
+  ignore_public_acls      = false
+  restrict_public_buckets = false
 }
 
 resource "aws_s3_bucket_website_configuration" "ui" {
@@ -120,7 +123,7 @@ resource "aws_cloudfront_distribution" "ui" {
  * Give CI user access to s3 bucket and cloudfront
  */
 resource "aws_iam_user_policy" "ci_ui" {
-  name = "CloudFront-and-S3"
+  name = "CloudFront-and-S3-${var.aws_region}"
   user = var.cd_user_username
 
   policy = jsonencode(
@@ -155,13 +158,9 @@ resource "aws_iam_user_policy" "ci_ui" {
  * Create Cloudflare DNS record
  */
 resource "cloudflare_record" "uidns" {
-  zone_id = data.cloudflare_zones.domain.zones[0].id
+  zone_id = data.cloudflare_zone.domain.id
   name    = var.ui_subdomain
   value   = aws_cloudfront_distribution.ui[0].domain_name
   type    = "CNAME"
   proxied = true
-}
-
-locals {
-  ui_hostname = "${var.ui_subdomain}.${var.cloudflare_domain}"
 }

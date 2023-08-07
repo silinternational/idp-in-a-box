@@ -79,7 +79,7 @@ locals {
 }
 
 module "ecsservice_api" {
-  source             = "github.com/silinternational/terraform-modules//aws/ecs/service-only?ref=8.0.1"
+  source             = "github.com/silinternational/terraform-modules//aws/ecs/service-only?ref=8.5.0"
   cluster_id         = var.ecs_cluster_id
   service_name       = "${var.idp_name}-${var.app_name}-api"
   service_env        = var.app_env
@@ -119,29 +119,27 @@ locals {
 }
 
 module "ecsservice_cron" {
-  source             = "github.com/silinternational/terraform-modules//aws/ecs/service-no-alb?ref=8.0.1"
+  source             = "github.com/silinternational/terraform-modules//aws/ecs/service-no-alb?ref=8.5.0"
   cluster_id         = var.ecs_cluster_id
   service_name       = "${var.idp_name}-${var.app_name}-cron"
   service_env        = var.app_env
   container_def_json = local.task_def_cron
-  desired_count      = 1
+  desired_count      = var.enable_cron ? 1 : 0
 }
 
 /*
  * Create Cloudflare DNS record
  */
 resource "cloudflare_record" "emaildns" {
-  zone_id = data.cloudflare_zones.domain.zones[0].id
+  count = var.create_dns_record ? 1 : 0
+
+  zone_id = data.cloudflare_zone.domain.id
   name    = var.subdomain
   value   = var.internal_alb_dns_name
   type    = "CNAME"
   proxied = false
 }
 
-data "cloudflare_zones" "domain" {
-  filter {
-    name        = var.cloudflare_domain
-    lookup_type = "exact"
-    status      = "active"
-  }
+data "cloudflare_zone" "domain" {
+  name = var.cloudflare_domain
 }

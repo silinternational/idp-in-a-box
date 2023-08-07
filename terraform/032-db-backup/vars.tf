@@ -11,6 +11,11 @@ variable "aws_region" {
   type = string
 }
 
+variable "backup_user_name" {
+  type    = string
+  default = null
+}
+
 variable "cloudwatch_log_group_name" {
   type = string
 }

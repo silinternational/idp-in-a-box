@@ -194,3 +194,9 @@ variable "admin_name" {
 variable "trust_cloudflare_ips" {
   default = ""
 }
+
+variable "create_dns_record" {
+  description = "Controls creation of a DNS CNAME record for the ECS service."
+  type        = bool
+  default     = true
+}

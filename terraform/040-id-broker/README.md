@@ -12,7 +12,6 @@ This module is used to create an ECS service running id-broker.
  - `app_env` - Application environment
  - `app_name` - Application name
  - `aws_region` - AWS region
- - `broker_subdomain` - Subdomain for id-broker
  - `cloudflare_domain` - Top level domain name for use with Cloudflare
  - `cloudwatch_log_group_name` - CloudWatch log group name
  - `db_name` - Name of MySQL database for id-broker
@@ -41,6 +40,7 @@ This module is used to create an ECS service running id-broker.
  - `mysql_user` - MySQL username for id-broker
  - `password_profile_url` - URL to password manager profile
  - `ssl_policy` - SSL policy
+ - `subdomain` - Subdomain to use for this (id-broker) ECS service
  - `support_email` - Email address for support
  - `support_name` - Name for support. Default: `support`
  - `vpc_id` - ID for VPC
@@ -53,6 +53,7 @@ This module is used to create an ECS service running id-broker.
  - `abandoned_user_deactivate_instructions_url` - URL for instruction on how to deactivate user accounts, referenced in notification email. Default: (none)
  - `contingent_user_duration` - How long before a new user without a primary email address expires. Default: `+4 weeks`
  - `cpu_cron` - How much CPU to allocate to cron service. Default: `128`
+ - `create_dns_record` - Controls creation of a DNS CNAME record for the ECS service. Default: `true`
  - `email_repeat_delay_days` - Don't resend the same type of email to the same user for X days. Default: `31`
  - `email_service_assertValidIp` - Whether or not to assert IP address for Email Service API is trusted
  - `email_signature` - Signature for use in emails. Default is empty string

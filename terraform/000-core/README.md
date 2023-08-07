@@ -11,14 +11,13 @@ used by later workspaces for HTTPS with the ALB.
 
 ## Required Inputs
 
- - `app_name` - Name of application, ex: Doorman, IdP, etc.
- - `app_env` - Name of environment, ex: prod, test, etc.
+ - `cluster_name` - Name of ECS cluster, typically the app name (e.g.: "idp-acme") and app env (e.g.: "prod") separated by a hyphen.
  - `cert_domain` - The TLD for the certificate domain.
 
 ## Optional Inputs
 
- - `aws_region` - Region to deploy in, ex: `us-east-1`
- - `create_acm_cert` - Bool of whether or not to create an ACM cert. Default: `false`
+ - `create_acm_cert` - Set to true if an ACM certificate is needed. Default: `false`
+ - `create_cd_user` - Set to false if an IAM user for continuous deployment is not needed. Default: `true`
 
 ## Outputs
 
@@ -27,6 +26,7 @@ used by later workspaces for HTTPS with the ALB.
  - `cduser_arn` - ARN for continuous delivery IAM user
  - `cduser_username` - Username for contiuous delivery IAM user
  - `ecs_ami_id` - The ID for the latest ECS optimized AMI
+ - `ecs_cluster_id` - The ECS cluster ID
  - `ecs_cluster_name` - The ECS cluster name
  - `ecs_instance_profile_id` - The ID for created IAM profile `ecsInstanceProfile`
  - `ecsInstanceRole_arn` - The ARN for created IAM role `ecsInstanceRole`

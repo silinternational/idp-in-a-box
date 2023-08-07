@@ -3,16 +3,17 @@
  * root user username and password are displayed in output
  */
 resource "random_id" "db_root_pass" {
+  count       = var.create_passwords ? 1 : 0
   byte_length = 16
 }
 
 module "rds" {
-  source                  = "github.com/silinternational/terraform-modules//aws/rds/mariadb?ref=8.0.1"
+  source                  = "github.com/silinternational/terraform-modules//aws/rds/mariadb?ref=8.5.0"
   app_name                = var.app_name
   app_env                 = var.app_env
   db_name                 = var.db_name
   db_root_user            = var.mysql_user
-  db_root_pass            = random_id.db_root_pass.hex
+  db_root_pass            = local.root_pass
   subnet_group_name       = var.subnet_group_name
   availability_zone       = var.availability_zone
   security_groups         = var.security_groups
@@ -24,6 +25,7 @@ module "rds" {
   backup_retention_period = var.backup_retention_period
   multi_az                = var.multi_az
   skip_final_snapshot     = var.skip_final_snapshot
+  replicate_source_db     = var.replicate_source_db
 }
 
 /*
@@ -31,28 +33,37 @@ module "rds" {
  * Value is displayed in output to use to externally create user
  */
 resource "random_id" "db_idbroker_pass" {
+  count       = var.create_passwords ? 1 : 0
   byte_length = 16
 }
 
 resource "random_id" "db_emailservice_pass" {
+  count       = var.create_passwords ? 1 : 0
   byte_length = 16
 }
 
 resource "random_id" "db_pwmanager_pass" {
+  count       = var.create_passwords ? 1 : 0
   byte_length = 16
 }
 
 resource "random_id" "db_ssp_pass" {
+  count       = var.create_passwords ? 1 : 0
   byte_length = 16
 }
 
 locals {
-  db_users_sql = templatefile("${path.module}/db-users.sql", {
-    pwmanager_pass    = random_id.db_pwmanager_pass.hex
-    idbroker_pass     = random_id.db_idbroker_pass.hex
-    ssp_pass          = random_id.db_ssp_pass.hex
-    emailservice_pass = random_id.db_emailservice_pass.hex
-    }
-  )
-}
+  root_pass         = one(random_id.db_root_pass[*].hex)
+  pwmanager_pass    = one(random_id.db_pwmanager_pass[*].hex)
+  idbroker_pass     = one(random_id.db_idbroker_pass[*].hex)
+  ssp_pass          = one(random_id.db_ssp_pass[*].hex)
+  emailservice_pass = one(random_id.db_emailservice_pass[*].hex)
 
+  db_users_sql = var.create_passwords ? templatefile("${path.module}/db-users.sql", {
+    pwmanager_pass    = local.pwmanager_pass
+    idbroker_pass     = local.idbroker_pass
+    ssp_pass          = local.ssp_pass
+    emailservice_pass = local.emailservice_pass
+    }
+  ) : ""
+}

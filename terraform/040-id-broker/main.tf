@@ -181,7 +181,7 @@ locals {
 }
 
 module "ecsservice" {
-  source             = "github.com/silinternational/terraform-modules//aws/ecs/service-only?ref=8.0.1"
+  source             = "github.com/silinternational/terraform-modules//aws/ecs/service-only?ref=8.5.0"
   cluster_id         = var.ecs_cluster_id
   service_name       = "${var.idp_name}-${var.app_name}"
   service_env        = var.app_env
@@ -313,7 +313,7 @@ locals {
  * Create role for scheduled running of cron task definitions.
  */
 resource "aws_iam_role" "ecs_events" {
-  name = "ecs_events-${var.idp_name}-${var.app_name}-${var.app_env}"
+  name = "ecs_events-${var.idp_name}-${var.app_name}-${var.app_env}-${var.aws_region}"
 
   assume_role_policy = jsonencode(
     {
@@ -397,17 +397,15 @@ resource "aws_cloudwatch_event_target" "broker_event_target" {
  * Create Cloudflare DNS record
  */
 resource "cloudflare_record" "brokerdns" {
-  zone_id = data.cloudflare_zones.domain.zones[0].id
+  count = var.create_dns_record ? 1 : 0
+
+  zone_id = data.cloudflare_zone.domain.id
   name    = var.subdomain
   value   = var.internal_alb_dns_name
   type    = "CNAME"
   proxied = false
 }
 
-data "cloudflare_zones" "domain" {
-  filter {
-    name        = var.cloudflare_domain
-    lookup_type = "exact"
-    status      = "active"
-  }
+data "cloudflare_zone" "domain" {
+  name = var.cloudflare_domain
 }
