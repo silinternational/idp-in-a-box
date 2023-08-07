@@ -128,7 +128,7 @@ resource "cloudflare_record" "apidns" {
 
   zone_id = data.cloudflare_zone.domain.id
   name    = var.api_subdomain
-  value   = "${local.api_subdomain_with_region}.${var.cloudflare_domain}"
+  value   = cloudflare_record.apidns_intermediate.hostname
   type    = "CNAME"
   proxied = true
 }
