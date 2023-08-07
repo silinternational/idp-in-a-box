@@ -28,7 +28,10 @@ resource "aws_alb_listener_rule" "idsync" {
 
   condition {
     host_header {
-      values = ["${var.subdomain}.${var.cloudflare_domain}"]
+      values = [
+        "${var.subdomain}.${var.cloudflare_domain}",
+        "${local.subdomain_with_region}.${var.cloudflare_domain}"
+      ]
     }
   }
 }
@@ -44,12 +47,15 @@ resource "random_id" "access_token_external" {
  * Create ECS service
  */
 locals {
+  subdomain_with_region = "${var.subdomain}-${var.aws_region}"
+
   id_store_config = join(",",
     [for k, v in var.id_store_config : jsonencode({
       name  = "ID_STORE_CONFIG_${k}"
       value = v
     })]
   )
+
   task_def = templatefile("${path.module}/task-definition.json", {
     app_env                      = var.app_env
     app_name                     = var.app_name
@@ -94,13 +100,21 @@ module "ecsservice" {
 }
 
 /*
- * Create Cloudflare DNS record
+ * Create Cloudflare DNS record(s)
  */
 resource "cloudflare_record" "idsyncdns" {
   count = var.create_dns_record ? 1 : 0
 
   zone_id = data.cloudflare_zone.domain.id
   name    = var.subdomain
+  value   = cloudflare_record.idsyncdns_intermediate.hostname
+  type    = "CNAME"
+  proxied = true
+}
+
+resource "cloudflare_record" "idsyncdns_intermediate" {
+  zone_id = data.cloudflare_zone.domain.id
+  name    = local.subdomain_with_region
   value   = var.alb_dns_name
   type    = "CNAME"
   proxied = true
