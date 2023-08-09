@@ -64,6 +64,7 @@ locals {
     email_brand_color         = var.email_brand_color
     email_brand_logo          = var.email_brand_logo
     email_queue_batch_size    = var.email_queue_batch_size
+    from_name                 = var.from_name
     from_email                = var.from_email
     idp_name                  = var.idp_name
     mailer_host               = var.mailer_host
@@ -105,6 +106,7 @@ locals {
     email_brand_logo          = var.email_brand_logo
     email_queue_batch_size    = var.email_queue_batch_size
     from_email                = var.from_email
+    from_name                 = var.from_name
     idp_name                  = var.idp_name
     mailer_host               = var.mailer_host
     mailer_password           = var.mailer_password
