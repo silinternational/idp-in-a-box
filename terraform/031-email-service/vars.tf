@@ -66,7 +66,14 @@ variable "email_queue_batch_size" {
 }
 
 variable "from_email" {
-  type = string
+  description = "Email address to send emails from. See `from_name`"
+  type        = string
+}
+
+variable "from_name" {
+  description = "Name to use when sending emails"
+  default     = ""
+  type        = string
 }
 
 variable "idp_name" {

@@ -19,7 +19,7 @@ This module is used to create an ECS service running email-service.
  - `ecsServiceRole_arn` - ARN for ECS Service Role
  - `email_brand_color` - CSS color to use for branding in emails
  - `email_brand_logo` - The fully qualified URL to an image for logo in emails
- - `from_email` - Email address to send emails from
+ - `from_email` - Email address to send emails from. See `from_name`
  - `idp_name` - Short name of IdP for use in logs and email alerts
  - `internal_alb_dns_name` - DNS name for the IdP-in-a-Box's internal Application Load Balancer
  - `internal_alb_listener_arn` - ARN for the IdP-in-a-Box's internal ALB's listener
@@ -44,6 +44,7 @@ This module is used to create an ECS service running email-service.
  - `desired_count_api` - Desired count of email-service API instances (there will only be 1 cron instance)
  - `email_queue_batch_size` - How many queued emails to process per run
  - `enable_cron` - Set to false to disable the cron instance
+ - `from_name` - Name to use when sending emails
  - `mailer_usefiles` - Whether or not YiiMailer should write to files instead of sending emails
  - `memory_api` - Memory (RAM) resources to allot to each API instance
  - `memory_cron` - Memory (RAM) resources to allot to the cron instance
