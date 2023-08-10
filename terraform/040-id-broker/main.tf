@@ -28,7 +28,10 @@ resource "aws_alb_listener_rule" "broker" {
 
   condition {
     host_header {
-      values = ["${var.subdomain}.${var.cloudflare_domain}"]
+      values = [
+        "${var.subdomain}.${var.cloudflare_domain}",
+        "${local.subdomain_with_region}.${var.cloudflare_domain}"
+      ]
     }
   }
 }
@@ -68,6 +71,9 @@ locals {
     random_id.access_token_ssp.hex,
     random_id.access_token_idsync.hex
   ])
+
+  subdomain_with_region = "${var.subdomain}-${var.aws_region}"
+
   task_def = templatefile("${path.module}/task-definition.json", {
     api_access_keys                            = local.api_access_keys
     abandoned_user_abandoned_period            = var.abandoned_user_abandoned_period
@@ -394,13 +400,21 @@ resource "aws_cloudwatch_event_target" "broker_event_target" {
 }
 
 /*
- * Create Cloudflare DNS record
+ * Create Cloudflare DNS record(s)
  */
 resource "cloudflare_record" "brokerdns" {
   count = var.create_dns_record ? 1 : 0
 
   zone_id = data.cloudflare_zone.domain.id
   name    = var.subdomain
+  value   = cloudflare_record.brokerdns_intermediate.hostname
+  type    = "CNAME"
+  proxied = false
+}
+
+resource "cloudflare_record" "brokerdns_intermediate" {
+  zone_id = data.cloudflare_zone.domain.id
+  name    = local.subdomain_with_region
   value   = var.internal_alb_dns_name
   type    = "CNAME"
   proxied = false
