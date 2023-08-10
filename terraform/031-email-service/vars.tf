@@ -136,7 +136,8 @@ variable "ssl_policy" {
 }
 
 variable "subdomain" {
-  type = string
+  description = "The subdomain for email-service, without an embedded region in it (e.g. 'email', NOT 'email-us-east-1')"
+  type        = string
 }
 
 variable "vpc_id" {
