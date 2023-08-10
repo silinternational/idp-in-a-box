@@ -1,5 +1,5 @@
 output "hostname" {
-  value = "${var.subdomain}.${var.cloudflare_domain}"
+  value = "${local.subdomain_with_region}.${var.cloudflare_domain}"
 }
 
 output "db_emailservice_user" {
