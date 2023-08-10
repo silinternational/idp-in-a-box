@@ -28,7 +28,10 @@ resource "aws_alb_listener_rule" "email" {
 
   condition {
     host_header {
-      values = ["${var.subdomain}.${var.cloudflare_domain}"]
+      values = [
+        "${var.subdomain}.${var.cloudflare_domain}",
+        "${local.subdomain_with_region}.${var.cloudflare_domain}"
+      ]
     }
   }
 }
@@ -52,6 +55,8 @@ resource "random_id" "access_token_idsync" {
  * Create ECS services
  */
 locals {
+  subdomain_with_region = "${var.subdomain}-${var.aws_region}"
+
   task_def_api = templatefile("${path.module}/task-definition-api.json", {
     api_access_keys           = "${random_id.access_token_pwmanager.hex},${random_id.access_token_idbroker.hex},${random_id.access_token_idsync.hex}"
     app_env                   = var.app_env
@@ -130,13 +135,21 @@ module "ecsservice_cron" {
 }
 
 /*
- * Create Cloudflare DNS record
+ * Create Cloudflare DNS record(s)
  */
 resource "cloudflare_record" "emaildns" {
   count = var.create_dns_record ? 1 : 0
 
   zone_id = data.cloudflare_zone.domain.id
   name    = var.subdomain
+  value   = cloudflare_record.emaildns_intermediate.hostname
+  type    = "CNAME"
+  proxied = false
+}
+
+resource "cloudflare_record" "emaildns_intermediate" {
+  zone_id = data.cloudflare_zone.domain.id
+  name    = local.subdomain_with_region
   value   = var.internal_alb_dns_name
   type    = "CNAME"
   proxied = false
