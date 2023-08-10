@@ -457,7 +457,8 @@ variable "ssl_policy" {
 }
 
 variable "subdomain" {
-  type = string
+  description = "The subdomain for id-broker, without an embedded region in it (e.g. 'broker', NOT 'broker-us-east-1')"
+  type        = string
 }
 
 variable "subject_for_abandoned_users" {
