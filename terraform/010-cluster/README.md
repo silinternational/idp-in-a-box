@@ -26,6 +26,9 @@ ssl certificate, core application load balancer, and a CloudWatch log group
 ## Optional Inputs
 
 - `create_nat_gateway` - default `true`
+- `private_subnet_cidr_blocks`
+- `public_subnet_cidr_blocks`
+- `vpc_cidr_block`
 
 ## Outputs
 

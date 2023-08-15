@@ -2,11 +2,14 @@
  * Create VPC
  */
 module "vpc" {
-  source             = "github.com/silinternational/terraform-modules//aws/vpc?ref=8.6.0"
-  app_name           = var.app_name
-  app_env            = var.app_env
-  aws_zones          = var.aws_zones
-  create_nat_gateway = var.create_nat_gateway
+  source                     = "github.com/silinternational/terraform-modules//aws/vpc?ref=8.6.0"
+  app_name                   = var.app_name
+  app_env                    = var.app_env
+  aws_zones                  = var.aws_zones
+  create_nat_gateway         = var.create_nat_gateway
+  private_subnet_cidr_blocks = var.private_subnet_cidr_blocks
+  public_subnet_cidr_blocks  = var.public_subnet_cidr_blocks
+  vpc_cidr_block             = var.vpc_cidr_block
 }
 
 /*
