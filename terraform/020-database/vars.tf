@@ -79,5 +79,5 @@ variable "create_passwords" {
 variable "replicate_source_db" {
   type        = string
   description = "To create a replica DB in a separate region, specify the source database ARN"
-  default     = ""
+  default     = null
 }
