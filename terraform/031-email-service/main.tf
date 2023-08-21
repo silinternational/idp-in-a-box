@@ -29,7 +29,6 @@ resource "aws_alb_listener_rule" "email" {
   condition {
     host_header {
       values = [
-        "${var.subdomain}.${var.cloudflare_domain}",
         "${local.subdomain_with_region}.${var.cloudflare_domain}"
       ]
     }
@@ -138,16 +137,6 @@ module "ecsservice_cron" {
  * Create Cloudflare DNS record(s)
  */
 resource "cloudflare_record" "emaildns" {
-  count = var.create_dns_record ? 1 : 0
-
-  zone_id = data.cloudflare_zone.domain.id
-  name    = var.subdomain
-  value   = cloudflare_record.emaildns_intermediate.hostname
-  type    = "CNAME"
-  proxied = false
-}
-
-resource "cloudflare_record" "emaildns_intermediate" {
   zone_id = data.cloudflare_zone.domain.id
   name    = local.subdomain_with_region
   value   = var.internal_alb_dns_name

@@ -1,13 +1,5 @@
-output "ui_bucket" {
-  value = aws_s3_bucket.ui.arn
-}
-
-output "cloudfront_distribution_id" {
-  value = aws_cloudfront_distribution.ui[0].id
-}
-
 output "ui_hostname" {
-  value = cloudflare_record.uidns.hostname
+  value = local.ui_hostname
 }
 
 output "api_hostname" {
@@ -22,4 +14,3 @@ output "api_public_dns_value" {
 output "db_pwmanager_user" {
   value = var.mysql_user
 }
-
