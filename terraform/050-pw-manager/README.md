@@ -7,7 +7,7 @@ The password manager UI can be deployed using the [silinternatonal/pages/cloudfl
 
  - Create ALB target group for API with hostname based routing
  - Create task definition and ECS service for password manager API service
- - Create Cloudflare DNS record
+ - Create Cloudflare DNS record for the API service
 
 ## Required Inputs
 
