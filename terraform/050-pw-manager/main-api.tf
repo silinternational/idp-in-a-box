@@ -1,3 +1,8 @@
+
+locals {
+  ui_hostname = "${var.ui_subdomain}.${var.cloudflare_domain}"
+}
+
 /*
  * Create target group for ALB
  */
