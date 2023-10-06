@@ -83,6 +83,7 @@ locals {
     sync_safety_cutoff           = var.sync_safety_cutoff
     allow_empty_email            = var.allow_empty_email
     enable_new_user_notification = var.enable_new_user_notification
+    sentry_dsn                   = var.sentry_dsn
   })
 }
 
