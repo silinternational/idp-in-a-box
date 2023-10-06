@@ -105,6 +105,7 @@ This module is used to create an ECS service running id-broker.
  - `send_password_changed_emails` - Bool of whether or not to send password changed emails. Default: `true`
  - `send_refresh_backup_codes_emails` - Bool of whether or not to send refresh backup codes emails. Default: `true`
  - `send_welcome_emails` - Bool of whether or not to send welcome emails. Default: `true`
+ - `sentry_dsn` - Sentry DSN for error logging and alerting. Obtain from Sentry dashboard: Settings - Projects - (project) - Client Keys
  - `subject_for_abandoned_users` - Email subject text for abandoned user emails. Default: `Unused {idpDisplayName} Identity Accounts`
  - `subject_for_get_backup_codes` - Email subject text for get backup codes emails. Default: `Get printable codes for your {idpDisplayName} Identity account`
  - `subject_for_invite` - Email subject text for invite emails. Default: `Your new {idpDisplayName} Identity account`

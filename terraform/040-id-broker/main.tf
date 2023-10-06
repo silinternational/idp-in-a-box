@@ -290,6 +290,7 @@ locals {
     send_password_expiring_emails              = var.send_password_expiring_emails
     send_refresh_backup_codes_emails           = var.send_refresh_backup_codes_emails
     send_welcome_emails                        = var.send_welcome_emails
+    sentry_dsn                                 = var.sentry_dsn
     subject_for_abandoned_users                = var.subject_for_abandoned_users
     subject_for_get_backup_codes               = var.subject_for_get_backup_codes
     subject_for_invite                         = var.subject_for_invite

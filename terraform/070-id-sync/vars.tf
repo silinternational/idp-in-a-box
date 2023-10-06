@@ -151,5 +151,5 @@ variable "create_dns_record" {
 variable "sentry_dsn" {
   description = "Sentry DSN for error logging and alerting"
   type        = string
-  default     = null
+  default     = ""
 }
