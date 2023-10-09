@@ -166,6 +166,10 @@
         "value": "${recaptcha_site_key}"
       },
       {
+        "name": "SENTRY_DSN",
+        "value": "${sentry_dsn}"
+      },
+      {
         "name": "SUPPORT_EMAIL",
         "value": "${support_email}"
       },
