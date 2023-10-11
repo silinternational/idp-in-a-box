@@ -91,20 +91,27 @@ variable "internal_alb_listener_arn" {
 }
 
 variable "mailer_host" {
-  type = string
+  description = "SMTP hostname - if omitted, SES will be used"
+  type        = string
+  default     = ""
 }
 
 variable "mailer_password" {
-  type = string
+  description = "password, used with mailer_username for authentication to SMTP server"
+  type        = string
+  default     = ""
 }
 
 variable "mailer_usefiles" {
-  type    = string
-  default = "false"
+  description = "Controls whether YiiMailer should write to files instead of sending emails"
+  type        = string
+  default     = "false"
 }
 
 variable "mailer_username" {
-  type = string
+  description = "username, used with mailer_password for authentication to SMTP server"
+  type        = string
+  default     = ""
 }
 
 variable "memory_api" {
