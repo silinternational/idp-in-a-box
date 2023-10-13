@@ -102,6 +102,7 @@ locals {
     password_rule_minscore              = var.password_rule_minscore
     recaptcha_secret_key                = var.recaptcha_secret
     recaptcha_site_key                  = var.recaptcha_key
+    sentry_dsn                          = var.sentry_dsn
     support_email                       = var.support_email
     support_feedback                    = var.support_feedback
     support_name                        = var.support_name

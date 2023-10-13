@@ -97,6 +97,10 @@
         "name": "ENABLE_NEW_USER_NOTIFICATION",
         "value": "${enable_new_user_notification}"
       },
+      {
+        "name": "SENTRY_DSN",
+        "value": "${sentry_dsn}"
+      },
       ${id_store_config}
     ],
     "links": null,

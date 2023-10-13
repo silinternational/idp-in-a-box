@@ -227,6 +227,12 @@ variable "recaptcha_secret" {
   type = string
 }
 
+variable "sentry_dsn" {
+  description = "Sentry DSN for error logging and alerting"
+  type        = string
+  default     = ""
+}
+
 variable "support_email" {
   description = "Email address for end user support, displayed on PW UI and in emails"
   type        = string

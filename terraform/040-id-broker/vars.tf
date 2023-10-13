@@ -452,6 +452,12 @@ variable "send_welcome_emails" {
   default = "true"
 }
 
+variable "sentry_dsn" {
+  description = "Sentry DSN for error logging and alerting"
+  type        = string
+  default     = ""
+}
+
 variable "ssl_policy" {
   type = string
 }

@@ -66,6 +66,7 @@ The password manager UI can be deployed using the [silinternatonal/pages/cloudfl
  - `password_rule_maxlength` - Maximum password length. Default: `255`
  - `password_rule_minlength` - Minimum password length. Default: `10`
  - `password_rule_minscore` - Minimum password score. Default: `3`
+ - `sentry_dsn` - Sentry DSN for error logging and alerting. Obtain from Sentry dashboard: Settings - Projects - (project) - Client Keys
  - `support_feedback` - Email address for end user feedback, displayed on PW UI.
  - `support_phone` - Phone number for end user support, displayed on PW UI.
  - `support_url` - URL for end user support, displayed on PW UI.

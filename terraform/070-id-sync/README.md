@@ -47,6 +47,7 @@ store.
 - `create_dns_record` - Controls creation of a DNS CNAME record for the ECS service. Default: `true`
 - `enable_new_user_notification` - Enable email notification to HR Contact upon creation of a new user, if set to 'true'. Default: `false`
 - `enable_sync` - Set to false to disable the sync process.
+- `sentry_dsn` - Sentry DSN for error logging and alerting. Obtain from Sentry dashboard: Settings - Projects - (project) - Client Keys
 
 ## Outputs
 

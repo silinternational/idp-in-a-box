@@ -339,6 +339,10 @@
         "value": "${send_welcome_emails}"
       },
       {
+        "name": "SENTRY_DSN",
+        "value": "${sentry_dsn}"
+      },
+      {
         "name": "SUBJECT_FOR_ABANDONED_USERS",
         "value": "${subject_for_abandoned_users}"
       },
