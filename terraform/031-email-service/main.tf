@@ -51,6 +51,52 @@ resource "random_id" "access_token_idsync" {
 }
 
 /*
+ * Create role for access to SES
+ */
+resource "aws_iam_role" "ses" {
+  name = "ses-${var.idp_name}-${var.app_name}-${var.app_env}-${var.aws_region}"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid    = "ECSAssumeRoleSES"
+        Effect = "Allow"
+        Principal = {
+          Service = [
+            "ses.amazonaws.com",
+            "ecs-tasks.amazonaws.com",
+          ]
+        }
+        Action = "sts:AssumeRole"
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy" "ses" {
+  name = "ses"
+  role = aws_iam_role.ses.id
+  policy = jsonencode(
+    {
+      Version = "2012-10-17"
+      Statement = [
+        {
+          Sid      = "SendEmail"
+          Effect   = "Allow"
+          Action   = "ses:SendEmail"
+          Resource = "*"
+          Condition = {
+            StringEquals = {
+              "ses:FromAddress" = var.from_email
+            }
+          }
+        }
+      ]
+  })
+}
+
+/*
  * Create ECS services
  */
 locals {
@@ -92,6 +138,7 @@ module "ecsservice_api" {
   container_def_json = local.task_def_api
   desired_count      = var.desired_count_api
   tg_arn             = aws_alb_target_group.email.arn
+  task_role_arn      = aws_iam_role.ses.arn
   lb_container_name  = "api"
   lb_container_port  = "80"
 }
@@ -130,6 +177,7 @@ module "ecsservice_cron" {
   service_name       = "${var.idp_name}-${var.app_name}-cron"
   service_env        = var.app_env
   container_def_json = local.task_def_cron
+  task_role_arn      = aws_iam_role.ses.arn
   desired_count      = var.enable_cron ? 1 : 0
 }
 
