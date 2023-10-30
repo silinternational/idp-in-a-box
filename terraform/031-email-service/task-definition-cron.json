@@ -28,6 +28,10 @@
         "value": "${app_name}"
       },
       {
+        "name": "AWS_REGION",
+        "value": "${aws_region}"
+      },
+      {
         "name": "EMAIL_BRAND_COLOR",
         "value": "${email_brand_color}"
       },
