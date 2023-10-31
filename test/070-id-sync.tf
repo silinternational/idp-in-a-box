@@ -1,19 +1,14 @@
 module "sync" {
   source = "../terraform/070-id-sync"
 
-  alb_dns_name                 = ""
-  alb_https_listener_arn       = ""
   alerts_email                 = ""
   allow_empty_email            = ""
   app_env                      = ""
   app_name                     = ""
   aws_region                   = ""
-  cloudflare_domain            = ""
   cloudwatch_log_group_name    = ""
   cpu                          = ""
-  create_dns_record            = true
   docker_image                 = ""
-  ecsServiceRole_arn           = ""
   ecs_cluster_id               = ""
   email_service_accessToken    = ""
   email_service_assertValidIp  = ""
@@ -32,7 +27,6 @@ module "sync" {
   idp_name                     = ""
   memory                       = ""
   notifier_email_to            = ""
-  subdomain                    = ""
   sync_safety_cutoff           = ""
   vpc_id                       = ""
 }

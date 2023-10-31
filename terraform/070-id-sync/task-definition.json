@@ -6,13 +6,6 @@
     "dnsServers": null,
     "disableNetworking": null,
     "dnsSearchDomains": null,
-    "portMappings": [
-      {
-        "hostPort": 0,
-        "containerPort": 80,
-        "protocol": "tcp"
-      }
-    ],
     "hostname": null,
     "essential": true,
     "entryPoint": null,
@@ -64,10 +57,6 @@
       {
         "name": "ID_STORE_ADAPTER",
         "value": "${id_store_adapter}"
-      },
-      {
-        "name": "ID_SYNC_ACCESS_TOKENS",
-        "value": "${id_sync_access_tokens}"
       },
       {
         "name": "IDP_NAME",

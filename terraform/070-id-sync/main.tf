@@ -1,54 +1,7 @@
 /*
- * Create target group for ALB
- */
-resource "aws_alb_target_group" "idsync" {
-  name                 = substr("tg-${var.idp_name}-${var.app_name}-${var.app_env}", 0, 32)
-  port                 = "80"
-  protocol             = "HTTP"
-  vpc_id               = var.vpc_id
-  deregistration_delay = "30"
-
-  health_check {
-    path    = "/site/system-status"
-    matcher = "200"
-  }
-}
-
-/*
- * Create listener rule for hostname routing to new target group
- */
-resource "aws_alb_listener_rule" "idsync" {
-  listener_arn = var.alb_https_listener_arn
-  priority     = "70"
-
-  action {
-    type             = "forward"
-    target_group_arn = aws_alb_target_group.idsync.arn
-  }
-
-  condition {
-    host_header {
-      values = [
-        "${var.subdomain}.${var.cloudflare_domain}",
-        "${local.subdomain_with_region}.${var.cloudflare_domain}"
-      ]
-    }
-  }
-}
-
-/*
- * Generate access token for external system to use when calling ID Sync
- */
-resource "random_id" "access_token_external" {
-  byte_length = 16
-}
-
-/*
  * Create ECS service
  */
 locals {
-  subdomain_with_region = "${var.subdomain}-${var.aws_region}"
-
   id_store_config = join(",",
     [for k, v in var.id_store_config : jsonencode({
       name  = "ID_STORE_CONFIG_${k}"
@@ -73,7 +26,6 @@ locals {
     id_broker_trustedIpRanges    = join(",", var.id_broker_trustedIpRanges)
     id_store_adapter             = var.id_store_adapter
     id_store_config              = local.id_store_config
-    id_sync_access_tokens        = random_id.access_token_external.hex
     idp_name                     = var.idp_name
     idp_display_name             = var.idp_display_name
     alerts_email                 = var.alerts_email
@@ -88,40 +40,10 @@ locals {
 }
 
 module "ecsservice" {
-  source             = "github.com/silinternational/terraform-modules//aws/ecs/service-only?ref=8.6.0"
+  source             = "github.com/silinternational/terraform-modules//aws/ecs/service-no-alb?ref=8.6.0"
   cluster_id         = var.ecs_cluster_id
   service_name       = "${var.idp_name}-${var.app_name}"
   service_env        = var.app_env
   container_def_json = local.task_def
   desired_count      = var.enable_sync ? 1 : 0
-  tg_arn             = aws_alb_target_group.idsync.arn
-  lb_container_name  = "web"
-  lb_container_port  = "80"
-  ecsServiceRole_arn = var.ecsServiceRole_arn
 }
-
-/*
- * Create Cloudflare DNS record(s)
- */
-resource "cloudflare_record" "idsyncdns" {
-  count = var.create_dns_record ? 1 : 0
-
-  zone_id = data.cloudflare_zone.domain.id
-  name    = var.subdomain
-  value   = cloudflare_record.idsyncdns_intermediate.hostname
-  type    = "CNAME"
-  proxied = true
-}
-
-resource "cloudflare_record" "idsyncdns_intermediate" {
-  zone_id = data.cloudflare_zone.domain.id
-  name    = local.subdomain_with_region
-  value   = var.alb_dns_name
-  type    = "CNAME"
-  proxied = true
-}
-
-data "cloudflare_zone" "domain" {
-  name = var.cloudflare_domain
-}
-
