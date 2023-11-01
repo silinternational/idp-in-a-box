@@ -118,8 +118,10 @@ variable "enable_new_user_notification" {
   default = "false"
 }
 
-variable "enable_sync" {
-  default = true
+variable "event_schedule" {
+  description = "AWS Cloudwatch schedule for the sync task"
+  type        = string
+  default     = "cron(*/15 * * * ? *)"
 }
 
 variable "sentry_dsn" {

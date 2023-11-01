@@ -39,8 +39,8 @@ store.
 - `sync_safety_cutoff` - The percentage of records allowed to be changed during a sync, provided as a float, ex: `0.2` for `20%`
 - `allow_empty_email` - Whether or not to allow the primary email property to be empty. Default: `false`
 - `enable_new_user_notification` - Enable email notification to HR Contact upon creation of a new user, if set to 'true'. Default: `false`
-- `enable_sync` - Set to false to disable the sync process.
 - `sentry_dsn` - Sentry DSN for error logging and alerting. Obtain from Sentry dashboard: Settings - Projects - (project) - Client Keys
+- `event_schedule` - AWS Cloudwatch schedule for the sync task. Use cron format "cron(Minutes Hours Day-of-month Month Day-of-week Year)" where either `day-of-month` or `day-of-week` must be a question mark, or rate format "rate(15 minutes). Default = "cron(*/15 * * * ? *)"
 
 ## Usage Example
 
