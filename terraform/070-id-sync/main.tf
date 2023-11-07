@@ -100,7 +100,7 @@ resource "aws_ecs_task_definition" "cron_td" {
  */
 resource "aws_cloudwatch_event_rule" "event_rule" {
   name        = "${var.idp_name}-${var.app_name}-${var.app_env}"
-  description = "Start broker scheduled tasks"
+  description = "Start ID Sync scheduled tasks"
 
   schedule_expression = var.event_schedule
 
