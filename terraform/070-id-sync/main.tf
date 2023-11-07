@@ -110,7 +110,7 @@ resource "aws_cloudwatch_event_rule" "event_rule" {
   }
 }
 
-resource "aws_cloudwatch_event_target" "broker_event_target" {
+resource "aws_cloudwatch_event_target" "id_sync_event_target" {
   target_id = "${var.idp_name}-${var.app_name}-${var.app_env}"
   rule      = aws_cloudwatch_event_rule.event_rule.name
   arn       = var.ecs_cluster_id
