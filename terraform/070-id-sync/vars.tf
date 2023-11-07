@@ -19,19 +19,7 @@ variable "vpc_id" {
   type = string
 }
 
-variable "alb_https_listener_arn" {
-  type = string
-}
-
 variable "aws_region" {
-  type = string
-}
-
-variable "subdomain" {
-  type = string
-}
-
-variable "cloudflare_domain" {
   type = string
 }
 
@@ -106,14 +94,6 @@ variable "ecs_cluster_id" {
   type = string
 }
 
-variable "ecsServiceRole_arn" {
-  type = string
-}
-
-variable "alb_dns_name" {
-  type = string
-}
-
 variable "notifier_email_to" {
   default     = ""
   type        = string
@@ -138,14 +118,10 @@ variable "enable_new_user_notification" {
   default = "false"
 }
 
-variable "enable_sync" {
-  default = true
-}
-
-variable "create_dns_record" {
-  description = "Controls creation of a DNS CNAME record for the ECS service."
-  type        = bool
-  default     = true
+variable "event_schedule" {
+  description = "AWS Cloudwatch schedule for the sync task"
+  type        = string
+  default     = "cron(*/15 * * * ? *)"
 }
 
 variable "sentry_dsn" {
