@@ -10,7 +10,7 @@
     "essential": true,
     "entryPoint": null,
     "mountPoints": [],
-    "name": "web",
+    "name": "cron",
     "ulimits": null,
     "dockerSecurityOptions": null,
     "environment": [
