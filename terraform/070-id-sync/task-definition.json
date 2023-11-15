@@ -90,6 +90,10 @@
         "name": "SENTRY_DSN",
         "value": "${sentry_dsn}"
       },
+      {
+        "name": "SENTRY_MONITOR_SLUG",
+        "value": "${app_name}-${idp_name}-${app_env}"
+      },
       ${id_store_config}
     ],
     "links": null,
