@@ -6,18 +6,11 @@
     "dnsServers": null,
     "disableNetworking": null,
     "dnsSearchDomains": null,
-    "portMappings": [
-      {
-        "hostPort": 0,
-        "containerPort": 80,
-        "protocol": "tcp"
-      }
-    ],
     "hostname": null,
     "essential": true,
     "entryPoint": null,
     "mountPoints": [],
-    "name": "web",
+    "name": "cron",
     "ulimits": null,
     "dockerSecurityOptions": null,
     "environment": [
@@ -66,10 +59,6 @@
         "value": "${id_store_adapter}"
       },
       {
-        "name": "ID_SYNC_ACCESS_TOKENS",
-        "value": "${id_sync_access_tokens}"
-      },
-      {
         "name": "IDP_NAME",
         "value": "${idp_name}"
       },
@@ -100,6 +89,10 @@
       {
         "name": "SENTRY_DSN",
         "value": "${sentry_dsn}"
+      },
+      {
+        "name": "SENTRY_MONITOR_SLUG",
+        "value": "${app_name}-${idp_name}-${app_env}"
       },
       ${id_store_config}
     ],

@@ -46,7 +46,7 @@ resource "aws_alb_listener_rule" "pwmanager" {
 }
 
 /*
- * Generate access token for UI to use to call API
+ * Generate access token hash used for generating user access tokens
  */
 resource "random_id" "access_token_hash" {
   byte_length = 16
