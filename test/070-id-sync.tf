@@ -15,6 +15,7 @@ module "sync" {
   email_service_baseUrl        = ""
   email_service_validIpRanges  = [""]
   enable_new_user_notification = ""
+  enable_sync                  = ""
   event_schedule               = ""
   id_broker_access_token       = ""
   id_broker_adapter            = ""
