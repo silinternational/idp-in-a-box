@@ -2,19 +2,20 @@
  * IAM outputs
  */
 output "cduser_access_key_id" {
-  value = aws_iam_access_key.cduser.id
+  value = one(aws_iam_access_key.cduser[*].id)
 }
 
 output "cduser_access_key_secret" {
-  value = aws_iam_access_key.cduser.secret
+  value     = one(aws_iam_access_key.cduser[*].secret)
+  sensitive = true
 }
 
 output "cduser_arn" {
-  value = aws_iam_user.cd.arn
+  value = one(aws_iam_user.cd[*].arn)
 }
 
 output "cduser_username" {
-  value = aws_iam_user.cd.name
+  value = one(aws_iam_user.cd[*].name)
 }
 
 /*

@@ -1,4 +1,6 @@
+# IntelliJ folder
 .idea/
-local.env
+
+*.env
 google-auth.json
 .terraform/

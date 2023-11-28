@@ -50,20 +50,12 @@
         "value": "true"
       },
       {
-        "name": "MEMCACHE_HOST1",
-        "value": "${memcache_host1}"
-      },
-      {
-        "name": "MEMCACHE_HOST2",
-        "value": "${memcache_host2}"
-      },
-      {
         "name": "SECRET_SALT",
         "value": "${secret_salt}"
       },
       {
         "name": "SESSION_STORE_TYPE",
-        "value": "memcache"
+        "value": "sql"
       },
       {
         "name": "SHOW_SAML_ERRORS",

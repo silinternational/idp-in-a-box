@@ -1,3 +1,18 @@
+variable "abandoned_user_abandoned_period" {
+  type    = string
+  default = "+6 months"
+}
+
+variable "abandoned_user_best_practice_url" {
+  type    = string
+  default = ""
+}
+
+variable "abandoned_user_deactivate_instructions_url" {
+  type    = string
+  default = ""
+}
+
 variable "app_env" {
   type        = string
   description = "Environment name, ex: 'stg' or 'prod'"
@@ -92,14 +107,20 @@ variable "event_schedule" {
   default = "cron(0 0 * * ? *)"
 }
 
+variable "ga_api_secret" {
+  description = "The Google Analytics API secret for the data stream (e.g. aB-abcdef7890123456789)"
+  type        = string
+  default     = ""
+}
+
 variable "ga_client_id" {
   description = "Used by Google Analytics to distinguish the user."
   type        = string
   default     = ""
 }
 
-variable "ga_tracking_id" {
-  description = "The Google Analytics property id (e.g. UA-12345678-12)"
+variable "ga_measurement_id" {
+  description = "The Google Analytics data stream id (e.g. G-ABCDE67890)"
   type        = string
   default     = ""
 }
@@ -107,7 +128,7 @@ variable "ga_tracking_id" {
 variable "google_config" {
   type        = map(string)
   description = "A map of Google properties for Sheets export"
-  default     = { "enableSheetsExport" : false }
+  default     = { enableSheetsExport = false }
 }
 
 variable "help_center_url" {
@@ -135,6 +156,11 @@ variable "hibp_tracking_only" {
 }
 
 variable "hibp_notification_bcc" {
+  type    = string
+  default = ""
+}
+
+variable "hr_notifications_email" {
   type    = string
   default = ""
 }
@@ -267,19 +293,31 @@ variable "mfa_totp_apisecret" {
   type = string
 }
 
-variable "mfa_u2f_apibaseurl" {
+variable "mfa_webauthn_apibaseurl" {
   type = string
 }
 
-variable "mfa_u2f_apikey" {
+variable "mfa_webauthn_apikey" {
   type = string
 }
 
-variable "mfa_u2f_apisecret" {
+variable "mfa_webauthn_apisecret" {
   type = string
 }
 
-variable "mfa_u2f_appid" {
+variable "mfa_webauthn_appid" {
+  type = string
+}
+
+variable "mfa_webauthn_rpdisplayname" {
+  type = string
+}
+
+variable "mfa_webauthn_rpid" {
+  type = string
+}
+
+variable "rp_origins" {
   type = string
 }
 
@@ -414,12 +452,24 @@ variable "send_welcome_emails" {
   default = "true"
 }
 
+variable "sentry_dsn" {
+  description = "Sentry DSN for error logging and alerting"
+  type        = string
+  default     = ""
+}
+
 variable "ssl_policy" {
   type = string
 }
 
 variable "subdomain" {
-  type = string
+  description = "The subdomain for id-broker, without an embedded region in it (e.g. 'broker', NOT 'broker-us-east-1')"
+  type        = string
+}
+
+variable "subject_for_abandoned_users" {
+  type    = string
+  default = ""
 }
 
 variable "subject_for_get_backup_codes" {
@@ -528,4 +578,3 @@ variable "vpc_id" {
 variable "wildcard_cert_arn" {
   type = string
 }
-

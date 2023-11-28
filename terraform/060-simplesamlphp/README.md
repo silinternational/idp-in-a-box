@@ -27,8 +27,6 @@ This module is used to create an ECS service running simpleSAMLphp.
  - `id_broker_trusted_ip_ranges` - List of trusted ip blocks for ID Broker
  - `id_broker_base_uri` - Base URL to id-broker API
  - `mfa_setup_url` - URL to setup MFA
- - `memcache_host1` - First memcache host
- - `memcache_host2` - Second memcache host
  - `db_name` - Name of MySQL database for ssp
  - `mysql_host` - Address for RDS instance
  - `mysql_user` - MySQL username for id-broker
@@ -46,13 +44,16 @@ This module is used to create an ECS service running simpleSAMLphp.
 
 ## Optional Inputs
 
+ - `create_dns_record` - Controls creation of a DNS CNAME record for the ECS service. Default: `true`
  - `delete_remember_me_on_logout` - Whether or not to delete remember me cookie on logout. Default: `false`
  - `enable_debug` - Enable debug logs. Default: `false`
  - `logging_level` - Minimum log level to log. DO NOT use DEBUG in production. Allowed values: ERR, WARNING, NOTICE, INFO, DEBUG. Default: `NOTICE`
  - `mfa_learn_more_url` - URL to learn more about 2SV during profile review. Default: (link not displayed)
+ - `secret_salt` - This allows for porting the value over from a primary to a secondary workspace. 
+    A 64-character random string will be created automatically if not provided.
  - `show_saml_errors` - Whether or not to show saml errors. Default: `false`
  - `theme_color_scheme` - The color scheme to use for SSP. Default: `'indigo-purple'`
-
+ - `trust_cloudflare_ips` - If set to `"ipv4"` Cloudflare IPV4 addresses will be included in `trusted_ip_addresses`
 
 ## Outputs
 
@@ -64,7 +65,7 @@ This module is used to create an ECS service running simpleSAMLphp.
 
 ```hcl
 module "cf_ips" {
-  source = "github.com/silinternational/terraform-modules//cloudflare/ips?ref=3.3.2"
+  source = "github.com/silinternational/terraform-modules//cloudflare/ips?ref=8.6.0"
 }
 
 module "ssp" {
@@ -90,8 +91,6 @@ module "ssp" {
   id_broker_trusted_ip_ranges  = data.terraform_remote_state.cluster.private_subnet_cidr_blocks
   mfa_learn_more_url           = var.mfa_learn_more_url
   mfa_setup_url                = var.mfa_setup_url
-  memcache_host1               = data.terraform_remote_state.elasticache.cache_nodes.0.address
-  memcache_host2               = data.terraform_remote_state.elasticache.cache_nodes.1.address
   db_name                      = var.db_ssp_name
   mysql_host                   = data.terraform_remote_state.database.rds_address
   mysql_user                   = var.db_ssp_user
@@ -107,7 +106,6 @@ module "ssp" {
   theme_color_scheme           = var.theme_color_scheme
   theme_use                    = var.theme_use
   trusted_ip_addresses = concat(
-    module.cf_ips.ipv4_cidrs,
     var.trusted_ip_addresses,
     data.terraform_remote_state.cluster.outputs.public_subnet_cidr_blocks,
   )
@@ -117,5 +115,6 @@ module "ssp" {
   help_center_url              = data.terraform_remote_state.broker.help_center_url
   enable_debug                 = var.enable_debug
   logging_level                = var.logging_level
+  trust_cloudflare_ips         = "ipv4"
 }
 ```

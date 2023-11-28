@@ -66,7 +66,14 @@ variable "email_queue_batch_size" {
 }
 
 variable "from_email" {
-  type = string
+  description = "Email address to send emails from. See `from_name`"
+  type        = string
+}
+
+variable "from_name" {
+  description = "Name to use when sending emails"
+  default     = ""
+  type        = string
 }
 
 variable "idp_name" {
@@ -84,20 +91,27 @@ variable "internal_alb_listener_arn" {
 }
 
 variable "mailer_host" {
-  type = string
+  description = "SMTP hostname - if omitted, SES will be used"
+  type        = string
+  default     = ""
 }
 
 variable "mailer_password" {
-  type = string
+  description = "password, used with mailer_username for authentication to SMTP server"
+  type        = string
+  default     = ""
 }
 
 variable "mailer_usefiles" {
-  type    = string
-  default = "false"
+  description = "Controls whether YiiMailer should write to files instead of sending emails"
+  type        = string
+  default     = "false"
 }
 
 variable "mailer_username" {
-  type = string
+  description = "username, used with mailer_password for authentication to SMTP server"
+  type        = string
+  default     = ""
 }
 
 variable "memory_api" {
@@ -129,7 +143,8 @@ variable "ssl_policy" {
 }
 
 variable "subdomain" {
-  type = string
+  description = "The subdomain for email-service, without an embedded region in it (e.g. 'email', NOT 'email-us-east-1')"
+  type        = string
 }
 
 variable "vpc_id" {
@@ -140,3 +155,6 @@ variable "wildcard_cert_arn" {
   type = string
 }
 
+variable "enable_cron" {
+  default = true
+}

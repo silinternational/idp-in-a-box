@@ -178,14 +178,6 @@ variable "idp_name" {
   type        = string
 }
 
-variable "memcache_config1_host" {
-  type = string
-}
-
-variable "memcache_config2_host" {
-  type = string
-}
-
 variable "memory" {
   description = "Amount of memory to allocate to container, recommend '128' for production"
   default     = "100"
@@ -235,6 +227,12 @@ variable "recaptcha_secret" {
   type = string
 }
 
+variable "sentry_dsn" {
+  description = "Sentry DSN for error logging and alerting"
+  type        = string
+  default     = ""
+}
+
 variable "support_email" {
   description = "Email address for end user support, displayed on PW UI and in emails"
   type        = string
@@ -272,3 +270,8 @@ variable "wildcard_cert_arn" {
   type = string
 }
 
+variable "create_dns_record" {
+  description = "Controls creation of a DNS CNAME record for the ECS service."
+  type        = bool
+  default     = true
+}

@@ -1,12 +1,13 @@
+
+locals {
+  ui_hostname = "${var.ui_subdomain}.${var.cloudflare_domain}"
+}
+
 /*
  * Create target group for ALB
  */
 resource "aws_alb_target_group" "pwmanager" {
-  name = replace(
-    "tg-${var.idp_name}-${var.app_name}-${var.app_env}",
-    "/(.{0,32})(.*)/",
-    "$1",
-  )
+  name                 = substr("tg-${var.idp_name}-${var.app_name}-${var.app_env}", 0, 32)
   port                 = "80"
   protocol             = "HTTP"
   vpc_id               = var.vpc_id
@@ -36,13 +37,16 @@ resource "aws_alb_listener_rule" "pwmanager" {
 
   condition {
     host_header {
-      values = ["${var.api_subdomain}.${var.cloudflare_domain}"]
+      values = [
+        "${var.api_subdomain}.${var.cloudflare_domain}",
+        "${local.api_subdomain_with_region}.${var.cloudflare_domain}"
+      ]
     }
   }
 }
 
 /*
- * Generate access token for UI to use to call API
+ * Generate access token hash used for generating user access tokens
  */
 resource "random_id" "access_token_hash" {
   byte_length = 16
@@ -51,10 +55,10 @@ resource "random_id" "access_token_hash" {
 /*
  * Create ECS service for API
  */
-data "template_file" "task_def" {
-  template = file("${path.module}/task-definition-api.json")
+locals {
+  api_subdomain_with_region = "${var.api_subdomain}-${var.aws_region}"
 
-  vars = {
+  task_def = templatefile("${path.module}/task-definition-api.json", {
     access_token_hash                   = random_id.access_token_hash.hex
     alerts_email                        = var.alerts_email
     app_env                             = var.app_env
@@ -88,8 +92,6 @@ data "template_file" "task_def" {
     id_broker_validIpRanges             = join(",", var.id_broker_validIpRanges)
     idp_display_name                    = var.idp_display_name
     idp_name                            = var.idp_name
-    memcache_config1_host               = var.memcache_config1_host
-    memcache_config2_host               = var.memcache_config2_host
     memory                              = var.memory
     mysql_host                          = var.mysql_host
     mysql_password                      = var.mysql_pass
@@ -100,6 +102,7 @@ data "template_file" "task_def" {
     password_rule_minscore              = var.password_rule_minscore
     recaptcha_secret_key                = var.recaptcha_secret
     recaptcha_site_key                  = var.recaptcha_key
+    sentry_dsn                          = var.sentry_dsn
     support_email                       = var.support_email
     support_feedback                    = var.support_feedback
     support_name                        = var.support_name
@@ -107,15 +110,15 @@ data "template_file" "task_def" {
     support_url                         = var.support_url
     ui_cors_origin                      = "https://${local.ui_hostname}"
     ui_url                              = "https://${local.ui_hostname}/#"
-  }
+  })
 }
 
 module "ecsservice" {
-  source             = "github.com/silinternational/terraform-modules//aws/ecs/service-only?ref=3.3.2"
+  source             = "github.com/silinternational/terraform-modules//aws/ecs/service-only?ref=8.6.0"
   cluster_id         = var.ecs_cluster_id
   service_name       = "${var.idp_name}-${var.app_name}"
   service_env        = var.app_env
-  container_def_json = data.template_file.task_def.rendered
+  container_def_json = local.task_def
   desired_count      = var.desired_count
   tg_arn             = aws_alb_target_group.pwmanager.arn
   lb_container_name  = "web"
@@ -124,20 +127,27 @@ module "ecsservice" {
 }
 
 /*
- * Create Cloudflare DNS record
+ * Create Cloudflare DNS record(s)
  */
 resource "cloudflare_record" "apidns" {
-  zone_id = data.cloudflare_zones.domain.zones[0].id
+  count = var.create_dns_record ? 1 : 0
+
+  zone_id = data.cloudflare_zone.domain.id
   name    = var.api_subdomain
+  value   = cloudflare_record.apidns_intermediate.hostname
+  type    = "CNAME"
+  proxied = true
+}
+
+resource "cloudflare_record" "apidns_intermediate" {
+  zone_id = data.cloudflare_zone.domain.id
+  name    = local.api_subdomain_with_region
   value   = var.alb_dns_name
   type    = "CNAME"
   proxied = true
 }
 
-data "cloudflare_zones" "domain" {
-  filter {
-    name        = var.cloudflare_domain
-    lookup_type = "exact"
-    status      = "active"
-  }
+data "cloudflare_zone" "domain" {
+  name = var.cloudflare_domain
 }
+

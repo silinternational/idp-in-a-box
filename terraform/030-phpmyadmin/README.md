@@ -10,7 +10,6 @@ for individual services
 
 ## Required Inputs
 
- - `app_name` - Application name
  - `app_env` - Application environment
  - `vpc_id` - ID for VPC
  - `alb_https_listener_arn` - ARN to ALB listener for HTTPS traffic
@@ -20,6 +19,14 @@ for individual services
  - `ecs_cluster_id` - ID for ECS Cluster
  - `ecsServiceRole_arn` - ARN for ECS Service Role
  - `alb_dns_name` - DNS name for application load balancer
+
+## Optional Inputs
+
+ - `cpu` - ECS service CPU reservation
+ - `memory` - ECS service memory reservation
+ - `app_name` - Application name
+ - `enable` - Enable the service
+ - `upload_limit` - Maximum POST size for data upload
 
 ## Outputs
 

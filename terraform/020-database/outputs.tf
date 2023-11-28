@@ -11,26 +11,26 @@ output "mysql_user" {
 }
 
 output "mysql_pass" {
-  value = random_id.db_root_pass.hex
+  value     = local.root_pass
+  sensitive = true
 }
 
 output "db_idbroker_pass" {
-  value = random_id.db_idbroker_pass.hex
+  value = local.idbroker_pass
 }
 
 output "db_emailservice_pass" {
-  value = random_id.db_emailservice_pass.hex
+  value = local.emailservice_pass
 }
 
 output "db_pwmanager_pass" {
-  value = random_id.db_pwmanager_pass.hex
+  value = local.pwmanager_pass
 }
 
 output "db_ssp_pass" {
-  value = random_id.db_ssp_pass.hex
+  value = local.ssp_pass
 }
 
 output "db_users_sql" {
-  value = data.template_file.db_users.rendered
+  value = local.db_users_sql
 }
-

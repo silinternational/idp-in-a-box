@@ -1,13 +1,13 @@
 # 050-pw-manager - ECS service for password manager API and S3 config for UI
-This module is used to create an ECS service running the password manager API and static site hosting for the UI.
+This module is used to create an ECS service running the password manager API.
+
+The password manager UI can be deployed using the [silinternatonal/pages/cloudflare](https://registry.terraform.io/modules/silinternational/pages/cloudflare/latest) module.
 
 ## What this does
 
  - Create ALB target group for API with hostname based routing
  - Create task definition and ECS service for password manager API service
- - Create S3 bucket for UI
- - Create CloudFront distribution to provide SSL support for UI
- - Create Cloudflare DNS records for API and UI
+ - Create Cloudflare DNS record for the API service
 
 ## Required Inputs
 
@@ -45,8 +45,6 @@ This module is used to create an ECS service running the password manager API an
  - `id_broker_base_uri` - Base URL to id-broker API
  - `id_broker_validIpRanges` - List of valid IP blocks for ID Broker
  - `idp_name` - Short name of IdP for use in logs and email alerts
- - `memcache_config1_host` - First memcache server
- - `memcache_config2_host` - Second memcache server
  - `memory` - Amount of memory to allocate to API container
  - `mysql_host` - Address for RDS instance
  - `mysql_pass` - MySQL password for id-broker
@@ -62,19 +60,19 @@ This module is used to create an ECS service running the password manager API an
 ## Optional Inputs
 
  - `code_length` - Number of digits in reset code. Default: `6`
+ - `create_dns_record` - Controls creation of a DNS CNAME record for the ECS service. Default: `true`
  - `extra_hosts` - Extra hosts for the API task definition, e.g. "\["hostname":"host.example.com","ipAddress":"192.168.1.1"\]"
  - `password_rule_enablehibp` - Enable haveibeenpwned.com password check. Default: `true`
  - `password_rule_maxlength` - Maximum password length. Default: `255`
  - `password_rule_minlength` - Minimum password length. Default: `10`
  - `password_rule_minscore` - Minimum password score. Default: `3`
+ - `sentry_dsn` - Sentry DSN for error logging and alerting. Obtain from Sentry dashboard: Settings - Projects - (project) - Client Keys
  - `support_feedback` - Email address for end user feedback, displayed on PW UI.
  - `support_phone` - Phone number for end user support, displayed on PW UI.
  - `support_url` - URL for end user support, displayed on PW UI.
 
 ## Outputs
 
- - `ui_bucket` - ARN for S3 bucket for UI
- - `cloudfront_distribution_id` - Cloudfront distribution ID
  - `ui_hostname` - Full hostname for UI
  - `api_hostname` - Full hostname for API
  - `db_pwmanager_user` - Username for mysql
@@ -99,7 +97,7 @@ module "pwmanager" {
   auth_saml_spPrivateKey              = var.auth_saml_spPrivateKey
   auth_saml_ssoUrl                    = var.auth_saml_ssoUrl
   cd_user_username                    = data.terraform_remote_state.core.cduser_username
-  aws_region                          = var.aws_region`
+  aws_region                          = var.aws_region
   cloudflare_domain                   = var.cloudflare_domain
   cloudwatch_log_group_name           = var.cloudwatch_log_group_name
   code_length                         = var.code_length
@@ -122,8 +120,6 @@ module "pwmanager" {
   id_broker_validIpRanges             = data.terraform_remote_state.cluster.private_subnet_cidr_blocks
   idp_display_name                    = var.idp_display_name
   idp_name                            = var.idp_name
-  memcache_config1_host               = data.terraform_remote_state.elasticache.cache_nodes.0.address
-  memcache_config2_host               = data.terraform_remote_state.elasticache.cache_nodes.1.address
   memory                              = var.memory
   mysql_host                          = data.terraform_remote_state.database.rds_address
   mysql_pass                          = data.terraform_remote_state.database.db_pwmanager_pass

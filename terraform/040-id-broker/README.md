@@ -12,7 +12,6 @@ This module is used to create an ECS service running id-broker.
  - `app_env` - Application environment
  - `app_name` - Application name
  - `aws_region` - AWS region
- - `broker_subdomain` - Subdomain for id-broker
  - `cloudflare_domain` - Top level domain name for use with Cloudflare
  - `cloudwatch_log_group_name` - CloudWatch log group name
  - `db_name` - Name of MySQL database for id-broker
@@ -29,15 +28,19 @@ This module is used to create an ECS service running id-broker.
  - `mfa_totp_apibaseurl` - Base URL to TOTP api
  - `mfa_totp_apikey` - API key for TOTP api
  - `mfa_totp_apisecret` - API secret for TOTP api
- - `mfa_u2f_apibaseurl` - Base URL for U2F api
- - `mfa_u2f_apikey` - API key for U2F api
- - `mfa_u2f_apisecret` - API secret for U2F api
- - `mfa_u2f_appid` - AppID for U2F api
+ - `mfa_webauthn_apibaseurl` - Base URL for WebAuthn api
+ - `mfa_webauthn_apikey` - API key for WebAuthn api
+ - `mfa_webauthn_apisecret` - API secret for WebAuthn api
+ - `mfa_webauthn_appid` - AppID for WebAuthn api
+ - `mfa_webauthn_rpdisplayname` - Relying Party Display Name
+ - `mfa_webauthn_rpid` - Relying Party ID 
+ - `rp_origins` - CSV list of allowed Relying Party Origins
  - `mysql_host` - Address for RDS instance
  - `mysql_pass` - MySQL password for id-broker
  - `mysql_user` - MySQL username for id-broker
  - `password_profile_url` - URL to password manager profile
  - `ssl_policy` - SSL policy
+ - `subdomain` - Subdomain to use for this (id-broker) ECS service
  - `support_email` - Email address for support
  - `support_name` - Name for support. Default: `support`
  - `vpc_id` - ID for VPC
@@ -45,20 +48,25 @@ This module is used to create an ECS service running id-broker.
 
 ## Optional Inputs
 
+ - `abandoned_user_abandoned_period` - Time a user record can remain abandoned before HR is notified. Default: `+6 months`
+ - `abandoned_user_best_practice_url` - URL for best practices, referenced in notification email. Default: (none)
+ - `abandoned_user_deactivate_instructions_url` - URL for instruction on how to deactivate user accounts, referenced in notification email. Default: (none)
  - `contingent_user_duration` - How long before a new user without a primary email address expires. Default: `+4 weeks`
  - `cpu_cron` - How much CPU to allocate to cron service. Default: `128`
  - `email_repeat_delay_days` - Don't resend the same type of email to the same user for X days. Default: `31`
  - `email_service_assertValidIp` - Whether or not to assert IP address for Email Service API is trusted
  - `email_signature` - Signature for use in emails. Default is empty string
  - `event_schedule` - Task run schedule. Default: `cron(0 0 * * ? *)`
+ - `ga_api_secret` - The Google Analytics API secret for the data stream (e.g. aB-abcdef7890123456789)
  - `ga_client_id` - Used by Google Analytics to distinguish the user (e.g. IDP-<the idp name>-ID-BROKER)
- - `ga_tracking_id` - The Google Analytics property id (e.g. UA-12345678-12)
+ - `ga_measurement_id` - The Google Analytics data stream id (e.g. G-ABCDE67890)
  - `google_config` - A JSON object containing Google properties for Sheets export
  - `hibp_check_interval` - How often should HIBP be checked during login. Default `+1 week`
  - `hibp_check_on_login` - Whether to check HIBP during login. Default `true` 
  - `hibp_grace_period` - How long to set grace period when a pwned password is discovered and force expired. Default: `+1 week`
  - `hibp_tracking_only` - Whether to actually apply changes or just track when pwned passwords are discovered. Default: `false`
  - `hibp_notification_bcc` - An optional email address to BCC pwned password alert emails to.
+ - `hr_notifications_email` - If this is defined, HR notification emails (e.g. abandoned user account) will be sent here. Default (none)
  - `idp_display_name` - Display name for IdP. Default is empty string
  - `inactive_user_period` - Time a user record can remain inactive before being deleted. Default: `+18 months`
  - `inactive_user_deletion_enable` - Enable deletion of inactive users after a period defined by inactive_user_period. Default: `false`
@@ -97,6 +105,8 @@ This module is used to create an ECS service running id-broker.
  - `send_password_changed_emails` - Bool of whether or not to send password changed emails. Default: `true`
  - `send_refresh_backup_codes_emails` - Bool of whether or not to send refresh backup codes emails. Default: `true`
  - `send_welcome_emails` - Bool of whether or not to send welcome emails. Default: `true`
+ - `sentry_dsn` - Sentry DSN for error logging and alerting. Obtain from Sentry dashboard: Settings - Projects - (project) - Client Keys
+ - `subject_for_abandoned_users` - Email subject text for abandoned user emails. Default: `Unused {idpDisplayName} Identity Accounts`
  - `subject_for_get_backup_codes` - Email subject text for get backup codes emails. Default: `Get printable codes for your {idpDisplayName} Identity account`
  - `subject_for_invite` - Email subject text for invite emails. Default: `Your new {idpDisplayName} Identity account`
  - `subject_for_lost_security_key` - Email subject text for lost security key emails. Default: `Have you lost the security key you use with your {idpDisplayName} Identity account?`
@@ -115,7 +125,6 @@ This module is used to create an ECS service running id-broker.
  - `subject_for_password_expiring` - Email subject text for password expiring emails. Default: `The password for your {idpDisplayName} Identity account is about to expire`
  - `subject_for_refresh_backup_codes` - Email subject text for refresh backup codes emails. Default: `Get a new set of printable codes for your {idpDisplayName} Identity account`
  - `subject_for_welcome` - Email subject text for welcome emails. Default: `Welcome to your new {idpDisplayName} Identity account`
-
 
 ## Outputs
 
@@ -136,7 +145,7 @@ module "broker" {
   source                           = "github.com/silinternational/idp-in-a-box//terraform/040-id-broker"
   app_env                          = var.app_env
   app_name                         = var.app_name
-  aws_region                       = var.aws_region`
+  aws_region                       = var.aws_region
   cloudflare_domain                = var.cloudflare_domain
   cloudwatch_log_group_name        = var.cloudwatch_log_group_name
   contingent_user_duration         = var.contingent_user_duration
@@ -154,8 +163,9 @@ module "broker" {
   email_service_validIpRanges      = data.terraform_remote_state.cluster.private_subnet_cidr_blocks
   email_signature                  = var.email_signature
   event_schedule                   = "cron(1 0 * * ? 0)"
+  ga_api_secret                    = var.ga_api_secret
   ga_client_id                     = var.ga_client_id
-  ga_tracking_id                   = var.ga_tracking_id
+  ga_measurement_id                = var.ga_measurement_id
   google_config                    = var.google_config
   help_center_url                  = var.help_center_url
   hibp_check_interval              = var.hibp_check_interval
@@ -187,10 +197,13 @@ module "broker" {
   mfa_totp_apibaseurl              = var.mfa_totp_apibaseurl
   mfa_totp_apikey                  = var.mfa_totp_apikey
   mfa_totp_apisecret               = var.mfa_totp_apisecret
-  mfa_u2f_apibaseurl               = var.mfa_u2f_apibaseurl
-  mfa_u2f_apikey                   = var.mfa_u2f_apikey
-  mfa_u2f_apisecret                = var.mfa_u2f_apisecret
-  mfa_u2f_appid                    = var.mfa_u2f_appid
+  mfa_webauthn_apibaseurl          = var.mfa_webauthn_apibaseurl
+  mfa_webauthn_apikey              = var.mfa_webauthn_apikey
+  mfa_webauthn_apisecret           = var.mfa_webauthn_apisecret
+  mfa_webauthn_appid               = var.mfa_webauthn_appid
+  mfa_webauthn_rpdisplayname       = var.mfa_webauthn_rpdisplayname
+  mfa_webauthn_rpid                = var.mfa_webauthn_rpid
+  rp_origins                       = var.rp_origins
   minimum_backup_codes_before_nag  = var.minimum_backup_codes_before_nag
   mysql_host                       = data.terraform_remote_state.database.rds_address
   mysql_pass                       = data.terraform_remote_state.database.db_idbroker_pass

@@ -3,7 +3,7 @@ version: "3"
 services:
 
   db-broker:
-    image: silintl/mariadb:latest
+    image: mariadb:latest
     ports:
       - "3306"
     environment:
@@ -113,7 +113,7 @@ services:
       PMA_PASSWORD: ssp
 
   db-pw:
-    image: silintl/mariadb:latest
+    image: mariadb:latest
     ports:
       - "3306"
     environment:
@@ -163,7 +163,7 @@ services:
       ACCESS_TOKEN_HASH_KEY: nice long random string here
       ALERTS_EMAIL: admin@domain.com
       AUTH_SAML_signRequest: "false"
-      AUTH_SAML_checkResponseSigning: "true"
+      AUTH_SAML_checkResponseSigning: "false"
       AUTH_SAML_requireEncryptedAssertion: "false"
       AUTH_SAML_entityId: pw-api.local:51050
       AUTH_SAML_ssoUrl: http://ssp.local/saml2/idp/SSOService.php
@@ -173,8 +173,6 @@ services:
       ID_BROKER_baseUrl: http://broker
       ID_BROKER_accessToken: abc123abc123
       ID_BROKER_assertValidBrokerIp: "false"
-      MEMCACHE_CONFIG1_host: memcache1
-      MEMCACHE_CONFIG2_host: memcache2
 
   phpmyadmin-pw:
     image: phpmyadmin/phpmyadmin:latest
@@ -199,10 +197,13 @@ services:
       - "51052:8000"
     depends_on:
       - pw-api
+    env_file:
+      - pw-ui/local.env
     environment:
       VUE_APP_API_BASE_URL: http://pw-api.local:51050
       VUE_APP_PRIMARY_COLOR: "#015d99"
       VUE_APP_SECONDARY_COLOR: "#791f5e"
+
 
   sync:
     image: silintl/idp-id-sync:develop
@@ -270,7 +271,7 @@ services:
     command: /data/run-cron.sh
 
   db-email:
-    image: silintl/mariadb:latest
+    image: mariadb:latest
     ports:
       - "3306"
     environment:
@@ -289,14 +290,3 @@ services:
       PMA_HOST: db-email
       PMA_USER: email
       PMA_PASSWORD: email
-
-  memcache1:
-    image: memcached:1.4-alpine
-    ports:
-      - "11211"
-
-  memcache2:
-    image: memcached:1.4-alpine
-    ports:
-      - "11211"
-

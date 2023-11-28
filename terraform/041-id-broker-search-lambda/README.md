@@ -11,7 +11,7 @@ This module is used to create a lambda function for calling id-broker's search a
  - `broker_base_url` - Base URL to ID Broker service
  - `broker_token` - Authentication token for ID Broker API
  - `idp_name` - IdP Name
- - `role_arn` - ARN to IAM Role the lambda function should assume
+ - `remote_role_arn` - ARN to IAM Role the lambda function should assume
  - `security_group_ids` - List of security groups to place function in
  - `subnet_ids` - List of subnet ids to place function in
  - `function_bucket_name` - Bucket name containing lambda function zip
@@ -37,7 +37,7 @@ module "brokersearch" {
   broker_base_url      = "https://${data.terraform_remote_state.broker.hostname}"
   broker_token         = data.terraform_remote_state.broker.access_token_search
   idp_name             = var.idp_name
-  role_arn             = var.role_arn
+  remote_role_arn      = var.role_arn
   security_group_ids   = [data.terraform_remote_state.cluster.vpc_default_sg_id]
   subnet_ids           = data.terraform_remote_state.cluster.private_subnet_ids
   function_bucket_name = "idp-id-broker-search-${var.aws_region}"

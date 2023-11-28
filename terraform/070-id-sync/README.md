@@ -4,9 +4,7 @@ store.
 
 ## What this does
 
- - Create ALB target group for SSP with hostname based routing
  - Create task definition and ECS service
- - Create Cloudflare DNS record
 
 ## Required Inputs
 
@@ -15,9 +13,6 @@ store.
  - `aws_region` - AWS region
  - `cloudwatch_log_group_name` - CloudWatch log group name
  - `vpc_id` - ID for VPC
- - `alb_https_listener_arn` - ARN for ALB HTTPS listener
- - `subdomain` - Subdomain for SSP IdP
- - `cloudflare_domain` - Top level domain name for use with Cloudflare
  - `docker_image` - URL to Docker image
  - `email_service_accessToken` - Access token for Email Service API
  - `email_service_baseUrl` - Base URL (e.g. 'https://email.example.com') to Email Service API
@@ -32,7 +27,6 @@ store.
  - `idp_display_name` - Friendly name for IdP
  - `ecs_cluster_id` - ID for ECS Cluster
  - `ecsServiceRole_arn` - ARN for ECS Service Role
- - `alb_dns_name` - DNS name for application load balancer
  - `memory` - Amount of memory to allocate to container
  - `cpu` - Amount of CPU to allocate to container
 
@@ -44,11 +38,10 @@ store.
 - `notifier_email_to` - Who to send notifications to about sync problems (e.g. users lacking email addresses)
 - `sync_safety_cutoff` - The percentage of records allowed to be changed during a sync, provided as a float, ex: `0.2` for `20%`
 - `allow_empty_email` - Whether or not to allow the primary email property to be empty. Default: `false`
-
-## Outputs
-
- - `idsync_url` - URL for ID Sync webhook endpoint
- - `access_token_external` - Access token for external systems to use to make webhook calls to Sync
+- `enable_new_user_notification` - Enable email notification to HR Contact upon creation of a new user, if set to 'true'. Default: `false`
+- `enable_sync` - Set to false to disable the sync process.
+- `sentry_dsn` - Sentry DSN for error logging and alerting. Obtain from Sentry dashboard: Settings - Projects - (project) - Client Keys
+- `event_schedule` - AWS Cloudwatch schedule for the sync task. Use cron format "cron(Minutes Hours Day-of-month Month Day-of-week Year)" where either `day-of-month` or `day-of-week` must be a question mark, or rate format "rate(15 minutes)". Default = "cron(*/15 * * * ? *)"
 
 ## Usage Example
 
@@ -61,9 +54,7 @@ module "idsync" {
   app_env                     = var.app_env
   vpc_id                      = data.terraform_remote_state.cluster.vpc_id
   alb_https_listener_arn      = data.terraform_remote_state.cluster.alb_https_listener_arn
-  subdomain                   = var.sync_subdomain
   aws_region                  = var.aws_region
-  cloudflare_domain           = var.cloudflare_domain
   cloudwatch_log_group_name   = var.cloudwatch_log_group_name
   docker_image                = data.terraform_remote_state.ecr.ecr_repo_idsync
   email_service_accessToken   = data.terraform_remote_state.email.access_token_idsync
@@ -80,8 +71,6 @@ module "idsync" {
   idp_name                    = var.idp_name
   idp_display_name            = var.idp_display_name
   ecs_cluster_id              = data.terraform_remote_state.core.ecs_cluster_id
-  ecsServiceRole_arn          = data.terraform_remote_state.core.ecsServiceRole_arn
-  alb_dns_name                = data.terraform_remote_state.cluster.alb_dns_name
   alerts_email                = var.alerts_email
   notifier_email_to           = var.notifier_email_to
   allow_empty_email           = var.allow_empty_email

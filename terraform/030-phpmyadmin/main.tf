@@ -1,5 +1,6 @@
 module "phpmyadmin" {
-  source                 = "github.com/silinternational/terraform-aws-phpmyadmin?ref=1.0.1"
+  source                 = "silinternational/phpmyadmin/aws"
+  version                = "~> 1.1.3"
   app_name               = "${var.idp_name}-${var.app_name}"
   app_env                = var.app_env
   vpc_id                 = var.vpc_id
@@ -11,4 +12,5 @@ module "phpmyadmin" {
   ecsServiceRole_arn     = var.ecsServiceRole_arn
   alb_dns_name           = var.alb_dns_name
   enable                 = var.enable
+  upload_limit           = var.upload_limit
 }

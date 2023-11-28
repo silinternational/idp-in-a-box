@@ -1,3 +1,8 @@
+variable "secret_salt" {
+  default     = ""
+  description = "This allows for porting the value over from a primary to a secondary workspace (a random string that is 64 characters long)."
+}
+
 variable "memory" {
   default = "96"
 }
@@ -97,14 +102,6 @@ variable "mfa_setup_url" {
   type = string
 }
 
-variable "memcache_host1" {
-  type = string
-}
-
-variable "memcache_host2" {
-  type = string
-}
-
 variable "db_name" {
   type = string
 }
@@ -192,4 +189,14 @@ variable "admin_email" {
 }
 
 variable "admin_name" {
+}
+
+variable "trust_cloudflare_ips" {
+  default = ""
+}
+
+variable "create_dns_record" {
+  description = "Controls creation of a DNS CNAME record for the ECS service."
+  type        = bool
+  default     = true
 }
