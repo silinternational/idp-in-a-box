@@ -30,6 +30,12 @@ variable "idp_name" {
   type = string
 }
 
+variable "lambda_runtime" {
+  description = "AWS Lambda runtime environment, either `provided.al2` or `go1.x`. `go1.x` is deprecated"
+  default     = "go1.x"
+  type        = string
+}
+
 variable "memory_size" {
   default = "128"
 }

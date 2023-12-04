@@ -34,7 +34,7 @@ resource "aws_lambda_function" "search" {
   handler          = var.function_name
   memory_size      = var.memory_size
   role             = aws_iam_role.functionRole.arn
-  runtime          = "go1.x"
+  runtime          = var.lambda_runtime
   timeout          = var.timeout
 
   environment {
