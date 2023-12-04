@@ -118,6 +118,12 @@ variable "enable_new_user_notification" {
   default = "false"
 }
 
+variable "enable_sync" {
+  description = "Set the AWS CloudWatch Event Rule is-enabled flag"
+  type        = bool
+  default     = true
+}
+
 variable "event_schedule" {
   description = "AWS Cloudwatch schedule for the sync task"
   type        = string
