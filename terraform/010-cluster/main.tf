@@ -2,7 +2,7 @@
  * Create VPC
  */
 module "vpc" {
-  source                                          = "github.com/silinternational/terraform-modules//aws/vpc?ref=8.6.0"
+  source                                          = "github.com/silinternational/terraform-modules//aws/vpc?ref=develop"
   app_name                                        = var.app_name
   app_env                                         = var.app_env
   aws_zones                                       = var.aws_zones
