@@ -33,6 +33,12 @@ variable "create_nat_gateway" {
   default     = true
 }
 
+variable "use_transit_gateway" {
+  description = "Set to true to attach a transit gateway to this vpc and route traffic to it. Use in conjunction with transit_gateway_id and create_nat_gateway=false."
+  type        = bool
+  default     = false
+}
+
 variable "ecs_cluster_name" {
   type = string
 }
@@ -66,6 +72,24 @@ variable "tags" {
   description = "Tags to add to the autoscaling group and EC2 instances"
   type        = map(string)
   default     = {}
+}
+
+variable "transit_gateway_id" {
+  description = "The ID of the transit gateway to attach to when using create_transit_gateway_attachment."
+  type        = string
+  default     = ""
+}
+
+variable "transit_gateway_default_route_table_association" {
+  description = "Whether or not to associate with the default route table of the transit gateway."
+  type        = bool
+  default     = true
+}
+
+variable "transit_gateway_default_route_table_propagation" {
+  description = "Whether or not to send propigation of this route to the default route table of the transit gateway."
+  type        = bool
+  default     = true
 }
 
 variable "vpc_cidr_block" {
