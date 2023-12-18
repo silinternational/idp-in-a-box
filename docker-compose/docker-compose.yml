@@ -50,7 +50,7 @@ services:
       PMA_PASSWORD: broker
 
   db-ssp:
-    image: silintl/mariadb:latest
+    image: mariadb:10
     ports:
       - "3306"
     environment:
