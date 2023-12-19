@@ -141,7 +141,6 @@ services:
       IDP_NAME: development
       COMPOSER_ALLOW_SUPERUSER: 1
       COMPOSER_CACHE_DIR: /composer
-      ALERTS_EMAIL_ENABLED: "false"
       EMAIL_SERVICE_accessToken: abc123
       EMAIL_SERVICE_assertValidIp: "false"
       EMAIL_SERVICE_baseUrl: http://email
