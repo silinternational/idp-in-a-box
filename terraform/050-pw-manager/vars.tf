@@ -7,7 +7,9 @@ variable "alb_https_listener_arn" {
 }
 
 variable "alerts_email" {
-  type = string
+  description = "Email to which to send error alerts. Omit to disable email alerts."
+  type        = string
+  default     = ""
 }
 
 variable "api_subdomain" {
