@@ -30,6 +30,10 @@
         "value": "${alerts_email}"
       },
       {
+        "name": "ALERTS_EMAIL_ENABLED",
+        "value": "true"
+      },
+      {
         "name": "APP_ENV",
         "value": "${app_env}"
       },
