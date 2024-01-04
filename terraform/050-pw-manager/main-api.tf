@@ -61,6 +61,7 @@ locals {
   task_def = templatefile("${path.module}/task-definition-api.json", {
     access_token_hash                   = random_id.access_token_hash.hex
     alerts_email                        = var.alerts_email
+    alerts_email_enabled                = var.alerts_email_enabled
     app_env                             = var.app_env
     app_name                            = var.app_name
     aws_region                          = var.aws_region
