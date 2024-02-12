@@ -13,7 +13,6 @@ The password manager UI can be deployed using the [silinternatonal/pages/cloudfl
 
  - `alb_dns_name` - DNS name for application load balancer
  - `alb_https_listener_arn` - ARN for ALB HTTPS listener
- - `alerts_email` - Email address to send alerts/notifications to
  - `api_subdomain` - Subdomain for pw manager api
  - `app_env` - Application environment
  - `app_name` - Application name
@@ -59,13 +58,15 @@ The password manager UI can be deployed using the [silinternatonal/pages/cloudfl
 
 ## Optional Inputs
 
- - `code_length` - Number of digits in reset code. Default: `6`
+ - `alerts_email` - Email address to send alerts/notifications. Must be specified if `alerts_email_enabled` is `"true"`. Default: `""`
+ - `alerts_email_enabled` - Enable or disabled alert notification emails. Default: `"true"`
+ - `code_length` - Number of digits in reset code. Default: `"6"`
  - `create_dns_record` - Controls creation of a DNS CNAME record for the ECS service. Default: `true`
  - `extra_hosts` - Extra hosts for the API task definition, e.g. "\["hostname":"host.example.com","ipAddress":"192.168.1.1"\]"
- - `password_rule_enablehibp` - Enable haveibeenpwned.com password check. Default: `true`
- - `password_rule_maxlength` - Maximum password length. Default: `255`
- - `password_rule_minlength` - Minimum password length. Default: `10`
- - `password_rule_minscore` - Minimum password score. Default: `3`
+ - `password_rule_enablehibp` - Enable haveibeenpwned.com password check. Default: `"true"`
+ - `password_rule_maxlength` - Maximum password length. Default: `"255"`
+ - `password_rule_minlength` - Minimum password length. Default: `"10"`
+ - `password_rule_minscore` - Minimum password score. Default: `"3"`
  - `sentry_dsn` - Sentry DSN for error logging and alerting. Obtain from Sentry dashboard: Settings - Projects - (project) - Client Keys
  - `support_feedback` - Email address for end user feedback, displayed on PW UI.
  - `support_phone` - Phone number for end user support, displayed on PW UI.
