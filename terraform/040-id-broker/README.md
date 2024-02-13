@@ -11,7 +11,6 @@ This module is used to create an ECS service running id-broker.
 
  - `app_env` - Application environment
  - `app_name` - Application name
- - `aws_region` - AWS region
  - `cloudflare_domain` - Top level domain name for use with Cloudflare
  - `cloudwatch_log_group_name` - CloudWatch log group name
  - `db_name` - Name of MySQL database for id-broker
@@ -145,7 +144,6 @@ module "broker" {
   source                           = "github.com/silinternational/idp-in-a-box//terraform/040-id-broker"
   app_env                          = var.app_env
   app_name                         = var.app_name
-  aws_region                       = var.aws_region
   cloudflare_domain                = var.cloudflare_domain
   cloudwatch_log_group_name        = var.cloudwatch_log_group_name
   contingent_user_duration         = var.contingent_user_duration

@@ -3,7 +3,6 @@ module "email" {
 
   app_env                   = ""
   app_name                  = ""
-  aws_region                = ""
   cloudflare_domain         = ""
   cloudwatch_log_group_name = ""
   cpu_api                   = ""
