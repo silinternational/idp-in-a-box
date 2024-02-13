@@ -22,6 +22,18 @@
     "dockerSecurityOptions": null,
     "environment": [
       {
+        "name": "APP_ID",
+        "value": "${app_id}"
+      },
+      {
+        "name": "ENV_ID",
+        "value": "${env_id}"
+      },
+      {
+        "name": "CONFIG_ID",
+        "value": "${config_id}"
+      },
+      {
         "name": "ABANDONED_USER_abandonedPeriod",
         "value": "${abandoned_user_abandoned_period}"
       },

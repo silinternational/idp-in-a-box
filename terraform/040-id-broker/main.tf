@@ -79,6 +79,9 @@ locals {
   subdomain_with_region = "${var.subdomain}-${local.aws_region}"
 
   task_def = templatefile("${path.module}/task-definition.json", {
+    app_id                                     = var.app_id
+    env_id                                     = var.env_id
+    config_id                                  = var.config_id
     api_access_keys                            = local.api_access_keys
     abandoned_user_abandoned_period            = var.abandoned_user_abandoned_period
     abandoned_user_best_practice_url           = var.abandoned_user_best_practice_url
@@ -210,6 +213,9 @@ module "ecsservice" {
  */
 locals {
   task_def_cron = templatefile("${path.module}/task-definition.json", {
+    app_id                                     = var.app_id
+    env_id                                     = var.env_id
+    config_id                                  = var.config_id
     api_access_keys                            = local.api_access_keys
     abandoned_user_abandoned_period            = var.abandoned_user_abandoned_period
     abandoned_user_best_practice_url           = var.abandoned_user_best_practice_url
