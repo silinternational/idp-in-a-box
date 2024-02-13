@@ -202,6 +202,7 @@ module "ecsservice" {
   tg_arn             = aws_alb_target_group.broker.arn
   lb_container_name  = "web"
   lb_container_port  = "80"
+  task_role_arn      = aws_iam_role.app_config.arn
 }
 
 /*
@@ -420,6 +421,57 @@ data "cloudflare_zone" "domain" {
   name = var.cloudflare_domain
 }
 
+
+/*
+ * Create role for access to SES
+ */
+resource "aws_iam_role" "app_config" {
+  name = "appconfig-${var.idp_name}-${var.app_name}-${var.app_env}-${local.aws_region}"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid    = "ECSAssumeRoleAppConfig"
+        Effect = "Allow"
+        Principal = {
+          Service = [
+            "ecs-tasks.amazonaws.com",
+          ]
+        }
+        Action = "sts:AssumeRole"
+        Condition = {
+          ArnLike = {
+            "aws:SourceArn" = "arn:aws:ecs:${local.aws_region}:${local.aws_account}:*"
+          }
+          StringEquals = {
+            "aws:SourceAccount" = local.aws_account
+          }
+        }
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy" "app_config" {
+  name = "app_config"
+  role = aws_iam_role.app_config.id
+  policy = jsonencode(
+    {
+      Version = "2012-10-17"
+      Statement = [
+        {
+          Sid    = "AppConfig"
+          Effect = "Allow"
+          Action = [
+            "appconfig:GetLatestConfiguration",
+            "appconfig:StartConfigurationSession",
+          ]
+          Resource = "arn:aws:appconfig:${local.aws_region}:${local.aws_account}:application/${var.app_id}/environment/${var.env_id}/configuration/${var.config_id}"
+        }
+      ]
+  })
+}
 
 /*
  * AWS data
