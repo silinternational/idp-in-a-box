@@ -16,7 +16,6 @@ ssl certificate, core application load balancer, and a CloudWatch log group
  - `app_name` - Name of application, ex: Doorman, IdP, etc.
  - `app_env` - Name of environment, ex: prod, test, etc.
  - `aws_instance` - A map containing keys for `instance_type`, `volume_size`, `instance_count`
- - `aws_region` - A string with region to deploy in, example: `us-east-1`
  - `aws_zones` - A list of availability zones to distribute instances across, example: `["us-east-1a", "us-east-1b", "us-east-1c"]`
  - `cert_domain_name` - Domain name for certificate, example: `*.mydomain.com`
  - `ecs_cluster_name` - ECS cluster name for registering instances
@@ -58,7 +57,6 @@ module "cluster" {
   app_name                = var.app_name
   app_env                 = var.app_env
   aws_instance            = var.aws_instance
-  aws_region              = var.aws_region
   aws_zones               = var.aws_zones
   cert_domain_name        = var.cert_domain_name
   ecs_cluster_name        = data.terraform_remote_state.core.ecs_cluster_name

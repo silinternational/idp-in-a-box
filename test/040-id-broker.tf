@@ -6,7 +6,6 @@ module "broker" {
   abandoned_user_deactivate_instructions_url = ""
   app_env                                    = ""
   app_name                                   = ""
-  aws_region                                 = ""
   cloudflare_domain                          = ""
   cloudwatch_log_group_name                  = ""
   contingent_user_duration                   = ""

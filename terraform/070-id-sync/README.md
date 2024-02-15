@@ -10,7 +10,6 @@ store.
 
  - `app_name` - Application name
  - `app_env` - Application environment
- - `aws_region` - AWS region
  - `cloudwatch_log_group_name` - CloudWatch log group name
  - `vpc_id` - ID for VPC
  - `docker_image` - URL to Docker image
@@ -54,7 +53,6 @@ module "idsync" {
   app_env                     = var.app_env
   vpc_id                      = data.terraform_remote_state.cluster.vpc_id
   alb_https_listener_arn      = data.terraform_remote_state.cluster.alb_https_listener_arn
-  aws_region                  = var.aws_region
   cloudwatch_log_group_name   = var.cloudwatch_log_group_name
   docker_image                = data.terraform_remote_state.ecr.ecr_repo_idsync
   email_service_accessToken   = data.terraform_remote_state.email.access_token_idsync

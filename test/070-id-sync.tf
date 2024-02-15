@@ -5,7 +5,6 @@ module "sync" {
   allow_empty_email            = ""
   app_env                      = ""
   app_name                     = ""
-  aws_region                   = ""
   cloudwatch_log_group_name    = ""
   cpu                          = ""
   docker_image                 = ""

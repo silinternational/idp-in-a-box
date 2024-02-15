@@ -25,7 +25,6 @@ The password manager UI can be deployed using the [silinternatonal/pages/cloudfl
  - `auth_saml_spCertificate` - Public cert contents for this SP
  - `auth_saml_spPrivateKey` - Private cert contents for this SP
  - `auth_saml_ssoUrl` - SSO url for IdP
- - `aws_region` - AWS region
  - `cloudflare_domain` - Top level domain name for use with Cloudflare
  - `cloudwatch_log_group_name` - CloudWatch log group name
  - `cpu` - Amount of CPU to allocate to API container
@@ -98,7 +97,6 @@ module "pwmanager" {
   auth_saml_spPrivateKey              = var.auth_saml_spPrivateKey
   auth_saml_ssoUrl                    = var.auth_saml_ssoUrl
   cd_user_username                    = data.terraform_remote_state.core.cduser_username
-  aws_region                          = var.aws_region
   cloudflare_domain                   = var.cloudflare_domain
   cloudwatch_log_group_name           = var.cloudwatch_log_group_name
   code_length                         = var.code_length

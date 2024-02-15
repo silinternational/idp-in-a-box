@@ -1,7 +1,10 @@
-/*
- * Create ECS service
- */
 locals {
+  aws_account = data.aws_caller_identity.this.account_id
+  aws_region  = data.aws_region.current.name
+
+  /*
+   * Create ECS service
+   */
   id_store_config = join(",",
     [for k, v in var.id_store_config : jsonencode({
       name  = "ID_STORE_CONFIG_${k}"
@@ -12,7 +15,7 @@ locals {
   task_def = templatefile("${path.module}/task-definition.json", {
     app_env                      = var.app_env
     app_name                     = var.app_name
-    aws_region                   = var.aws_region
+    aws_region                   = local.aws_region
     cloudwatch_log_group_name    = var.cloudwatch_log_group_name
     docker_image                 = var.docker_image
     email_service_accessToken    = var.email_service_accessToken
@@ -43,7 +46,7 @@ locals {
  * Create role for scheduled running of cron task definitions.
  */
 resource "aws_iam_role" "ecs_events" {
-  name = "ecs_events-${var.idp_name}-${var.app_name}-${var.app_env}-${var.aws_region}"
+  name = "ecs_events-${var.idp_name}-${var.app_name}-${var.app_env}-${local.aws_region}"
 
   assume_role_policy = jsonencode(
     {
@@ -123,3 +126,11 @@ resource "aws_cloudwatch_event_target" "id_sync_event_target" {
     task_definition_arn = aws_ecs_task_definition.cron_td.arn
   }
 }
+
+/*
+ * AWS data
+ */
+
+data "aws_caller_identity" "this" {}
+
+data "aws_region" "current" {}
