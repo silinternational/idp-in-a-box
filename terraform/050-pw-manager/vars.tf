@@ -7,7 +7,15 @@ variable "alb_https_listener_arn" {
 }
 
 variable "alerts_email" {
-  type = string
+  description = "Email to which to send error alerts"
+  type        = string
+  default     = ""
+}
+
+variable "alerts_email_enabled" {
+  description = "Set to true to disable email alerts. Must be a string for insertion into task definition."
+  type        = string
+  default     = "true"
 }
 
 variable "api_subdomain" {
@@ -69,7 +77,9 @@ variable "auth_saml_ssoUrl" {
 }
 
 variable "aws_region" {
-  type = string
+  description = "This is not used. The region is more reliably determined from the aws_region data source."
+  type        = string
+  default     = ""
 }
 
 variable "cd_user_username" {

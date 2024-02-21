@@ -1,3 +1,8 @@
+locals {
+  aws_account = data.aws_caller_identity.this.account_id
+  aws_region  = data.aws_region.current.name
+}
+
 /*
  * Create S3 bucket for storing backups
  */
@@ -82,7 +87,7 @@ locals {
   task_def_backup = templatefile("${path.module}/task-definition.json", {
     app_env                   = var.app_env
     app_name                  = var.app_name
-    aws_region                = var.aws_region
+    aws_region                = local.aws_region
     cloudwatch_log_group_name = var.cloudwatch_log_group_name
     aws_access_key            = aws_iam_access_key.backup.id
     aws_secret_key            = aws_iam_access_key.backup.secret
@@ -183,3 +188,10 @@ resource "aws_cloudwatch_event_target" "backup_event_target" {
   }
 }
 
+/*
+ * AWS data
+ */
+
+data "aws_caller_identity" "this" {}
+
+data "aws_region" "current" {}

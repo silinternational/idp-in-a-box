@@ -25,7 +25,9 @@ variable "app_name" {
 }
 
 variable "aws_region" {
-  type = string
+  description = "This is deprecated. The region is more reliably determined from the aws_region data source."
+  type        = string
+  default     = ""
 }
 
 variable "cloudflare_domain" {

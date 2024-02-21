@@ -20,7 +20,7 @@ This module is used to create a lambda function for calling id-broker's search a
 
  - `app_name` - Default: `idp-id-broker-search`
  - `function_name` - Default: `idp-id-broker-search`
- - `lambda_runtime` - AWS Lambda runtime environment, default: `provided.al2`
+ - `lambda_runtime` - AWS Lambda runtime environment, either `provided.al2` or `go1.x`. `go1.x` is deprecated but remains the default for backward compatibility
  - `memory_size` - Default: `128`
  - `timeout` - Default: `5`
  - `function_zip_name` - Key to file in S3 for function zip file, Default: `idp-id-broker-search.zip`

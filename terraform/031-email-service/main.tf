@@ -1,3 +1,8 @@
+locals {
+  aws_account = data.aws_caller_identity.this.account_id
+  aws_region  = data.aws_region.current.name
+}
+
 /*
  * Create target group for ALB
  */
@@ -54,7 +59,7 @@ resource "random_id" "access_token_idsync" {
  * Create role for access to SES
  */
 resource "aws_iam_role" "ses" {
-  name = "ses-${var.idp_name}-${var.app_name}-${var.app_env}-${var.aws_region}"
+  name = "ses-${var.idp_name}-${var.app_name}-${var.app_env}-${local.aws_region}"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -100,13 +105,13 @@ resource "aws_iam_role_policy" "ses" {
  * Create ECS services
  */
 locals {
-  subdomain_with_region = "${var.subdomain}-${var.aws_region}"
+  subdomain_with_region = "${var.subdomain}-${local.aws_region}"
 
   task_def_api = templatefile("${path.module}/task-definition-api.json", {
     api_access_keys           = "${random_id.access_token_pwmanager.hex},${random_id.access_token_idbroker.hex},${random_id.access_token_idsync.hex}"
     app_env                   = var.app_env
     app_name                  = var.app_name
-    aws_region                = var.aws_region
+    aws_region                = local.aws_region
     cloudwatch_log_group_name = var.cloudwatch_log_group_name
     cpu_api                   = var.cpu_api
     db_name                   = var.db_name
@@ -148,7 +153,7 @@ locals {
     api_access_keys           = "${random_id.access_token_pwmanager.hex},${random_id.access_token_idbroker.hex},${random_id.access_token_idsync.hex}"
     app_env                   = var.app_env
     app_name                  = var.app_name
-    aws_region                = var.aws_region
+    aws_region                = local.aws_region
     cloudwatch_log_group_name = var.cloudwatch_log_group_name
     cpu_cron                  = var.cpu_cron
     db_name                   = var.db_name
@@ -195,3 +200,11 @@ resource "cloudflare_record" "emaildns" {
 data "cloudflare_zone" "domain" {
   name = var.cloudflare_domain
 }
+
+/*
+ * AWS data
+ */
+
+data "aws_caller_identity" "this" {}
+
+data "aws_region" "current" {}

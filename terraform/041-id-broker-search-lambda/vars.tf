@@ -23,7 +23,7 @@ variable "function_zip_name" {
 }
 
 variable "function_name" {
-  default = "bootstrap"
+  default = "idp-id-broker-search"
 }
 
 variable "idp_name" {
@@ -31,8 +31,8 @@ variable "idp_name" {
 }
 
 variable "lambda_runtime" {
-  description = "AWS Lambda runtime environment"
-  default     = "provided.al2"
+  description = "AWS Lambda runtime environment, either `provided.al2` or `go1.x`. `go1.x` is deprecated"
+  default     = "go1.x"
   type        = string
 }
 

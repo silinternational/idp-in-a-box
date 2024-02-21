@@ -31,7 +31,7 @@
       },
       {
         "name": "ALERTS_EMAIL_ENABLED",
-        "value": "true"
+        "value": "${alerts_email_enabled}"
       },
       {
         "name": "APP_ENV",
