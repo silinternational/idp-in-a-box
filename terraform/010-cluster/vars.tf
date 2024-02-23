@@ -34,7 +34,7 @@ variable "create_nat_gateway" {
 }
 
 variable "use_transit_gateway" {
-  description = "Set to true to attach a transit gateway to this vpc and route traffic to it. Use in conjunction with transit_gateway_id and create_nat_gateway=false."
+  description = "Set to true to attach a transit gateway to this VPC and route traffic to it. Use in conjunction with transit_gateway_id and create_nat_gateway=false."
   type        = bool
   default     = false
 }
@@ -87,7 +87,7 @@ variable "transit_gateway_default_route_table_association" {
 }
 
 variable "transit_gateway_default_route_table_propagation" {
-  description = "Whether or not to send propigation of this route to the default route table of the transit gateway."
+  description = "Whether or not to send propagation of this route to the default route table of the transit gateway."
   type        = bool
   default     = true
 }
