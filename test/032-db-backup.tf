@@ -3,7 +3,6 @@ module "backup" {
 
   app_env                   = ""
   app_name                  = ""
-  aws_region                = ""
   backup_user_name          = ""
   cloudwatch_log_group_name = ""
   cpu                       = ""

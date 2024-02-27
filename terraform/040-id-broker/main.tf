@@ -1,3 +1,8 @@
+locals {
+  aws_account = data.aws_caller_identity.this.account_id
+  aws_region  = data.aws_region.current.name
+}
+
 /*
  * Create target group for ALB
  */
@@ -71,7 +76,7 @@ locals {
     random_id.access_token_idsync.hex
   ])
 
-  subdomain_with_region = "${var.subdomain}-${var.aws_region}"
+  subdomain_with_region = "${var.subdomain}-${local.aws_region}"
 
   task_def = templatefile("${path.module}/task-definition.json", {
     api_access_keys                            = local.api_access_keys
@@ -80,7 +85,7 @@ locals {
     abandoned_user_deactivate_instructions_url = var.abandoned_user_deactivate_instructions_url
     app_env                                    = var.app_env
     app_name                                   = var.app_name
-    aws_region                                 = var.aws_region
+    aws_region                                 = local.aws_region
     cloudwatch_log_group_name                  = var.cloudwatch_log_group_name
     contingent_user_duration                   = var.contingent_user_duration
     cpu                                        = var.cpu
@@ -187,7 +192,7 @@ locals {
 }
 
 module "ecsservice" {
-  source             = "github.com/silinternational/terraform-modules//aws/ecs/service-only?ref=8.6.0"
+  source             = "github.com/silinternational/terraform-modules//aws/ecs/service-only?ref=8.7.0"
   cluster_id         = var.ecs_cluster_id
   service_name       = "${var.idp_name}-${var.app_name}"
   service_env        = var.app_env
@@ -210,7 +215,7 @@ locals {
     abandoned_user_deactivate_instructions_url = var.abandoned_user_deactivate_instructions_url
     app_env                                    = var.app_env
     app_name                                   = var.app_name
-    aws_region                                 = var.aws_region
+    aws_region                                 = local.aws_region
     cloudwatch_log_group_name                  = var.cloudwatch_log_group_name
     cpu                                        = var.cpu_cron
     contingent_user_duration                   = var.contingent_user_duration
@@ -320,7 +325,7 @@ locals {
  * Create role for scheduled running of cron task definitions.
  */
 resource "aws_iam_role" "ecs_events" {
-  name = "ecs_events-${var.idp_name}-${var.app_name}-${var.app_env}-${var.aws_region}"
+  name = "ecs_events-${var.idp_name}-${var.app_name}-${var.app_env}-${local.aws_region}"
 
   assume_role_policy = jsonencode(
     {
@@ -414,3 +419,12 @@ resource "cloudflare_record" "brokerdns" {
 data "cloudflare_zone" "domain" {
   name = var.cloudflare_domain
 }
+
+
+/*
+ * AWS data
+ */
+
+data "aws_caller_identity" "this" {}
+
+data "aws_region" "current" {}

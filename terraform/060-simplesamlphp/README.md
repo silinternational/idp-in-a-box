@@ -14,7 +14,6 @@ This module is used to create an ECS service running simpleSAMLphp.
  - `vpc_id` - ID for VPC
  - `alb_https_listener_arn` - ARN for ALB HTTPS listener
  - `subdomain` - Subdomain for SSP IdP
- - `aws_region` - AWS region
  - `broker_subdomain` - Subdomain for id-broker
  - `cloudflare_domain` - Top level domain name for use with Cloudflare
  - `cloudwatch_log_group_name` - CloudWatch log group name
@@ -65,7 +64,7 @@ This module is used to create an ECS service running simpleSAMLphp.
 
 ```hcl
 module "cf_ips" {
-  source = "github.com/silinternational/terraform-modules//cloudflare/ips?ref=8.6.0"
+  source = "github.com/silinternational/terraform-modules//cloudflare/ips?ref=8.7.0"
 }
 
 module "ssp" {
@@ -78,7 +77,6 @@ module "ssp" {
   vpc_id                       = data.terraform_remote_state.cluster.vpc_id
   alb_https_listener_arn       = data.terraform_remote_state.cluster.alb_https_listener_arn
   subdomain                    = var.ssp_subdomain
-  aws_region                   = var.aws_region`
   cloudflare_domain            = var.cloudflare_domain
   cloudwatch_log_group_name    = var.cloudwatch_log_group_name
   docker_image                 = data.terraform_remote_state.ecr.ecr_repo_simplesamlphp

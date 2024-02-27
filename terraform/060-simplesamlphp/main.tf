@@ -1,3 +1,8 @@
+locals {
+  aws_account = data.aws_caller_identity.this.account_id
+  aws_region  = data.aws_region.current.name
+}
+
 /*
  * Create target group for ALB
  */
@@ -48,11 +53,11 @@ resource "random_id" "secretsalt" {
 }
 
 module "cf_ips" {
-  source = "github.com/silinternational/terraform-modules//cloudflare/ips?ref=8.6.0"
+  source = "github.com/silinternational/terraform-modules//cloudflare/ips?ref=8.7.0"
 }
 
 locals {
-  subdomain_with_region = "${var.subdomain}-${var.aws_region}"
+  subdomain_with_region = "${var.subdomain}-${local.aws_region}"
 
   other_ip_addresses = var.trust_cloudflare_ips == "ipv4" ? module.cf_ips.ipv4_cidrs : []
 
@@ -68,7 +73,7 @@ locals {
     admin_pass                   = random_id.admin_pass.hex
     app_env                      = var.app_env
     app_name                     = var.app_name
-    aws_region                   = var.aws_region
+    aws_region                   = local.aws_region
     base_url                     = "https://${var.subdomain}.${var.cloudflare_domain}/"
     cloudwatch_log_group_name    = var.cloudwatch_log_group_name
     docker_image                 = var.docker_image
@@ -106,7 +111,7 @@ locals {
 }
 
 module "ecsservice" {
-  source             = "github.com/silinternational/terraform-modules//aws/ecs/service-only?ref=8.6.0"
+  source             = "github.com/silinternational/terraform-modules//aws/ecs/service-only?ref=8.7.0"
   cluster_id         = var.ecs_cluster_id
   service_name       = "${var.idp_name}-${var.app_name}"
   service_env        = var.app_env
@@ -142,3 +147,11 @@ resource "cloudflare_record" "sspdns_intermediate" {
 data "cloudflare_zone" "domain" {
   name = var.cloudflare_domain
 }
+
+/*
+ * AWS data
+ */
+
+data "aws_caller_identity" "this" {}
+
+data "aws_region" "current" {}
