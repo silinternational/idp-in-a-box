@@ -75,7 +75,7 @@ variable "tags" {
 }
 
 variable "transit_gateway_id" {
-  description = "The ID of the transit gateway to attach to when using create_transit_gateway_attachment."
+  description = "The ID of the transit gateway to attach to when use_transit_gateway = true."
   type        = string
   default     = ""
 }
