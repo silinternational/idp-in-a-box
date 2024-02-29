@@ -584,9 +584,11 @@ variable "wildcard_cert_arn" {
 variable "app_id" {
   default = ""
 }
+
 variable "env_id" {
   default = ""
 }
+
 variable "config_id" {
   default = ""
 }
