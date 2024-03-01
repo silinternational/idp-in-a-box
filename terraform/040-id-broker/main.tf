@@ -207,7 +207,7 @@ module "ecsservice" {
   tg_arn             = aws_alb_target_group.broker.arn
   lb_container_name  = "web"
   lb_container_port  = "80"
-  task_role_arn      = aws_iam_role.app_config.arn
+  task_role_arn      = one(aws_iam_role.app_config[*].arn)
 }
 
 /*
@@ -434,6 +434,8 @@ data "cloudflare_zone" "domain" {
  * Create role for access to AppConfig
  */
 resource "aws_iam_role" "app_config" {
+  count = var.app_id == "" ? 0 : 1
+
   name = "appconfig-${var.idp_name}-${var.app_name}-${var.app_env}-${local.aws_region}"
 
   assume_role_policy = jsonencode({
@@ -462,8 +464,10 @@ resource "aws_iam_role" "app_config" {
 }
 
 resource "aws_iam_role_policy" "app_config" {
+  count = var.app_id == "" ? 0 : 1
+
   name = "app_config"
-  role = aws_iam_role.app_config.id
+  role = one(aws_iam_role.app_config[*].id)
   policy = jsonencode(
     {
       Version = "2012-10-17"
