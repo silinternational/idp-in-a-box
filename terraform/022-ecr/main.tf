@@ -2,7 +2,7 @@
  * id-broker
  */
 module "ecr_idbroker" {
-  source                = "github.com/silinternational/terraform-modules//aws/ecr?ref=8.6.0"
+  source                = "github.com/silinternational/terraform-modules//aws/ecr?ref=8.7.0"
   repo_name             = "${var.idp_name}/id-broker"
   ecsInstanceRole_arn   = var.ecsInstanceRole_arn
   ecsServiceRole_arn    = var.ecsServiceRole_arn
@@ -15,7 +15,7 @@ module "ecr_idbroker" {
  * pw-api
  */
 module "ecr_pwapi" {
-  source                = "github.com/silinternational/terraform-modules//aws/ecr?ref=8.6.0"
+  source                = "github.com/silinternational/terraform-modules//aws/ecr?ref=8.7.0"
   repo_name             = "${var.idp_name}/pw-api"
   ecsInstanceRole_arn   = var.ecsInstanceRole_arn
   ecsServiceRole_arn    = var.ecsServiceRole_arn
@@ -28,7 +28,7 @@ module "ecr_pwapi" {
  * simplesamlphp
  */
 module "ecr_simplesamlphp" {
-  source                = "github.com/silinternational/terraform-modules//aws/ecr?ref=8.6.0"
+  source                = "github.com/silinternational/terraform-modules//aws/ecr?ref=8.7.0"
   repo_name             = "${var.idp_name}/simplesamlphp"
   ecsInstanceRole_arn   = var.ecsInstanceRole_arn
   ecsServiceRole_arn    = var.ecsServiceRole_arn
@@ -41,7 +41,7 @@ module "ecr_simplesamlphp" {
  * id-sync
  */
 module "ecr_idsync" {
-  source                = "github.com/silinternational/terraform-modules//aws/ecr?ref=8.6.0"
+  source                = "github.com/silinternational/terraform-modules//aws/ecr?ref=8.7.0"
   repo_name             = "${var.idp_name}/id-sync"
   ecsInstanceRole_arn   = var.ecsInstanceRole_arn
   ecsServiceRole_arn    = var.ecsServiceRole_arn
