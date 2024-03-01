@@ -1,7 +1,8 @@
 locals {
   aws_account = data.aws_caller_identity.this.account_id
   aws_region  = data.aws_region.current.name
-  config_id   = one(aws_appconfig_configuration_profile.this[*].configuration_profile_id)
+  cfg_id      = one(aws_appconfig_configuration_profile.this[*].configuration_profile_id)
+  config_id   = local.cfg_id == null ? "" : local.cfg_id
 }
 
 /*
