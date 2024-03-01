@@ -431,7 +431,7 @@ data "cloudflare_zone" "domain" {
 
 
 /*
- * Create role for access to SES
+ * Create role for access to AppConfig
  */
 resource "aws_iam_role" "app_config" {
   name = "appconfig-${var.idp_name}-${var.app_name}-${var.app_env}-${local.aws_region}"
