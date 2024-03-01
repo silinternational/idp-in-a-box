@@ -25,7 +25,7 @@ variable "app_name" {
 }
 
 variable "aws_region" {
-  description = "This is deprecated. The region is more reliably determined from the aws_region data source."
+  description = "This is not used. The region is more reliably determined from the aws_region data source."
   type        = string
   default     = ""
 }
@@ -579,4 +579,16 @@ variable "vpc_id" {
 
 variable "wildcard_cert_arn" {
   type = string
+}
+
+variable "app_id" {
+  description = "AppConfig application ID"
+  type        = string
+  default     = ""
+}
+
+variable "env_id" {
+  description = "AppConfig environment ID"
+  type        = string
+  default     = ""
 }
