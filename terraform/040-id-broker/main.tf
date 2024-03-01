@@ -1,6 +1,7 @@
 locals {
   aws_account = data.aws_caller_identity.this.account_id
   aws_region  = data.aws_region.current.name
+  config_id   = one(aws_appconfig_configuration_profile.this[*].configuration_profile_id)
 }
 
 /*
@@ -81,7 +82,7 @@ locals {
   task_def = templatefile("${path.module}/task-definition.json", {
     app_id                                     = var.app_id
     env_id                                     = var.env_id
-    config_id                                  = var.config_id
+    config_id                                  = local.config_id
     api_access_keys                            = local.api_access_keys
     abandoned_user_abandoned_period            = var.abandoned_user_abandoned_period
     abandoned_user_best_practice_url           = var.abandoned_user_best_practice_url
@@ -215,7 +216,7 @@ locals {
   task_def_cron = templatefile("${path.module}/task-definition.json", {
     app_id                                     = var.app_id
     env_id                                     = var.env_id
-    config_id                                  = var.config_id
+    config_id                                  = local.config_id
     api_access_keys                            = local.api_access_keys
     abandoned_user_abandoned_period            = var.abandoned_user_abandoned_period
     abandoned_user_best_practice_url           = var.abandoned_user_best_practice_url
@@ -473,10 +474,22 @@ resource "aws_iam_role_policy" "app_config" {
             "appconfig:GetLatestConfiguration",
             "appconfig:StartConfigurationSession",
           ]
-          Resource = "arn:aws:appconfig:${local.aws_region}:${local.aws_account}:application/${var.app_id}/environment/${var.env_id}/configuration/${var.config_id}"
+          Resource = "arn:aws:appconfig:${local.aws_region}:${local.aws_account}:application/${var.app_id}/environment/${var.env_id}/configuration/${local.config_id}"
         }
       ]
   })
+}
+
+
+/*
+ * Create AppConfig configuration profile
+ */
+resource "aws_appconfig_configuration_profile" "this" {
+  count = var.app_id == "" ? 0 : 1
+
+  application_id = var.app_id
+  name           = "${var.app_name}-${var.app_env}"
+  location_uri   = "hosted"
 }
 
 /*

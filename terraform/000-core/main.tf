@@ -93,3 +93,26 @@ resource "aws_acm_certificate_validation" "idp" {
   certificate_arn         = aws_acm_certificate.idp[0].arn
   validation_record_fqdns = [cloudflare_record.idp-verification[0].hostname]
 }
+
+resource "aws_appconfig_application" "this" {
+  count = var.appconfig_app_name == "" ? 0 : 1
+
+  name = var.appconfig_app_name
+}
+
+resource "aws_appconfig_environment" "this" {
+  count = var.appconfig_app_name == "" ? 0 : 1
+
+  name           = var.app_env
+  application_id = one(aws_appconfig_application.this[*].id)
+}
+
+resource "aws_appconfig_deployment_strategy" "this" {
+  count = var.appconfig_app_name == "" ? 0 : 1
+
+  name                           = "immediate"
+  deployment_duration_in_minutes = 0
+  growth_factor                  = 100
+  growth_type                    = "LINEAR"
+  replicate_to                   = "NONE"
+}

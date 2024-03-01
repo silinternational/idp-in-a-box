@@ -582,13 +582,13 @@ variable "wildcard_cert_arn" {
 }
 
 variable "app_id" {
-  default = ""
+  description = "AppConfig application ID"
+  type        = string
+  default     = ""
 }
 
 variable "env_id" {
-  default = ""
-}
-
-variable "config_id" {
-  default = ""
+  description = "AppConfig environment ID"
+  type        = string
+  default     = ""
 }
