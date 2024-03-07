@@ -32,8 +32,8 @@ variable "app_env" {
 }
 
 variable "appconfig_app_name" {
-  type        = string
   description = "The application name in AppConfig. If not specified, no AppConfig resources will be created."
+  type        = string
   default     = ""
 }
 
