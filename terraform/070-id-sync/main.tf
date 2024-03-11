@@ -39,6 +39,8 @@ locals {
     allow_empty_email            = var.allow_empty_email
     enable_new_user_notification = var.enable_new_user_notification
     sentry_dsn                   = var.sentry_dsn
+    heartbeat_url                = var.heartbeat_url
+    heartbeat_method             = var.heartbeat_method
   })
 }
 

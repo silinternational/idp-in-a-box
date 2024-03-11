@@ -137,3 +137,15 @@ variable "sentry_dsn" {
   type        = string
   default     = ""
 }
+
+variable "heartbeat_url" {
+  description = "Optional: configure the URL of a monitoring service to call after every successful sync"
+  type        = string
+  default     = ""
+}
+
+variable "heartbeat_method" {
+  description = "Optional: configure the http method of a monitoring service to call after every successful sync"
+  type        = string
+  default     = ""
+}

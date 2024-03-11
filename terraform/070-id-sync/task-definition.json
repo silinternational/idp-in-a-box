@@ -94,6 +94,14 @@
         "name": "SENTRY_MONITOR_SLUG",
         "value": "${app_name}-${idp_name}-${app_env}"
       },
+      {
+        "name": "HEARTBEAT_URL",
+        "value": "${heartbeat_url}"
+      },
+      {
+        "name": "HEARTBEAT_METHOD",
+        "value": "${heartbeat_method}"
+      },
       ${id_store_config}
     ],
     "links": null,
