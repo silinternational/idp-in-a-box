@@ -20,3 +20,20 @@ variable "create_cd_user" {
   default     = true
 }
 
+
+/*
+ * Optional variables
+ */
+
+variable "app_env" {
+  description = "The abbreviated version of the environment used for naming resources, typically either stg or prod. Default: 'prod'"
+  type        = string
+  default     = "prod"
+}
+
+variable "appconfig_app_name" {
+  description = "The application name in AppConfig. If not specified, no AppConfig resources will be created."
+  type        = string
+  default     = ""
+}
+
