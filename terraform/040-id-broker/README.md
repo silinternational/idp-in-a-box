@@ -6,6 +6,7 @@ This module is used to create an ECS service running id-broker.
  - Create internal ALB for idp-broker
  - Create task definition and ECS service for id-broker
  - Create Cloudflare DNS record
+ - Optionally manage AppConfig configuration profile and ECS assume role
 
 ## Required Inputs
 

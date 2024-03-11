@@ -106,13 +106,3 @@ resource "aws_appconfig_environment" "this" {
   name           = var.app_env
   application_id = one(aws_appconfig_application.this[*].id)
 }
-
-resource "aws_appconfig_deployment_strategy" "this" {
-  count = var.appconfig_app_name == "" ? 0 : 1
-
-  name                           = "immediate"
-  deployment_duration_in_minutes = 0
-  growth_factor                  = 100
-  growth_type                    = "LINEAR"
-  replicate_to                   = "NONE"
-}

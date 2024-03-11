@@ -8,6 +8,7 @@ used by later workspaces for HTTPS with the ALB.
  - Create ECS cluster named after `app_name` and `app_env`
  - Create IAM roles and policies for ECS services and instances
  - Optionally create and validate an ACM certificate using DNS
+ - Optionally manage AppConfig application and environment
 
 ## Required Inputs
 
