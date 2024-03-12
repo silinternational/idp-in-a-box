@@ -41,6 +41,8 @@ store.
 - `enable_sync` - Set to false to disable the sync process.
 - `sentry_dsn` - Sentry DSN for error logging and alerting. Obtain from Sentry dashboard: Settings - Projects - (project) - Client Keys
 - `event_schedule` - AWS Cloudwatch schedule for the sync task. Use cron format "cron(Minutes Hours Day-of-month Month Day-of-week Year)" where either `day-of-month` or `day-of-week` must be a question mark, or rate format "rate(15 minutes)". Default = "cron(*/15 * * * ? *)"
+- `heartbeat_url` - the URL of a monitoring service to call after every successful sync
+- `heartbeat_method` - the http method of a monitoring service to call after every successful sync. Uses POST if not specified.
 
 ## Usage Example
 
