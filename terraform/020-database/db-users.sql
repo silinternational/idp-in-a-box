@@ -1,5 +1,5 @@
-Once phpmyadmin is running at <idp>-pma.<domain>, execute the following
-sql statements to create users and databases ...
+# Once phpmyadmin is running at <idp>-pma.<domain>, execute the following
+# sql statements to create users and databases ...
 
 CREATE USER 'idbroker'@'%' IDENTIFIED BY '${idbroker_pass}';
 GRANT USAGE ON *.* TO 'idbroker'@'%' REQUIRE NONE WITH MAX_QUERIES_PER_HOUR 0
