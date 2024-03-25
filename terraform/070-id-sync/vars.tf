@@ -149,3 +149,15 @@ variable "heartbeat_method" {
   type        = string
   default     = ""
 }
+
+variable "app_id" {
+  description = "AppConfig application ID"
+  type        = string
+  default     = ""
+}
+
+variable "env_id" {
+  description = "AppConfig environment ID"
+  type        = string
+  default     = ""
+}

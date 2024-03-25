@@ -1,6 +1,8 @@
 locals {
   aws_account = data.aws_caller_identity.this.account_id
   aws_region  = data.aws_region.current.name
+  cfg_id      = one(aws_appconfig_configuration_profile.this[*].configuration_profile_id)
+  config_id   = local.cfg_id == null ? "" : local.cfg_id
 }
 
 /*
@@ -66,6 +68,9 @@ locals {
   secret_salt = var.secret_salt == "" ? random_id.secretsalt.hex : var.secret_salt
 
   task_def = templatefile("${path.module}/task-definition.json", {
+    app_id                       = var.app_id
+    env_id                       = var.env_id
+    config_id                    = local.config_id
     memory                       = var.memory
     cpu                          = var.cpu
     admin_email                  = var.admin_email
@@ -121,6 +126,7 @@ module "ecsservice" {
   lb_container_name  = "web"
   lb_container_port  = "80"
   ecsServiceRole_arn = var.ecsServiceRole_arn
+  task_role_arn      = one(module.ecs_role[*].role_arn)
 }
 
 /*
@@ -147,6 +153,45 @@ resource "cloudflare_record" "sspdns_intermediate" {
 data "cloudflare_zone" "domain" {
   name = var.cloudflare_domain
 }
+
+
+/*
+ * Create ECS role
+ */
+module "ecs_role" {
+  count  = var.app_id == "" ? 0 : 1
+  source = "../ecs-role"
+
+  name = "ecs-${var.idp_name}-${var.app_name}-${var.app_env}-${local.aws_region}"
+  policy = jsonencode(
+    {
+      Version = "2012-10-17"
+      Statement = [
+        {
+          Sid    = "AppConfig"
+          Effect = "Allow"
+          Action = [
+            "appconfig:GetLatestConfiguration",
+            "appconfig:StartConfigurationSession",
+          ]
+          Resource = "arn:aws:appconfig:${local.aws_region}:${local.aws_account}:application/${var.app_id}/environment/${var.env_id}/configuration/${local.config_id}"
+        }
+      ]
+  })
+}
+
+
+/*
+ * Create AppConfig configuration profile
+ */
+resource "aws_appconfig_configuration_profile" "this" {
+  count = var.app_id == "" ? 0 : 1
+
+  application_id = var.app_id
+  name           = "${var.app_name}-${var.app_env}"
+  location_uri   = "hosted"
+}
+
 
 /*
  * AWS data

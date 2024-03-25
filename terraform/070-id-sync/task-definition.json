@@ -15,6 +15,22 @@
     "dockerSecurityOptions": null,
     "environment": [
       {
+        "name": "APP_ID",
+        "value": "${app_id}"
+      },
+      {
+        "name": "AWS_REGION",
+        "value": "${aws_region}"
+      },
+      {
+        "name": "ENV_ID",
+        "value": "${env_id}"
+      },
+      {
+        "name": "CONFIG_ID",
+        "value": "${config_id}"
+      },
+      {
         "name": "APP_ENV",
         "value": "${app_env}"
       },

@@ -1,6 +1,8 @@
 locals {
   aws_account = data.aws_caller_identity.this.account_id
   aws_region  = data.aws_region.current.name
+  cfg_id      = one(aws_appconfig_configuration_profile.this[*].configuration_profile_id)
+  config_id   = local.cfg_id == null ? "" : local.cfg_id
 
   /*
    * Create ECS service
@@ -13,6 +15,9 @@ locals {
   )
 
   task_def = templatefile("${path.module}/task-definition.json", {
+    app_id                       = var.app_id
+    env_id                       = var.env_id
+    config_id                    = local.config_id
     app_env                      = var.app_env
     app_name                     = var.app_name
     aws_region                   = local.aws_region
@@ -98,6 +103,7 @@ resource "aws_ecs_task_definition" "cron_td" {
   family                = "${var.idp_name}-${var.app_name}-cron-${var.app_env}"
   container_definitions = local.task_def
   network_mode          = "bridge"
+  task_role_arn         = one(module.ecs_role[*].role_arn)
 }
 
 /*
@@ -128,6 +134,41 @@ resource "aws_cloudwatch_event_target" "id_sync_event_target" {
     task_definition_arn = aws_ecs_task_definition.cron_td.arn
   }
 }
+
+/*
+ * Create ECS role
+ */
+module "ecs_role" {
+  count  = var.app_id == "" ? 0 : 1
+  source = "../ecs-role"
+
+  name = "ecs-${var.idp_name}-${var.app_name}-${var.app_env}-${local.aws_region}"
+  policy = jsonencode(
+    {
+      Version = "2012-10-17"
+      Statement = [
+        {
+          Sid    = "AppConfig"
+          Effect = "Allow"
+          Action = [
+            "appconfig:GetLatestConfiguration",
+            "appconfig:StartConfigurationSession",
+          ]
+          Resource = "arn:aws:appconfig:${local.aws_region}:${local.aws_account}:application/${var.app_id}/environment/${var.env_id}/configuration/${local.config_id}"
+        }
+      ]
+  })
+}
+
+/*
+ * Create AppConfig configuration profile
+ */
+resource "aws_appconfig_configuration_profile" "this" {
+  application_id = var.app_id
+  name           = "${var.app_name}-${var.app_env}"
+  location_uri   = "hosted"
+}
+
 
 /*
  * AWS data
