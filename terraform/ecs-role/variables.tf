@@ -1,5 +1,5 @@
 variable "name" {
-  description = "name of role and role policy"
+  description = "name of role"
   type        = string
 }
 
