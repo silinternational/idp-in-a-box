@@ -87,7 +87,7 @@ resource "aws_iam_role_policy" "ses" {
 }
 
 resource "aws_iam_role_policy" "appconfig" {
-  count = app_id == "" ? 0 : 1
+  count = var.app_id == "" ? 0 : 1
 
   name = "appconfig"
   role = module.ecs_role.role_name
