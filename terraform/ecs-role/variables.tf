@@ -6,4 +6,5 @@ variable "name" {
 variable "policy" {
   description = "ECS role policy"
   type        = string
+  default     = ""
 }

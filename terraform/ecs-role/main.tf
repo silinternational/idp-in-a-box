@@ -35,8 +35,10 @@ resource "aws_iam_role" "this" {
 }
 
 resource "aws_iam_role_policy" "this" {
+  count = var.policy == "" ? 0 : 1
+
   name   = var.name
-  role   = one(aws_iam_role.this[*].id)
+  role   = aws_iam_role.this.id
   policy = var.policy
 }
 

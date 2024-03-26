@@ -64,28 +64,36 @@ resource "random_id" "access_token_idsync" {
 module "ecs_role" {
   source = "../ecs-role"
 
-  name   = "ecs-${var.idp_name}-${var.app_name}-${var.app_env}-${local.aws_region}"
-  policy = local.ecs_role_policy
+  name = "ecs-${var.idp_name}-${var.app_name}-${var.app_env}-${local.aws_region}"
 }
 
-locals {
-  ecs_role_policy = jsonencode({
-    Version   = "2012-10-17"
-    Statement = concat(local.ses_policy_statement, local.appconfig_policy_statement)
-  })
-  ses_policy_statement = [{
-    Sid      = "SendEmail"
-    Effect   = "Allow"
-    Action   = "ses:SendEmail"
-    Resource = "*"
-    Condition = {
-      StringEquals = {
-        "ses:FromAddress" = var.from_email
+resource "aws_iam_role_policy" "ses" {
+  name = "ses"
+  role = module.ecs_role.role_name
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Sid      = "SendEmail"
+      Effect   = "Allow"
+      Action   = "ses:SendEmail"
+      Resource = "*"
+      Condition = {
+        StringEquals = {
+          "ses:FromAddress" = var.from_email
+        }
       }
-    }
-  }]
-  appconfig_policy_statement = var.app_id == "" ? [] : [
-    {
+    }]
+  })
+}
+
+resource "aws_iam_role_policy" "appconfig" {
+  count = app_id == "" ? 0 : 1
+
+  name = "appconfig"
+  role = module.ecs_role.role_name
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
       Sid    = "AppConfig"
       Effect = "Allow"
       Action = [
@@ -93,9 +101,10 @@ locals {
         "appconfig:StartConfigurationSession",
       ]
       Resource = "arn:aws:appconfig:${local.aws_region}:${local.aws_account}:application/${var.app_id}/environment/${var.env_id}/configuration/${local.config_id}"
-    },
-  ]
+    }]
+  })
 }
+
 
 /*
  * Create ECS services
