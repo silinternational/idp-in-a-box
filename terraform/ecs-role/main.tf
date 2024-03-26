@@ -13,7 +13,7 @@ resource "aws_iam_role" "this" {
     Version = "2012-10-17"
     Statement = [
       {
-        Sid    = "ECSAssumeRoleAppConfig"
+        Sid    = "ECSAssumeRole"
         Effect = "Allow"
         Principal = {
           Service = [
