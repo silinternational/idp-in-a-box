@@ -171,6 +171,8 @@ resource "aws_iam_role_policy" "this" {
  * Create AppConfig configuration profile
  */
 resource "aws_appconfig_configuration_profile" "this" {
+  count = var.app_id == "" ? 0 : 1
+
   application_id = var.app_id
   name           = "${var.app_name}-${var.app_env}"
   location_uri   = "hosted"
