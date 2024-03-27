@@ -4,6 +4,15 @@ locals {
 }
 
 /*
+ * AWS data
+ */
+
+data "aws_caller_identity" "this" {}
+
+data "aws_region" "current" {}
+
+
+/*
  * Create ECS role
  */
 resource "aws_iam_role" "this" {
@@ -33,20 +42,3 @@ resource "aws_iam_role" "this" {
     ]
   })
 }
-
-resource "aws_iam_role_policy" "this" {
-  count = var.policy == "" ? 0 : 1
-
-  name   = var.name
-  role   = aws_iam_role.this.id
-  policy = var.policy
-}
-
-
-/*
- * AWS data
- */
-
-data "aws_caller_identity" "this" {}
-
-data "aws_region" "current" {}

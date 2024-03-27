@@ -163,6 +163,13 @@ module "ecs_role" {
   source = "../ecs-role"
 
   name = "ecs-${var.idp_name}-${var.app_name}-${var.app_env}-${local.aws_region}"
+}
+
+resource "aws_iam_role_policy" "this" {
+  count = var.app_id == "" ? 0 : 1
+
+  name = "appconfig"
+  role = one(module.ecs_role[*].role_name)
   policy = jsonencode(
     {
       Version = "2012-10-17"
