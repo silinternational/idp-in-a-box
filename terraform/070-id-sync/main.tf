@@ -33,7 +33,7 @@ locals {
     id_broker_base_url           = var.id_broker_base_url
     id_broker_trustedIpRanges    = join(",", var.id_broker_trustedIpRanges)
     id_store_adapter             = var.id_store_adapter
-    id_store_config              = local.id_store_config
+    id_store_config              = local.id_store_config == "" ? "" : ",${local.id_store_config}"
     idp_name                     = var.idp_name
     idp_display_name             = var.idp_display_name
     alerts_email                 = var.alerts_email

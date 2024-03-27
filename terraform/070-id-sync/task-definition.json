@@ -117,7 +117,7 @@
       {
         "name": "HEARTBEAT_METHOD",
         "value": "${heartbeat_method}"
-      },
+      }
       ${id_store_config}
     ],
     "links": null,
