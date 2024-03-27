@@ -207,7 +207,7 @@ module "ecsservice" {
   tg_arn             = aws_alb_target_group.broker.arn
   lb_container_name  = "web"
   lb_container_port  = "80"
-  task_role_arn      = one(aws_iam_role.app_config[*].arn)
+  task_role_arn      = one(module.ecs_role[*].role_arn)
 }
 
 /*
@@ -431,43 +431,20 @@ data "cloudflare_zone" "domain" {
 
 
 /*
- * Create role for access to AppConfig
+ * Create ECS role
  */
-resource "aws_iam_role" "app_config" {
-  count = var.app_id == "" ? 0 : 1
+module "ecs_role" {
+  count  = var.app_id == "" ? 0 : 1
+  source = "../ecs-role"
 
-  name = "appconfig-${var.idp_name}-${var.app_name}-${var.app_env}-${local.aws_region}"
-
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Sid    = "ECSAssumeRoleAppConfig"
-        Effect = "Allow"
-        Principal = {
-          Service = [
-            "ecs-tasks.amazonaws.com",
-          ]
-        }
-        Action = "sts:AssumeRole"
-        Condition = {
-          ArnLike = {
-            "aws:SourceArn" = "arn:aws:ecs:${local.aws_region}:${local.aws_account}:*"
-          }
-          StringEquals = {
-            "aws:SourceAccount" = local.aws_account
-          }
-        }
-      }
-    ]
-  })
+  name = "ecs-${var.idp_name}-${var.app_name}-${var.app_env}-${local.aws_region}"
 }
 
-resource "aws_iam_role_policy" "app_config" {
+resource "aws_iam_role_policy" "this" {
   count = var.app_id == "" ? 0 : 1
 
-  name = "app_config"
-  role = one(aws_iam_role.app_config[*].id)
+  name = "appconfig"
+  role = one(module.ecs_role[*].role_name)
   policy = jsonencode(
     {
       Version = "2012-10-17"
