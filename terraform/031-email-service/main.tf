@@ -1,8 +1,8 @@
 locals {
-  aws_account       = data.aws_caller_identity.this.account_id
-  aws_region        = data.aws_region.current.name
-  config_id_or_null = one(aws_appconfig_configuration_profile.this[*].configuration_profile_id)
-  config_id         = local.config_id_or_null == null ? "" : local.config_id_or_null
+  aws_account         = data.aws_caller_identity.this.account_id
+  aws_region          = data.aws_region.current.name
+  config_id_or_null   = one(aws_appconfig_configuration_profile.this[*].configuration_profile_id)
+  appconfig_config_id = local.config_id_or_null == null ? "" : local.config_id_or_null
 }
 
 /*
@@ -87,7 +87,7 @@ resource "aws_iam_role_policy" "ses" {
 }
 
 resource "aws_iam_role_policy" "appconfig" {
-  count = var.app_id == "" ? 0 : 1
+  count = var.appconfig_app_id == "" ? 0 : 1
 
   name = "appconfig"
   role = module.ecs_role.role_name
@@ -100,7 +100,7 @@ resource "aws_iam_role_policy" "appconfig" {
         "appconfig:GetLatestConfiguration",
         "appconfig:StartConfigurationSession",
       ]
-      Resource = "arn:aws:appconfig:${local.aws_region}:${local.aws_account}:application/${var.app_id}/environment/${var.env_id}/configuration/${local.config_id}"
+      Resource = "arn:aws:appconfig:${local.aws_region}:${local.aws_account}:application/${var.appconfig_app_id}/environment/${var.appconfig_env_id}/configuration/${local.appconfig_config_id}"
     }]
   })
 }
@@ -113,9 +113,9 @@ locals {
   subdomain_with_region = "${var.subdomain}-${local.aws_region}"
 
   task_def_api = templatefile("${path.module}/task-definition-api.json", {
-    app_id                    = var.app_id
-    env_id                    = var.env_id
-    config_id                 = local.config_id
+    appconfig_app_id          = var.appconfig_app_id
+    appconfig_env_id          = var.appconfig_env_id
+    appconfig_config_id       = local.appconfig_config_id
     api_access_keys           = "${random_id.access_token_pwmanager.hex},${random_id.access_token_idbroker.hex},${random_id.access_token_idsync.hex}"
     app_env                   = var.app_env
     app_name                  = var.app_name
@@ -158,9 +158,9 @@ module "ecsservice_api" {
 
 locals {
   task_def_cron = templatefile("${path.module}/task-definition-cron.json", {
-    app_id                    = var.app_id
-    env_id                    = var.env_id
-    config_id                 = local.config_id
+    appconfig_app_id          = var.appconfig_app_id
+    appconfig_env_id          = var.appconfig_env_id
+    appconfig_config_id       = local.appconfig_config_id
     api_access_keys           = "${random_id.access_token_pwmanager.hex},${random_id.access_token_idbroker.hex},${random_id.access_token_idsync.hex}"
     app_env                   = var.app_env
     app_name                  = var.app_name
@@ -217,9 +217,9 @@ data "cloudflare_zone" "domain" {
  * Create AppConfig configuration profile
  */
 resource "aws_appconfig_configuration_profile" "this" {
-  count = var.app_id == "" ? 0 : 1
+  count = var.appconfig_app_id == "" ? 0 : 1
 
-  application_id = var.app_id
+  application_id = var.appconfig_app_id
   name           = "${var.app_name}-${var.app_env}"
   location_uri   = "hosted"
 }

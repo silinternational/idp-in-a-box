@@ -286,13 +286,13 @@ variable "create_dns_record" {
   default     = true
 }
 
-variable "app_id" {
+variable "appconfig_app_id" {
   description = "AppConfig application ID"
   type        = string
   default     = ""
 }
 
-variable "env_id" {
+variable "appconfig_env_id" {
   description = "AppConfig environment ID"
   type        = string
   default     = ""
