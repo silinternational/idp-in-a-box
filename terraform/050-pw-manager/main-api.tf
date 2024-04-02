@@ -1,7 +1,9 @@
 locals {
-  aws_account = data.aws_caller_identity.this.account_id
-  aws_region  = data.aws_region.current.name
-  ui_hostname = "${var.ui_subdomain}.${var.cloudflare_domain}"
+  aws_account         = data.aws_caller_identity.this.account_id
+  aws_region          = data.aws_region.current.name
+  ui_hostname         = "${var.ui_subdomain}.${var.cloudflare_domain}"
+  config_id_or_null   = one(aws_appconfig_configuration_profile.this[*].configuration_profile_id)
+  appconfig_config_id = local.config_id_or_null == null ? "" : local.config_id_or_null
 }
 
 /*
@@ -60,6 +62,9 @@ locals {
   api_subdomain_with_region = "${var.api_subdomain}-${local.aws_region}"
 
   task_def = templatefile("${path.module}/task-definition-api.json", {
+    appconfig_app_id                    = var.appconfig_app_id
+    appconfig_env_id                    = var.appconfig_env_id
+    appconfig_config_id                 = local.appconfig_config_id
     access_token_hash                   = random_id.access_token_hash.hex
     alerts_email                        = var.alerts_email
     alerts_email_enabled                = var.alerts_email_enabled
@@ -126,6 +131,7 @@ module "ecsservice" {
   lb_container_name  = "web"
   lb_container_port  = "80"
   ecsServiceRole_arn = var.ecsServiceRole_arn
+  task_role_arn      = one(module.ecs_role[*].role_arn)
 }
 
 /*
@@ -151,6 +157,51 @@ resource "cloudflare_record" "apidns_intermediate" {
 
 data "cloudflare_zone" "domain" {
   name = var.cloudflare_domain
+}
+
+
+/*
+ * Create ECS role
+ */
+module "ecs_role" {
+  count  = var.appconfig_app_id == "" ? 0 : 1
+  source = "../ecs-role"
+
+  name = "ecs-${var.idp_name}-${var.app_name}-${var.app_env}-${local.aws_region}"
+}
+
+resource "aws_iam_role_policy" "this" {
+  count = var.appconfig_app_id == "" ? 0 : 1
+
+  name = "appconfig"
+  role = one(module.ecs_role[*].role_name)
+  policy = jsonencode(
+    {
+      Version = "2012-10-17"
+      Statement = [
+        {
+          Sid    = "AppConfig"
+          Effect = "Allow"
+          Action = [
+            "appconfig:GetLatestConfiguration",
+            "appconfig:StartConfigurationSession",
+          ]
+          Resource = "arn:aws:appconfig:${local.aws_region}:${local.aws_account}:application/${var.appconfig_app_id}/environment/${var.appconfig_env_id}/configuration/${local.appconfig_config_id}"
+        }
+      ]
+  })
+}
+
+
+/*
+ * Create AppConfig configuration profile
+ */
+resource "aws_appconfig_configuration_profile" "this" {
+  count = var.appconfig_app_id == "" ? 0 : 1
+
+  application_id = var.appconfig_app_id
+  name           = "${var.app_name}-${var.app_env}"
+  location_uri   = "hosted"
 }
 
 /*

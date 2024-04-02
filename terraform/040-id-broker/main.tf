@@ -1,8 +1,8 @@
 locals {
-  aws_account = data.aws_caller_identity.this.account_id
-  aws_region  = data.aws_region.current.name
-  cfg_id      = one(aws_appconfig_configuration_profile.this[*].configuration_profile_id)
-  config_id   = local.cfg_id == null ? "" : local.cfg_id
+  aws_account         = data.aws_caller_identity.this.account_id
+  aws_region          = data.aws_region.current.name
+  config_id_or_null   = one(aws_appconfig_configuration_profile.this[*].configuration_profile_id)
+  appconfig_config_id = local.config_id_or_null == null ? "" : local.config_id_or_null
 }
 
 /*
@@ -81,9 +81,9 @@ locals {
   subdomain_with_region = "${var.subdomain}-${local.aws_region}"
 
   task_def = templatefile("${path.module}/task-definition.json", {
-    app_id                                     = var.app_id
-    env_id                                     = var.env_id
-    config_id                                  = local.config_id
+    appconfig_app_id                           = var.appconfig_app_id
+    appconfig_env_id                           = var.appconfig_env_id
+    appconfig_config_id                        = local.appconfig_config_id
     api_access_keys                            = local.api_access_keys
     abandoned_user_abandoned_period            = var.abandoned_user_abandoned_period
     abandoned_user_best_practice_url           = var.abandoned_user_best_practice_url
@@ -207,7 +207,7 @@ module "ecsservice" {
   tg_arn             = aws_alb_target_group.broker.arn
   lb_container_name  = "web"
   lb_container_port  = "80"
-  task_role_arn      = one(aws_iam_role.app_config[*].arn)
+  task_role_arn      = one(module.ecs_role[*].role_arn)
 }
 
 /*
@@ -215,9 +215,9 @@ module "ecsservice" {
  */
 locals {
   task_def_cron = templatefile("${path.module}/task-definition.json", {
-    app_id                                     = var.app_id
-    env_id                                     = var.env_id
-    config_id                                  = local.config_id
+    appconfig_app_id                           = var.appconfig_app_id
+    appconfig_env_id                           = var.appconfig_env_id
+    appconfig_config_id                        = local.appconfig_config_id
     api_access_keys                            = local.api_access_keys
     abandoned_user_abandoned_period            = var.abandoned_user_abandoned_period
     abandoned_user_best_practice_url           = var.abandoned_user_best_practice_url
@@ -431,43 +431,20 @@ data "cloudflare_zone" "domain" {
 
 
 /*
- * Create role for access to AppConfig
+ * Create ECS role
  */
-resource "aws_iam_role" "app_config" {
-  count = var.app_id == "" ? 0 : 1
+module "ecs_role" {
+  count  = var.appconfig_app_id == "" ? 0 : 1
+  source = "../ecs-role"
 
-  name = "appconfig-${var.idp_name}-${var.app_name}-${var.app_env}-${local.aws_region}"
-
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Sid    = "ECSAssumeRoleAppConfig"
-        Effect = "Allow"
-        Principal = {
-          Service = [
-            "ecs-tasks.amazonaws.com",
-          ]
-        }
-        Action = "sts:AssumeRole"
-        Condition = {
-          ArnLike = {
-            "aws:SourceArn" = "arn:aws:ecs:${local.aws_region}:${local.aws_account}:*"
-          }
-          StringEquals = {
-            "aws:SourceAccount" = local.aws_account
-          }
-        }
-      }
-    ]
-  })
+  name = "ecs-${var.idp_name}-${var.app_name}-${var.app_env}-${local.aws_region}"
 }
 
-resource "aws_iam_role_policy" "app_config" {
-  count = var.app_id == "" ? 0 : 1
+resource "aws_iam_role_policy" "this" {
+  count = var.appconfig_app_id == "" ? 0 : 1
 
-  name = "app_config"
-  role = one(aws_iam_role.app_config[*].id)
+  name = "appconfig"
+  role = one(module.ecs_role[*].role_name)
   policy = jsonencode(
     {
       Version = "2012-10-17"
@@ -479,7 +456,7 @@ resource "aws_iam_role_policy" "app_config" {
             "appconfig:GetLatestConfiguration",
             "appconfig:StartConfigurationSession",
           ]
-          Resource = "arn:aws:appconfig:${local.aws_region}:${local.aws_account}:application/${var.app_id}/environment/${var.env_id}/configuration/${local.config_id}"
+          Resource = "arn:aws:appconfig:${local.aws_region}:${local.aws_account}:application/${var.appconfig_app_id}/environment/${var.appconfig_env_id}/configuration/${local.appconfig_config_id}"
         }
       ]
   })
@@ -490,9 +467,9 @@ resource "aws_iam_role_policy" "app_config" {
  * Create AppConfig configuration profile
  */
 resource "aws_appconfig_configuration_profile" "this" {
-  count = var.app_id == "" ? 0 : 1
+  count = var.appconfig_app_id == "" ? 0 : 1
 
-  application_id = var.app_id
+  application_id = var.appconfig_app_id
   name           = "${var.app_name}-${var.app_env}"
   location_uri   = "hosted"
 }

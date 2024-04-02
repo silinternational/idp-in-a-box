@@ -23,7 +23,7 @@
     "environment": [
       {
         "name": "APP_ID",
-        "value": "${app_id}"
+        "value": "${appconfig_app_id}"
       },
       {
         "name": "AWS_REGION",
@@ -31,11 +31,11 @@
       },
       {
         "name": "ENV_ID",
-        "value": "${env_id}"
+        "value": "${appconfig_env_id}"
       },
       {
         "name": "CONFIG_ID",
-        "value": "${config_id}"
+        "value": "${appconfig_config_id}"
       },
       {
         "name": "ABANDONED_USER_abandonedPeriod",
