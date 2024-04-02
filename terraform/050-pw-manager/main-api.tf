@@ -1,9 +1,9 @@
 locals {
-  aws_account = data.aws_caller_identity.this.account_id
-  aws_region  = data.aws_region.current.name
-  ui_hostname = "${var.ui_subdomain}.${var.cloudflare_domain}"
-  cfg_id      = one(aws_appconfig_configuration_profile.this[*].configuration_profile_id)
-  config_id   = local.cfg_id == null ? "" : local.cfg_id
+  aws_account       = data.aws_caller_identity.this.account_id
+  aws_region        = data.aws_region.current.name
+  ui_hostname       = "${var.ui_subdomain}.${var.cloudflare_domain}"
+  config_id_or_null = one(aws_appconfig_configuration_profile.this[*].configuration_profile_id)
+  config_id         = local.config_id_or_null == null ? "" : local.config_id_or_null
 }
 
 /*
