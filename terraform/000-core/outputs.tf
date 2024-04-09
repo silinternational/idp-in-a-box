@@ -49,12 +49,12 @@ output "ecsServiceRole_arn" {
 /*
  * AppConfig outputs
  */
-output "app_id" {
+output "appconfig_app_id" {
   description = "AppConfig application ID"
   value       = one(aws_appconfig_application.this[*].id)
 }
 
-output "env_id" {
+output "appconfig_env_id" {
   description = "AppConfig environment ID"
   value       = one(aws_appconfig_environment.this[*].environment_id)
 }

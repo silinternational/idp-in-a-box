@@ -22,6 +22,22 @@
     "dockerSecurityOptions": null,
     "environment": [
       {
+        "name": "APP_ID",
+        "value": "${appconfig_app_id}"
+      },
+      {
+        "name": "AWS_REGION",
+        "value": "${aws_region}"
+      },
+      {
+        "name": "ENV_ID",
+        "value": "${appconfig_env_id}"
+      },
+      {
+        "name": "CONFIG_ID",
+        "value": "${appconfig_config_id}"
+      },
+      {
         "name": "API_ACCESS_KEYS",
         "value": "${api_access_keys}"
       },

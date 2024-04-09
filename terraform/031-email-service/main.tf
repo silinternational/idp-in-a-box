@@ -1,6 +1,8 @@
 locals {
-  aws_account = data.aws_caller_identity.this.account_id
-  aws_region  = data.aws_region.current.name
+  aws_account         = data.aws_caller_identity.this.account_id
+  aws_region          = data.aws_region.current.name
+  config_id_or_null   = one(aws_appconfig_configuration_profile.this[*].configuration_profile_id)
+  appconfig_config_id = local.config_id_or_null == null ? "" : local.config_id_or_null
 }
 
 /*
@@ -55,51 +57,54 @@ resource "random_id" "access_token_idsync" {
   byte_length = 16
 }
 
-/*
- * Create role for access to SES
- */
-resource "aws_iam_role" "ses" {
-  name = "ses-${var.idp_name}-${var.app_name}-${var.app_env}-${local.aws_region}"
 
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Sid    = "ECSAssumeRoleSES"
-        Effect = "Allow"
-        Principal = {
-          Service = [
-            "ses.amazonaws.com",
-            "ecs-tasks.amazonaws.com",
-          ]
-        }
-        Action = "sts:AssumeRole"
-      }
-    ]
-  })
+/*
+ * Create ECS role
+ */
+module "ecs_role" {
+  source = "../ecs-role"
+
+  name = "ecs-${var.idp_name}-${var.app_name}-${var.app_env}-${local.aws_region}"
 }
 
 resource "aws_iam_role_policy" "ses" {
   name = "ses"
-  role = aws_iam_role.ses.id
-  policy = jsonencode(
-    {
-      Version = "2012-10-17"
-      Statement = [
-        {
-          Sid      = "SendEmail"
-          Effect   = "Allow"
-          Action   = "ses:SendEmail"
-          Resource = "*"
-          Condition = {
-            StringEquals = {
-              "ses:FromAddress" = var.from_email
-            }
-          }
+  role = module.ecs_role.role_name
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Sid      = "SendEmail"
+      Effect   = "Allow"
+      Action   = "ses:SendEmail"
+      Resource = "*"
+      Condition = {
+        StringEquals = {
+          "ses:FromAddress" = var.from_email
         }
-      ]
+      }
+    }]
   })
 }
+
+resource "aws_iam_role_policy" "appconfig" {
+  count = var.appconfig_app_id == "" ? 0 : 1
+
+  name = "appconfig"
+  role = module.ecs_role.role_name
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Sid    = "AppConfig"
+      Effect = "Allow"
+      Action = [
+        "appconfig:GetLatestConfiguration",
+        "appconfig:StartConfigurationSession",
+      ]
+      Resource = "arn:aws:appconfig:${local.aws_region}:${local.aws_account}:application/${var.appconfig_app_id}/environment/${var.appconfig_env_id}/configuration/${local.appconfig_config_id}"
+    }]
+  })
+}
+
 
 /*
  * Create ECS services
@@ -108,6 +113,9 @@ locals {
   subdomain_with_region = "${var.subdomain}-${local.aws_region}"
 
   task_def_api = templatefile("${path.module}/task-definition-api.json", {
+    appconfig_app_id          = var.appconfig_app_id
+    appconfig_env_id          = var.appconfig_env_id
+    appconfig_config_id       = local.appconfig_config_id
     api_access_keys           = "${random_id.access_token_pwmanager.hex},${random_id.access_token_idbroker.hex},${random_id.access_token_idsync.hex}"
     app_env                   = var.app_env
     app_name                  = var.app_name
@@ -143,13 +151,16 @@ module "ecsservice_api" {
   container_def_json = local.task_def_api
   desired_count      = var.desired_count_api
   tg_arn             = aws_alb_target_group.email.arn
-  task_role_arn      = aws_iam_role.ses.arn
+  task_role_arn      = module.ecs_role.role_arn
   lb_container_name  = "api"
   lb_container_port  = "80"
 }
 
 locals {
   task_def_cron = templatefile("${path.module}/task-definition-cron.json", {
+    appconfig_app_id          = var.appconfig_app_id
+    appconfig_env_id          = var.appconfig_env_id
+    appconfig_config_id       = local.appconfig_config_id
     api_access_keys           = "${random_id.access_token_pwmanager.hex},${random_id.access_token_idbroker.hex},${random_id.access_token_idsync.hex}"
     app_env                   = var.app_env
     app_name                  = var.app_name
@@ -182,7 +193,7 @@ module "ecsservice_cron" {
   service_name       = "${var.idp_name}-${var.app_name}-cron"
   service_env        = var.app_env
   container_def_json = local.task_def_cron
-  task_role_arn      = aws_iam_role.ses.arn
+  task_role_arn      = module.ecs_role.role_arn
   desired_count      = var.enable_cron ? 1 : 0
 }
 
@@ -200,6 +211,19 @@ resource "cloudflare_record" "emaildns" {
 data "cloudflare_zone" "domain" {
   name = var.cloudflare_domain
 }
+
+
+/*
+ * Create AppConfig configuration profile
+ */
+resource "aws_appconfig_configuration_profile" "this" {
+  count = var.appconfig_app_id == "" ? 0 : 1
+
+  application_id = var.appconfig_app_id
+  name           = "${var.app_name}-${var.app_env}"
+  location_uri   = "hosted"
+}
+
 
 /*
  * AWS data

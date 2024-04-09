@@ -51,13 +51,13 @@ This module is used to create an ECS service running id-broker.
  - `abandoned_user_abandoned_period` - Time a user record can remain abandoned before HR is notified. Default: `+6 months`
  - `abandoned_user_best_practice_url` - URL for best practices, referenced in notification email. Default: (none)
  - `abandoned_user_deactivate_instructions_url` - URL for instruction on how to deactivate user accounts, referenced in notification email. Default: (none)
- - `app_id` - AppConfig application ID created by AWS. This cannot be the application name. Use with `env_id`.
+ - `appconfig_app_id` - AppConfig application ID created by AWS. This cannot be the application name. Use with `appconfig_env_id`.
  - `contingent_user_duration` - How long before a new user without a primary email address expires. Default: `+4 weeks`
  - `cpu_cron` - How much CPU to allocate to cron service. Default: `128`
  - `email_repeat_delay_days` - Don't resend the same type of email to the same user for X days. Default: `31`
  - `email_service_assertValidIp` - Whether or not to assert IP address for Email Service API is trusted
  - `email_signature` - Signature for use in emails. Default is empty string
- - `env_id` - AppConfig environment ID created by AWS. This cannot be the environment name. Use with `app_id`.
+ - `appconfig_env_id` - AppConfig environment ID created by AWS. This cannot be the environment name. Use with `appconfig_app_id`.
  - `event_schedule` - Task run schedule. Default: `cron(0 0 * * ? *)`
  - `ga_api_secret` - The Google Analytics API secret for the data stream (e.g. aB-abcdef7890123456789)
  - `ga_client_id` - Used by Google Analytics to distinguish the user (e.g. IDP-<the idp name>-ID-BROKER)

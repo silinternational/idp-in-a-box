@@ -1,6 +1,8 @@
 locals {
-  aws_account = data.aws_caller_identity.this.account_id
-  aws_region  = data.aws_region.current.name
+  aws_account         = data.aws_caller_identity.this.account_id
+  aws_region          = data.aws_region.current.name
+  config_id_or_null   = one(aws_appconfig_configuration_profile.this[*].configuration_profile_id)
+  appconfig_config_id = local.config_id_or_null == null ? "" : local.config_id_or_null
 
   /*
    * Create ECS service
@@ -13,6 +15,9 @@ locals {
   )
 
   task_def = templatefile("${path.module}/task-definition.json", {
+    appconfig_app_id             = var.appconfig_app_id
+    appconfig_env_id             = var.appconfig_env_id
+    appconfig_config_id          = local.appconfig_config_id
     app_env                      = var.app_env
     app_name                     = var.app_name
     aws_region                   = local.aws_region
@@ -28,7 +33,7 @@ locals {
     id_broker_base_url           = var.id_broker_base_url
     id_broker_trustedIpRanges    = join(",", var.id_broker_trustedIpRanges)
     id_store_adapter             = var.id_store_adapter
-    id_store_config              = local.id_store_config
+    id_store_config              = local.id_store_config == "" ? "" : ",${local.id_store_config}"
     idp_name                     = var.idp_name
     idp_display_name             = var.idp_display_name
     alerts_email                 = var.alerts_email
@@ -98,6 +103,7 @@ resource "aws_ecs_task_definition" "cron_td" {
   family                = "${var.idp_name}-${var.app_name}-cron-${var.app_env}"
   container_definitions = local.task_def
   network_mode          = "bridge"
+  task_role_arn         = one(module.ecs_role[*].role_arn)
 }
 
 /*
@@ -128,6 +134,50 @@ resource "aws_cloudwatch_event_target" "id_sync_event_target" {
     task_definition_arn = aws_ecs_task_definition.cron_td.arn
   }
 }
+
+/*
+ * Create ECS role
+ */
+module "ecs_role" {
+  count  = var.appconfig_app_id == "" ? 0 : 1
+  source = "../ecs-role"
+
+  name = "ecs-${var.idp_name}-${var.app_name}-${var.app_env}-${local.aws_region}"
+}
+
+resource "aws_iam_role_policy" "this" {
+  count = var.appconfig_app_id == "" ? 0 : 1
+
+  name = "appconfig"
+  role = one(module.ecs_role[*].role_name)
+  policy = jsonencode(
+    {
+      Version = "2012-10-17"
+      Statement = [
+        {
+          Sid    = "AppConfig"
+          Effect = "Allow"
+          Action = [
+            "appconfig:GetLatestConfiguration",
+            "appconfig:StartConfigurationSession",
+          ]
+          Resource = "arn:aws:appconfig:${local.aws_region}:${local.aws_account}:application/${var.appconfig_app_id}/environment/${var.appconfig_env_id}/configuration/${local.appconfig_config_id}"
+        }
+      ]
+  })
+}
+
+/*
+ * Create AppConfig configuration profile
+ */
+resource "aws_appconfig_configuration_profile" "this" {
+  count = var.appconfig_app_id == "" ? 0 : 1
+
+  application_id = var.appconfig_app_id
+  name           = "${var.app_name}-${var.app_env}"
+  location_uri   = "hosted"
+}
+
 
 /*
  * AWS data
