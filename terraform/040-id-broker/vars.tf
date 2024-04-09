@@ -581,8 +581,20 @@ variable "wildcard_cert_arn" {
   type = string
 }
 
+variable "app_id" {
+  description = "DEPRECATED AppConfig application ID created by AWS. This cannot be the application name."
+  type        = string
+  default     = ""
+}
+
 variable "appconfig_app_id" {
   description = "AppConfig application ID created by AWS. This cannot be the application name."
+  type        = string
+  default     = ""
+}
+
+variable "env_id" {
+  description = "DEPRECATED AppConfig environment ID created by AWS. This cannot be the environment name."
   type        = string
   default     = ""
 }
