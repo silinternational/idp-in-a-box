@@ -386,6 +386,7 @@ resource "aws_ecs_task_definition" "cron_td" {
   family                = "${var.idp_name}-${var.app_name}-cron-${var.app_env}"
   container_definitions = local.task_def_cron
   network_mode          = "bridge"
+  task_role_arn         = one(module.ecs_role[*].role_arn)
 }
 
 /*
