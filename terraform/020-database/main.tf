@@ -26,6 +26,7 @@ module "rds" {
   multi_az                = var.multi_az
   skip_final_snapshot     = var.skip_final_snapshot
   replicate_source_db     = var.replicate_source_db
+  ca_cert_identifier      = "rds-ca-rsa2048-g1"
 }
 
 /*
