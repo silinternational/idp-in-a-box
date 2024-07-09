@@ -83,6 +83,6 @@ variable "replicate_source_db" {
 }
 
 variable "ca_cert_identifier" {
-  type = string
+  type    = string
   default = "rds-ca-rsa2048-g1"
 }
