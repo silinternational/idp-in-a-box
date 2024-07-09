@@ -81,3 +81,8 @@ variable "replicate_source_db" {
   description = "To create a replica DB in a separate region, specify the source database ARN"
   default     = null
 }
+
+variable "ca_cert_identifier" {
+  type = string
+  default = "rds-ca-rsa2048-g1"
+}
