@@ -170,7 +170,7 @@
         "value": "${password_rule_minlength}"
       },
       {
-        "name": "PASSWORD_RULE_minScore,",
+        "name": "PASSWORD_RULE_minScore",
         "value": "${password_rule_minscore}"
       },
       {
