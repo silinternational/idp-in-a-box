@@ -85,6 +85,8 @@ resource "aws_iam_user_policy" "backup" {
  */
 locals {
   task_def_backup = templatefile("${path.module}/task-definition.json", {
+    app_env                   = var.app_env
+    app_name                  = var.app_name
     aws_region                = local.aws_region
     cloudwatch_log_group_name = var.cloudwatch_log_group_name
     aws_access_key            = aws_iam_access_key.backup.id
