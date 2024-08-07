@@ -1,5 +1,9 @@
 output "cron_schedule" {
-  value = var.cron_schedule
+  value = local.event_schedule
+}
+
+output "event_schedule" {
+  value = local.event_schedule
 }
 
 output "s3_bucket_name" {

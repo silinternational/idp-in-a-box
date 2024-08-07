@@ -28,8 +28,9 @@ variable "cpu" {
 }
 
 variable "cron_schedule" {
-  type    = string
-  default = "cron(0 2 * * ? *)"
+  description = "Schedule for CRON execution. DEPRECATED: use event_schedule"
+  type        = string
+  default     = ""
 }
 
 variable "db_names" {
@@ -53,6 +54,12 @@ variable "ecs_cluster_id" {
 
 variable "ecsServiceRole_arn" {
   type = string
+}
+
+variable "event_schedule" {
+  description = "Schedule for backup task execution. Default: `cron(0 2 * * ? *)"
+  type        = string
+  default     = "cron(0 2 * * ? *)"
 }
 
 variable "idp_name" {

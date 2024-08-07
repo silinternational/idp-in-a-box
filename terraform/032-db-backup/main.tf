@@ -156,6 +156,10 @@ resource "aws_ecs_task_definition" "cron_td" {
   network_mode          = "bridge"
 }
 
+locals {
+  event_schedule = var.cron_schedule != "" ? var.cron_schedule : var.event_schedule
+}
+
 /*
  * CloudWatch configuration to start scheduled backup.
  */
@@ -163,7 +167,7 @@ resource "aws_cloudwatch_event_rule" "event_rule" {
   name        = "${var.idp_name}-${var.app_name}-${var.app_env}"
   description = "Start scheduled backup"
 
-  schedule_expression = var.cron_schedule
+  schedule_expression = local.event_schedule
 
   tags = {
     app_name = var.app_name

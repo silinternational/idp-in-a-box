@@ -25,14 +25,16 @@ This module is used to run mysqldump and backup files to S3
  - `app_name` - Application name
  - `backup_user_name` - Name of IAM user for S3 access. Default: `db-backup-${var.idp_name}-${var.app_env}`
  - `cpu` - CPU resources to allot to each task instance
- - `cron_schedule` - Schedule for CRON execution. Default: `cron(0 2 * * ? *)`
+ - `cron_schedule` - Schedule for CRON execution. DEPRECATED: use event_schedule`
+ - `event_schedule` - Schedule for backup task execution. Default: `cron(0 2 * * ? *)`
  - `db_names` - List of database names to backup. Default: `["emailservice", "idbroker", "pwmanager", "ssp"]`
  - `memory` - Memory (RAM) resources to allot to each task instance
  - `service_mode` - Either `backup` or `restore`. Default: `backup`
 
 ## Outputs
 
- - `cron_schedule` - Schedule for CRON execution
+ - `cron_schedule` - Schedule for CRON execution. DEPRECATED
+ - `event_schedule` - Schedule for CRON execution
  - `s3_bucket_name` - S3 Bucket name
  - `s3_bucket_arn` - S3 Bucket ARN
 
@@ -45,7 +47,7 @@ module "dbbackup" {
   app_name                  = var.app_name
   cloudwatch_log_group_name = var.cloudwatch_log_group_name
   cpu                       = var.cpu
-  cron_schedule             = var.cron_schedule
+  event_schedule            = var.event_schedule
   db_names                  = var.db_names
   docker_image              = data.terraform_remote_state.ecr.ecr_repo_dbbackup
   ecs_cluster_id            = data.terraform_remote_state.core.ecs_cluster_id
