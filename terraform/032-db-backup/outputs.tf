@@ -9,4 +9,3 @@ output "s3_bucket_name" {
 output "s3_bucket_arn" {
   value = aws_s3_bucket.backup.arn
 }
-

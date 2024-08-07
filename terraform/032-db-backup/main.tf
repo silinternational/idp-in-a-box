@@ -85,17 +85,13 @@ resource "aws_iam_user_policy" "backup" {
  */
 locals {
   task_def_backup = templatefile("${path.module}/task-definition.json", {
-    app_env                   = var.app_env
-    app_name                  = var.app_name
     aws_region                = local.aws_region
     cloudwatch_log_group_name = var.cloudwatch_log_group_name
     aws_access_key            = aws_iam_access_key.backup.id
     aws_secret_key            = aws_iam_access_key.backup.secret
     cpu                       = var.cpu
-    cron_schedule             = var.cron_schedule
     db_names                  = join(" ", var.db_names)
     docker_image              = var.docker_image
-    idp_name                  = var.idp_name
     mysql_host                = var.mysql_host
     mysql_pass                = var.mysql_pass
     mysql_user                = var.mysql_user

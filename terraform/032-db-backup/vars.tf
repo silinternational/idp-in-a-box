@@ -84,4 +84,3 @@ variable "service_mode" {
 variable "vpc_id" {
   type = string
 }
-
