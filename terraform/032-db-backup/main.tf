@@ -92,10 +92,8 @@ locals {
     aws_access_key            = aws_iam_access_key.backup.id
     aws_secret_key            = aws_iam_access_key.backup.secret
     cpu                       = var.cpu
-    cron_schedule             = var.cron_schedule
     db_names                  = join(" ", var.db_names)
     docker_image              = var.docker_image
-    idp_name                  = var.idp_name
     mysql_host                = var.mysql_host
     mysql_pass                = var.mysql_pass
     mysql_user                = var.mysql_user
@@ -160,6 +158,10 @@ resource "aws_ecs_task_definition" "cron_td" {
   network_mode          = "bridge"
 }
 
+locals {
+  event_schedule = var.cron_schedule != "" ? var.cron_schedule : var.event_schedule
+}
+
 /*
  * CloudWatch configuration to start scheduled backup.
  */
@@ -167,7 +169,7 @@ resource "aws_cloudwatch_event_rule" "event_rule" {
   name        = "${var.idp_name}-${var.app_name}-${var.app_env}"
   description = "Start scheduled backup"
 
-  schedule_expression = var.cron_schedule
+  schedule_expression = local.event_schedule
 
   tags = {
     app_name = var.app_name

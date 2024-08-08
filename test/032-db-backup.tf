@@ -6,7 +6,7 @@ module "backup" {
   backup_user_name          = ""
   cloudwatch_log_group_name = ""
   cpu                       = ""
-  cron_schedule             = ""
+  event_schedule            = ""
   db_names                  = [""]
   docker_image              = ""
   ecsServiceRole_arn        = ""

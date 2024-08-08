@@ -16,14 +16,6 @@
     "dockerSecurityOptions": null,
     "environment": [
       {
-        "name": "APP_ENV",
-        "value": "${app_env}"
-      },
-      {
-        "name": "APP_NAME",
-        "value": "${app_name}"
-      },
-      {
         "name": "AWS_ACCESS_KEY",
         "value": "${aws_access_key}"
       },
@@ -32,16 +24,8 @@
         "value": "${aws_secret_key}"
       },
       {
-        "name": "CRON_SCHEDULE",
-        "value": "${cron_schedule}"
-      },
-      {
         "name": "DB_NAMES",
         "value": "${db_names}"
-      },
-      {
-        "name": "IDP_NAME",
-        "value": "${idp_name}"
       },
       {
         "name": "MODE",
