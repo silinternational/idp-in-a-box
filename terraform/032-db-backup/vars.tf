@@ -91,3 +91,21 @@ variable "service_mode" {
 variable "vpc_id" {
   type = string
 }
+
+variable "enable_aws_backup" {
+  description = "enable backup using AWS Backup service"
+  type        = bool
+  default     = false
+}
+
+variable "aws_backup_cron_schedule" {
+  description = "cron-type schedule for AWS Backup"
+  type        = string
+  default     = "0 14 * * ? *" # Every day at 14:00 UTC, 12-hour offset from backup script
+}
+
+variable "aws_backup_notification_events" {
+  description = "The names of the backup events that should trigger an email notification"
+  type        = list(string)
+  default     = ["BACKUP_JOB_FAILED"]
+}

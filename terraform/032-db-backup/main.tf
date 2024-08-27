@@ -3,6 +3,16 @@ locals {
   aws_region  = data.aws_region.current.name
 }
 
+
+/*
+ * AWS data
+ */
+
+data "aws_caller_identity" "this" {}
+
+data "aws_region" "current" {}
+
+
 /*
  * Create S3 bucket for storing backups
  */
@@ -191,9 +201,21 @@ resource "aws_cloudwatch_event_target" "backup_event_target" {
 }
 
 /*
- * AWS data
+ * AWS backup
  */
+module "aws_backup" {
+  count = var.enable_aws_backup ? 1 : 0
 
-data "aws_caller_identity" "this" {}
+  source  = "silinternational/backup/aws"
+  version = "0.1.0"
 
-data "aws_region" "current" {}
+  app_name            = var.app_name
+  app_env             = var.app_env
+  source_arns         = [data.aws_db_instance.this.db_instance_arn]
+  backup_schedule     = "cron(${var.aws_backup_cron_schedule})"
+  notification_events = var.aws_backup_notification_events
+}
+
+data "aws_db_instance" "this" {
+  db_instance_identifier = "idp-${var.idp_name}-${var.app_env}"
+}
