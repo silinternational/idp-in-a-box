@@ -98,14 +98,20 @@ variable "enable_aws_backup" {
   default     = false
 }
 
-variable "aws_backup_cron_schedule" {
-  description = "cron-type schedule for AWS Backup"
+variable "aws_backup_schedule" {
+  description = "schedule for AWS Backup, in AWS Event Bridge format"
   type        = string
-  default     = "0 14 * * ? *" # Every day at 14:00 UTC, 12-hour offset from backup script
+  default     = "cron(0 14 * * ? *)" # Every day at 14:00 UTC, 12-hour offset from backup script
 }
 
 variable "aws_backup_notification_events" {
   description = "The names of the backup events that should trigger an email notification"
   type        = list(string)
   default     = ["BACKUP_JOB_FAILED"]
+}
+
+variable "backup_sns_email" {
+  description = "Optional: email address to receive backup event notifications"
+  type        = string
+  default     = ""
 }

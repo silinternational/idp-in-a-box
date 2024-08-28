@@ -30,6 +30,10 @@ This module is used to run mysqldump and backup files to S3
  - `db_names` - List of database names to backup. Default: `["emailservice", "idbroker", "pwmanager", "ssp"]`
  - `memory` - Memory (RAM) resources to allot to each task instance
  - `service_mode` - Either `backup` or `restore`. Default: `backup`
+ - `enable_aws_backup` - Enable AWS Backup in addition to the scripted backup
+ - `aws_backup_schedule` - Schedule for AWS Backup. Default: `"0 14 * * ? *"`
+ - `aws_backup_notification_events` - List of events names to send to SNS. Default: `["BACKUP_JOB_FAILED"]`
+ - `backup_sns_email` - Email address for backup event SNS subscription. Default: `""` (disabled)
 
 ## Outputs
 

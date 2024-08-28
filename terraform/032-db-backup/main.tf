@@ -207,14 +207,15 @@ module "aws_backup" {
   count = var.enable_aws_backup ? 1 : 0
 
   source  = "silinternational/backup/aws"
-  version = "0.1.0"
+  version = "0.2.0"
 
-  app_name            = var.idp_name
-  app_env             = var.app_env
-  source_arns         = [data.aws_db_instance.this.db_instance_arn]
-  backup_schedule     = "cron(${var.aws_backup_cron_schedule})"
-  notification_events = var.aws_backup_notification_events
-  sns_topic_name      = "${var.idp_name}-backup-vault-events"
+  app_name               = var.idp_name
+  app_env                = var.app_env
+  source_arns            = [data.aws_db_instance.this.db_instance_arn]
+  backup_schedule        = var.aws_backup_schedule
+  notification_events    = var.aws_backup_notification_events
+  sns_topic_name         = "${var.idp_name}-backup-vault-events"
+  sns_email_subscription = var.backup_sns_email
 }
 
 data "aws_db_instance" "this" {
