@@ -20,10 +20,6 @@
         "value": "${appconfig_app_id}"
       },
       {
-        "name": "AWS_REGION",
-        "value": "${aws_region}"
-      },
-      {
         "name": "ENV_ID",
         "value": "${appconfig_env_id}"
       },
