@@ -28,6 +28,7 @@ ssl certificate, core application load balancer, and a CloudWatch log group
 - `private_subnet_cidr_blocks`
 - `public_subnet_cidr_blocks`
 - `vpc_cidr_block`
+- `log_retention_in_days` - Number of days to retain CloudWatch application logs (default=30)
 
 ## Outputs
 
