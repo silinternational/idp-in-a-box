@@ -209,7 +209,7 @@ module "aws_backup" {
   source  = "silinternational/backup/aws"
   version = "0.1.0"
 
-  app_name            = var.app_name
+  app_name            = var.idp_name
   app_env             = var.app_env
   source_arns         = [data.aws_db_instance.this.db_instance_arn]
   backup_schedule     = "cron(${var.aws_backup_cron_schedule})"
