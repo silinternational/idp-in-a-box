@@ -214,6 +214,7 @@ module "aws_backup" {
   source_arns         = [data.aws_db_instance.this.db_instance_arn]
   backup_schedule     = "cron(${var.aws_backup_cron_schedule})"
   notification_events = var.aws_backup_notification_events
+  sns_topic_name      = "${var.idp_name}-backup-vault-events"
 }
 
 data "aws_db_instance" "this" {
