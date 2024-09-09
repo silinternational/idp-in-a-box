@@ -114,7 +114,7 @@ module "ecs-service-cloudwatch-dashboard" {
   version = "~> 3.0.1"
 
   cluster_name   = var.ecs_cluster_name
-  dashboard_name = "${var.app_name}-${var.app_env}"
+  dashboard_name = "${var.app_name}-${var.app_env}-${data.aws_region.current.name}"
 
   service_names = [
     "${var.idp_name}-db-backup",
@@ -129,3 +129,4 @@ module "ecs-service-cloudwatch-dashboard" {
   ]
 }
 
+data "aws_region" "current" {}
