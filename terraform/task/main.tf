@@ -1,8 +1,4 @@
 
-locals {
-  unique_name = "${var.name}-${random_id.name_suffix.b64_url}"
-}
-
 resource "random_id" "name_suffix" {
   byte_length = 6
 }
@@ -47,7 +43,7 @@ resource "aws_iam_role_policy" "this" {
 }
 
 resource "aws_cloudwatch_event_rule" "this" {
-  name                = local.unique_name
+  name                = var.name
   description         = var.event_rule_description == "" ? "Start ${var.name} task" : var.event_rule_description
   schedule_expression = var.event_schedule
   is_enabled          = var.enable
@@ -55,7 +51,7 @@ resource "aws_cloudwatch_event_rule" "this" {
 }
 
 resource "aws_cloudwatch_event_target" "this" {
-  target_id = local.unique_name
+  target_id = var.name
   rule      = aws_cloudwatch_event_rule.this.name
   arn       = var.ecs_cluster_arn
   role_arn  = aws_iam_role.this.arn
