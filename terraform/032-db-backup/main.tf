@@ -131,29 +131,6 @@ moved {
   to   = module.backup_task.aws_iam_role.this
 }
 
-/*
- * Create role for scheduled running of cron task definitions.
- */
-resource "aws_iam_role" "ecs_events" {
-  name = "ecs_events-${var.idp_name}-${var.app_name}-${var.app_env}"
-
-  assume_role_policy = jsonencode(
-    {
-      Version = "2012-10-17"
-      Statement = [
-        {
-          Sid    = ""
-          Effect = "Allow"
-          Principal = {
-            Service = "events.amazonaws.com"
-          },
-          Action = "sts:AssumeRole"
-        },
-      ]
-    }
-  )
-}
-
 moved {
   from = aws_iam_role_policy.ecs_events_run_task_with_any_role
   to   = module.backup_task.aws_iam_role_policy.this
