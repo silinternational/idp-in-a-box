@@ -126,16 +126,6 @@ module "backup_task" {
   }
 }
 
-moved {
-  from = aws_iam_role.ecs_events
-  to   = module.backup_task.aws_iam_role.this
-}
-
-moved {
-  from = aws_iam_role_policy.ecs_events_run_task_with_any_role
-  to   = module.backup_task.aws_iam_role_policy.this
-}
-
 /*
  * Create cron task definition
  */
@@ -147,16 +137,6 @@ resource "aws_ecs_task_definition" "cron_td" {
 
 locals {
   event_schedule = var.cron_schedule != "" ? var.cron_schedule : var.event_schedule
-}
-
-moved {
-  from = aws_cloudwatch_event_rule.event_rule
-  to   = module.backup_task.aws_cloudwatch_event_rule.this
-}
-
-moved {
-  from = aws_cloudwatch_event_target.backup_event_target
-  to   = module.backup_task.aws_cloudwatch_event_target.this
 }
 
 /*

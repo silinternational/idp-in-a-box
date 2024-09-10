@@ -240,26 +240,6 @@ module "cron_task" {
   }
 }
 
-moved {
-  from = aws_iam_role.ecs_events
-  to   = module.cron_task.aws_iam_role.this
-}
-
-moved {
-  from = aws_iam_role_policy.ecs_events_run_task_with_any_role
-  to   = module.cron_task.aws_iam_role_policy.this
-}
-
-moved {
-  from = aws_cloudwatch_event_rule.event_rule
-  to   = module.cron_task.aws_cloudwatch_event_rule.this
-}
-
-moved {
-  from = aws_cloudwatch_event_target.event_target
-  to   = module.cron_task.aws_cloudwatch_event_target.this
-}
-
 /*
  * Create Cloudflare DNS record(s)
  */
