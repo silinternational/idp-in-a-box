@@ -50,7 +50,9 @@ locals {
 }
 
 module "cron_task" {
-  source                 = "../task"
+  source  = "silinternational/scheduled-ecs-task/aws"
+  version = "0.1.0"
+
   name                   = "${var.idp_name}-${var.app_name}-cron-${var.app_env}-${local.aws_region}"
   event_rule_description = "Start ID Sync scheduled tasks"
   enable                 = var.enable_sync

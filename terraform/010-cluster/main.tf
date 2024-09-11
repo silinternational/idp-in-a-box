@@ -2,7 +2,9 @@
  * Create VPC
  */
 module "vpc" {
-  source                                          = "github.com/silinternational/terraform-modules//aws/vpc?ref=8.13.1"
+  source  = "silinternational/vpc/aws"
+  version = "~> 1.0"
+
   app_name                                        = var.app_name
   app_env                                         = var.app_env
   aws_zones                                       = var.aws_zones
@@ -65,7 +67,9 @@ data "aws_acm_certificate" "wildcard" {
  * Create application load balancer for public access
  */
 module "alb" {
-  source          = "github.com/silinternational/terraform-modules//aws/alb?ref=8.13.1"
+  source  = "silinternational/alb/aws"
+  version = "~> 1.0"
+
   app_name        = var.app_name
   app_env         = var.app_env
   internal        = "false"
@@ -111,7 +115,7 @@ module "ecs-service-cloudwatch-dashboard" {
   count = var.create_dashboard ? 1 : 0
 
   source  = "silinternational/ecs-service-cloudwatch-dashboard/aws"
-  version = "~> 3.0.1"
+  version = "~> 3.1"
 
   cluster_name   = var.ecs_cluster_name
   dashboard_name = "${var.app_name}-${var.app_env}-${data.aws_region.current.name}"
