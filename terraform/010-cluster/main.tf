@@ -83,7 +83,9 @@ module "alb" {
  * Create application load balancer for internal use
  */
 module "internal_alb" {
-  source          = "github.com/silinternational/terraform-modules//aws/alb?ref=8.13.1"
+  source  = "silinternational/alb/aws"
+  version = "~> 1.0"
+
   alb_name        = "alb-${var.app_name}-${var.app_env}-int"
   app_name        = var.app_name
   app_env         = var.app_env
