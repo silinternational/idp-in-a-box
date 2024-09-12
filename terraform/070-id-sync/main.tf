@@ -49,51 +49,20 @@ locals {
   })
 }
 
-/*
- * Create role for scheduled running of cron task definitions.
- */
-resource "aws_iam_role" "ecs_events" {
-  name = "ecs_events-${var.idp_name}-${var.app_name}-${var.app_env}-${local.aws_region}"
+module "cron_task" {
+  source  = "silinternational/scheduled-ecs-task/aws"
+  version = "0.1.0"
 
-  assume_role_policy = jsonencode(
-    {
-      Version = "2012-10-17"
-      Statement = [
-        {
-          Sid    = ""
-          Effect = "Allow"
-          Principal = {
-            Service = "events.amazonaws.com"
-          }
-          Action = "sts:AssumeRole"
-        },
-      ]
-    }
-  )
-}
-
-resource "aws_iam_role_policy" "ecs_events_run_task_with_any_role" {
-  name = "ecs_events_run_task_with_any_role"
-  role = aws_iam_role.ecs_events.id
-
-  policy = jsonencode(
-    {
-      Version = "2012-10-17"
-      Statement = [
-        {
-          Effect   = "Allow"
-          Action   = "iam:PassRole"
-          Resource = "*"
-        },
-        {
-          Effect   = "Allow"
-          Action   = "ecs:RunTask"
-          Resource = "${aws_ecs_task_definition.cron_td.arn_without_revision}:*"
-        },
-      ]
-    }
-  )
-
+  name                   = "${var.idp_name}-${var.app_name}-cron-${var.app_env}-${local.aws_region}"
+  event_rule_description = "Start ID Sync scheduled tasks"
+  enable                 = var.enable_sync
+  event_schedule         = var.event_schedule
+  ecs_cluster_arn        = var.ecs_cluster_id
+  task_definition_arn    = aws_ecs_task_definition.cron_td.arn
+  tags = {
+    app_name = var.app_name
+    app_env  = var.app_env
+  }
 }
 
 /*
@@ -104,35 +73,6 @@ resource "aws_ecs_task_definition" "cron_td" {
   container_definitions = local.task_def
   network_mode          = "bridge"
   task_role_arn         = one(module.ecs_role[*].role_arn)
-}
-
-/*
- * CloudWatch configuration to start scheduled tasks.
- */
-resource "aws_cloudwatch_event_rule" "event_rule" {
-  name        = "${var.idp_name}-${var.app_name}-${var.app_env}"
-  description = "Start ID Sync scheduled tasks"
-  is_enabled  = var.enable_sync
-
-  schedule_expression = var.event_schedule
-
-  tags = {
-    app_name = var.app_name
-    app_env  = var.app_env
-  }
-}
-
-resource "aws_cloudwatch_event_target" "id_sync_event_target" {
-  target_id = "${var.idp_name}-${var.app_name}-${var.app_env}"
-  rule      = aws_cloudwatch_event_rule.event_rule.name
-  arn       = var.ecs_cluster_id
-  role_arn  = aws_iam_role.ecs_events.arn
-
-  ecs_target {
-    task_count          = 1
-    launch_type         = "EC2"
-    task_definition_arn = aws_ecs_task_definition.cron_td.arn
-  }
 }
 
 /*

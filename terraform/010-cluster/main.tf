@@ -2,7 +2,9 @@
  * Create VPC
  */
 module "vpc" {
-  source                                          = "github.com/silinternational/terraform-modules//aws/vpc?ref=8.7.0"
+  source  = "silinternational/vpc/aws"
+  version = "~> 1.0"
+
   app_name                                        = var.app_name
   app_env                                         = var.app_env
   aws_zones                                       = var.aws_zones
@@ -20,7 +22,7 @@ module "vpc" {
  * Security group to limit traffic to Cloudflare IPs
  */
 module "cloudflare-sg" {
-  source = "github.com/silinternational/terraform-modules//aws/cloudflare-sg?ref=8.7.0"
+  source = "github.com/silinternational/terraform-modules//aws/cloudflare-sg?ref=8.13.1"
   vpc_id = module.vpc.id
 }
 
@@ -41,7 +43,7 @@ data "aws_ami" "ecs_ami" {
  * Create auto-scaling group
  */
 module "asg" {
-  source                  = "github.com/silinternational/terraform-modules//aws/asg?ref=8.7.0"
+  source                  = "github.com/silinternational/terraform-modules//aws/asg?ref=8.13.1"
   app_name                = var.app_name
   app_env                 = var.app_env
   aws_instance            = var.aws_instance
@@ -65,7 +67,9 @@ data "aws_acm_certificate" "wildcard" {
  * Create application load balancer for public access
  */
 module "alb" {
-  source          = "github.com/silinternational/terraform-modules//aws/alb?ref=8.7.0"
+  source  = "silinternational/alb/aws"
+  version = "~> 1.0"
+
   app_name        = var.app_name
   app_env         = var.app_env
   internal        = "false"
@@ -79,7 +83,7 @@ module "alb" {
  * Create application load balancer for internal use
  */
 module "internal_alb" {
-  source          = "github.com/silinternational/terraform-modules//aws/alb?ref=8.7.0"
+  source          = "github.com/silinternational/terraform-modules//aws/alb?ref=8.13.1"
   alb_name        = "alb-${var.app_name}-${var.app_env}-int"
   app_name        = var.app_name
   app_env         = var.app_env
@@ -111,7 +115,7 @@ module "ecs-service-cloudwatch-dashboard" {
   count = var.create_dashboard ? 1 : 0
 
   source  = "silinternational/ecs-service-cloudwatch-dashboard/aws"
-  version = "~> 3.0.1"
+  version = "~> 3.1"
 
   cluster_name   = var.ecs_cluster_name
   dashboard_name = "${var.app_name}-${var.app_env}-${data.aws_region.current.name}"
