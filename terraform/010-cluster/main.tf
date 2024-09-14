@@ -22,7 +22,7 @@ module "vpc" {
  * Security group to limit traffic to Cloudflare IPs
  */
 module "cloudflare-sg" {
-  source = "github.com/silinternational/terraform-modules//aws/cloudflare-sg?ref=8.13.1"
+  source = "github.com/silinternational/terraform-modules//aws/cloudflare-sg?ref=8.13.2"
   vpc_id = module.vpc.id
 }
 
@@ -43,7 +43,7 @@ data "aws_ami" "ecs_ami" {
  * Create auto-scaling group
  */
 module "asg" {
-  source                  = "github.com/silinternational/terraform-modules//aws/asg?ref=8.13.1"
+  source                  = "github.com/silinternational/terraform-modules//aws/asg?ref=8.13.2"
   app_name                = var.app_name
   app_env                 = var.app_env
   aws_instance            = var.aws_instance
