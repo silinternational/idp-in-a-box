@@ -214,7 +214,7 @@ module "ecsservice" {
 
 module "cron_task" {
   source  = "silinternational/scheduled-ecs-task/aws"
-  version = "0.1.0"
+  version = "~> 0.1"
 
   name                   = "${var.idp_name}-${var.app_name}-cron-${var.app_env}-${local.aws_region}"
   event_rule_description = "Start broker scheduled tasks"
