@@ -73,15 +73,12 @@ services:
       SECURE_COOKIE: "false"
       SHOW_SAML_ERRORS: "true"
       THEME_COLOR_SCHEME: "orange-light_blue"
-      THEME_USE: material:material
-#      THEME_USE: default
       BASE_URL_PATH: http://ssp.local/
       ID_BROKER_ACCESS_TOKEN: abc123abc123
       ID_BROKER_BASE_URI: http://broker
       ID_BROKER_ASSERT_VALID_IP: "false"
       ID_BROKER_TRUSTED_IP_RANGES: 192.168.29.0/24
       IDP_DOMAIN_NAME: ssp.local
-      IDP_NAME: development
       MYSQL_HOST: db-ssp
       MYSQL_DATABASE: ssp
       MYSQL_USER: ssp

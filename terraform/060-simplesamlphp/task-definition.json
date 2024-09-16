@@ -54,16 +54,8 @@
         "value": "${base_url}"
       },
       {
-        "name": "DELETE_REMEMBER_ME_ON_LOGOUT",
-        "value": "${delete_remember_me_on_logout}"
-      },
-      {
         "name": "ENABLE_DEBUG",
         "value": "${enable_debug}"
-      },
-      {
-        "name": "ENABLE_HUB_AUTHPROCS",
-        "value": "true"
       },
       {
         "name": "SECRET_SALT",
@@ -80,10 +72,6 @@
       {
         "name": "THEME_COLOR_SCHEME",
         "value": "${theme_color_scheme}"
-      },
-      {
-        "name": "THEME_USE",
-        "value": "${theme_use}"
       },
       {
         "name": "PASSWORD_CHANGE_URL",
@@ -160,14 +148,6 @@
       {
         "name": "IDP_DOMAIN_NAME",
         "value": "${idp_domain_name}"
-      },
-      {
-        "name": "IDP_NAME",
-        "value": "${idp_name}"
-      },
-      {
-        "name": "IDP_DISPLAY_NAME",
-        "value": "${idp_display_name}"
       },
       {
         "name": "TRUSTED_IP_ADDRESSES",

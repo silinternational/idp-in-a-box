@@ -46,11 +46,6 @@ variable "cloudwatch_log_group_name" {
   type = string
 }
 
-variable "delete_remember_me_on_logout" {
-  type    = string
-  default = "false"
-}
-
 variable "docker_image" {
   type = string
 }
@@ -152,10 +147,6 @@ variable "idp_name" {
   type = string
 }
 
-variable "idp_display_name" {
-  type = string
-}
-
 variable "show_saml_errors" {
   type    = string
   default = "false"
@@ -164,11 +155,6 @@ variable "show_saml_errors" {
 variable "theme_color_scheme" {
   type    = string
   default = "indigo-purple"
-}
-
-variable "theme_use" {
-  type    = string
-  default = "material:material"
 }
 
 variable "trusted_ip_addresses" {

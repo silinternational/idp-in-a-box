@@ -44,7 +44,6 @@ This module is used to create an ECS service running simpleSAMLphp.
 ## Optional Inputs
 
  - `create_dns_record` - Controls creation of a DNS CNAME record for the ECS service. Default: `true`
- - `delete_remember_me_on_logout` - Whether or not to delete remember me cookie on logout. Default: `false`
  - `enable_debug` - Enable debug logs. Default: `false`
  - `logging_level` - Minimum log level to log. DO NOT use DEBUG in production. Allowed values: ERR, WARNING, NOTICE, INFO, DEBUG. Default: `NOTICE`
  - `mfa_learn_more_url` - URL to learn more about 2SV during profile review. Default: (link not displayed)
@@ -102,14 +101,12 @@ module "ssp" {
   alb_dns_name                 = data.terraform_remote_state.cluster.alb_dns_name
   idp_name                     = var.idp_name
   theme_color_scheme           = var.theme_color_scheme
-  theme_use                    = var.theme_use
   trusted_ip_addresses = concat(
     var.trusted_ip_addresses,
     data.terraform_remote_state.cluster.outputs.public_subnet_cidr_blocks,
   )
   analytics_id                 = var.analytics_id
   show_saml_errors             = var.show_saml_errors
-  delete_remember_me_on_logout = var.delete_remember_me_on_logout
   help_center_url              = data.terraform_remote_state.broker.help_center_url
   enable_debug                 = var.enable_debug
   logging_level                = var.logging_level
