@@ -1,5 +1,13 @@
 data "http" "function-checksum" {
   url = "https://${var.function_bucket_name}.s3.amazonaws.com/${var.function_zip_name}.sum"
+
+
+  lifecycle {
+    postcondition {
+      condition     = contains([201, 204], self.status_code)
+      error_message = "Status code invalid"
+    }
+  }
 }
 
 resource "aws_iam_role" "functionRole" {
