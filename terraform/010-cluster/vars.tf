@@ -24,6 +24,7 @@ variable "cert_domain_name" {
 variable "cloudflare_domain" {
   description = "The base domain name to be used for Cloudflare resources, e.g. example.net"
   type        = string
+  default     = ""
 }
 
 variable "create_dashboard" {
