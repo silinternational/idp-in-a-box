@@ -21,6 +21,12 @@ variable "cert_domain_name" {
   type = string
 }
 
+variable "cloudflare_domain" {
+  description = "The base domain name to be used for Cloudflare resources, e.g. example.net"
+  type        = string
+  default     = ""
+}
+
 variable "create_dashboard" {
   description = "Set to false to remove the Cloudwatch Dashboard"
   type        = bool
