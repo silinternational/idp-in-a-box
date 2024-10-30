@@ -150,7 +150,7 @@ resource "cloudflare_ruleset" "nat" {
   rules {
     action      = "skip"
     expression  = "(ip.src eq ${module.vpc.nat_gateway_ip})"
-    description = "skip outbound NAT gateway IP address"
+    description = "${var.idp_name} NAT gateway skip bot protection"
     enabled     = true
     action_parameters {
       phases = [
