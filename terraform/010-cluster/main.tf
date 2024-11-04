@@ -114,7 +114,7 @@ resource "aws_cloudwatch_log_group" "logs" {
  * Create CloudWatch Dashboard for services that will be in this cluster
  */
 module "ecs-service-cloudwatch-dashboard" {
-  count = var.create_dashboard ? 1 : 0
+  count = var.create_dashboard && var.cloudflare_domain != "" ? 1 : 0
 
   source  = "silinternational/ecs-service-cloudwatch-dashboard/aws"
   version = "~> 3.1"
@@ -136,3 +136,33 @@ module "ecs-service-cloudwatch-dashboard" {
 }
 
 data "aws_region" "current" {}
+
+
+resource "cloudflare_ruleset" "nat" {
+  count = var.create_nat_gateway ? 1 : 0
+
+  zone_id     = data.cloudflare_zone.this.id
+  name        = "Bypass bot protection"
+  description = "Skip super bot fight mode to ensure id-broker can access MFA API"
+  kind        = "zone"
+  phase       = "http_request_firewall_custom"
+
+  rules {
+    action      = "skip"
+    expression  = "(ip.src eq ${module.vpc.nat_gateway_ip})"
+    description = "${var.idp_name} NAT gateway skip bot protection"
+    enabled     = true
+    action_parameters {
+      phases = [
+        "http_request_sbfm"
+      ]
+    }
+    logging {
+      enabled = true
+    }
+  }
+}
+
+data "cloudflare_zone" "this" {
+  name = var.cloudflare_domain
+}
