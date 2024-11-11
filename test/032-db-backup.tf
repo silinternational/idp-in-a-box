@@ -20,7 +20,7 @@ module "backup" {
   vpc_id                           = ""
   enable_aws_backup                = true
   aws_backup_schedule              = ""
-  aws_backup_notification_events   = ""
+  aws_backup_notification_events   = [""]
   backup_sns_email                 = ""
   delete_recovery_point_after_days = 7
 }
