@@ -157,7 +157,8 @@ module "aws_backup" {
   notification_events    = var.aws_backup_notification_events
   sns_topic_name         = "${var.idp_name}-backup-vault-events"
   sns_email_subscription = var.backup_sns_email
-  delete_after           = 4
+  cold_storage_after     = 0
+  delete_after           = var.delete_recovery_point_after_days
 }
 
 data "aws_db_instance" "this" {
