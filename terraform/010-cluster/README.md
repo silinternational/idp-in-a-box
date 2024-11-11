@@ -12,7 +12,6 @@ ssl certificate, core application load balancer, and a CloudWatch log group
  - Create CloudWatch log group
  - Optionally create a Cloudwatch dashboard
  - Optionally create a NAT gateway
- - Create a Cloudflare rule to allow access to the NAT gateway (if enabled)
 
 ## Required Inputs
 
