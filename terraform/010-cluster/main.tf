@@ -114,7 +114,7 @@ resource "aws_cloudwatch_log_group" "logs" {
  * Create CloudWatch Dashboard for services that will be in this cluster
  */
 module "ecs-service-cloudwatch-dashboard" {
-  count = var.create_dashboard && var.cloudflare_domain != "" ? 1 : 0
+  count = var.create_dashboard ? 1 : 0
 
   source  = "silinternational/ecs-service-cloudwatch-dashboard/aws"
   version = "~> 3.1"
