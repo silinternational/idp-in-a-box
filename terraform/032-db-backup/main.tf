@@ -148,7 +148,7 @@ module "aws_backup" {
   count = var.enable_aws_backup ? 1 : 0
 
   source  = "silinternational/backup/aws"
-  version = "~> 0.2.0"
+  version = "~> 0.2.2"
 
   app_name               = var.idp_name
   app_env                = var.app_env
@@ -157,6 +157,8 @@ module "aws_backup" {
   notification_events    = var.aws_backup_notification_events
   sns_topic_name         = "${var.idp_name}-backup-vault-events"
   sns_email_subscription = var.backup_sns_email
+  cold_storage_after     = 0
+  delete_after           = var.delete_recovery_point_after_days
 }
 
 data "aws_db_instance" "this" {

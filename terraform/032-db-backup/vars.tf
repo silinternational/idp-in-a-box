@@ -115,3 +115,9 @@ variable "backup_sns_email" {
   type        = string
   default     = ""
 }
+
+variable "delete_recovery_point_after_days" {
+  description = "Number of days after which AWS Backup recovery points are deleted"
+  type        = number
+  default     = 100
+}

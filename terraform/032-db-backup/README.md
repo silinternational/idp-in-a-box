@@ -27,6 +27,7 @@ This module is used to run mysqldump and backup files to S3
  - `cpu` - CPU resources to allot to each task instance
  - `cron_schedule` - Schedule for CRON execution. DEPRECATED: use event_schedule`
  - `event_schedule` - Schedule for backup task execution. Default: `cron(0 2 * * ? *)`
+ - `delete_recovery_point_after_days` - Number of days after which AWS Backup recovery points are deleted. Default: 100
  - `db_names` - List of database names to backup. Default: `["emailservice", "idbroker", "pwmanager", "ssp"]`
  - `memory` - Memory (RAM) resources to allot to each task instance
  - `service_mode` - Either `backup` or `restore`. Default: `backup`
