@@ -6,7 +6,6 @@ module "cluster" {
   aws_instance             = { a = "b" }
   aws_zones                = [""]
   cert_domain_name         = ""
-  cloudflare_domain        = ""
   create_nat_gateway       = true
   ecs_cluster_name         = ""
   ecs_instance_profile_id  = ""
