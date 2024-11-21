@@ -27,10 +27,8 @@ This module is used to create an ECS service running email-service.
  - `mysql_pass` - MySQL password for email-service
  - `mysql_user` - MySQL username for email-service
  - `notification_email` - Email address to send alerts/notifications to
- - `ssl_policy` - SSL policy
  - `subdomain` - Subdomain for email-service
  - `vpc_id` - ID for VPC
- - `wildcard_cert_arn` - ARN to ACM wildcard certificate
 
 ## Optional Inputs
 
@@ -89,9 +87,7 @@ module "email" {
   mysql_pass                = data.terraform_remote_state.database.db_emailservice_pass
   mysql_user                = var.mysql_user
   notification_email        = var.notification_email
-  ssl_policy                = var.ssl_policy
   subdomain                 = var.email_subdomain
   vpc_id                    = data.terraform_remote_state.cluster.vpc_id
-  wildcard_cert_arn         = data.terraform_remote_state.cluster.wildcard_cert_arn
 }
 ```

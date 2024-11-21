@@ -24,12 +24,6 @@ variable "app_name" {
   description = "Used in ECS service names and logs, best to leave as default."
 }
 
-variable "aws_region" {
-  description = "This is not used. The region is more reliably determined from the aws_region data source."
-  type        = string
-  default     = ""
-}
-
 variable "cloudflare_domain" {
   type = string
 }
@@ -83,15 +77,18 @@ variable "email_repeat_delay_days" {
 
 variable "email_service_accessToken" {
   description = "Access Token for Email Service API"
+  type        = string
 }
 
 variable "email_service_assertValidIp" {
   description = "Whether or not to assert IP address for Email Service API is trusted"
+  type        = string
   default     = "true"
 }
 
 variable "email_service_baseUrl" {
   description = "Base URL to Email Service API"
+  type        = string
 }
 
 variable "email_service_validIpRanges" {
@@ -128,8 +125,8 @@ variable "ga_measurement_id" {
 }
 
 variable "google_config" {
-  type        = map(string)
   description = "A map of Google properties for Sheets export"
+  type        = map(string)
   default     = { enableSheetsExport = false }
 }
 
@@ -174,6 +171,7 @@ variable "idp_display_name" {
 
 variable "idp_name" {
   description = "Short name of IdP for logs, something like 'acme'"
+  type        = string
 }
 
 variable "inactive_user_period" {
@@ -460,10 +458,6 @@ variable "sentry_dsn" {
   default     = ""
 }
 
-variable "ssl_policy" {
-  type = string
-}
-
 variable "subdomain" {
   description = "The subdomain for id-broker, without an embedded region in it (e.g. 'broker', NOT 'broker-us-east-1')"
   type        = string
@@ -574,10 +568,6 @@ variable "support_name" {
 }
 
 variable "vpc_id" {
-  type = string
-}
-
-variable "wildcard_cert_arn" {
   type = string
 }
 

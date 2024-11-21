@@ -100,6 +100,6 @@ variable "vpc_cidr_block" {
 
 variable "log_retention_in_days" {
   description = "Number of days to retain CloudWatch application logs"
-  default     = 30
   type        = number
+  default     = 30
 }

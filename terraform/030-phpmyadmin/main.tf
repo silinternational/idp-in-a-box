@@ -13,4 +13,6 @@ module "phpmyadmin" {
   alb_dns_name           = var.alb_dns_name
   enable                 = var.enable
   upload_limit           = var.upload_limit
+  cpu                    = var.cpu
+  memory                 = var.memory
 }

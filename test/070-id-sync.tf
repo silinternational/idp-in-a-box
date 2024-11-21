@@ -28,5 +28,4 @@ module "sync" {
   memory                       = ""
   notifier_email_to            = ""
   sync_safety_cutoff           = ""
-  vpc_id                       = ""
 }

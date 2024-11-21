@@ -1,13 +1,16 @@
 variable "secret_salt" {
-  default     = ""
   description = "This allows for porting the value over from a primary to a secondary workspace (a random string that is 64 characters long)."
+  type        = string
+  default     = ""
 }
 
 variable "memory" {
+  type    = string
   default = "96"
 }
 
 variable "cpu" {
+  type    = string
   default = "150"
 }
 
@@ -26,12 +29,6 @@ variable "vpc_id" {
 
 variable "alb_https_listener_arn" {
   type = string
-}
-
-variable "aws_region" {
-  description = "This is not used. The region is more reliably determined from the aws_region data source."
-  type        = string
-  default     = ""
 }
 
 variable "subdomain" {
@@ -162,6 +159,7 @@ variable "trusted_ip_addresses" {
 }
 
 variable "desired_count" {
+  type    = string
   default = "1"
 }
 
@@ -174,13 +172,11 @@ variable "help_center_url" {
 }
 
 variable "admin_email" {
+  type = string
 }
 
 variable "admin_name" {
-}
-
-variable "trust_cloudflare_ips" {
-  default = ""
+  type = string
 }
 
 variable "create_dns_record" {

@@ -52,10 +52,12 @@ variable "alb_dns_name" {
 }
 
 variable "cpu" {
+  type    = string
   default = "32"
 }
 
 variable "memory" {
+  type    = string
   default = "128"
 }
 

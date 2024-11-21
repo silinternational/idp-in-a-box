@@ -61,8 +61,6 @@ module "cf_ips" {
 locals {
   subdomain_with_region = "${var.subdomain}-${local.aws_region}"
 
-  other_ip_addresses = var.trust_cloudflare_ips == "ipv4" ? module.cf_ips.ipv4_cidrs : []
-
   trusted_ip_addresses = concat(module.cf_ips.ipv4_cidrs, var.trusted_ip_addresses)
 
   secret_salt = var.secret_salt == "" ? random_id.secretsalt.hex : var.secret_salt

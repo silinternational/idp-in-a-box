@@ -51,7 +51,6 @@ This module is used to create an ECS service running simpleSAMLphp.
     A 64-character random string will be created automatically if not provided.
  - `show_saml_errors` - Whether or not to show saml errors. Default: `false`
  - `theme_color_scheme` - The color scheme to use for SSP. Default: `'indigo-purple'`
- - `trust_cloudflare_ips` - If set to `"ipv4"` Cloudflare IPV4 addresses will be included in `trusted_ip_addresses`
 
 ## Outputs
 
@@ -110,6 +109,5 @@ module "ssp" {
   help_center_url              = data.terraform_remote_state.broker.help_center_url
   enable_debug                 = var.enable_debug
   logging_level                = var.logging_level
-  trust_cloudflare_ips         = "ipv4"
 }
 ```

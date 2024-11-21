@@ -39,12 +39,10 @@ This module is used to create an ECS service running id-broker.
  - `mysql_pass` - MySQL password for id-broker
  - `mysql_user` - MySQL username for id-broker
  - `password_profile_url` - URL to password manager profile
- - `ssl_policy` - SSL policy
  - `subdomain` - Subdomain to use for this (id-broker) ECS service
  - `support_email` - Email address for support
  - `support_name` - Name for support. Default: `support`
  - `vpc_id` - ID for VPC
- - `wildcard_cert_arn` - ARN to ACM wildcard certificate
 
 ## Optional Inputs
 
@@ -232,7 +230,6 @@ module "broker" {
   send_password_expiring_emails    = var.send_password_expiring_emails
   send_refresh_backup_codes_emails = var.send_refresh_backup_codes_emails
   send_welcome_emails              = var.send_welcome_emails
-  ssl_policy                       = var.ssl_policy
   subdomain                        = var.broker_subdomain
   subject_for_get_backup_codes     = var.subject_for_get_backup_codes
   subject_for_invite               = var.subject_for_invite
@@ -255,6 +252,5 @@ module "broker" {
   support_email                    = var.support_email
   support_name                     = var.support_name
   vpc_id                           = data.terraform_remote_state.cluster.vpc_id
-  wildcard_cert_arn                = data.terraform_remote_state.cluster.wildcard_cert_arn
 }
 ```
