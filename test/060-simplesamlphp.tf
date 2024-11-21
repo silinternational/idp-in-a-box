@@ -42,7 +42,6 @@ module "ssp" {
   show_saml_errors            = ""
   subdomain                   = ""
   theme_color_scheme          = ""
-  trust_cloudflare_ips        = ""
   trusted_ip_addresses        = [""]
   vpc_id                      = ""
 }

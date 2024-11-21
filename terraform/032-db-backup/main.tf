@@ -1,14 +1,11 @@
 locals {
-  aws_account = data.aws_caller_identity.this.account_id
-  aws_region  = data.aws_region.current.name
+  aws_region = data.aws_region.current.name
 }
 
 
 /*
  * AWS data
  */
-
-data "aws_caller_identity" "this" {}
 
 data "aws_region" "current" {}
 

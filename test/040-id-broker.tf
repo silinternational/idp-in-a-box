@@ -94,7 +94,6 @@ module "broker" {
   send_password_expiring_emails              = ""
   send_refresh_backup_codes_emails           = ""
   send_welcome_emails                        = ""
-  ssl_policy                                 = ""
   subdomain                                  = ""
   subject_for_abandoned_users                = ""
   subject_for_get_backup_codes               = ""
@@ -118,5 +117,4 @@ module "broker" {
   support_email                              = ""
   support_name                               = ""
   vpc_id                                     = ""
-  wildcard_cert_arn                          = ""
 }

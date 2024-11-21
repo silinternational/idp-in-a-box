@@ -16,7 +16,6 @@ module "pw" {
   auth_saml_spCertificate             = ""
   auth_saml_spPrivateKey              = ""
   auth_saml_ssoUrl                    = ""
-  cd_user_username                    = ""
   cloudflare_domain                   = ""
   cloudwatch_log_group_name           = ""
   code_length                         = ""
@@ -57,5 +56,4 @@ module "pw" {
   support_url                         = ""
   ui_subdomain                        = ""
   vpc_id                              = ""
-  wildcard_cert_arn                   = ""
 }

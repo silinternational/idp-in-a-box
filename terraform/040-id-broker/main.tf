@@ -230,7 +230,7 @@ module "cron_task" {
         environment = [
           {
             "name" : "RUN_TASK",
-            "value" : "${var.run_task}"
+            "value" : var.run_task
           }
         ]
       }

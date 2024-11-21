@@ -6,14 +6,14 @@ module "pma" {
   alb_https_listener_arn = ""
   app_env                = ""
   cloudflare_domain      = ""
-  cpu                    = ""
   ecsServiceRole_arn     = ""
   ecs_cluster_id         = ""
   enable                 = true
   idp_name               = ""
-  memory                 = ""
   rds_address            = ""
   subdomain              = ""
   upload_limit           = ""
   vpc_id                 = ""
+  cpu                    = 0
+  memory                 = 0
 }

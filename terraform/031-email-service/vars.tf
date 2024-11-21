@@ -7,12 +7,6 @@ variable "app_name" {
   default = "email-service"
 }
 
-variable "aws_region" {
-  description = "WARNING: This is not used. The region is more reliably determined from the aws_region data source."
-  type        = string
-  default     = ""
-}
-
 variable "cloudflare_domain" {
   type = string
 }
@@ -22,10 +16,12 @@ variable "cloudwatch_log_group_name" {
 }
 
 variable "cpu_api" {
+  type    = string
   default = "32"
 }
 
 variable "cpu_cron" {
+  type    = string
   default = "100"
 }
 
@@ -117,10 +113,12 @@ variable "mailer_username" {
 }
 
 variable "memory_api" {
+  type    = string
   default = "96"
 }
 
 variable "memory_cron" {
+  type    = string
   default = "32"
 }
 
@@ -140,10 +138,6 @@ variable "notification_email" {
   type = string
 }
 
-variable "ssl_policy" {
-  type = string
-}
-
 variable "subdomain" {
   description = "The subdomain for email-service, without an embedded region in it (e.g. 'email', NOT 'email-us-east-1')"
   type        = string
@@ -153,11 +147,8 @@ variable "vpc_id" {
   type = string
 }
 
-variable "wildcard_cert_arn" {
-  type = string
-}
-
 variable "enable_cron" {
+  type    = bool
   default = true
 }
 

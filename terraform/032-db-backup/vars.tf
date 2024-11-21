@@ -7,12 +7,6 @@ variable "app_name" {
   default = "db-backup"
 }
 
-variable "aws_region" {
-  description = "This is not used. The region is more reliably determined from the aws_region data source."
-  type        = string
-  default     = ""
-}
-
 variable "backup_user_name" {
   type    = string
   default = null
@@ -52,10 +46,6 @@ variable "ecs_cluster_id" {
   type = string
 }
 
-variable "ecsServiceRole_arn" {
-  type = string
-}
-
 variable "event_schedule" {
   description = "Schedule for backup task execution. Default: `cron(0 2 * * ? *)"
   type        = string
@@ -86,10 +76,6 @@ variable "mysql_user" {
 variable "service_mode" {
   type    = string
   default = "backup"
-}
-
-variable "vpc_id" {
-  type = string
 }
 
 variable "enable_aws_backup" {

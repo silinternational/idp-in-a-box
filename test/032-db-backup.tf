@@ -9,7 +9,6 @@ module "backup" {
   event_schedule                   = ""
   db_names                         = [""]
   docker_image                     = ""
-  ecsServiceRole_arn               = ""
   ecs_cluster_id                   = ""
   idp_name                         = ""
   memory                           = ""
@@ -17,7 +16,6 @@ module "backup" {
   mysql_pass                       = ""
   mysql_user                       = ""
   service_mode                     = ""
-  vpc_id                           = ""
   enable_aws_backup                = true
   aws_backup_schedule              = ""
   aws_backup_notification_events   = [""]

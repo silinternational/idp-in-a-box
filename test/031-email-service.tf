@@ -15,7 +15,7 @@ module "email" {
   email_brand_color         = ""
   email_brand_logo          = ""
   email_queue_batch_size    = ""
-  enable_cron               = ""
+  enable_cron               = false
   from_email                = ""
   idp_name                  = ""
   internal_alb_dns_name     = ""
@@ -30,8 +30,6 @@ module "email" {
   mysql_pass                = ""
   mysql_user                = ""
   notification_email        = ""
-  ssl_policy                = ""
   subdomain                 = ""
   vpc_id                    = ""
-  wildcard_cert_arn         = ""
 }

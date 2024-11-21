@@ -3,6 +3,7 @@ variable "app_env" {
 }
 
 variable "app_name" {
+  type    = string
   default = "idp-id-broker-search"
 }
 
@@ -19,10 +20,12 @@ variable "function_bucket_name" {
 }
 
 variable "function_zip_name" {
+  type    = string
   default = "idp-id-broker-search.zip"
 }
 
 variable "function_name" {
+  type    = string
   default = "idp-id-broker-search"
 }
 
@@ -37,11 +40,13 @@ variable "lambda_runtime" {
 }
 
 variable "memory_size" {
+  type    = string
   default = "128"
 }
 
 variable "remote_role_arn" {
   description = "ARN to role from different AWS account to be given permission to invoke function"
+  type        = string
 }
 
 variable "security_group_ids" {
@@ -53,6 +58,6 @@ variable "subnet_ids" {
 }
 
 variable "timeout" {
+  type    = string
   default = "5"
 }
-

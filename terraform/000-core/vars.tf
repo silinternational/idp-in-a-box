@@ -12,11 +12,13 @@ variable "cert_domain" {
 
 variable "create_acm_cert" {
   description = "Set to true if an ACM certificate is needed"
+  type        = bool
   default     = false
 }
 
 variable "create_cd_user" {
   description = "Set to false if an IAM user for continuous deployment is not needed"
+  type        = bool
   default     = true
 }
 
@@ -36,4 +38,3 @@ variable "appconfig_app_name" {
   type        = string
   default     = ""
 }
-

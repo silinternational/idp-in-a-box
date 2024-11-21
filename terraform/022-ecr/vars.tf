@@ -1,7 +1,3 @@
-variable "app_env" {
-  type = string
-}
-
 variable "idp_name" {
   type = string
 }
@@ -17,4 +13,3 @@ variable "ecsServiceRole_arn" {
 variable "cd_user_arn" {
   type = string
 }
-

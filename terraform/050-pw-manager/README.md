@@ -53,7 +53,6 @@ The password manager UI can be deployed using the [silinternatonal/pages/cloudfl
  - `support_name` - Name for end user support
  - `ui_subdomain` - Subdomain for PW UI
  - `vpc_id` - ID for VPC
- - `wildcard_cert_arn` - ARN to ACM wildcard cert
 
 ## Optional Inputs
 
@@ -96,7 +95,6 @@ module "pwmanager" {
   auth_saml_spCertificate             = var.auth_saml_spCertificate
   auth_saml_spPrivateKey              = var.auth_saml_spPrivateKey
   auth_saml_ssoUrl                    = var.auth_saml_ssoUrl
-  cd_user_username                    = data.terraform_remote_state.core.cduser_username
   cloudflare_domain                   = var.cloudflare_domain
   cloudwatch_log_group_name           = var.cloudwatch_log_group_name
   code_length                         = var.code_length
@@ -137,6 +135,5 @@ module "pwmanager" {
   support_url                         = var.support_url
   ui_subdomain                        = var.ui_subdomain
   vpc_id                              = data.terraform_remote_state.cluster.vpc_id
-  wildcard_cert_arn                   = data.terraform_remote_state.cluster.cloudfront_distribution_cert_arn
 }
 ```

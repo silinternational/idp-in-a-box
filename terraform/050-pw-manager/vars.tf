@@ -33,6 +33,7 @@ variable "app_name" {
 }
 
 variable "auth_saml_checkResponseSigning" {
+  type    = string
   default = "true"
 }
 
@@ -47,6 +48,7 @@ variable "auth_saml_idpCertificate" {
 }
 
 variable "auth_saml_requireEncryptedAssertion" {
+  type    = string
   default = "true"
 }
 
@@ -74,16 +76,6 @@ variable "auth_saml_spPrivateKey" {
 variable "auth_saml_ssoUrl" {
   description = "SSO url for IdP"
   type        = string
-}
-
-variable "aws_region" {
-  description = "This is not used. The region is more reliably determined from the aws_region data source."
-  type        = string
-  default     = ""
-}
-
-variable "cd_user_username" {
-  type = string
 }
 
 variable "cloudflare_domain" {
@@ -129,15 +121,18 @@ variable "ecsServiceRole_arn" {
 
 variable "email_service_accessToken" {
   description = "Access Token for Email Service API"
+  type        = string
 }
 
 variable "email_service_assertValidIp" {
   description = "Whether or not to assert IP address for Email Service API is trusted"
+  type        = string
   default     = "true"
 }
 
 variable "email_service_baseUrl" {
   description = "Base URL to Email Service API"
+  type        = string
 }
 
 variable "email_service_validIpRanges" {
@@ -166,6 +161,7 @@ variable "id_broker_access_token" {
 
 variable "id_broker_assertValidBrokerIp" {
   description = "Whether or not to assert IP address for ID Broker API is trusted"
+  type        = string
   default     = "true"
 }
 
@@ -190,6 +186,7 @@ variable "idp_name" {
 
 variable "memory" {
   description = "Amount of memory to allocate to container, recommend '128' for production"
+  type        = string
   default     = "100"
 }
 
@@ -273,10 +270,6 @@ variable "ui_subdomain" {
 }
 
 variable "vpc_id" {
-  type = string
-}
-
-variable "wildcard_cert_arn" {
   type = string
 }
 
