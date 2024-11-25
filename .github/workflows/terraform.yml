@@ -5,8 +5,8 @@ on:
     branches: [ '**' ]
 
 jobs:
-  build:
+  test:
     uses: silinternational/workflows/.github/workflows/terraform.yml@main
     with:
       terraform-version: '~> 1.1'
-      directory: test
+      test-dir: test
