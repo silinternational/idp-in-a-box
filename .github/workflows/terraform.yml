@@ -6,7 +6,7 @@ on:
 
 jobs:
   test:
-    uses: silinternational/workflows/.github/workflows/terraform.yml@test-dir
+    uses: silinternational/workflows/.github/workflows/terraform.yml@main
     with:
       terraform-version: '~> 1.1'
       test-dir: test
