@@ -9,4 +9,4 @@ jobs:
     uses: silinternational/workflows/.github/workflows/terraform.yml@test-dir
     with:
       terraform-version: '~> 1.1'
-      test-dir: test
+#      test-dir: test
