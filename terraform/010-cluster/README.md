@@ -27,6 +27,8 @@ ssl certificate, core application load balancer, and a CloudWatch log group
 ## Optional Inputs
 
 - `create_nat_gateway` - default `true`
+- `disable_public_ipv4` - Set to true to remove the public IPv4 addresses from the ALB. Requires enable_ipv6 = true.
+- `enable_ipv6` - Set to true to enable IPv6 in the ALB and VPC
 - `private_subnet_cidr_blocks`
 - `public_subnet_cidr_blocks`
 - `vpc_cidr_block`
