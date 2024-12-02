@@ -33,6 +33,18 @@ variable "create_nat_gateway" {
   default     = true
 }
 
+variable "disable_public_ipv4" {
+  description = "Set to true to remove the public IPv4 addresses from the ALB. Requires enable_ipv6 = true"
+  type        = bool
+  default     = false
+}
+
+variable "enable_ipv6" {
+  description = "Set to true to enable IPV6 in the ALB and VPC"
+  type        = bool
+  default     = false
+}
+
 variable "use_transit_gateway" {
   description = "Set to true to attach a transit gateway to this VPC and route traffic to it. Use in conjunction with transit_gateway_id and create_nat_gateway=false."
   type        = bool

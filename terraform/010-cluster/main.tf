@@ -9,6 +9,7 @@ module "vpc" {
   app_env                                         = var.app_env
   aws_zones                                       = var.aws_zones
   create_nat_gateway                              = var.create_nat_gateway
+  enable_ipv6                                     = var.enable_ipv6
   private_subnet_cidr_blocks                      = var.private_subnet_cidr_blocks
   public_subnet_cidr_blocks                       = var.public_subnet_cidr_blocks
   vpc_cidr_block                                  = var.vpc_cidr_block
@@ -68,15 +69,17 @@ data "aws_acm_certificate" "wildcard" {
  */
 module "alb" {
   source  = "silinternational/alb/aws"
-  version = "~> 1.0"
+  version = "~> 1.1"
 
-  app_name        = var.app_name
-  app_env         = var.app_env
-  internal        = "false"
-  vpc_id          = module.vpc.id
-  security_groups = [module.vpc.vpc_default_sg_id, module.cloudflare-sg.id]
-  subnets         = module.vpc.public_subnet_ids
-  certificate_arn = data.aws_acm_certificate.wildcard.arn
+  app_name            = var.app_name
+  app_env             = var.app_env
+  enable_ipv6         = var.enable_ipv6
+  disable_public_ipv4 = var.disable_public_ipv4
+  internal            = "false"
+  vpc_id              = module.vpc.id
+  security_groups     = [module.vpc.vpc_default_sg_id, module.cloudflare-sg.id]
+  subnets             = module.vpc.public_subnet_ids
+  certificate_arn     = data.aws_acm_certificate.wildcard.arn
 }
 
 /*
