@@ -55,6 +55,7 @@ module "asg" {
   ami_id                  = data.aws_ami.ecs_ami.id
   additional_user_data    = var.asg_additional_user_data
   tags                    = var.tags
+  enable_ec2_detailed_monitoring = var.enable_ec2_detailed_monitoring
 }
 
 /*

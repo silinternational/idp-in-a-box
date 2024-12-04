@@ -115,3 +115,9 @@ variable "log_retention_in_days" {
   type        = number
   default     = 30
 }
+
+variable "enable_ec2_detailed_monitoring" {
+  description = "Whether to enable detailed monitoring for EC2 instances"
+  type        = bool
+  default     = false
+}
