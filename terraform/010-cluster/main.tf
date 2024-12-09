@@ -44,17 +44,18 @@ data "aws_ami" "ecs_ami" {
  * Create auto-scaling group
  */
 module "asg" {
-  source                  = "github.com/silinternational/terraform-modules//aws/asg?ref=8.13.2"
-  app_name                = var.app_name
-  app_env                 = var.app_env
-  aws_instance            = var.aws_instance
-  private_subnet_ids      = module.vpc.private_subnet_ids
-  default_sg_id           = module.vpc.vpc_default_sg_id
-  ecs_instance_profile_id = var.ecs_instance_profile_id
-  ecs_cluster_name        = var.ecs_cluster_name
-  ami_id                  = data.aws_ami.ecs_ami.id
-  additional_user_data    = var.asg_additional_user_data
-  tags                    = var.tags
+  source                         = "github.com/silinternational/terraform-modules//aws/asg?ref=8.14.1"
+  app_name                       = var.app_name
+  app_env                        = var.app_env
+  aws_instance                   = var.aws_instance
+  private_subnet_ids             = module.vpc.private_subnet_ids
+  default_sg_id                  = module.vpc.vpc_default_sg_id
+  ecs_instance_profile_id        = var.ecs_instance_profile_id
+  ecs_cluster_name               = var.ecs_cluster_name
+  ami_id                         = data.aws_ami.ecs_ami.id
+  additional_user_data           = var.asg_additional_user_data
+  tags                           = var.tags
+  enable_ec2_detailed_monitoring = var.enable_ec2_detailed_monitoring
 }
 
 /*
