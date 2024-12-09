@@ -12,5 +12,5 @@ module "cluster" {
   idp_name                       = ""
   asg_additional_user_data       = ""
   tags                           = {}
-  enable_ec2_detailed_monitoring = ""
+  enable_ec2_detailed_monitoring = false
 }
