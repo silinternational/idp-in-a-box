@@ -267,6 +267,10 @@
         "value": "${notification_email}"
       },
       {
+        "name": "PARAMETER_STORE_PATH",
+        "value": "${parameter_store_path}"
+      },
+      {
         "name": "PASSWORD_EXPIRATION_GRACE_PERIOD",
         "value": "${password_expiration_grace_period}"
       },

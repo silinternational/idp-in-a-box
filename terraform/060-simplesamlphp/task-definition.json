@@ -130,6 +130,10 @@
         "value": "${mysql_password}"
       },
       {
+        "name": "PARAMETER_STORE_PATH",
+        "value": "${parameter_store_path}"
+      },
+      {
         "name": "PROFILE_URL",
         "value":  "${profile_url}"
       },

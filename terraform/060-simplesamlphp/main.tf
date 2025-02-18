@@ -1,8 +1,9 @@
 locals {
-  aws_account         = data.aws_caller_identity.this.account_id
-  aws_region          = data.aws_region.current.name
-  config_id_or_null   = one(aws_appconfig_configuration_profile.this[*].configuration_profile_id)
-  appconfig_config_id = local.config_id_or_null == null ? "" : local.config_id_or_null
+  aws_account          = data.aws_caller_identity.this.account_id
+  aws_region           = data.aws_region.current.name
+  config_id_or_null    = one(aws_appconfig_configuration_profile.this[*].configuration_profile_id)
+  appconfig_config_id  = local.config_id_or_null == null ? "" : local.config_id_or_null
+  parameter_store_path = "/idp-${var.idp_name}/"
 }
 
 /*
@@ -96,6 +97,7 @@ locals {
     mysql_host                  = var.mysql_host
     mysql_password              = var.mysql_pass
     mysql_user                  = var.mysql_user
+    parameter_store_path        = local.parameter_store_path
     profile_url                 = var.profile_url
     recaptcha_key               = var.recaptcha_key
     recaptcha_secret            = var.recaptcha_secret
@@ -191,7 +193,7 @@ resource "aws_iam_role_policy" "parameter_store" {
       Action = [
         "ssm:GetParametersByPath",
       ]
-      Resource = "arn:aws:ssm:*:${local.aws_account}:parameter/idp-${var.idp_name}/*"
+      Resource = "arn:aws:ssm:*:${local.aws_account}:parameter${local.parameter_store_path}*"
     }]
   })
 }

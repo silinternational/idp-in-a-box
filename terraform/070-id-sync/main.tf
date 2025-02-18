@@ -1,8 +1,9 @@
 locals {
-  aws_account         = data.aws_caller_identity.this.account_id
-  aws_region          = data.aws_region.current.name
-  config_id_or_null   = one(aws_appconfig_configuration_profile.this[*].configuration_profile_id)
-  appconfig_config_id = local.config_id_or_null == null ? "" : local.config_id_or_null
+  aws_account          = data.aws_caller_identity.this.account_id
+  aws_region           = data.aws_region.current.name
+  config_id_or_null    = one(aws_appconfig_configuration_profile.this[*].configuration_profile_id)
+  appconfig_config_id  = local.config_id_or_null == null ? "" : local.config_id_or_null
+  parameter_store_path = "/idp-${var.idp_name}/"
 
   /*
    * Create ECS service
@@ -40,6 +41,7 @@ locals {
     notifier_email_to            = var.notifier_email_to
     memory                       = var.memory
     cpu                          = var.cpu
+    parameter_store_path         = local.parameter_store_path
     sync_safety_cutoff           = var.sync_safety_cutoff
     allow_empty_email            = var.allow_empty_email
     enable_new_user_notification = var.enable_new_user_notification
@@ -117,7 +119,7 @@ resource "aws_iam_role_policy" "parameter_store" {
       Action = [
         "ssm:GetParametersByPath",
       ]
-      Resource = "arn:aws:ssm:*:${local.aws_account}:parameter/idp-${var.idp_name}/*"
+      Resource = "arn:aws:ssm:*:${local.aws_account}:parameter${local.parameter_store_path}*"
     }]
   })
 }

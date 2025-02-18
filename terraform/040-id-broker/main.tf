@@ -1,10 +1,11 @@
 locals {
-  aws_account         = data.aws_caller_identity.this.account_id
-  aws_region          = data.aws_region.current.name
-  config_id_or_null   = one(aws_appconfig_configuration_profile.this[*].configuration_profile_id)
-  appconfig_config_id = local.config_id_or_null == null ? "" : local.config_id_or_null
-  appconfig_app_id    = var.appconfig_app_id == "" ? var.app_id : var.appconfig_app_id
-  appconfig_env_id    = var.appconfig_env_id == "" ? var.env_id : var.appconfig_env_id
+  aws_account          = data.aws_caller_identity.this.account_id
+  aws_region           = data.aws_region.current.name
+  config_id_or_null    = one(aws_appconfig_configuration_profile.this[*].configuration_profile_id)
+  appconfig_config_id  = local.config_id_or_null == null ? "" : local.config_id_or_null
+  appconfig_app_id     = var.appconfig_app_id == "" ? var.app_id : var.appconfig_app_id
+  appconfig_env_id     = var.appconfig_env_id == "" ? var.env_id : var.appconfig_env_id
+  parameter_store_path = "/idp-${var.idp_name}/"
 }
 
 /*
@@ -151,6 +152,7 @@ locals {
     mysql_user                                 = var.mysql_user
     name                                       = "web"
     notification_email                         = var.notification_email
+    parameter_store_path                       = local.parameter_store_path
     password_expiration_grace_period           = var.password_expiration_grace_period
     password_lifespan                          = var.password_lifespan
     password_mfa_lifespan_extension            = var.password_mfa_lifespan_extension
@@ -300,7 +302,7 @@ resource "aws_iam_role_policy" "parameter_store" {
       Action = [
         "ssm:GetParametersByPath",
       ]
-      Resource = "arn:aws:ssm:*:${local.aws_account}:parameter/idp-${var.idp_name}/*"
+      Resource = "arn:aws:ssm:*:${local.aws_account}:parameter${local.parameter_store_path}*"
     }]
   })
 }

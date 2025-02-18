@@ -158,6 +158,10 @@
         "value": "${mysql_user}"
       },
       {
+        "name": "PARAMETER_STORE_PATH",
+        "value": "${parameter_store_path}"
+      },
+      {
         "name": "PASSWORD_RULE_enableHIBP",
         "value": "${password_rule_enablehibp}"
       },
