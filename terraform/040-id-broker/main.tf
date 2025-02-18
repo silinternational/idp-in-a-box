@@ -209,7 +209,7 @@ module "ecsservice" {
   tg_arn             = aws_alb_target_group.broker.arn
   lb_container_name  = "web"
   lb_container_port  = "80"
-  task_role_arn      = one(module.ecs_role[*].role_arn)
+  task_role_arn      = module.ecs_role.role_arn
 }
 
 module "cron_task" {
@@ -262,7 +262,6 @@ data "cloudflare_zone" "domain" {
  * Create ECS role
  */
 module "ecs_role" {
-  count  = local.appconfig_app_id == "" ? 0 : 1
   source = "../ecs-role"
 
   name = "ecs-${var.idp_name}-${var.app_name}-${var.app_env}-${local.aws_region}"
@@ -272,7 +271,7 @@ resource "aws_iam_role_policy" "this" {
   count = local.appconfig_app_id == "" ? 0 : 1
 
   name = "appconfig"
-  role = one(module.ecs_role[*].role_name)
+  role = module.ecs_role.role_name
   policy = jsonencode(
     {
       Version = "2012-10-17"
@@ -290,6 +289,21 @@ resource "aws_iam_role_policy" "this" {
   })
 }
 
+resource "aws_iam_role_policy" "parameter_store" {
+  name = "parameter-store"
+  role = module.ecs_role.role_name
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Sid    = "ParameterStore"
+      Effect = "Allow"
+      Action = [
+        "ssm:GetParametersByPath",
+      ]
+      Resource = "arn:aws:ssm:*:${local.aws_account}:parameter/idp-${var.idp_name}/*"
+    }]
+  })
+}
 
 /*
  * Create AppConfig configuration profile

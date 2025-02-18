@@ -105,6 +105,22 @@ resource "aws_iam_role_policy" "appconfig" {
   })
 }
 
+resource "aws_iam_role_policy" "parameter_store" {
+  name = "parameter-store"
+  role = module.ecs_role.role_name
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Sid    = "ParameterStore"
+      Effect = "Allow"
+      Action = [
+        "ssm:GetParametersByPath",
+      ]
+      Resource = "arn:aws:ssm:*:${local.aws_account}:parameter/idp-${var.idp_name}/*"
+    }]
+  })
+}
+
 
 /*
  * Create ECS services

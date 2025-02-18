@@ -72,14 +72,13 @@ resource "aws_ecs_task_definition" "cron_td" {
   family                = "${var.idp_name}-${var.app_name}-cron-${var.app_env}"
   container_definitions = local.task_def
   network_mode          = "bridge"
-  task_role_arn         = one(module.ecs_role[*].role_arn)
+  task_role_arn         = module.ecs_role.role_arn
 }
 
 /*
  * Create ECS role
  */
 module "ecs_role" {
-  count  = var.appconfig_app_id == "" ? 0 : 1
   source = "../ecs-role"
 
   name = "ecs-${var.idp_name}-${var.app_name}-${var.app_env}-${local.aws_region}"
@@ -89,7 +88,7 @@ resource "aws_iam_role_policy" "this" {
   count = var.appconfig_app_id == "" ? 0 : 1
 
   name = "appconfig"
-  role = one(module.ecs_role[*].role_name)
+  role = module.ecs_role.role_name
   policy = jsonencode(
     {
       Version = "2012-10-17"
@@ -106,6 +105,23 @@ resource "aws_iam_role_policy" "this" {
       ]
   })
 }
+
+resource "aws_iam_role_policy" "parameter_store" {
+  name = "parameter-store"
+  role = module.ecs_role.role_name
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Sid    = "ParameterStore"
+      Effect = "Allow"
+      Action = [
+        "ssm:GetParametersByPath",
+      ]
+      Resource = "arn:aws:ssm:*:${local.aws_account}:parameter/idp-${var.idp_name}/*"
+    }]
+  })
+}
+
 
 /*
  * Create AppConfig configuration profile
