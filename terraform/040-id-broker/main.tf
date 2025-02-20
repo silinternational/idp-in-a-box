@@ -269,6 +269,11 @@ module "ecs_role" {
   name = "ecs-${var.idp_name}-${var.app_name}-${var.app_env}-${local.aws_region}"
 }
 
+moved {
+  from = module.ecs_role[0]
+  to   = module.ecs_role
+}
+
 resource "aws_iam_role_policy" "this" {
   count = local.appconfig_app_id == "" ? 0 : 1
 
