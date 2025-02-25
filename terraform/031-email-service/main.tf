@@ -156,7 +156,7 @@ locals {
     mysql_user                = var.mysql_user
     memory_api                = var.memory_api
     notification_email        = var.notification_email
-    parameter_store_path      = local.parameter_store_path
+    parameter_store_path      = var.appconfig_app_id == "" ? local.parameter_store_path : ""
   })
 }
 
@@ -202,7 +202,7 @@ locals {
     mysql_user                = var.mysql_user
     memory_cron               = var.memory_cron
     notification_email        = var.notification_email
-    parameter_store_path      = local.parameter_store_path
+    parameter_store_path      = var.appconfig_app_id == "" ? local.parameter_store_path : ""
   })
 }
 

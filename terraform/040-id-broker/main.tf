@@ -152,7 +152,7 @@ locals {
     mysql_user                                 = var.mysql_user
     name                                       = "web"
     notification_email                         = var.notification_email
-    parameter_store_path                       = local.parameter_store_path
+    parameter_store_path                       = var.appconfig_app_id == "" ? local.parameter_store_path : ""
     password_expiration_grace_period           = var.password_expiration_grace_period
     password_lifespan                          = var.password_lifespan
     password_mfa_lifespan_extension            = var.password_mfa_lifespan_extension

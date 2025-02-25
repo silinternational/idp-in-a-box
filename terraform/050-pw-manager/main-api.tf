@@ -104,7 +104,7 @@ locals {
     mysql_host                          = var.mysql_host
     mysql_password                      = var.mysql_pass
     mysql_user                          = var.mysql_user
-    parameter_store_path                = local.parameter_store_path
+    parameter_store_path                = var.appconfig_app_id == "" ? local.parameter_store_path : ""
     password_rule_enablehibp            = var.password_rule_enablehibp
     password_rule_maxlength             = var.password_rule_maxlength
     password_rule_minlength             = var.password_rule_minlength
