@@ -91,6 +91,10 @@
         "value": "${notifier_email_to}"
       },
       {
+        "name": "PARAMETER_STORE_PATH",
+        "value": "${parameter_store_path}"
+      },
+      {
         "name": "SYNC_SAFETY_CUTOFF",
         "value": "${sync_safety_cutoff}"
       },

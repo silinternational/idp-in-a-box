@@ -102,6 +102,10 @@
       {
         "name": "NOTIFICATION_EMAIL",
         "value": "${notification_email}"
+      },
+      {
+        "name": "PARAMETER_STORE_PATH",
+        "value": "${parameter_store_path}"
       }
     ],
     "links": null,

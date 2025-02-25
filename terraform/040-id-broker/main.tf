@@ -1,10 +1,11 @@
 locals {
-  aws_account         = data.aws_caller_identity.this.account_id
-  aws_region          = data.aws_region.current.name
-  config_id_or_null   = one(aws_appconfig_configuration_profile.this[*].configuration_profile_id)
-  appconfig_config_id = local.config_id_or_null == null ? "" : local.config_id_or_null
-  appconfig_app_id    = var.appconfig_app_id == "" ? var.app_id : var.appconfig_app_id
-  appconfig_env_id    = var.appconfig_env_id == "" ? var.env_id : var.appconfig_env_id
+  aws_account          = data.aws_caller_identity.this.account_id
+  aws_region           = data.aws_region.current.name
+  config_id_or_null    = one(aws_appconfig_configuration_profile.this[*].configuration_profile_id)
+  appconfig_config_id  = local.config_id_or_null == null ? "" : local.config_id_or_null
+  appconfig_app_id     = var.appconfig_app_id == "" ? var.app_id : var.appconfig_app_id
+  appconfig_env_id     = var.appconfig_env_id == "" ? var.env_id : var.appconfig_env_id
+  parameter_store_path = "/idp-${var.idp_name}/"
 }
 
 /*
@@ -151,6 +152,7 @@ locals {
     mysql_user                                 = var.mysql_user
     name                                       = "web"
     notification_email                         = var.notification_email
+    parameter_store_path                       = local.parameter_store_path
     password_expiration_grace_period           = var.password_expiration_grace_period
     password_lifespan                          = var.password_lifespan
     password_mfa_lifespan_extension            = var.password_mfa_lifespan_extension
@@ -209,7 +211,7 @@ module "ecsservice" {
   tg_arn             = aws_alb_target_group.broker.arn
   lb_container_name  = "web"
   lb_container_port  = "80"
-  task_role_arn      = one(module.ecs_role[*].role_arn)
+  task_role_arn      = module.ecs_role.role_arn
 }
 
 module "cron_task" {
@@ -262,17 +264,21 @@ data "cloudflare_zone" "domain" {
  * Create ECS role
  */
 module "ecs_role" {
-  count  = local.appconfig_app_id == "" ? 0 : 1
   source = "../ecs-role"
 
   name = "ecs-${var.idp_name}-${var.app_name}-${var.app_env}-${local.aws_region}"
+}
+
+moved {
+  from = module.ecs_role[0]
+  to   = module.ecs_role
 }
 
 resource "aws_iam_role_policy" "this" {
   count = local.appconfig_app_id == "" ? 0 : 1
 
   name = "appconfig"
-  role = one(module.ecs_role[*].role_name)
+  role = module.ecs_role.role_name
   policy = jsonencode(
     {
       Version = "2012-10-17"
@@ -290,6 +296,21 @@ resource "aws_iam_role_policy" "this" {
   })
 }
 
+resource "aws_iam_role_policy" "parameter_store" {
+  name = "parameter-store"
+  role = module.ecs_role.role_name
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Sid    = "ParameterStore"
+      Effect = "Allow"
+      Action = [
+        "ssm:GetParametersByPath",
+      ]
+      Resource = "arn:aws:ssm:*:${local.aws_account}:parameter${local.parameter_store_path}*"
+    }]
+  })
+}
 
 /*
  * Create AppConfig configuration profile

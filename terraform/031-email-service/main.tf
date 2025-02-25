@@ -1,8 +1,9 @@
 locals {
-  aws_account         = data.aws_caller_identity.this.account_id
-  aws_region          = data.aws_region.current.name
-  config_id_or_null   = one(aws_appconfig_configuration_profile.this[*].configuration_profile_id)
-  appconfig_config_id = local.config_id_or_null == null ? "" : local.config_id_or_null
+  aws_account          = data.aws_caller_identity.this.account_id
+  aws_region           = data.aws_region.current.name
+  config_id_or_null    = one(aws_appconfig_configuration_profile.this[*].configuration_profile_id)
+  appconfig_config_id  = local.config_id_or_null == null ? "" : local.config_id_or_null
+  parameter_store_path = "/idp-${var.idp_name}/"
 }
 
 /*
@@ -105,6 +106,22 @@ resource "aws_iam_role_policy" "appconfig" {
   })
 }
 
+resource "aws_iam_role_policy" "parameter_store" {
+  name = "parameter-store"
+  role = module.ecs_role.role_name
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Sid    = "ParameterStore"
+      Effect = "Allow"
+      Action = [
+        "ssm:GetParametersByPath",
+      ]
+      Resource = "arn:aws:ssm:*:${local.aws_account}:parameter${local.parameter_store_path}*"
+    }]
+  })
+}
+
 
 /*
  * Create ECS services
@@ -139,6 +156,7 @@ locals {
     mysql_user                = var.mysql_user
     memory_api                = var.memory_api
     notification_email        = var.notification_email
+    parameter_store_path      = local.parameter_store_path
   })
 }
 
@@ -184,6 +202,7 @@ locals {
     mysql_user                = var.mysql_user
     memory_cron               = var.memory_cron
     notification_email        = var.notification_email
+    parameter_store_path      = local.parameter_store_path
   })
 }
 
