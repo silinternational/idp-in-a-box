@@ -41,7 +41,7 @@ locals {
     notifier_email_to            = var.notifier_email_to
     memory                       = var.memory
     cpu                          = var.cpu
-    parameter_store_path         = var.appconfig_app_id == "" ? local.parameter_store_path : ""
+    parameter_store_path         = local.parameter_store_path
     sync_safety_cutoff           = var.sync_safety_cutoff
     allow_empty_email            = var.allow_empty_email
     enable_new_user_notification = var.enable_new_user_notification
