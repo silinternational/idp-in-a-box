@@ -332,7 +332,7 @@ variable "mfa_webauthn_appid" {
 }
 
 variable "mfa_webauthn_rpdisplayname" {
-  description = "Webauthn Relying Party Display Name. DEPRECATED: The value of `IDP_DISPLAY_NAME` will be used instead."
+  description = "Webauthn Relying Party Display Name. DEPRECATED: The value of `idp_display_name` will be used instead."
   type        = string
   default     = ""
 }
