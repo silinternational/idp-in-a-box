@@ -261,18 +261,6 @@ variable "mfa_allow_disable" {
   default = "true"
 }
 
-variable "mfa_api_key" {
-  description = "API Key for TOTP and Webauthn services"
-  type        = string
-  default     = ""
-}
-
-variable "mfa_api_secret" {
-  description = "API Secret for TOTP and Webauthn services"
-  type        = string
-  default     = ""
-}
-
 variable "mfa_lifetime" {
   type    = string
   default = "+2 hours"
@@ -298,13 +286,13 @@ variable "mfa_totp_apibaseurl" {
 }
 
 variable "mfa_totp_apikey" {
-  description = "API Key for TOTP service. DEPRECATED: use mfa_api_key"
+  description = "API Key for TOTP service. DEPRECATED: use Parameter Store"
   type        = string
   default     = ""
 }
 
 variable "mfa_totp_apisecret" {
-  description = "API Key for TOTP service. DEPRECATED: use mfa_api_secret"
+  description = "API Key for TOTP service. DEPRECATED: use Parameter Store"
   type        = string
   default     = ""
 }
@@ -314,13 +302,13 @@ variable "mfa_webauthn_apibaseurl" {
 }
 
 variable "mfa_webauthn_apikey" {
-  description = "API Key for Webauthn service. DEPRECATED: use mfa_api_key"
+  description = "API Key for Webauthn service. DEPRECATED: use Parameter Store"
   type        = string
   default     = ""
 }
 
 variable "mfa_webauthn_apisecret" {
-  description = "API Key for Webauthn service. DEPRECATED: use mfa_api_secret"
+  description = "API Key for Webauthn service. DEPRECATED: use Parameter Store"
   type        = string
   default     = ""
 }

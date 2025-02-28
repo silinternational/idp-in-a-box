@@ -137,11 +137,11 @@ locals {
     mfa_manager_help_bcc                       = var.mfa_manager_help_bcc
     mfa_required_for_new_users                 = var.mfa_required_for_new_users
     mfa_totp_apibaseurl                        = var.mfa_totp_apibaseurl
-    mfa_totp_apikey                            = coalesce(var.mfa_totp_apikey, var.mfa_api_key)
-    mfa_totp_apisecret                         = coalesce(var.mfa_totp_apisecret, var.mfa_api_secret)
+    mfa_totp_apikey                            = var.mfa_totp_apikey
+    mfa_totp_apisecret                         = var.mfa_totp_apisecret
     mfa_webauthn_apibaseurl                    = var.mfa_webauthn_apibaseurl
-    mfa_webauthn_apikey                        = coalesce(var.mfa_webauthn_apikey, var.mfa_api_key)
-    mfa_webauthn_apisecret                     = coalesce(var.mfa_webauthn_apisecret, var.mfa_api_secret)
+    mfa_webauthn_apikey                        = var.mfa_webauthn_apikey
+    mfa_webauthn_apisecret                     = var.mfa_webauthn_apisecret
     mfa_webauthn_appid                         = var.mfa_webauthn_appid
     mfa_webauthn_rpdisplayname                 = var.mfa_webauthn_rpdisplayname
     mfa_webauthn_rpid                          = coalesce(var.mfa_webauthn_rpid, var.cloudflare_domain)
