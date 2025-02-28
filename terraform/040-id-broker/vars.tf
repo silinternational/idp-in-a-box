@@ -261,6 +261,18 @@ variable "mfa_allow_disable" {
   default = "true"
 }
 
+variable "mfa_api_key" {
+  description = "API Key for TOTP and Webauthn services"
+  type        = string
+  default     = ""
+}
+
+variable "mfa_api_secret" {
+  description = "API Secret for TOTP and Webauthn services"
+  type        = string
+  default     = ""
+}
+
 variable "mfa_lifetime" {
   type    = string
   default = "+2 hours"
@@ -286,11 +298,15 @@ variable "mfa_totp_apibaseurl" {
 }
 
 variable "mfa_totp_apikey" {
-  type = string
+  description = "API Key for TOTP service. DEPRECATED: use mfa_api_key"
+  type        = string
+  default     = ""
 }
 
 variable "mfa_totp_apisecret" {
-  type = string
+  description = "API Key for TOTP service. DEPRECATED: use mfa_api_secret"
+  type        = string
+  default     = ""
 }
 
 variable "mfa_webauthn_apibaseurl" {
@@ -298,23 +314,33 @@ variable "mfa_webauthn_apibaseurl" {
 }
 
 variable "mfa_webauthn_apikey" {
-  type = string
+  description = "API Key for Webauthn service. DEPRECATED: use mfa_api_key"
+  type        = string
+  default     = ""
 }
 
 variable "mfa_webauthn_apisecret" {
-  type = string
+  description = "API Key for Webauthn service. DEPRECATED: use mfa_api_secret"
+  type        = string
+  default     = ""
 }
 
 variable "mfa_webauthn_appid" {
-  type = string
+  description = "App ID for legacy FIDO support. DEPRECATED: The value of `password_profile_url` + \"/app-id.json\" will be used if omitted."
+  type        = string
+  default     = ""
 }
 
 variable "mfa_webauthn_rpdisplayname" {
-  type = string
+  description = "Webauthn Relying Party Display Name. DEPRECATED: The value of `idp_display_name` will be used instead."
+  type        = string
+  default     = ""
 }
 
 variable "mfa_webauthn_rpid" {
-  type = string
+  description = "Webauthn Relying Party ID. DEPRECATED: The value of cloudflare_domain will be used instead."
+  type        = string
+  default     = ""
 }
 
 variable "rp_origins" {

@@ -78,10 +78,10 @@ locals {
     auth_saml_idpCertificate            = var.auth_saml_idpCertificate
     auth_saml_requireEncryptedAssertion = var.auth_saml_requireEncryptedAssertion
     auth_saml_signRequest               = var.auth_saml_signRequest
-    auth_saml_sloUrl                    = var.auth_saml_sloUrl
+    auth_saml_sloUrl                    = coalesce(var.auth_saml_sloUrl, "${var.auth_saml_idp_url}/saml2/idp/SingleLogoutService.php")
     auth_saml_spCertificate             = var.auth_saml_spCertificate
     auth_saml_spPrivateKey              = var.auth_saml_spPrivateKey
-    auth_saml_ssoUrl                    = var.auth_saml_ssoUrl
+    auth_saml_ssoUrl                    = coalesce(var.auth_saml_ssoUrl, "${var.auth_saml_idp_url}/saml2/idp/SSOService.php")
     cmd                                 = "/data/run.sh"
     code_length                         = var.code_length
     cpu                                 = var.cpu

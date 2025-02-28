@@ -42,6 +42,12 @@ variable "auth_saml_entityId" {
   type        = string
 }
 
+variable "auth_saml_idp_url" {
+  description = "Base URL of the IdP, e.g. \"https://login.example.com\""
+  type        = string
+  default     = ""
+}
+
 variable "auth_saml_idpCertificate" {
   description = "Public cert data for IdP"
   type        = string
@@ -59,8 +65,9 @@ variable "auth_saml_signRequest" {
 }
 
 variable "auth_saml_sloUrl" {
-  description = "SLO url for IdP"
+  description = "Single logout URL for IdP. DEPRECATED: specify auth_saml_idp_url"
   type        = string
+  default     = ""
 }
 
 variable "auth_saml_spCertificate" {
@@ -74,8 +81,9 @@ variable "auth_saml_spPrivateKey" {
 }
 
 variable "auth_saml_ssoUrl" {
-  description = "SSO url for IdP"
+  description = "Single sign-on URL for IdP. DEPRECATED: specify auth_saml_idp_url"
   type        = string
+  default     = ""
 }
 
 variable "cloudflare_domain" {
