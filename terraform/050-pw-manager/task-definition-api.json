@@ -178,6 +178,10 @@
         "value": "${password_rule_minscore}"
       },
       {
+        "name": "PASSWORD_RULE_requireAlphaAndNumeric",
+        "value": "${password_rule_alpha_and_numeric}"
+      },
+      {
         "name": "RECAPTCHA_SECRET_KEY",
         "value": "${recaptcha_secret_key}"
       },
