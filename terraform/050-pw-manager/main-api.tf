@@ -74,7 +74,7 @@ locals {
     aws_region                          = local.aws_region
     cloudwatch_log_group_name           = var.cloudwatch_log_group_name
     auth_saml_checkResponseSigning      = var.auth_saml_checkResponseSigning
-    auth_saml_entityId                  = var.auth_saml_entityId
+    auth_saml_entityId                  = coalesce(var.auth_saml_entityId, "${var.api_subdomain}.${var.cloudflare_domain}")
     auth_saml_idpCertificate            = var.auth_saml_idpCertificate
     auth_saml_requireEncryptedAssertion = var.auth_saml_requireEncryptedAssertion
     auth_saml_signRequest               = var.auth_saml_signRequest

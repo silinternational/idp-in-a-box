@@ -38,7 +38,7 @@ variable "auth_saml_checkResponseSigning" {
 }
 
 variable "auth_saml_entityId" {
-  description = "SP entity ID"
+  description = "SP entity ID. DEPRECATED: future versions will use \"$${var.api_subdomain}.$${var.cloudflare_domain}\""
   type        = string
 }
 
