@@ -105,7 +105,6 @@ locals {
     mysql_password                      = var.mysql_pass
     mysql_user                          = var.mysql_user
     parameter_store_path                = local.parameter_store_path
-    password_rule_alpha_and_numeric     = var.password_rule_alpha_and_numeric
     password_rule_enablehibp            = var.password_rule_enablehibp
     password_rule_maxlength             = var.password_rule_maxlength
     password_rule_minlength             = var.password_rule_minlength

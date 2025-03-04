@@ -210,12 +210,6 @@ variable "mysql_user" {
   type = string
 }
 
-variable "password_rule_alpha_and_numeric" {
-  description = "require alpha and numeric characters in password, use \"false\" or \"true\" strings"
-  type        = string
-  default     = "false"
-}
-
 variable "password_rule_enablehibp" {
   description = "enable haveibeenpwned.com password check"
   type        = string
