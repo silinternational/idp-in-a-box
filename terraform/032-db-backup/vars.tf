@@ -107,3 +107,9 @@ variable "delete_recovery_point_after_days" {
   type        = number
   default     = 100
 }
+
+variable "sentry_dsn" {
+  description = "Sentry DSN for backup failure notification"
+  type        = string
+  default     = ""
+}
