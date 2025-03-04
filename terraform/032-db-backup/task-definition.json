@@ -46,6 +46,10 @@
       {
         "name": "S3_BUCKET",
         "value": "s3://${s3_bucket}"
+      },
+      {
+        "name": "SENTRY_DSN",
+        "value": "${sentry_dsn}"
       }
     ],
     "links": null,

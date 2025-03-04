@@ -106,6 +106,7 @@ locals {
     mysql_user                = var.mysql_user
     memory                    = var.memory
     s3_bucket                 = aws_s3_bucket.backup.bucket
+    sentry_dsn                = var.sentry_dsn
     service_mode              = var.service_mode
   })
 }
