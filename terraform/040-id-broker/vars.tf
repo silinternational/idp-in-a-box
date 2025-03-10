@@ -24,6 +24,11 @@ variable "app_name" {
   description = "Used in ECS service names and logs, best to leave as default."
 }
 
+variable "cduser_username" {
+  type    = string
+  default = "IAM user name for the CD user. Used to create ECS deployment policy."
+}
+
 variable "cloudflare_domain" {
   type = string
 }

@@ -86,6 +86,11 @@ variable "auth_saml_ssoUrl" {
   default     = ""
 }
 
+variable "cduser_username" {
+  type    = string
+  default = "IAM user name for the CD user. Used to create ECS deployment policy."
+}
+
 variable "cloudflare_domain" {
   type = string
 }
