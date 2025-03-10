@@ -313,9 +313,13 @@ resource "aws_iam_role_policy" "parameter_store" {
   })
 }
 
-resource "aws_iam_user_policy" "cd" {
-  name = var.app_name
-  user = var.cduser_username
+resource "aws_iam_user_policy_attachment" "cd" {
+  user       = var.cduser_username
+  policy_arn = aws_iam_policy.cd
+}
+
+resource "aws_iam_policy" "cd" {
+  name = "cd-policy-${var.idp_name}-${var.app_name}-${var.app_env}-${local.aws_region}"
 
   policy = jsonencode({
     Version = "2012-10-17"
