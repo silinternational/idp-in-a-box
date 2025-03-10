@@ -206,7 +206,7 @@ resource "aws_iam_role_policy" "parameter_store" {
 
 resource "aws_iam_user_policy_attachment" "cd" {
   user       = var.cduser_username
-  policy_arn = aws_iam_policy.cd
+  policy_arn = aws_iam_policy.cd.arn
 }
 
 resource "aws_iam_policy" "cd" {
