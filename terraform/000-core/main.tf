@@ -44,9 +44,6 @@ resource "aws_iam_user_policy" "cd_ecs" {
         Sid    = "ECS"
         Effect = "Allow"
         Action = [
-          "ecs:DescribeServices",
-          "ecs:UpdateService",
-          "ecs:RegisterTaskDefinition",
           "ecs:DescribeTasks",
           "ecs:ListTasks",
         ]

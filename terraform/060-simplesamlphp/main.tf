@@ -221,8 +221,6 @@ resource "aws_iam_policy" "cd" {
           "ecs:DescribeServices",
           "ecs:UpdateService",
           "ecs:RegisterTaskDefinition",
-          "ecs:DescribeTasks",
-          "ecs:ListTasks",
         ]
         Resource = [
           module.ecsservice.service_id,
