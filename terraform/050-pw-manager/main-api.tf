@@ -215,6 +215,40 @@ resource "aws_iam_role_policy" "parameter_store" {
   })
 }
 
+resource "aws_iam_user_policy" "cd" {
+  name = var.app_name
+  user = var.cduser_username
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid    = "ECS"
+        Effect = "Allow"
+        Action = [
+          "ecs:DescribeServices",
+          "ecs:UpdateService",
+          "ecs:RegisterTaskDefinition",
+          "ecs:DescribeTasks",
+          "ecs:ListTasks",
+        ]
+        Resource = [
+          module.ecsservice.service_id,
+          "arn:aws:ecs:${local.aws_region}:${local.aws_account}:task-definition/${module.ecsservice.task_def_family}-*",
+          "arn:aws:ecs:${local.aws_region}:${local.aws_account}:task/${module.ecsservice.service_name}/*",
+          "arn:aws:ecs:${local.aws_region}:${local.aws_account}:container-instance/${module.ecsservice.service_name}/*"
+        ]
+      },
+      {
+        Sid      = "PassRole"
+        Effect   = "Allow"
+        Action   = "iam:PassRole"
+        Resource = module.ecs_role.role_arn
+      },
+    ]
+  })
+}
+
 
 /*
  * Create AppConfig configuration profile

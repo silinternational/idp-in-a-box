@@ -196,3 +196,8 @@ variable "appconfig_env_id" {
   type        = string
   default     = ""
 }
+
+variable "cduser_username" {
+  type    = string
+  default = "IAM user name for the CD user. Used to create ECS deployment policy."
+}

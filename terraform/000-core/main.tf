@@ -26,34 +26,25 @@ resource "aws_iam_user_policy" "cd_ecs" {
 
   name = "ECS-ECR"
   user = aws_iam_user.cd[0].name
-
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
       {
+        Sid    = "ECS"
         Effect = "Allow"
         Action = [
-          "ecs:DeregisterTaskDefinition",
-          "ecs:DescribeServices",
           "ecs:DescribeTaskDefinition",
-          "ecs:DescribeTasks",
-          "ecs:ListTasks",
+          "ecs:DeregisterTaskDefinition",
           "ecs:ListTaskDefinitions",
-          "ecs:RegisterTaskDefinition",
-          "ecs:StartTask",
-          "ecs:StopTask",
-          "ecs:UpdateService",
-          "iam:PassRole",
-        ],
+        ]
         Resource = "*"
       },
       {
-        Effect = "Allow"
-        Action = [
-          "ecr:GetAuthorizationToken",
-        ],
-        Resource = "*"
-      }
+        Sid      = "ECR"
+        Effect   = "Allow"
+        Action   = "ecr:GetAuthorizationToken"
+        Resource = "*" # This must be '*'. The ECR policy defines repository-specific access.
+      },
     ]
   })
 }
