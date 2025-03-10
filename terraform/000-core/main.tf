@@ -1,3 +1,14 @@
+locals {
+  aws_account = data.aws_caller_identity.this.account_id
+  aws_region  = data.aws_region.current.name
+}
+
+/*
+ * AWS data
+ */
+data "aws_caller_identity" "this" {}
+data "aws_region" "current" {}
+
 /*
  * Create ECS cluster
  */
@@ -31,6 +42,21 @@ resource "aws_iam_user_policy" "cd_ecs" {
     Statement = [
       {
         Sid    = "ECS"
+        Effect = "Allow"
+        Action = [
+          "ecs:DescribeServices",
+          "ecs:UpdateService",
+          "ecs:RegisterTaskDefinition",
+          "ecs:DescribeTasks",
+          "ecs:ListTasks",
+        ]
+        Resource = [
+          "arn:aws:ecs:${local.aws_region}:${local.aws_account}:task/${var.cluster_name}/*",
+          "arn:aws:ecs:${local.aws_region}:${local.aws_account}:container-instance/${var.cluster_name}/*"
+        ]
+      },
+      {
+        Sid    = "ECSall"
         Effect = "Allow"
         Action = [
           "ecs:DescribeTaskDefinition",
