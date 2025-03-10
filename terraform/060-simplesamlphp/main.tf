@@ -222,7 +222,7 @@ resource "aws_iam_user_policy" "cd" {
         ]
         Resource = [
           module.ecsservice.service_id,
-          "arn:aws:ecs:${local.aws_region}:${local.aws_account}:task-definition/${module.ecsservice.task_def_family}-*",
+          "arn:aws:ecs:${local.aws_region}:${local.aws_account}:task-definition/${module.ecsservice.task_def_family}:*",
           "arn:aws:ecs:${local.aws_region}:${local.aws_account}:task/${module.ecsservice.service_name}/*",
           "arn:aws:ecs:${local.aws_region}:${local.aws_account}:container-instance/${module.ecsservice.service_name}/*"
         ]
