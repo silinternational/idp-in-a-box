@@ -3,6 +3,7 @@ locals {
   aws_region           = data.aws_region.current.name
   config_id_or_null    = one(aws_appconfig_configuration_profile.this[*].configuration_profile_id)
   appconfig_config_id  = local.config_id_or_null == null ? "" : local.config_id_or_null
+  ecs_cluster_name     = split("/", var.ecs_cluster_id)[1]
   parameter_store_path = "/idp-${var.idp_name}/"
 }
 
@@ -223,8 +224,8 @@ resource "aws_iam_user_policy" "cd" {
         Resource = [
           module.ecsservice.service_id,
           "arn:aws:ecs:${local.aws_region}:${local.aws_account}:task-definition/${module.ecsservice.task_def_family}:*",
-          "arn:aws:ecs:${local.aws_region}:${local.aws_account}:task/${module.ecsservice.service_name}/*",
-          "arn:aws:ecs:${local.aws_region}:${local.aws_account}:container-instance/${module.ecsservice.service_name}/*"
+          "arn:aws:ecs:${local.aws_region}:${local.aws_account}:task/${local.ecs_cluster_name}/*",
+          "arn:aws:ecs:${local.aws_region}:${local.aws_account}:container-instance/${local.ecs_cluster_name}/*"
         ]
       },
       {
