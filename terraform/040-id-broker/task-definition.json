@@ -1,7 +1,6 @@
 [
   {
     "volumesFrom": [],
-    "memory": ${memory},
     "extraHosts": null,
     "dnsServers": null,
     "disableNetworking": null,
@@ -451,7 +450,7 @@
     "workingDirectory": null,
     "readonlyRootFilesystem": null,
     "image": "${docker_image}",
-    "command": null,
+    "command": "${command}",
     "user": null,
     "dockerLabels": null,
     "logConfiguration": {
@@ -464,6 +463,7 @@
     },
     "cpu": ${cpu},
     "privileged": null,
+    "memory": ${memory},
     "memoryReservation": ${memory}
   }
 ]
