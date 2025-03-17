@@ -450,7 +450,9 @@
     "workingDirectory": null,
     "readonlyRootFilesystem": null,
     "image": "${docker_image}",
-    "command": ${command},
+    "command": [
+      "${command}"
+    ],
     "user": null,
     "dockerLabels": null,
     "logConfiguration": {
