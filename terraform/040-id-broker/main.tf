@@ -96,7 +96,7 @@ locals {
     app_name                                   = var.app_name
     aws_region                                 = local.aws_region
     cloudwatch_log_group_name                  = var.cloudwatch_log_group_name
-    command                                    = "/data/run.sh"
+    command                                    = "[\"/data/run.sh\"]"
     contingent_user_duration                   = var.contingent_user_duration
     cpu                                        = var.cpu
     db_name                                    = var.db_name
@@ -255,7 +255,7 @@ locals {
   email_task_def = templatefile("${path.module}/task-definition.json", merge(
     local.task_def_vars,
     {
-      command = "/data/run-cron.sh"
+      command = "[\"/data/run-cron.sh\"]"
       memory  = var.memory_email
       cpu     = var.cpu_email
     }
