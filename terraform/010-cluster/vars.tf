@@ -1,6 +1,9 @@
-/*
- * Required Application settings
- */
+variable "ami_name_filter" {
+  description = "Filter to identify the EC2 AMI to be used in the autoscaling group. The most recent match is used."
+  type        = list(string)
+  default     = ["amzn2-ami-ecs-hvm-*-x86_64-ebs"]
+}
+
 variable "app_name" {
   type = string
 }

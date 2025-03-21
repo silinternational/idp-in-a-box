@@ -26,6 +26,7 @@ ssl certificate, core application load balancer, and a CloudWatch log group
 
 ## Optional Inputs
 
+- `ami_name_filter` - Filter list to identify the EC2 AMI to be used in the autoscaling group. default `["amzn2-ami-ecs-hvm-*-x86_64-ebs"]`
 - `create_nat_gateway` - default `true`
 - `disable_public_ipv4` - Set to true to remove the public IPv4 addresses from the ALB. Requires enable_ipv6 = true.
 - `enable_ipv6` - Set to true to enable IPv6 in the ALB and VPC
