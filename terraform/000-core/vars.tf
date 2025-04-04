@@ -34,7 +34,7 @@ variable "app_env" {
 }
 
 variable "appconfig_app_name" {
-  description = "The application name in AppConfig. If not specified, no AppConfig resources will be created."
+  description = "DEPRECATED"
   type        = string
   default     = ""
 }

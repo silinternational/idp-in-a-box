@@ -591,25 +591,25 @@ variable "vpc_id" {
 }
 
 variable "app_id" {
-  description = "DEPRECATED AppConfig application ID created by AWS. This cannot be the application name."
+  description = "DEPRECATED"
   type        = string
   default     = ""
 }
 
 variable "appconfig_app_id" {
-  description = "AppConfig application ID created by AWS. This cannot be the application name."
+  description = "DEPRECATED"
   type        = string
   default     = ""
 }
 
 variable "env_id" {
-  description = "DEPRECATED AppConfig environment ID created by AWS. This cannot be the environment name."
+  description = "DEPRECATED"
   type        = string
   default     = ""
 }
 
 variable "appconfig_env_id" {
-  description = "AppConfig environment ID created by AWS. This cannot be the environment name."
+  description = "DEPRECATED"
   type        = string
   default     = ""
 }

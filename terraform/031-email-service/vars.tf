@@ -153,13 +153,13 @@ variable "enable_cron" {
 }
 
 variable "appconfig_app_id" {
-  description = "AppConfig application ID"
+  description = "DEPRECATED"
   type        = string
   default     = ""
 }
 
 variable "appconfig_env_id" {
-  description = "AppConfig environment ID"
+  description = "DEPRECATED"
   type        = string
   default     = ""
 }
