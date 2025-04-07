@@ -189,14 +189,28 @@ variable "inactive_user_deletion_enable" {
   default = "false"
 }
 
+variable "alb_dns_name" {
+  description = "The DNS name for the IdP-in-a-Box's external Application Load Balancer."
+  type        = string
+  default     = ""
+}
+
+variable "alb_listener_arn" {
+  description = "The ARN for the IdP-in-a-Box's external ALB's listener."
+  type        = string
+  default     = ""
+}
+
 variable "internal_alb_dns_name" {
   description = "The DNS name for the IdP-in-a-Box's internal Application Load Balancer."
   type        = string
+  default     = ""
 }
 
 variable "internal_alb_listener_arn" {
   description = "The ARN for the IdP-in-a-Box's internal ALB's listener."
   type        = string
+  default     = ""
 }
 
 variable "invite_email_delay_seconds" {
@@ -612,4 +626,10 @@ variable "appconfig_env_id" {
   description = "DEPRECATED"
   type        = string
   default     = ""
+}
+
+variable "create_dns_record" {
+  description = "Controls creation of a DNS CNAME record for the ECS service."
+  type        = bool
+  default     = true
 }

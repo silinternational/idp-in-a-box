@@ -18,6 +18,10 @@ resource "aws_alb_target_group" "broker" {
   vpc_id               = var.vpc_id
   deregistration_delay = "30"
 
+  stickiness {
+    type = "lb_cookie"
+  }
+
   health_check {
     path    = "/site/status"
     matcher = "200,204"
@@ -28,7 +32,7 @@ resource "aws_alb_target_group" "broker" {
  * Create listener rule for hostname routing to new target group
  */
 resource "aws_alb_listener_rule" "broker" {
-  listener_arn = var.internal_alb_listener_arn
+  listener_arn = coalesce(var.internal_alb_listener_arn, var.alb_listener_arn)
   priority     = "40"
 
   action {
@@ -39,6 +43,7 @@ resource "aws_alb_listener_rule" "broker" {
   condition {
     host_header {
       values = [
+        "${var.subdomain}.${var.cloudflare_domain}",
         "${local.subdomain_with_region}.${var.cloudflare_domain}"
       ]
     }
@@ -247,10 +252,20 @@ module "cron_task" {
 /*
  * Create Cloudflare DNS record(s)
  */
+resource "cloudflare_record" "public" {
+  count = var.create_dns_record ? 1 : 0
+
+  zone_id = data.cloudflare_zone.domain.id
+  name    = var.subdomain
+  value   = cloudflare_record.brokerdns.hostname
+  type    = "CNAME"
+  proxied = true
+}
+
 resource "cloudflare_record" "brokerdns" {
   zone_id = data.cloudflare_zone.domain.id
   name    = local.subdomain_with_region
-  value   = var.internal_alb_dns_name
+  value   = coalesce(var.internal_alb_dns_name, var.alb_dns_name)
   type    = "CNAME"
   proxied = false
 }
