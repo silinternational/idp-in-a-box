@@ -12,19 +12,19 @@ output "db_idbroker_user" {
 }
 
 output "access_token_pwmanager" {
-  value = random_id.access_token_pwmanager.hex
+  value = var.output_alternate_tokens ? random_id.access_token_pwmanager_b.hex : random_id.access_token_pwmanager.hex
 }
 
 output "access_token_search" {
-  value = random_id.access_token_search.hex
+  value = var.output_alternate_tokens ? random_id.access_token_search_b.hex : random_id.access_token_search.hex
 }
 
 output "access_token_ssp" {
-  value = random_id.access_token_ssp.hex
+  value = var.output_alternate_tokens ? random_id.access_token_ssp_b.hex : random_id.access_token_ssp.hex
 }
 
 output "access_token_idsync" {
-  value = random_id.access_token_idsync.hex
+  value = var.output_alternate_tokens ? random_id.access_token_idsync_b.hex : random_id.access_token_idsync.hex
 }
 
 output "help_center_url" {

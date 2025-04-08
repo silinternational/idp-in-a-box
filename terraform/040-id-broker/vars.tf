@@ -633,3 +633,9 @@ variable "create_dns_record" {
   type        = bool
   default     = true
 }
+
+variable "output_alternate_tokens" {
+  description = "Output alternate tokens for client services. Used for token rotation."
+  type        = bool
+  default     = false
+}

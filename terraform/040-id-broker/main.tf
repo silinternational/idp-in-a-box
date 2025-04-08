@@ -69,6 +69,22 @@ resource "random_id" "access_token_idsync" {
   byte_length = 16
 }
 
+resource "random_id" "access_token_pwmanager_b" {
+  byte_length = 32
+}
+
+resource "random_id" "access_token_search_b" {
+  byte_length = 32
+}
+
+resource "random_id" "access_token_ssp_b" {
+  byte_length = 32
+}
+
+resource "random_id" "access_token_idsync_b" {
+  byte_length = 32
+}
+
 /*
  * Create ECS service
  */
@@ -83,7 +99,11 @@ locals {
     random_id.access_token_pwmanager.hex,
     random_id.access_token_search.hex,
     random_id.access_token_ssp.hex,
-    random_id.access_token_idsync.hex
+    random_id.access_token_idsync.hex,
+    random_id.access_token_pwmanager_b.hex,
+    random_id.access_token_search_b.hex,
+    random_id.access_token_ssp_b.hex,
+    random_id.access_token_idsync_b.hex,
   ])
 
   subdomain_with_region = "${var.subdomain}-${local.aws_region}"
