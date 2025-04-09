@@ -47,7 +47,7 @@ This module is used to create an ECS service running id-broker.
  - `vpc_id` - ID for VPC
 
 Note 1: `internal_alb_dns_name` can be omitted if `alb_dns_name` is provided
-Note 2: `internal_alb_listener_arn` can be omitted if `internal_alb_listener_arn` is provided
+Note 2: `internal_alb_listener_arn` can be omitted if `alb_listener_arn` is provided
 
 ## Optional Inputs
 
