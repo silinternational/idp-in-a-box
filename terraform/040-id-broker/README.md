@@ -94,6 +94,7 @@ Note 2: `internal_alb_listener_arn` can be omitted if `alb_listener_arn` is prov
  - `mfa_required_for_new_users` - Require MFA for all new users. Default: `false`
  - `minimum_backup_codes_before_nag` - Nag the user if they have FEWER than this number of backup codes. Default: `4` 
  - `notification_email` - Email address to send alerts/notifications to. Default: notifications disabled
+ - `output_alterate_tokens` - If true, output the second set of API tokens. Used for credential rotation. Default: `false`
  - `password_expiration_grace_period` - Grace period after `password_lifespan` after which the account will be locked. Default: `+30 days`
  - `password_lifespan` - Time span before which the user should set a new password. Default: `+1 year`
  - `password_mfa_lifespan_extension` - Extension to password lifespan for users with at least one 2-step Verification option. Default: `+4 years`
