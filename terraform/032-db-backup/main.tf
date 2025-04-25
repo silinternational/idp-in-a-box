@@ -164,24 +164,24 @@ data "aws_db_instance" "this" {
 /*
  * Synchronize S3 bucket to Backblaze B2
  */
-module "sync_s3_to_b2" {
-  count = var.enable_b2_sync ? 1 : 0
+module "s3_to_b2_sync" {
+  count = var.enable_s3_to_b2_sync ? 1 : 0
 
   source  = "silinternational/sync-s3-to-b2/aws"
-  version = "0.1.1"
+  version = "~> 0.1"
 
   app_name              = var.app_name
   app_env               = var.app_env
+  s3_bucket_name        = aws_s3_bucket.backup.bucket
+  s3_path               = ""
   b2_application_key_id = var.b2_application_key_id
   b2_application_key    = var.b2_application_key
-  b2_bucket             = var.b2_bucket_name
+  b2_bucket             = var.b2_bucket
   b2_path               = var.b2_path
-  cpu                   = var.backup_b2_cpu
-  ecs_cluster_id        = var.ecs_cluster_id
-  log_group_name        = var.log_group_name
-  memory                = var.backup_b2_memory
-  schedule              = var.b2_sync_schedule
-  s3_bucket_name        = aws_s3_bucket.backup.bucket
-  s3_path               = var.s3_backup_path
   rclone_arguments      = var.rclone_arguments
+  log_group_name        = var.cloudwatch_log_group_name
+  ecs_cluster_id        = var.ecs_cluster_id
+  cpu                   = var.sync_cpu
+  memory                = var.sync_memory
+  schedule              = var.sync_schedule
 }
