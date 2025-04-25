@@ -120,17 +120,20 @@ variable "sentry_dsn" {
 variable "b2_application_key_id" {
   description = "B2 Application Key ID for authentication"
   type        = string
+  default     = ""
 }
 
 variable "b2_application_key" {
   description = "B2 Application Key for authentication"
   type        = string
   sensitive   = true
+  default     = ""
 }
 
 variable "b2_bucket" {
   description = "Name of the B2 bucket for syncing data"
   type        = string
+  default     = ""
 }
 
 variable "b2_path" {
