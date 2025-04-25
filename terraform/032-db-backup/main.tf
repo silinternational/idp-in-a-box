@@ -181,4 +181,5 @@ module "sync_s3_to_b2" {
   schedule              = var.b2_sync_schedule
   s3_bucket_name        = aws_s3_bucket.backup.bucket
   s3_path               = var.s3_backup_path
+  rclone_arguments      = var.rclone_arguments
 }

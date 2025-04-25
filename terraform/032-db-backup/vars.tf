@@ -166,3 +166,8 @@ variable "b2_sync_schedule" {
   description = "S3-to-B2 backup schedule, e.g., 'cron(10 2 * * ? *)'"
   type        = string
 }
+
+variable "rclone_arguments" {
+  description = "Arguments to pass to the rclone command"
+  type        = string
+}
