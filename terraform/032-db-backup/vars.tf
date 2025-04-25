@@ -142,10 +142,10 @@ variable "backup_b2_cpu" {
   type        = string
 }
 
-variable "s3_bucket_name" {
+/*variable "s3_bucket_name" {
   description = "The name of the S3 bucket to sync to B2 (e.g. `my-bucket`)"
   type        = string
-}
+}*/
 
 variable "s3_backup_path" {
   description = "Path to be backed up within the AWS S3 bucket"
