@@ -26,7 +26,7 @@ module "backup" {
   b2_application_key               = ""
   b2_bucket                        = ""
   rclone_arguments                 = "--transfers 4 --checkers 8"
-  s3_path                          = ""
+  b2_path                          = ""
   sync_cpu                         = ""
   sync_memory                      = ""
   sync_schedule                    = ""
