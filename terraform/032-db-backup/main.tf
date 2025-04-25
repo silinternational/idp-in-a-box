@@ -165,8 +165,8 @@ data "aws_db_instance" "this" {
  * Synchronize S3 bucket to Backblaze B2
  */
 module "sync_s3_to_b2" {
-  source = "silinternational/terraform-aws-sync-s3-to-b2"
-  version = "~> 0.1"
+  source  = "silinternational/sync-s3-to-b2/aws"
+  version = "0.1.1"
 
   app_name              = var.app_name
   app_env               = var.app_env
@@ -176,7 +176,7 @@ module "sync_s3_to_b2" {
   b2_path               = var.b2_path
   cpu                   = var.backup_b2_cpu
   ecs_cluster_id        = var.ecs_cluster_id
-  log_group_name        = var.cloudwatch_log_group_name
+  log_group_name        = var.log_group_name
   memory                = var.backup_b2_memory
   schedule              = var.b2_sync_schedule
   s3_bucket_name        = aws_s3_bucket.backup.bucket

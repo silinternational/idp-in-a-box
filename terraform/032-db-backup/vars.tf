@@ -114,6 +114,9 @@ variable "sentry_dsn" {
   default     = ""
 }
 
+/*
+ * Synchronize S3 bucket to Backblaze B2
+ */
 variable "b2_application_key_id" {
   description = "Backblaze application key ID"
   type        = string
