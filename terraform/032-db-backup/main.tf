@@ -165,6 +165,8 @@ data "aws_db_instance" "this" {
  * Synchronize S3 bucket to Backblaze B2
  */
 module "sync_s3_to_b2" {
+  count = var.enable_b2_sync ? 1 : 0
+
   source  = "silinternational/sync-s3-to-b2/aws"
   version = "0.1.1"
 

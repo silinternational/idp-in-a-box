@@ -171,3 +171,9 @@ variable "rclone_arguments" {
   description = "Arguments to pass to the rclone command"
   type        = string
 }
+
+variable "enable_b2_sync" {
+  type        = bool
+  description = "Whether to enable syncing S3 backups to Backblaze B2"
+  default     = false
+}
