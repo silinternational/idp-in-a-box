@@ -27,7 +27,5 @@ module "backup" {
   b2_bucket                        = ""
   rclone_arguments                 = "--transfers 4 --checkers 8"
   b2_path                          = ""
-  sync_cpu                         = ""
-  sync_memory                      = ""
-  sync_schedule                    = ""
+  sync_schedule                    = null
 }
