@@ -2,13 +2,11 @@ locals {
   aws_region = data.aws_region.current.name
 }
 
-
 /*
  * AWS data
  */
 
 data "aws_region" "current" {}
-
 
 /*
  * Create S3 bucket for storing backups
@@ -161,4 +159,26 @@ module "aws_backup" {
 
 data "aws_db_instance" "this" {
   db_instance_identifier = "idp-${var.idp_name}-${var.app_env}"
+}
+
+/*
+ * Synchronize S3 bucket to Backblaze B2
+ */
+module "sync_s3_to_b2" {
+  source = "silinternational/terraform-aws-sync-s3-to-b2"
+  version = "~> 0.1"
+
+  app_name              = var.app_name
+  app_env               = var.app_env
+  b2_application_key_id = var.b2_application_key_id
+  b2_application_key    = var.b2_application_key
+  b2_bucket             = var.b2_bucket_name
+  b2_path               = var.b2_path
+  cpu                   = var.backup_b2_cpu
+  ecs_cluster_id        = var.ecs_cluster_id
+  log_group_name        = var.cloudwatch_log_group_name
+  memory                = var.backup_b2_memory
+  schedule              = var.b2_sync_schedule
+  s3_bucket_name        = aws_s3_bucket.backup.bucket
+  s3_path               = var.s3_backup_path
 }
