@@ -112,7 +112,7 @@ locals {
 
 module "backup_task" {
   source  = "silinternational/scheduled-ecs-task/aws"
-  version = "~> 0.1"
+  version = "~> 0.1.1"
 
   name                   = "${var.idp_name}-${var.app_name}-${var.app_env}"
   event_rule_description = "Start scheduled backup"
