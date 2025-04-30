@@ -54,6 +54,12 @@ variable "cpu_cron" {
   default     = "128"
 }
 
+variable "cpu_email" {
+  type        = string
+  description = "Amount of CPU to allocate to email container"
+  default     = "64"
+}
+
 variable "db_name" {
   type = string
 }
@@ -104,6 +110,15 @@ variable "email_service_validIpRanges" {
 variable "email_signature" {
   type    = string
   default = ""
+}
+
+variable "enable_email_service" {
+  description = <<EOT
+    EXPERIMENTAL: Enable the email service, replacing the separate email-service module. Requires idp-id-broker
+    version 7.4.0 or later.
+  EOT
+  type        = bool
+  default     = false
 }
 
 variable "event_schedule" {
@@ -243,6 +258,12 @@ variable "memory_cron" {
   type        = string
   description = "Amount of memory to allocate to cron container, recommend '200' for more than 500 active users"
   default     = "200"
+}
+
+variable "memory_email" {
+  type        = string
+  description = "Amount of memory to allocate to email container"
+  default     = "64"
 }
 
 variable "method_add_interval" {

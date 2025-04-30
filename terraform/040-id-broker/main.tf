@@ -108,7 +108,8 @@ locals {
 
   subdomain_with_region = "${var.subdomain}-${local.aws_region}"
 
-  task_def = templatefile("${path.module}/task-definition.json", {
+  task_def = templatefile("${path.module}/task-definition.json", local.task_def_vars)
+  task_def_vars = {
     appconfig_app_id                           = local.appconfig_app_id
     appconfig_env_id                           = local.appconfig_env_id
     appconfig_config_id                        = local.appconfig_config_id
@@ -120,6 +121,7 @@ locals {
     app_name                                   = var.app_name
     aws_region                                 = local.aws_region
     cloudwatch_log_group_name                  = var.cloudwatch_log_group_name
+    command                                    = "/data/run.sh"
     contingent_user_duration                   = var.contingent_user_duration
     cpu                                        = var.cpu
     db_name                                    = var.db_name
@@ -222,7 +224,7 @@ locals {
     subject_for_welcome                        = var.subject_for_welcome
     support_email                              = var.support_email
     support_name                               = var.support_name
-  })
+  }
 }
 
 module "ecsservice" {
@@ -268,6 +270,34 @@ module "cron_task" {
     app_env  = var.app_env
   }
 }
+
+/*
+ * Create an ECS service for sending queued email. This simply runs a container that checks the email queue once per
+ * minute, sending any email messages in the queue that are due to send.
+ */
+
+locals {
+  email_task_def = templatefile("${path.module}/task-definition.json", merge(
+    local.task_def_vars,
+    {
+      command = "/data/run-cron.sh"
+      memory  = var.memory_email
+      cpu     = var.cpu_email
+    }
+  ))
+}
+
+module "email_service" {
+  source  = "silinternational/ecs-service/aws"
+  version = "~> 0.3.0"
+
+  cluster_id         = var.ecs_cluster_id
+  service_name       = "${var.idp_name}-${var.app_name}-email"
+  service_env        = var.app_env
+  container_def_json = local.email_task_def
+  desired_count      = var.enable_email_service ? 1 : 0
+}
+
 
 /*
  * Create Cloudflare DNS record(s)
