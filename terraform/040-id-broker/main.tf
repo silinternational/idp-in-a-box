@@ -288,7 +288,9 @@ locals {
 }
 
 module "email_service" {
-  source             = "github.com/silinternational/terraform-modules//aws/ecs/service-no-alb?ref=8.13.2"
+  source  = "silinternational/ecs-service/aws"
+  version = "~> 0.3.0"
+
   cluster_id         = var.ecs_cluster_id
   service_name       = "${var.idp_name}-${var.app_name}-email"
   service_env        = var.app_env
