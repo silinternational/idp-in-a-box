@@ -112,6 +112,15 @@ variable "email_signature" {
   default = ""
 }
 
+variable "enable_email_service" {
+  description = <<EOT
+    EXPERIMENTAL: Enable the email service, replacing the separate email-service module. Requires idp-id-broker
+    version 7.4.0 or later.
+  EOT
+  type        = bool
+  default     = false
+}
+
 variable "event_schedule" {
   type    = string
   default = "cron(0 0 * * ? *)"
