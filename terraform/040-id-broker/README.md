@@ -10,6 +10,8 @@ This module is used to create an ECS service running id-broker.
 
 ## Required Inputs
 
+ - `alb_dns_name` - DNS name for the IdP-in-a-Box's external Application Load Balancer (Note 1)
+ - `alb_listener_arn` - ARN for the IdP-in-a-Box's external ALB's listener (Note 2)
  - `app_env` - Application environment
  - `app_name` - Application name
  - `cloudflare_domain` - Top level domain name for use with Cloudflare
@@ -23,8 +25,8 @@ This module is used to create an ECS service running id-broker.
  - `email_service_validIpRanges` - List of valid IP address ranges for Email Service API
  - `help_center_url` - URL to password manager help center
  - `idp_name` - Short name of IdP for use in logs and email alerts
- - `internal_alb_dns_name` - DNS name for the IdP-in-a-Box's internal Application Load Balancer
- - `internal_alb_listener_arn` - ARN for the IdP-in-a-Box's internal ALB's listener
+ - `internal_alb_dns_name` - DNS name for the IdP-in-a-Box's internal Application Load Balancer (Note 1)
+ - `internal_alb_listener_arn` - ARN for the IdP-in-a-Box's internal ALB's listener (Note 2)
  - `mfa_totp_apibaseurl` - Base URL to TOTP api
  - `mfa_totp_apikey` - API key for TOTP api
  - `mfa_totp_apisecret` - API secret for TOTP api
@@ -44,6 +46,9 @@ This module is used to create an ECS service running id-broker.
  - `support_name` - Name for support. Default: `support`
  - `vpc_id` - ID for VPC
 
+Note 1: `internal_alb_dns_name` can be omitted if `alb_dns_name` is provided
+Note 2: `internal_alb_listener_arn` can be omitted if `alb_listener_arn` is provided
+
 ## Optional Inputs
 
  - `abandoned_user_abandoned_period` - Time a user record can remain abandoned before HR is notified. Default: `+6 months`
@@ -52,6 +57,7 @@ This module is used to create an ECS service running id-broker.
  - `appconfig_app_id` - AppConfig application ID created by AWS. This cannot be the application name. Use with `appconfig_env_id`.
  - `contingent_user_duration` - How long before a new user without a primary email address expires. Default: `+4 weeks`
  - `cpu_cron` - How much CPU to allocate to cron service. Default: `128`
+ - `create_dns_record` - Controls creation of a DNS CNAME record for the ECS service. Default: `true`
  - `email_repeat_delay_days` - Don't resend the same type of email to the same user for X days. Default: `31`
  - `email_service_assertValidIp` - Whether or not to assert IP address for Email Service API is trusted
  - `email_signature` - Signature for use in emails. Default is empty string
@@ -88,6 +94,7 @@ This module is used to create an ECS service running id-broker.
  - `mfa_required_for_new_users` - Require MFA for all new users. Default: `false`
  - `minimum_backup_codes_before_nag` - Nag the user if they have FEWER than this number of backup codes. Default: `4` 
  - `notification_email` - Email address to send alerts/notifications to. Default: notifications disabled
+ - `output_alterate_tokens` - If true, output the second set of API tokens. Used for credential rotation. Default: `false`
  - `password_expiration_grace_period` - Grace period after `password_lifespan` after which the account will be locked. Default: `+30 days`
  - `password_lifespan` - Time span before which the user should set a new password. Default: `+1 year`
  - `password_mfa_lifespan_extension` - Extension to password lifespan for users with at least one 2-step Verification option. Default: `+4 years`

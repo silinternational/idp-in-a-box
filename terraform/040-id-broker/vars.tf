@@ -195,14 +195,28 @@ variable "inactive_user_deletion_enable" {
   default = "false"
 }
 
+variable "alb_dns_name" {
+  description = "The DNS name for the IdP-in-a-Box's external Application Load Balancer."
+  type        = string
+  default     = ""
+}
+
+variable "alb_listener_arn" {
+  description = "The ARN for the IdP-in-a-Box's external ALB's listener."
+  type        = string
+  default     = ""
+}
+
 variable "internal_alb_dns_name" {
   description = "The DNS name for the IdP-in-a-Box's internal Application Load Balancer."
   type        = string
+  default     = ""
 }
 
 variable "internal_alb_listener_arn" {
   description = "The ARN for the IdP-in-a-Box's internal ALB's listener."
   type        = string
+  default     = ""
 }
 
 variable "invite_email_delay_seconds" {
@@ -603,25 +617,37 @@ variable "vpc_id" {
 }
 
 variable "app_id" {
-  description = "DEPRECATED AppConfig application ID created by AWS. This cannot be the application name."
+  description = "DEPRECATED"
   type        = string
   default     = ""
 }
 
 variable "appconfig_app_id" {
-  description = "AppConfig application ID created by AWS. This cannot be the application name."
+  description = "DEPRECATED"
   type        = string
   default     = ""
 }
 
 variable "env_id" {
-  description = "DEPRECATED AppConfig environment ID created by AWS. This cannot be the environment name."
+  description = "DEPRECATED"
   type        = string
   default     = ""
 }
 
 variable "appconfig_env_id" {
-  description = "AppConfig environment ID created by AWS. This cannot be the environment name."
+  description = "DEPRECATED"
   type        = string
   default     = ""
+}
+
+variable "create_dns_record" {
+  description = "Controls creation of a DNS CNAME record for the ECS service."
+  type        = bool
+  default     = true
+}
+
+variable "output_alternate_tokens" {
+  description = "Output alternate tokens for client services. Used for token rotation."
+  type        = bool
+  default     = false
 }

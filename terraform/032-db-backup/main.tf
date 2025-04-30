@@ -9,7 +9,6 @@ locals {
 
 data "aws_region" "current" {}
 
-
 /*
  * Create S3 bucket for storing backups
  */
@@ -113,7 +112,7 @@ locals {
 
 module "backup_task" {
   source  = "silinternational/scheduled-ecs-task/aws"
-  version = "~> 0.1"
+  version = "~> 0.1.1"
 
   name                   = "${var.idp_name}-${var.app_name}-${var.app_env}"
   event_rule_description = "Start scheduled backup"
@@ -161,4 +160,29 @@ module "aws_backup" {
 
 data "aws_db_instance" "this" {
   db_instance_identifier = "idp-${var.idp_name}-${var.app_env}"
+}
+
+/*
+ * Synchronize S3 bucket to Backblaze B2
+ */
+module "s3_to_b2_sync" {
+  count = var.enable_s3_to_b2_sync ? 1 : 0
+
+  source  = "silinternational/sync-s3-to-b2/aws"
+  version = "~> 0.1.1"
+
+  app_name              = var.app_name
+  app_env               = substr(var.app_env, 0, 4)
+  s3_bucket_name        = aws_s3_bucket.backup.bucket
+  s3_path               = ""
+  b2_application_key_id = var.b2_application_key_id
+  b2_application_key    = var.b2_application_key
+  b2_bucket             = var.b2_bucket
+  b2_path               = var.b2_path
+  rclone_arguments      = var.rclone_arguments
+  log_group_name        = var.cloudwatch_log_group_name
+  ecs_cluster_id        = var.ecs_cluster_id
+  cpu                   = var.sync_cpu
+  memory                = var.sync_memory
+  schedule              = var.sync_schedule
 }
