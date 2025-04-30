@@ -86,6 +86,24 @@ variable "email_repeat_delay_days" {
   default = "31"
 }
 
+variable "email_brand_color" {
+  description = <<EOT
+    EXPERIMENTAL: The CSS color to use for branding in emails (e.g. `rgb(0, 93, 154)`). Required for idp-id-broker
+    version 8.0.0 or higher.
+  EOT
+  type        = string
+  default     = ""
+}
+
+variable "email_brand_logo" {
+  description = <<EOT
+    EXPERIMENTAL: The fully qualified URL to an image for use as logo in emails. Required for idp-id-broker version
+    8.0.0 or higher.
+  EOT
+  type        = string
+  default     = ""
+}
+
 variable "email_service_accessToken" {
   description = "Access Token for Email Service API"
   type        = string
@@ -114,8 +132,8 @@ variable "email_signature" {
 
 variable "enable_email_service" {
   description = <<EOT
-    EXPERIMENTAL: Enable the email service, replacing the separate email-service module. Requires idp-id-broker
-    version 7.4.0 or later.
+    EXPERIMENTAL: Enable the email service, replacing the separate email-service module.  Required for idp-id-broker
+    version 8.0.0 or higher.
   EOT
   type        = bool
   default     = false
@@ -124,6 +142,15 @@ variable "enable_email_service" {
 variable "event_schedule" {
   type    = string
   default = "cron(0 0 * * ? *)"
+}
+
+variable "from_email" {
+  description = <<EOT
+    EXPERIMENTAL: Email address provided on the FROM header of email notifications. Required for idp-id-broker version
+    8.0.0 or higher.
+  EOT
+  type        = string
+  default     = ""
 }
 
 variable "ga_api_secret" {

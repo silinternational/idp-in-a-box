@@ -126,12 +126,15 @@ locals {
     cpu                                        = var.cpu
     db_name                                    = var.db_name
     docker_image                               = var.docker_image
+    email_brand_color                          = var.email_brand_color
+    email_brand_logo                           = var.email_brand_logo
     email_repeat_delay_days                    = var.email_repeat_delay_days
     email_service_accessToken                  = var.email_service_accessToken
     email_service_assertValidIp                = var.email_service_assertValidIp
     email_service_baseUrl                      = var.email_service_baseUrl
     email_service_validIpRanges                = join(",", var.email_service_validIpRanges)
     email_signature                            = var.email_signature
+    from_email                                 = var.from_email
     ga_api_secret                              = var.ga_api_secret
     ga_client_id                               = var.ga_client_id
     ga_measurement_id                          = var.ga_measurement_id
@@ -280,6 +283,7 @@ locals {
   email_task_def = templatefile("${path.module}/task-definition.json", merge(
     local.task_def_vars,
     {
+      name    = "email"
       command = "/data/run-cron.sh"
       memory  = var.memory_email
       cpu     = var.cpu_email
@@ -296,6 +300,7 @@ module "email_service" {
   service_env        = var.app_env
   container_def_json = local.email_task_def
   desired_count      = var.enable_email_service ? 1 : 0
+  task_role_arn      = module.ecs_role.role_arn
 }
 
 
@@ -373,6 +378,25 @@ resource "aws_iam_role_policy" "parameter_store" {
         "ssm:GetParametersByPath",
       ]
       Resource = "arn:aws:ssm:*:${local.aws_account}:parameter${local.parameter_store_path}*"
+    }]
+  })
+}
+
+resource "aws_iam_role_policy" "ses" {
+  name = "ses"
+  role = module.ecs_role.role_name
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Sid      = "SendEmail"
+      Effect   = "Allow"
+      Action   = "ses:SendEmail"
+      Resource = "*"
+      Condition = {
+        StringEquals = {
+          "ses:FromAddress" = var.from_email
+        }
+      }
     }]
   })
 }
