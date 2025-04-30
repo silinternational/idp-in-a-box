@@ -379,6 +379,25 @@ resource "aws_iam_role_policy" "parameter_store" {
   })
 }
 
+resource "aws_iam_role_policy" "ses" {
+  name = "ses"
+  role = module.ecs_role.role_name
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Sid      = "SendEmail"
+      Effect   = "Allow"
+      Action   = "ses:SendEmail"
+      Resource = "*"
+      Condition = {
+        StringEquals = {
+          "ses:FromAddress" = var.from_email
+        }
+      }
+    }]
+  })
+}
+
 resource "aws_iam_user_policy_attachment" "cd" {
   user       = var.cduser_username
   policy_arn = aws_iam_policy.cd.arn
