@@ -280,6 +280,7 @@ locals {
   email_task_def = templatefile("${path.module}/task-definition.json", merge(
     local.task_def_vars,
     {
+      name    = "email"
       command = "/data/run-cron.sh"
       memory  = var.memory_email
       cpu     = var.cpu_email
