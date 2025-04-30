@@ -126,12 +126,15 @@ locals {
     cpu                                        = var.cpu
     db_name                                    = var.db_name
     docker_image                               = var.docker_image
+    email_brand_color                          = var.email_brand_color
+    email_brand_logo                           = var.email_brand_logo
     email_repeat_delay_days                    = var.email_repeat_delay_days
     email_service_accessToken                  = var.email_service_accessToken
     email_service_assertValidIp                = var.email_service_assertValidIp
     email_service_baseUrl                      = var.email_service_baseUrl
     email_service_validIpRanges                = join(",", var.email_service_validIpRanges)
     email_signature                            = var.email_signature
+    from_email                                 = var.from_email
     ga_api_secret                              = var.ga_api_secret
     ga_client_id                               = var.ga_client_id
     ga_measurement_id                          = var.ga_measurement_id
