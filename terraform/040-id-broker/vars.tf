@@ -153,6 +153,12 @@ variable "from_email" {
   default     = ""
 }
 
+variable "from_name" {
+  description = "Email address provided on the FROM header of email notifications."
+  type        = string
+  default     = ""
+}
+
 variable "ga_api_secret" {
   description = "The Google Analytics API secret for the data stream (e.g. aB-abcdef7890123456789)"
   type        = string
