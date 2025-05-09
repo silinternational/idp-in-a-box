@@ -97,6 +97,10 @@
         "value": "${from_email}"
       },
       {
+        "name": "FROM_NAME",
+        "value": "${from_name}"
+      },
+      {
         "name": "GA_API_SECRET",
         "value": "${ga_api_secret}"
       },
