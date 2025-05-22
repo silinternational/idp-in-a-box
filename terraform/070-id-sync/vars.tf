@@ -26,23 +26,35 @@ variable "docker_image" {
 }
 
 variable "email_service_accessToken" {
-  description = "Access Token for Email Service API"
+  description = <<EOT
+    Access Token for Email Service API
+    DEPRECATED: This will be removed in the next major version. Use the email service integrated in id-broker.
+  EOT
   type        = string
 }
 
 variable "email_service_assertValidIp" {
-  description = "Whether or not to assert IP address for Email Service API is trusted"
+  description = <<EOT
+    Whether or not to assert IP address for Email Service API is trusted
+    DEPRECATED: This will be removed in the next major version. Use the email service integrated in id-broker.
+  EOT
   type        = string
   default     = "true"
 }
 
 variable "email_service_baseUrl" {
-  description = "Base URL to Email Service API"
+  description = <<EOT
+    Base URL to Email Service API
+    DEPRECATED: This will be removed in the next major version. Use the email service integrated in id-broker.
+  EOT
   type        = string
 }
 
 variable "email_service_validIpRanges" {
-  description = "List of valid IP ranges to Email Service API"
+  description = <<EOT
+    List of valid IP ranges to Email Service API
+    DEPRECATED: This will be removed in the next major version. Use the email service integrated in id-broker.
+  EOT
   type        = list(string)
 }
 
@@ -159,4 +171,14 @@ variable "appconfig_env_id" {
   description = "DEPRECATED"
   type        = string
   default     = ""
+}
+
+variable "use_broker_email_service" {
+  description = <<EOT
+    Use the email service capability bundled in id-broker instead of the separate email-service service. Requires
+    idp-id-broker version 8.1.0 or later.
+    NOTICE: this will default to true in the next major version.
+  EOT
+  type        = string
+  default     = "false"
 }
