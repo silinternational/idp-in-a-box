@@ -61,6 +61,18 @@ resource "random_id" "access_token_hash" {
  */
 locals {
   api_subdomain_with_region = "${var.api_subdomain}-${local.aws_region}"
+  email_service_accessToken = (
+    var.use_broker_email_service ? var.id_broker_access_token : var.email_service_accessToken
+  )
+  email_service_assertValidIp = (
+    var.use_broker_email_service ? var.id_broker_assertValidBrokerIp : var.email_service_assertValidIp
+  )
+  email_service_baseUrl = (
+    var.use_broker_email_service ? var.id_broker_base_uri : var.email_service_baseUrl
+  )
+  email_service_validIpRanges = (
+    var.use_broker_email_service ? join(",", var.id_broker_validIpRanges) : join(",", var.email_service_validIpRanges)
+  )
 
   task_def = templatefile("${path.module}/task-definition-api.json", {
     appconfig_app_id                    = var.appconfig_app_id
@@ -87,10 +99,10 @@ locals {
     cpu                                 = var.cpu
     db_name                             = var.db_name
     docker_image                        = var.docker_image
-    email_service_accessToken           = var.email_service_accessToken
-    email_service_assertValidIp         = var.email_service_assertValidIp
-    email_service_baseUrl               = var.email_service_baseUrl
-    email_service_validIpRanges         = join(",", var.email_service_validIpRanges)
+    email_service_accessToken           = local.email_service_accessToken
+    email_service_assertValidIp         = local.email_service_assertValidIp
+    email_service_baseUrl               = local.email_service_baseUrl
+    email_service_validIpRanges         = local.email_service_validIpRanges
     email_signature                     = var.email_signature
     extra_hosts                         = var.extra_hosts
     help_center_url                     = var.help_center_url
