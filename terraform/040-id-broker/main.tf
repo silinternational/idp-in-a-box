@@ -323,7 +323,11 @@ resource "cloudflare_record" "brokerdns" {
   name    = local.subdomain_with_region
   value   = coalesce(var.internal_alb_dns_name, var.alb_dns_name)
   type    = "CNAME"
-  proxied = false
+
+  # If the internal ALB DNS name is not specified, this should be proxied to bridge between IPv4 and IPv6. Outbound
+  # connections only support IPv4, for reasons not well understood by me. Inbound connections only support IPv6 by
+  # design, to decrease AWS costs.
+  proxied = var.internal_alb_dns_name == ""
 }
 
 data "cloudflare_zone" "domain" {
