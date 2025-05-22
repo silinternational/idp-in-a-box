@@ -302,8 +302,9 @@ variable "ui_subdomain" {
 
 variable "use_broker_email_service" {
   description = <<EOT
-    Use the email service capability bundled in id-broker instead of the separate email-service service. NOTICE: this
-    will default to true in the next major version.
+    Use the email service capability bundled in id-broker instead of the separate email-service service. Requires
+    idp-id-broker version 8.1.0 or later.
+    NOTICE: this will default to true in the next major version.
   EOT
   type        = string
   default     = "false"
