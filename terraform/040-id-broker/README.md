@@ -56,13 +56,20 @@ Note 2: `internal_alb_listener_arn` can be omitted if `alb_listener_arn` is prov
  - `abandoned_user_deactivate_instructions_url` - URL for instruction on how to deactivate user accounts, referenced in notification email. Default: (none)
  - `appconfig_app_id` - AppConfig application ID created by AWS. This cannot be the application name. Use with `appconfig_env_id`.
  - `contingent_user_duration` - How long before a new user without a primary email address expires. Default: `+4 weeks`
- - `cpu_cron` - How much CPU to allocate to cron service. Default: `128`
+ - `cpu` - Amount of CPU (AWS CPU units, 1000 = 1 cpu) to allocate to primary container. Default: `250`
+ - `cpu_cron` - How much CPU (AWS CPU units, 1000 = 1 cpu) to allocate to cron service. Default: `128`
+ - `cpu_email` - Amount of CPU (AWS CPU units, 1000 = 1 cpu) to allocate to email container. Default: `64`
  - `create_dns_record` - Controls creation of a DNS CNAME record for the ECS service. Default: `true`
+ - `email_brand_color` - The CSS color to use for branding in emails (e.g. `rgb(0, 93, 154)`). Required for idp-id-broker version 8.0.0 or higher. Default: `"#005D99"` (blue)
+ - `email_brand_logo` - The fully qualified URL to an image for use as logo in emails. Required for idp-id-broker version 8.0.0 or higher. Default: `""` (email header will show a "broken link" icon)
  - `email_repeat_delay_days` - Don't resend the same type of email to the same user for X days. Default: `31`
  - `email_service_assertValidIp` - Whether or not to assert IP address for Email Service API is trusted
  - `email_signature` - Signature for use in emails. Default is empty string
+ - `enable_email_service` - Enable the email service, replacing the separate email-service module.  Required for idp-id-broker version 8.0.0 or higher. Default: `false`
  - `appconfig_env_id` - AppConfig environment ID created by AWS. This cannot be the environment name. Use with `appconfig_app_id`.
  - `event_schedule` - Task run schedule. Default: `cron(0 0 * * ? *)`
+ - `from_email` - Email address provided on the FROM header of email notifications. Required for idp-id-broker version 8.0.0 or higher. Default: `""`
+ - `from_name` - Email address provided on the FROM header of email notifications. Default: `""`
  - `ga_api_secret` - The Google Analytics API secret for the data stream (e.g. aB-abcdef7890123456789)
  - `ga_client_id` - Used by Google Analytics to distinguish the user (e.g. IDP-<the idp name>-ID-BROKER)
  - `ga_measurement_id` - The Google Analytics data stream id (e.g. G-ABCDE67890)
@@ -80,7 +87,9 @@ Note 2: `internal_alb_listener_arn` can be omitted if `alb_listener_arn` is prov
  - `invite_grace_period` - Grace period after the invite lifespan, after which the invite will be deleted. Default: `+3 months`
  - `invite_lifespan` - Time span before the invite code expires. Default: `+1 month`
  - `lost_security_key_email_days` - The number of days of not using a security key after which we email the user. Default: `62`
- - `memory_cron` - How much memory to allocate to cron service. Default: `64`
+ - `memory` - Amount of memory (MB) to allocate to primary container. Default: `200`
+ - `memory_cron` - How much memory (MB) to allocate to cron service. Default: `64`
+ - `memory_email` - Amount of memory (MB) to allocate to email container. Default: `64`
  - `method_add_interval` Interval between reminders to add recovery methods. Default: `+6 months`
  - `method_codeLength` - Number of digits in recovery method verification code. Default: `6`
  - `method_gracePeriod` - If a recovery method has been expired longer than this amount of time, it will be removed. Default: `+1 week`

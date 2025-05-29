@@ -88,7 +88,7 @@ variable "email_repeat_delay_days" {
 
 variable "email_brand_color" {
   description = <<EOT
-    EXPERIMENTAL: The CSS color to use for branding in emails (e.g. `rgb(0, 93, 154)`). Required for idp-id-broker
+    The CSS color to use for branding in emails (e.g. `rgb(0, 93, 154)`). Required for idp-id-broker
     version 8.0.0 or higher.
   EOT
   type        = string
@@ -97,7 +97,7 @@ variable "email_brand_color" {
 
 variable "email_brand_logo" {
   description = <<EOT
-    EXPERIMENTAL: The fully qualified URL to an image for use as logo in emails. Required for idp-id-broker version
+    The fully qualified URL to an image for use as logo in emails. Required for idp-id-broker version
     8.0.0 or higher.
   EOT
   type        = string
@@ -132,7 +132,7 @@ variable "email_signature" {
 
 variable "enable_email_service" {
   description = <<EOT
-    EXPERIMENTAL: Enable the email service, replacing the separate email-service module.  Required for idp-id-broker
+    Enable the email service, replacing the separate email-service module.  Required for idp-id-broker
     version 8.0.0 or higher.
   EOT
   type        = bool
@@ -146,7 +146,7 @@ variable "event_schedule" {
 
 variable "from_email" {
   description = <<EOT
-    EXPERIMENTAL: Email address provided on the FROM header of email notifications. Required for idp-id-broker version
+    Email address provided on the FROM header of email notifications. Required for idp-id-broker version
     8.0.0 or higher.
   EOT
   type        = string

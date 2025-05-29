@@ -1,6 +1,20 @@
 # 031-email-service - ECS service for email-service
 This module is used to create an ECS service running email-service.
 
+# Deprecation notice
+
+This service will be removed in the next major version. It is being replaced by the email service integrated within the
+id-broker module. In preparation, upgrade idp-id-broker to version 8.1.0 or later, set the `use_broker_email_service`
+variable to "true" in the pw-manager and id-sync module, and define the following variables in the id-broker module:
+
+- email_brand_color
+- email_brand_logo
+- from_email
+- from_name
+- enable_email_service
+- cpu_email
+- memory_email
+
 ## What this does
 
  - Create task definition and ECS service for email-service API
