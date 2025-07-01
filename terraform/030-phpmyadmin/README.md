@@ -27,7 +27,9 @@ for individual services
  - `app_name` - Application name
  - `enable` - Enable the service
  - `upload_limit` - Maximum POST size for data upload
-
+ - `enable_ssl` - When set to "1", enforces SSL usage for the MySQL connection
+ - `ssl_ca_base64` - Set to the base64 encoded contents of the SSL CA certificate bundle
+ 
 ## Outputs
 
  - `phpmyadmin_url` - The url to phpmyadmin, built on `pma_subdomain` and `cloudflare_domain`

@@ -15,6 +15,6 @@ module "phpmyadmin" {
   upload_limit           = var.upload_limit
   cpu                    = var.cpu
   memory                 = var.memory
-  pma_ssl                = var.pma_ssl
-  pma_ssl_ca_base64      = var.pma_ssl_ca_base64
+  pma_ssl                = var.enable_ssl
+  pma_ssl_ca_base64      = var.ssl_ca_base64
 }

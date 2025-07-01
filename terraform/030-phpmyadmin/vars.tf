@@ -61,14 +61,22 @@ variable "memory" {
   default = "128"
 }
 
-variable "pma_ssl" {
-  type    = string
-  default = "0"
+variable "enable_ssl" {
+  description = <<-EOT
+    When set to "1", enforces SSL usage for the MySQL connection.
+    https://github.com/phpmyadmin/docker?tab=readme-ov-file#connect-to-the-database-over-ssl
+  EOT
+  type        = string
+  default     = "0"
 }
 
-variable "pma_ssl_ca_base64" {
-  type    = string
-  default = ""
+variable "ssl_ca_base64" {
+  description = <<-EOT
+    Set to the base64 encoded contents of the SSL CA certificate bundle.
+    https://github.com/phpmyadmin/docker?tab=readme-ov-file#variables-that-can-store-the-file-contents-using-_base64
+  EOT
+  type        = string
+  default     = ""
 }
 
 variable "upload_limit" {
