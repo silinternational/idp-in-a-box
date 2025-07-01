@@ -1,6 +1,6 @@
 module "phpmyadmin" {
   source                 = "silinternational/phpmyadmin/aws"
-  version                = "~> 1.2"
+  version                = "~> 1.3"
   app_name               = "${var.idp_name}-${var.app_name}"
   app_env                = var.app_env
   vpc_id                 = var.vpc_id
@@ -15,4 +15,6 @@ module "phpmyadmin" {
   upload_limit           = var.upload_limit
   cpu                    = var.cpu
   memory                 = var.memory
+  pma_ssl                = var.pma_ssl
+  pma_ssl_ca_base64      = var.pma_ssl_ca_base64
 }

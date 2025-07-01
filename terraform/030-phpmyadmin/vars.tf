@@ -61,6 +61,16 @@ variable "memory" {
   default = "128"
 }
 
+variable "pma_ssl" {
+  type    = string
+  default = "0"
+}
+
+variable "pma_ssl_ca_base64" {
+  type    = string
+  default = ""
+}
+
 variable "upload_limit" {
   description = "set the maximum POST size for apache and php-fpm, this will change upload_max_filesize and post_max_size values, format as [0-9+](K,M,G)"
   type        = string
