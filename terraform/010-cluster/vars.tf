@@ -1,6 +1,9 @@
-/*
- * Required Application settings
- */
+variable "ami_name_filter" {
+  description = "Filter to identify the EC2 AMI to be used in the autoscaling group. The most recent match is used."
+  type        = list(string)
+  default     = ["amzn2-ami-ecs-hvm-*-x86_64-ebs"]
+}
+
 variable "app_name" {
   type = string
 }
@@ -31,6 +34,24 @@ variable "create_nat_gateway" {
   description = "Set to false to remove NAT gateway and associated route"
   type        = bool
   default     = true
+}
+
+variable "disable_public_ipv4" {
+  description = "Set to true to remove the public IPv4 addresses from the ALB. Requires enable_ipv6 = true"
+  type        = bool
+  default     = false
+}
+
+variable "enable_ipv6" {
+  description = "Set to true to enable IPV6 in the ALB and VPC"
+  type        = bool
+  default     = false
+}
+
+variable "use_transit_gateway" {
+  description = "Set to true to attach a transit gateway to this VPC and route traffic to it. Use in conjunction with transit_gateway_id and create_nat_gateway=false."
+  type        = bool
+  default     = false
 }
 
 variable "ecs_cluster_name" {
@@ -68,8 +89,38 @@ variable "tags" {
   default     = {}
 }
 
+variable "transit_gateway_id" {
+  description = "The ID of the transit gateway to attach to when use_transit_gateway = true."
+  type        = string
+  default     = ""
+}
+
+variable "transit_gateway_default_route_table_association" {
+  description = "Whether or not to associate with the default route table of the transit gateway."
+  type        = bool
+  default     = true
+}
+
+variable "transit_gateway_default_route_table_propagation" {
+  description = "Whether or not to send propagation of this route to the default route table of the transit gateway."
+  type        = bool
+  default     = true
+}
+
 variable "vpc_cidr_block" {
   description = "The block of IP addresses (as a CIDR) the VPC should use"
   type        = string
   default     = "10.0.0.0/16"
+}
+
+variable "log_retention_in_days" {
+  description = "Number of days to retain CloudWatch application logs"
+  type        = number
+  default     = 30
+}
+
+variable "enable_ec2_detailed_monitoring" {
+  description = "Whether to enable detailed monitoring for EC2 instances"
+  type        = bool
+  default     = true
 }

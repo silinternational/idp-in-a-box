@@ -29,12 +29,12 @@ resource "aws_iam_role_policy_attachment" "AWSLambdaVPCAccessExecutionRole" {
 resource "aws_lambda_function" "search" {
   s3_bucket        = var.function_bucket_name
   s3_key           = var.function_zip_name
-  source_code_hash = data.http.function-checksum.body
+  source_code_hash = data.http.function-checksum.response_body
   function_name    = "${var.function_name}-${var.idp_name}"
   handler          = var.function_name
   memory_size      = var.memory_size
   role             = aws_iam_role.functionRole.arn
-  runtime          = "go1.x"
+  runtime          = var.lambda_runtime
   timeout          = var.timeout
 
   environment {

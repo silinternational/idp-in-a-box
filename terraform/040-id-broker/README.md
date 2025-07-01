@@ -6,12 +6,14 @@ This module is used to create an ECS service running id-broker.
  - Create internal ALB for idp-broker
  - Create task definition and ECS service for id-broker
  - Create Cloudflare DNS record
+ - Optionally manage AppConfig configuration profile and ECS assume role
 
 ## Required Inputs
 
+ - `alb_dns_name` - DNS name for the IdP-in-a-Box's external Application Load Balancer (Note 1)
+ - `alb_listener_arn` - ARN for the IdP-in-a-Box's external ALB's listener (Note 2)
  - `app_env` - Application environment
  - `app_name` - Application name
- - `aws_region` - AWS region
  - `cloudflare_domain` - Top level domain name for use with Cloudflare
  - `cloudwatch_log_group_name` - CloudWatch log group name
  - `db_name` - Name of MySQL database for id-broker
@@ -23,8 +25,8 @@ This module is used to create an ECS service running id-broker.
  - `email_service_validIpRanges` - List of valid IP address ranges for Email Service API
  - `help_center_url` - URL to password manager help center
  - `idp_name` - Short name of IdP for use in logs and email alerts
- - `internal_alb_dns_name` - DNS name for the IdP-in-a-Box's internal Application Load Balancer
- - `internal_alb_listener_arn` - ARN for the IdP-in-a-Box's internal ALB's listener
+ - `internal_alb_dns_name` - DNS name for the IdP-in-a-Box's internal Application Load Balancer (Note 1)
+ - `internal_alb_listener_arn` - ARN for the IdP-in-a-Box's internal ALB's listener (Note 2)
  - `mfa_totp_apibaseurl` - Base URL to TOTP api
  - `mfa_totp_apikey` - API key for TOTP api
  - `mfa_totp_apisecret` - API secret for TOTP api
@@ -39,24 +41,35 @@ This module is used to create an ECS service running id-broker.
  - `mysql_pass` - MySQL password for id-broker
  - `mysql_user` - MySQL username for id-broker
  - `password_profile_url` - URL to password manager profile
- - `ssl_policy` - SSL policy
  - `subdomain` - Subdomain to use for this (id-broker) ECS service
  - `support_email` - Email address for support
  - `support_name` - Name for support. Default: `support`
  - `vpc_id` - ID for VPC
- - `wildcard_cert_arn` - ARN to ACM wildcard certificate
+
+Note 1: `internal_alb_dns_name` can be omitted if `alb_dns_name` is provided
+Note 2: `internal_alb_listener_arn` can be omitted if `alb_listener_arn` is provided
 
 ## Optional Inputs
 
  - `abandoned_user_abandoned_period` - Time a user record can remain abandoned before HR is notified. Default: `+6 months`
  - `abandoned_user_best_practice_url` - URL for best practices, referenced in notification email. Default: (none)
  - `abandoned_user_deactivate_instructions_url` - URL for instruction on how to deactivate user accounts, referenced in notification email. Default: (none)
+ - `appconfig_app_id` - AppConfig application ID created by AWS. This cannot be the application name. Use with `appconfig_env_id`.
  - `contingent_user_duration` - How long before a new user without a primary email address expires. Default: `+4 weeks`
- - `cpu_cron` - How much CPU to allocate to cron service. Default: `128`
+ - `cpu` - Amount of CPU (AWS CPU units, 1000 = 1 cpu) to allocate to primary container. Default: `250`
+ - `cpu_cron` - How much CPU (AWS CPU units, 1000 = 1 cpu) to allocate to cron service. Default: `128`
+ - `cpu_email` - Amount of CPU (AWS CPU units, 1000 = 1 cpu) to allocate to email container. Default: `64`
+ - `create_dns_record` - Controls creation of a DNS CNAME record for the ECS service. Default: `true`
+ - `email_brand_color` - The CSS color to use for branding in emails (e.g. `rgb(0, 93, 154)`). Required for idp-id-broker version 8.0.0 or higher. Default: `"#005D99"` (blue)
+ - `email_brand_logo` - The fully qualified URL to an image for use as logo in emails. Required for idp-id-broker version 8.0.0 or higher. Default: `""` (email header will show a "broken link" icon)
  - `email_repeat_delay_days` - Don't resend the same type of email to the same user for X days. Default: `31`
  - `email_service_assertValidIp` - Whether or not to assert IP address for Email Service API is trusted
  - `email_signature` - Signature for use in emails. Default is empty string
+ - `enable_email_service` - Enable the email service, replacing the separate email-service module.  Required for idp-id-broker version 8.0.0 or higher. Default: `false`
+ - `appconfig_env_id` - AppConfig environment ID created by AWS. This cannot be the environment name. Use with `appconfig_app_id`.
  - `event_schedule` - Task run schedule. Default: `cron(0 0 * * ? *)`
+ - `from_email` - Email address provided on the FROM header of email notifications. Required for idp-id-broker version 8.0.0 or higher. Default: `""`
+ - `from_name` - Email address provided on the FROM header of email notifications. Default: `""`
  - `ga_api_secret` - The Google Analytics API secret for the data stream (e.g. aB-abcdef7890123456789)
  - `ga_client_id` - Used by Google Analytics to distinguish the user (e.g. IDP-<the idp name>-ID-BROKER)
  - `ga_measurement_id` - The Google Analytics data stream id (e.g. G-ABCDE67890)
@@ -74,7 +87,9 @@ This module is used to create an ECS service running id-broker.
  - `invite_grace_period` - Grace period after the invite lifespan, after which the invite will be deleted. Default: `+3 months`
  - `invite_lifespan` - Time span before the invite code expires. Default: `+1 month`
  - `lost_security_key_email_days` - The number of days of not using a security key after which we email the user. Default: `62`
- - `memory_cron` - How much memory to allocate to cron service. Default: `64`
+ - `memory` - Amount of memory (MB) to allocate to primary container. Default: `200`
+ - `memory_cron` - How much memory (MB) to allocate to cron service. Default: `64`
+ - `memory_email` - Amount of memory (MB) to allocate to email container. Default: `64`
  - `method_add_interval` Interval between reminders to add recovery methods. Default: `+6 months`
  - `method_codeLength` - Number of digits in recovery method verification code. Default: `6`
  - `method_gracePeriod` - If a recovery method has been expired longer than this amount of time, it will be removed. Default: `+1 week`
@@ -88,6 +103,7 @@ This module is used to create an ECS service running id-broker.
  - `mfa_required_for_new_users` - Require MFA for all new users. Default: `false`
  - `minimum_backup_codes_before_nag` - Nag the user if they have FEWER than this number of backup codes. Default: `4` 
  - `notification_email` - Email address to send alerts/notifications to. Default: notifications disabled
+ - `output_alterate_tokens` - If true, output the second set of API tokens. Used for credential rotation. Default: `false`
  - `password_expiration_grace_period` - Grace period after `password_lifespan` after which the account will be locked. Default: `+30 days`
  - `password_lifespan` - Time span before which the user should set a new password. Default: `+1 year`
  - `password_mfa_lifespan_extension` - Extension to password lifespan for users with at least one 2-step Verification option. Default: `+4 years`
@@ -145,7 +161,6 @@ module "broker" {
   source                           = "github.com/silinternational/idp-in-a-box//terraform/040-id-broker"
   app_env                          = var.app_env
   app_name                         = var.app_name
-  aws_region                       = var.aws_region
   cloudflare_domain                = var.cloudflare_domain
   cloudwatch_log_group_name        = var.cloudwatch_log_group_name
   contingent_user_duration         = var.contingent_user_duration
@@ -231,7 +246,6 @@ module "broker" {
   send_password_expiring_emails    = var.send_password_expiring_emails
   send_refresh_backup_codes_emails = var.send_refresh_backup_codes_emails
   send_welcome_emails              = var.send_welcome_emails
-  ssl_policy                       = var.ssl_policy
   subdomain                        = var.broker_subdomain
   subject_for_get_backup_codes     = var.subject_for_get_backup_codes
   subject_for_invite               = var.subject_for_invite
@@ -254,6 +268,5 @@ module "broker" {
   support_email                    = var.support_email
   support_name                     = var.support_name
   vpc_id                           = data.terraform_remote_state.cluster.vpc_id
-  wildcard_cert_arn                = data.terraform_remote_state.cluster.wildcard_cert_arn
 }
 ```

@@ -1,13 +1,16 @@
 variable "secret_salt" {
-  default     = ""
   description = "This allows for porting the value over from a primary to a secondary workspace (a random string that is 64 characters long)."
+  type        = string
+  default     = ""
 }
 
 variable "memory" {
+  type    = string
   default = "96"
 }
 
 variable "cpu" {
+  type    = string
   default = "150"
 }
 
@@ -28,10 +31,6 @@ variable "alb_https_listener_arn" {
   type = string
 }
 
-variable "aws_region" {
-  type = string
-}
-
 variable "subdomain" {
   type = string
 }
@@ -42,11 +41,6 @@ variable "cloudflare_domain" {
 
 variable "cloudwatch_log_group_name" {
   type = string
-}
-
-variable "delete_remember_me_on_logout" {
-  type    = string
-  default = "false"
 }
 
 variable "docker_image" {
@@ -150,10 +144,6 @@ variable "idp_name" {
   type = string
 }
 
-variable "idp_display_name" {
-  type = string
-}
-
 variable "show_saml_errors" {
   type    = string
   default = "false"
@@ -164,16 +154,12 @@ variable "theme_color_scheme" {
   default = "indigo-purple"
 }
 
-variable "theme_use" {
-  type    = string
-  default = "material:material"
-}
-
 variable "trusted_ip_addresses" {
   type = list(string)
 }
 
 variable "desired_count" {
+  type    = string
   default = "1"
 }
 
@@ -186,17 +172,32 @@ variable "help_center_url" {
 }
 
 variable "admin_email" {
+  type = string
 }
 
 variable "admin_name" {
-}
-
-variable "trust_cloudflare_ips" {
-  default = ""
+  type = string
 }
 
 variable "create_dns_record" {
   description = "Controls creation of a DNS CNAME record for the ECS service."
   type        = bool
   default     = true
+}
+
+variable "appconfig_app_id" {
+  description = "DEPRECATED"
+  type        = string
+  default     = ""
+}
+
+variable "appconfig_env_id" {
+  description = "DEPRECATED"
+  type        = string
+  default     = ""
+}
+
+variable "cduser_username" {
+  type    = string
+  default = "IAM user name for the CD user. Used to create ECS deployment policy."
 }

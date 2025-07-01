@@ -10,9 +10,7 @@ store.
 
  - `app_name` - Application name
  - `app_env` - Application environment
- - `aws_region` - AWS region
  - `cloudwatch_log_group_name` - CloudWatch log group name
- - `vpc_id` - ID for VPC
  - `docker_image` - URL to Docker image
  - `email_service_accessToken` - Access token for Email Service API
  - `email_service_baseUrl` - Base URL (e.g. 'https://email.example.com') to Email Service API
@@ -42,6 +40,8 @@ store.
 - `enable_sync` - Set to false to disable the sync process.
 - `sentry_dsn` - Sentry DSN for error logging and alerting. Obtain from Sentry dashboard: Settings - Projects - (project) - Client Keys
 - `event_schedule` - AWS Cloudwatch schedule for the sync task. Use cron format "cron(Minutes Hours Day-of-month Month Day-of-week Year)" where either `day-of-month` or `day-of-week` must be a question mark, or rate format "rate(15 minutes)". Default = "cron(*/15 * * * ? *)"
+- `heartbeat_url` - the URL of a monitoring service to call after every successful sync
+- `heartbeat_method` - the http method of a monitoring service to call after every successful sync. Uses POST if not specified.
 
 ## Usage Example
 
@@ -52,9 +52,7 @@ module "idsync" {
   cpu                         = var.cpu
   app_name                    = var.app_name
   app_env                     = var.app_env
-  vpc_id                      = data.terraform_remote_state.cluster.vpc_id
   alb_https_listener_arn      = data.terraform_remote_state.cluster.alb_https_listener_arn
-  aws_region                  = var.aws_region
   cloudwatch_log_group_name   = var.cloudwatch_log_group_name
   docker_image                = data.terraform_remote_state.ecr.ecr_repo_idsync
   email_service_accessToken   = data.terraform_remote_state.email.access_token_idsync

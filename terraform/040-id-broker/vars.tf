@@ -24,8 +24,9 @@ variable "app_name" {
   description = "Used in ECS service names and logs, best to leave as default."
 }
 
-variable "aws_region" {
-  type = string
+variable "cduser_username" {
+  type    = string
+  default = "IAM user name for the CD user. Used to create ECS deployment policy."
 }
 
 variable "cloudflare_domain" {
@@ -51,6 +52,12 @@ variable "cpu_cron" {
   type        = string
   description = "Amount of CPU to allocate to cron container, recommend '128' for production"
   default     = "128"
+}
+
+variable "cpu_email" {
+  type        = string
+  description = "Amount of CPU to allocate to email container"
+  default     = "64"
 }
 
 variable "db_name" {
@@ -79,17 +86,38 @@ variable "email_repeat_delay_days" {
   default = "31"
 }
 
+variable "email_brand_color" {
+  description = <<EOT
+    The CSS color to use for branding in emails (e.g. `rgb(0, 93, 154)`). Required for idp-id-broker
+    version 8.0.0 or higher.
+  EOT
+  type        = string
+  default     = ""
+}
+
+variable "email_brand_logo" {
+  description = <<EOT
+    The fully qualified URL to an image for use as logo in emails. Required for idp-id-broker version
+    8.0.0 or higher.
+  EOT
+  type        = string
+  default     = ""
+}
+
 variable "email_service_accessToken" {
   description = "Access Token for Email Service API"
+  type        = string
 }
 
 variable "email_service_assertValidIp" {
   description = "Whether or not to assert IP address for Email Service API is trusted"
+  type        = string
   default     = "true"
 }
 
 variable "email_service_baseUrl" {
   description = "Base URL to Email Service API"
+  type        = string
 }
 
 variable "email_service_validIpRanges" {
@@ -102,9 +130,33 @@ variable "email_signature" {
   default = ""
 }
 
+variable "enable_email_service" {
+  description = <<EOT
+    Enable the email service, replacing the separate email-service module.  Required for idp-id-broker
+    version 8.0.0 or higher.
+  EOT
+  type        = bool
+  default     = false
+}
+
 variable "event_schedule" {
   type    = string
   default = "cron(0 0 * * ? *)"
+}
+
+variable "from_email" {
+  description = <<EOT
+    Email address provided on the FROM header of email notifications. Required for idp-id-broker version
+    8.0.0 or higher.
+  EOT
+  type        = string
+  default     = ""
+}
+
+variable "from_name" {
+  description = "Email address provided on the FROM header of email notifications."
+  type        = string
+  default     = ""
 }
 
 variable "ga_api_secret" {
@@ -126,8 +178,8 @@ variable "ga_measurement_id" {
 }
 
 variable "google_config" {
-  type        = map(string)
   description = "A map of Google properties for Sheets export"
+  type        = map(string)
   default     = { enableSheetsExport = false }
 }
 
@@ -172,6 +224,7 @@ variable "idp_display_name" {
 
 variable "idp_name" {
   description = "Short name of IdP for logs, something like 'acme'"
+  type        = string
 }
 
 variable "inactive_user_period" {
@@ -184,14 +237,28 @@ variable "inactive_user_deletion_enable" {
   default = "false"
 }
 
+variable "alb_dns_name" {
+  description = "The DNS name for the IdP-in-a-Box's external Application Load Balancer."
+  type        = string
+  default     = ""
+}
+
+variable "alb_listener_arn" {
+  description = "The ARN for the IdP-in-a-Box's external ALB's listener."
+  type        = string
+  default     = ""
+}
+
 variable "internal_alb_dns_name" {
   description = "The DNS name for the IdP-in-a-Box's internal Application Load Balancer."
   type        = string
+  default     = ""
 }
 
 variable "internal_alb_listener_arn" {
   description = "The ARN for the IdP-in-a-Box's internal ALB's listener."
   type        = string
+  default     = ""
 }
 
 variable "invite_email_delay_seconds" {
@@ -224,6 +291,12 @@ variable "memory_cron" {
   type        = string
   description = "Amount of memory to allocate to cron container, recommend '200' for more than 500 active users"
   default     = "200"
+}
+
+variable "memory_email" {
+  type        = string
+  description = "Amount of memory to allocate to email container"
+  default     = "64"
 }
 
 variable "method_add_interval" {
@@ -286,11 +359,15 @@ variable "mfa_totp_apibaseurl" {
 }
 
 variable "mfa_totp_apikey" {
-  type = string
+  description = "API Key for TOTP service. DEPRECATED: use Parameter Store"
+  type        = string
+  default     = ""
 }
 
 variable "mfa_totp_apisecret" {
-  type = string
+  description = "API Key for TOTP service. DEPRECATED: use Parameter Store"
+  type        = string
+  default     = ""
 }
 
 variable "mfa_webauthn_apibaseurl" {
@@ -298,23 +375,33 @@ variable "mfa_webauthn_apibaseurl" {
 }
 
 variable "mfa_webauthn_apikey" {
-  type = string
+  description = "API Key for Webauthn service. DEPRECATED: use Parameter Store"
+  type        = string
+  default     = ""
 }
 
 variable "mfa_webauthn_apisecret" {
-  type = string
+  description = "API Key for Webauthn service. DEPRECATED: use Parameter Store"
+  type        = string
+  default     = ""
 }
 
 variable "mfa_webauthn_appid" {
-  type = string
+  description = "App ID for legacy FIDO support. DEPRECATED: The value of `password_profile_url` + \"/app-id.json\" will be used if omitted."
+  type        = string
+  default     = ""
 }
 
 variable "mfa_webauthn_rpdisplayname" {
-  type = string
+  description = "Webauthn Relying Party Display Name. DEPRECATED: The value of `idp_display_name` will be used instead."
+  type        = string
+  default     = ""
 }
 
 variable "mfa_webauthn_rpid" {
-  type = string
+  description = "Webauthn Relying Party ID. DEPRECATED: The value of cloudflare_domain will be used instead."
+  type        = string
+  default     = ""
 }
 
 variable "rp_origins" {
@@ -458,10 +545,6 @@ variable "sentry_dsn" {
   default     = ""
 }
 
-variable "ssl_policy" {
-  type = string
-}
-
 variable "subdomain" {
   description = "The subdomain for id-broker, without an embedded region in it (e.g. 'broker', NOT 'broker-us-east-1')"
   type        = string
@@ -575,6 +658,38 @@ variable "vpc_id" {
   type = string
 }
 
-variable "wildcard_cert_arn" {
-  type = string
+variable "app_id" {
+  description = "DEPRECATED"
+  type        = string
+  default     = ""
+}
+
+variable "appconfig_app_id" {
+  description = "DEPRECATED"
+  type        = string
+  default     = ""
+}
+
+variable "env_id" {
+  description = "DEPRECATED"
+  type        = string
+  default     = ""
+}
+
+variable "appconfig_env_id" {
+  description = "DEPRECATED"
+  type        = string
+  default     = ""
+}
+
+variable "create_dns_record" {
+  description = "Controls creation of a DNS CNAME record for the ECS service."
+  type        = bool
+  default     = true
+}
+
+variable "output_alternate_tokens" {
+  description = "Output alternate tokens for client services. Used for token rotation."
+  type        = bool
+  default     = false
 }

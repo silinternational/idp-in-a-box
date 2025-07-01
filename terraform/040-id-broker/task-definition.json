@@ -1,7 +1,6 @@
 [
   {
     "volumesFrom": [],
-    "memory": ${memory},
     "extraHosts": null,
     "dnsServers": null,
     "disableNetworking": null,
@@ -21,6 +20,22 @@
     "ulimits": null,
     "dockerSecurityOptions": null,
     "environment": [
+      {
+        "name": "APP_ID",
+        "value": "${appconfig_app_id}"
+      },
+      {
+        "name": "AWS_REGION",
+        "value": "${aws_region}"
+      },
+      {
+        "name": "ENV_ID",
+        "value": "${appconfig_env_id}"
+      },
+      {
+        "name": "CONFIG_ID",
+        "value": "${appconfig_config_id}"
+      },
       {
         "name": "ABANDONED_USER_abandonedPeriod",
         "value": "${abandoned_user_abandoned_period}"
@@ -46,6 +61,14 @@
         "value": "${contingent_user_duration}"
       },
       {
+        "name": "EMAIL_BRAND_COLOR",
+        "value": "${email_brand_color}"
+      },
+      {
+          "name": "EMAIL_BRAND_LOGO",
+          "value": "${email_brand_logo}"
+      },
+      {
         "name": "EMAIL_REPEAT_DELAY_DAYS",
         "value": "${email_repeat_delay_days}"
       },
@@ -68,6 +91,14 @@
       {
         "name": "EMAIL_SIGNATURE",
         "value": "${email_signature}"
+      },
+      {
+        "name": "FROM_EMAIL",
+        "value": "${from_email}"
+      },
+      {
+        "name": "FROM_NAME",
+        "value": "${from_name}"
       },
       {
         "name": "GA_API_SECRET",
@@ -251,6 +282,10 @@
         "value": "${notification_email}"
       },
       {
+        "name": "PARAMETER_STORE_PATH",
+        "value": "${parameter_store_path}"
+      },
+      {
         "name": "PASSWORD_EXPIRATION_GRACE_PERIOD",
         "value": "${password_expiration_grace_period}"
       },
@@ -431,7 +466,9 @@
     "workingDirectory": null,
     "readonlyRootFilesystem": null,
     "image": "${docker_image}",
-    "command": null,
+    "command": [
+      "${command}"
+    ],
     "user": null,
     "dockerLabels": null,
     "logConfiguration": {
@@ -444,6 +481,7 @@
     },
     "cpu": ${cpu},
     "privileged": null,
+    "memory": ${memory},
     "memoryReservation": ${memory}
   }
 ]

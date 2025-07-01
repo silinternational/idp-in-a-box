@@ -6,7 +6,6 @@ module "broker" {
   abandoned_user_deactivate_instructions_url = ""
   app_env                                    = ""
   app_name                                   = ""
-  aws_region                                 = ""
   cloudflare_domain                          = ""
   cloudwatch_log_group_name                  = ""
   contingent_user_duration                   = ""
@@ -95,7 +94,6 @@ module "broker" {
   send_password_expiring_emails              = ""
   send_refresh_backup_codes_emails           = ""
   send_welcome_emails                        = ""
-  ssl_policy                                 = ""
   subdomain                                  = ""
   subject_for_abandoned_users                = ""
   subject_for_get_backup_codes               = ""
@@ -119,5 +117,4 @@ module "broker" {
   support_email                              = ""
   support_name                               = ""
   vpc_id                                     = ""
-  wildcard_cert_arn                          = ""
 }

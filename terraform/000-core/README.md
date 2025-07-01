@@ -8,6 +8,7 @@ used by later workspaces for HTTPS with the ALB.
  - Create ECS cluster named after `app_name` and `app_env`
  - Create IAM roles and policies for ECS services and instances
  - Optionally create and validate an ACM certificate using DNS
+ - Optionally manage AppConfig application and environment
 
 ## Required Inputs
 
@@ -18,6 +19,8 @@ used by later workspaces for HTTPS with the ALB.
 
  - `create_acm_cert` - Set to true if an ACM certificate is needed. Default: `false`
  - `create_cd_user` - Set to false if an IAM user for continuous deployment is not needed. Default: `true`
+ - `app_env` - The abbreviated version of the environment used for naming resources, typically either stg or prod. Default: 'prod'
+ - `appconfig_app_name` - The application name in AppConfig. If not specified, no AppConfig resources will be created."
 
 ## Outputs
 

@@ -15,6 +15,22 @@
     "dockerSecurityOptions": null,
     "environment": [
       {
+        "name": "APP_ID",
+        "value": "${appconfig_app_id}"
+      },
+      {
+        "name": "AWS_REGION",
+        "value": "${aws_region}"
+      },
+      {
+        "name": "ENV_ID",
+        "value": "${appconfig_env_id}"
+      },
+      {
+        "name": "CONFIG_ID",
+        "value": "${appconfig_config_id}"
+      },
+      {
         "name": "APP_ENV",
         "value": "${app_env}"
       },
@@ -75,6 +91,10 @@
         "value": "${notifier_email_to}"
       },
       {
+        "name": "PARAMETER_STORE_PATH",
+        "value": "${parameter_store_path}"
+      },
+      {
         "name": "SYNC_SAFETY_CUTOFF",
         "value": "${sync_safety_cutoff}"
       },
@@ -94,6 +114,14 @@
         "name": "SENTRY_MONITOR_SLUG",
         "value": "${app_name}-${idp_name}-${app_env}"
       },
+      {
+        "name": "HEARTBEAT_URL",
+        "value": "${heartbeat_url}"
+      },
+      {
+        "name": "HEARTBEAT_METHOD",
+        "value": "${heartbeat_method}"
+      }
       ${id_store_config}
     ],
     "links": null,

@@ -14,7 +14,6 @@ This module is used to create an ECS service running simpleSAMLphp.
  - `vpc_id` - ID for VPC
  - `alb_https_listener_arn` - ARN for ALB HTTPS listener
  - `subdomain` - Subdomain for SSP IdP
- - `aws_region` - AWS region
  - `broker_subdomain` - Subdomain for id-broker
  - `cloudflare_domain` - Top level domain name for use with Cloudflare
  - `cloudwatch_log_group_name` - CloudWatch log group name
@@ -45,7 +44,6 @@ This module is used to create an ECS service running simpleSAMLphp.
 ## Optional Inputs
 
  - `create_dns_record` - Controls creation of a DNS CNAME record for the ECS service. Default: `true`
- - `delete_remember_me_on_logout` - Whether or not to delete remember me cookie on logout. Default: `false`
  - `enable_debug` - Enable debug logs. Default: `false`
  - `logging_level` - Minimum log level to log. DO NOT use DEBUG in production. Allowed values: ERR, WARNING, NOTICE, INFO, DEBUG. Default: `NOTICE`
  - `mfa_learn_more_url` - URL to learn more about 2SV during profile review. Default: (link not displayed)
@@ -53,7 +51,6 @@ This module is used to create an ECS service running simpleSAMLphp.
     A 64-character random string will be created automatically if not provided.
  - `show_saml_errors` - Whether or not to show saml errors. Default: `false`
  - `theme_color_scheme` - The color scheme to use for SSP. Default: `'indigo-purple'`
- - `trust_cloudflare_ips` - If set to `"ipv4"` Cloudflare IPV4 addresses will be included in `trusted_ip_addresses`
 
 ## Outputs
 
@@ -65,7 +62,7 @@ This module is used to create an ECS service running simpleSAMLphp.
 
 ```hcl
 module "cf_ips" {
-  source = "github.com/silinternational/terraform-modules//cloudflare/ips?ref=8.6.0"
+  source = "github.com/silinternational/terraform-modules//cloudflare/ips?ref=8.7.0"
 }
 
 module "ssp" {
@@ -78,7 +75,6 @@ module "ssp" {
   vpc_id                       = data.terraform_remote_state.cluster.vpc_id
   alb_https_listener_arn       = data.terraform_remote_state.cluster.alb_https_listener_arn
   subdomain                    = var.ssp_subdomain
-  aws_region                   = var.aws_region`
   cloudflare_domain            = var.cloudflare_domain
   cloudwatch_log_group_name    = var.cloudwatch_log_group_name
   docker_image                 = data.terraform_remote_state.ecr.ecr_repo_simplesamlphp
@@ -104,17 +100,14 @@ module "ssp" {
   alb_dns_name                 = data.terraform_remote_state.cluster.alb_dns_name
   idp_name                     = var.idp_name
   theme_color_scheme           = var.theme_color_scheme
-  theme_use                    = var.theme_use
   trusted_ip_addresses = concat(
     var.trusted_ip_addresses,
     data.terraform_remote_state.cluster.outputs.public_subnet_cidr_blocks,
   )
   analytics_id                 = var.analytics_id
   show_saml_errors             = var.show_saml_errors
-  delete_remember_me_on_logout = var.delete_remember_me_on_logout
   help_center_url              = data.terraform_remote_state.broker.help_center_url
   enable_debug                 = var.enable_debug
   logging_level                = var.logging_level
-  trust_cloudflare_ips         = "ipv4"
 }
 ```

@@ -13,7 +13,6 @@ The password manager UI can be deployed using the [silinternatonal/pages/cloudfl
 
  - `alb_dns_name` - DNS name for application load balancer
  - `alb_https_listener_arn` - ARN for ALB HTTPS listener
- - `alerts_email` - Email address to send alerts/notifications to
  - `api_subdomain` - Subdomain for pw manager api
  - `app_env` - Application environment
  - `app_name` - Application name
@@ -26,7 +25,6 @@ The password manager UI can be deployed using the [silinternatonal/pages/cloudfl
  - `auth_saml_spCertificate` - Public cert contents for this SP
  - `auth_saml_spPrivateKey` - Private cert contents for this SP
  - `auth_saml_ssoUrl` - SSO url for IdP
- - `aws_region` - AWS region
  - `cloudflare_domain` - Top level domain name for use with Cloudflare
  - `cloudwatch_log_group_name` - CloudWatch log group name
  - `cpu` - Amount of CPU to allocate to API container
@@ -55,17 +53,18 @@ The password manager UI can be deployed using the [silinternatonal/pages/cloudfl
  - `support_name` - Name for end user support
  - `ui_subdomain` - Subdomain for PW UI
  - `vpc_id` - ID for VPC
- - `wildcard_cert_arn` - ARN to ACM wildcard cert
 
 ## Optional Inputs
 
- - `code_length` - Number of digits in reset code. Default: `6`
+ - `alerts_email` - Email address to send alerts/notifications. Must be specified if `alerts_email_enabled` is `"true"`. Default: `""`
+ - `alerts_email_enabled` - Enable or disabled alert notification emails. Default: `"true"`
+ - `code_length` - Number of digits in reset code. Default: `"6"`
  - `create_dns_record` - Controls creation of a DNS CNAME record for the ECS service. Default: `true`
  - `extra_hosts` - Extra hosts for the API task definition, e.g. "\["hostname":"host.example.com","ipAddress":"192.168.1.1"\]"
- - `password_rule_enablehibp` - Enable haveibeenpwned.com password check. Default: `true`
- - `password_rule_maxlength` - Maximum password length. Default: `255`
- - `password_rule_minlength` - Minimum password length. Default: `10`
- - `password_rule_minscore` - Minimum password score. Default: `3`
+ - `password_rule_enablehibp` - Enable haveibeenpwned.com password check. Default: `"true"`
+ - `password_rule_maxlength` - Maximum password length. Default: `"255"`
+ - `password_rule_minlength` - Minimum password length. Default: `"10"`
+ - `password_rule_minscore` - Minimum password score. Default: `"3"`
  - `sentry_dsn` - Sentry DSN for error logging and alerting. Obtain from Sentry dashboard: Settings - Projects - (project) - Client Keys
  - `support_feedback` - Email address for end user feedback, displayed on PW UI.
  - `support_phone` - Phone number for end user support, displayed on PW UI.
@@ -96,8 +95,6 @@ module "pwmanager" {
   auth_saml_spCertificate             = var.auth_saml_spCertificate
   auth_saml_spPrivateKey              = var.auth_saml_spPrivateKey
   auth_saml_ssoUrl                    = var.auth_saml_ssoUrl
-  cd_user_username                    = data.terraform_remote_state.core.cduser_username
-  aws_region                          = var.aws_region
   cloudflare_domain                   = var.cloudflare_domain
   cloudwatch_log_group_name           = var.cloudwatch_log_group_name
   code_length                         = var.code_length
@@ -138,6 +135,5 @@ module "pwmanager" {
   support_url                         = var.support_url
   ui_subdomain                        = var.ui_subdomain
   vpc_id                              = data.terraform_remote_state.cluster.vpc_id
-  wildcard_cert_arn                   = data.terraform_remote_state.cluster.cloudfront_distribution_cert_arn
 }
 ```

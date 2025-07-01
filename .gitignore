@@ -4,3 +4,4 @@
 *.env
 google-auth.json
 .terraform/
+.terraform.lock.hcl

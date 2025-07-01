@@ -22,6 +22,22 @@
     "dockerSecurityOptions": null,
     "environment": [
       {
+        "name": "APP_ID",
+        "value": "${appconfig_app_id}"
+      },
+      {
+        "name": "AWS_REGION",
+        "value": "${aws_region}"
+      },
+      {
+        "name": "ENV_ID",
+        "value": "${appconfig_env_id}"
+      },
+      {
+        "name": "CONFIG_ID",
+        "value": "${appconfig_config_id}"
+      },
+      {
         "name": "ADMIN_EMAIL",
         "value": "${admin_email}"
       },
@@ -38,16 +54,8 @@
         "value": "${base_url}"
       },
       {
-        "name": "DELETE_REMEMBER_ME_ON_LOGOUT",
-        "value": "${delete_remember_me_on_logout}"
-      },
-      {
         "name": "ENABLE_DEBUG",
         "value": "${enable_debug}"
-      },
-      {
-        "name": "ENABLE_HUB_AUTHPROCS",
-        "value": "true"
       },
       {
         "name": "SECRET_SALT",
@@ -64,10 +72,6 @@
       {
         "name": "THEME_COLOR_SCHEME",
         "value": "${theme_color_scheme}"
-      },
-      {
-        "name": "THEME_USE",
-        "value": "${theme_use}"
       },
       {
         "name": "PASSWORD_CHANGE_URL",
@@ -126,6 +130,10 @@
         "value": "${mysql_password}"
       },
       {
+        "name": "PARAMETER_STORE_PATH",
+        "value": "${parameter_store_path}"
+      },
+      {
         "name": "PROFILE_URL",
         "value":  "${profile_url}"
       },
@@ -144,14 +152,6 @@
       {
         "name": "IDP_DOMAIN_NAME",
         "value": "${idp_domain_name}"
-      },
-      {
-        "name": "IDP_NAME",
-        "value": "${idp_name}"
-      },
-      {
-        "name": "IDP_DISPLAY_NAME",
-        "value": "${idp_display_name}"
       },
       {
         "name": "TRUSTED_IP_ADDRESSES",

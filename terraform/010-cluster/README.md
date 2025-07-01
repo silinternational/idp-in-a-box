@@ -10,13 +10,14 @@ ssl certificate, core application load balancer, and a CloudWatch log group
  - Locate ACM certificate for use in ALB listeners
  - Create application load balancer (ALB)
  - Create CloudWatch log group
+ - Optionally create a Cloudwatch dashboard
+ - Optionally create a NAT gateway
 
 ## Required Inputs
 
  - `app_name` - Name of application, ex: Doorman, IdP, etc.
  - `app_env` - Name of environment, ex: prod, test, etc.
  - `aws_instance` - A map containing keys for `instance_type`, `volume_size`, `instance_count`
- - `aws_region` - A string with region to deploy in, example: `us-east-1`
  - `aws_zones` - A list of availability zones to distribute instances across, example: `["us-east-1a", "us-east-1b", "us-east-1c"]`
  - `cert_domain_name` - Domain name for certificate, example: `*.mydomain.com`
  - `ecs_cluster_name` - ECS cluster name for registering instances
@@ -25,10 +26,14 @@ ssl certificate, core application load balancer, and a CloudWatch log group
 
 ## Optional Inputs
 
+- `ami_name_filter` - Filter list to identify the EC2 AMI to be used in the autoscaling group. default `["amzn2-ami-ecs-hvm-*-x86_64-ebs"]`
 - `create_nat_gateway` - default `true`
+- `disable_public_ipv4` - Set to true to remove the public IPv4 addresses from the ALB. Requires enable_ipv6 = true.
+- `enable_ipv6` - Set to true to enable IPv6 in the ALB and VPC
 - `private_subnet_cidr_blocks`
 - `public_subnet_cidr_blocks`
 - `vpc_cidr_block`
+- `log_retention_in_days` - Number of days to retain CloudWatch application logs (default=30)
 
 ## Outputs
 
@@ -58,7 +63,6 @@ module "cluster" {
   app_name                = var.app_name
   app_env                 = var.app_env
   aws_instance            = var.aws_instance
-  aws_region              = var.aws_region
   aws_zones               = var.aws_zones
   cert_domain_name        = var.cert_domain_name
   ecs_cluster_name        = data.terraform_remote_state.core.ecs_cluster_name

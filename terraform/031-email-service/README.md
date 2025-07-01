@@ -1,6 +1,20 @@
 # 031-email-service - ECS service for email-service
 This module is used to create an ECS service running email-service.
 
+# Deprecation notice
+
+This service will be removed in the next major version. It is being replaced by the email service integrated within the
+id-broker module. In preparation, upgrade idp-id-broker to version 8.1.0 or later, set the `use_broker_email_service`
+variable to "true" in the pw-manager and id-sync module, and define the following variables in the id-broker module:
+
+- email_brand_color
+- email_brand_logo
+- from_email
+- from_name
+- enable_email_service
+- cpu_email
+- memory_email
+
 ## What this does
 
  - Create task definition and ECS service for email-service API
@@ -11,7 +25,6 @@ This module is used to create an ECS service running email-service.
 ## Required Inputs
 
  - `app_env` - Application environment
- - `aws_region` - AWS region
  - `cloudflare_domain` - Top level domain name for use with Cloudflare
  - `cloudwatch_log_group_name` - CloudWatch log group name
  - `db_name` - Name of MySQL database for email-service
@@ -28,10 +41,8 @@ This module is used to create an ECS service running email-service.
  - `mysql_pass` - MySQL password for email-service
  - `mysql_user` - MySQL username for email-service
  - `notification_email` - Email address to send alerts/notifications to
- - `ssl_policy` - SSL policy
  - `subdomain` - Subdomain for email-service
  - `vpc_id` - ID for VPC
- - `wildcard_cert_arn` - ARN to ACM wildcard certificate
 
 ## Optional Inputs
 
@@ -64,7 +75,6 @@ module "email" {
   source                    = "github.com/silinternational/idp-in-a-box//terraform/031-email-service"
   app_env                   = var.app_env
   app_name                  = var.app_name
-  aws_region                = var.aws_region`
   cloudflare_domain         = var.cloudflare_domain
   cloudwatch_log_group_name = var.cloudwatch_log_group_name
   cpu_api                   = var.cpu_api
@@ -91,9 +101,7 @@ module "email" {
   mysql_pass                = data.terraform_remote_state.database.db_emailservice_pass
   mysql_user                = var.mysql_user
   notification_email        = var.notification_email
-  ssl_policy                = var.ssl_policy
   subdomain                 = var.email_subdomain
   vpc_id                    = data.terraform_remote_state.cluster.vpc_id
-  wildcard_cert_arn         = data.terraform_remote_state.cluster.wildcard_cert_arn
 }
 ```

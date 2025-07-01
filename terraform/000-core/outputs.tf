@@ -1,21 +1,26 @@
 /*
  * IAM outputs
  */
+
 output "cduser_access_key_id" {
-  value = one(aws_iam_access_key.cduser[*].id)
+  description = "CD user access key ID"
+  value       = one(aws_iam_access_key.cduser[*].id)
 }
 
 output "cduser_access_key_secret" {
-  value     = one(aws_iam_access_key.cduser[*].secret)
-  sensitive = true
+  description = "CD user access key secret"
+  value       = one(aws_iam_access_key.cduser[*].secret)
+  sensitive   = true
 }
 
 output "cduser_arn" {
-  value = one(aws_iam_user.cd[*].arn)
+  description = "CD user ARN"
+  value       = one(aws_iam_user.cd[*].arn)
 }
 
 output "cduser_username" {
-  value = one(aws_iam_user.cd[*].name)
+  description = "CD user name"
+  value       = one(aws_iam_user.cd[*].name)
 }
 
 /*
@@ -45,3 +50,16 @@ output "ecsServiceRole_arn" {
   value = module.ecscluster.ecsServiceRole_arn
 }
 
+
+/*
+ * AppConfig outputs
+ */
+output "appconfig_app_id" {
+  description = "AppConfig application ID"
+  value       = one(aws_appconfig_application.this[*].id)
+}
+
+output "appconfig_env_id" {
+  description = "AppConfig environment ID"
+  value       = one(aws_appconfig_environment.this[*].environment_id)
+}

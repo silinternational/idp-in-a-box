@@ -22,6 +22,22 @@
     "dockerSecurityOptions": null,
     "environment": [
       {
+        "name": "APP_ID",
+        "value": "${appconfig_app_id}"
+      },
+      {
+        "name": "AWS_REGION",
+        "value": "${aws_region}"
+      },
+      {
+        "name": "ENV_ID",
+        "value": "${appconfig_env_id}"
+      },
+      {
+        "name": "CONFIG_ID",
+        "value": "${appconfig_config_id}"
+      },
+      {
         "name": "ACCESS_TOKEN_HASH_KEY",
         "value": "${access_token_hash}"
       },
@@ -31,7 +47,7 @@
       },
       {
         "name": "ALERTS_EMAIL_ENABLED",
-        "value": "true"
+        "value": "${alerts_email_enabled}"
       },
       {
         "name": "APP_ENV",
@@ -142,6 +158,10 @@
         "value": "${mysql_user}"
       },
       {
+        "name": "PARAMETER_STORE_PATH",
+        "value": "${parameter_store_path}"
+      },
+      {
         "name": "PASSWORD_RULE_enableHIBP",
         "value": "${password_rule_enablehibp}"
       },
@@ -154,8 +174,12 @@
         "value": "${password_rule_minlength}"
       },
       {
-        "name": "PASSWORD_RULE_minScore,",
+        "name": "PASSWORD_RULE_minScore",
         "value": "${password_rule_minscore}"
+      },
+      {
+        "name": "PASSWORD_RULE_requireAlphaAndNumeric",
+        "value": "${password_rule_alpha_and_numeric}"
       },
       {
         "name": "RECAPTCHA_SECRET_KEY",
