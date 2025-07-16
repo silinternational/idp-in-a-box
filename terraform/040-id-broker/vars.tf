@@ -693,3 +693,9 @@ variable "output_alternate_tokens" {
   type        = bool
   default     = false
 }
+
+variable "ssl_ca_base64" {
+  description = "Database SSL CA PEM file, base64-encoded"
+  type        = string
+  default     = ""
+}

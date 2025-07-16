@@ -32,6 +32,10 @@
         "value": "${service_mode}"
       },
       {
+        "name": "SSL_CA_BASE64",
+        "value": "${ssl_ca_base64}"
+      },
+      {
         "name": "MYSQL_HOST",
         "value": "${mysql_host}"
       },

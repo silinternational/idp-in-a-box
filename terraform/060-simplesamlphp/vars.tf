@@ -201,3 +201,9 @@ variable "cduser_username" {
   type    = string
   default = "IAM user name for the CD user. Used to create ECS deployment policy."
 }
+
+variable "ssl_ca_base64" {
+  description = "Database SSL CA PEM file, base64-encoded"
+  type        = string
+  default     = ""
+}

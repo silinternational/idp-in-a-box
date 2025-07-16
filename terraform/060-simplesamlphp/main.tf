@@ -77,6 +77,7 @@ locals {
     admin_pass                  = random_id.admin_pass.hex
     app_env                     = var.app_env
     app_name                    = var.app_name
+    ssl_ca_base64               = var.ssl_ca_base64
     aws_region                  = local.aws_region
     base_url                    = "https://${var.subdomain}.${var.cloudflare_domain}/"
     cloudwatch_log_group_name   = var.cloudwatch_log_group_name

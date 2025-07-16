@@ -83,6 +83,7 @@ locals {
     alerts_email_enabled                = var.alerts_email_enabled
     app_env                             = var.app_env
     app_name                            = var.app_name
+    ssl_ca_base64                       = var.ssl_ca_base64
     aws_region                          = local.aws_region
     cloudwatch_log_group_name           = var.cloudwatch_log_group_name
     auth_saml_checkResponseSigning      = var.auth_saml_checkResponseSigning
