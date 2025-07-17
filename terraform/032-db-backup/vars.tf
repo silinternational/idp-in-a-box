@@ -171,3 +171,9 @@ variable "enable_s3_to_b2_sync" {
   type        = bool
   default     = false
 }
+
+variable "ssl_ca_base64" {
+  description = "Database SSL CA PEM file, base64-encoded"
+  type        = string
+  default     = ""
+}

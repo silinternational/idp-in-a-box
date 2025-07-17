@@ -114,6 +114,10 @@
         "value": "${mfa_setup_url}"
       },
       {
+        "name": "SSL_CA_BASE64",
+        "value": "${ssl_ca_base64}"
+      },
+      {
         "name": "MYSQL_HOST",
         "value": "${mysql_host}"
       },

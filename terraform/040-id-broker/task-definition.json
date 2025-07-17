@@ -262,6 +262,10 @@
         "value": "${minimum_backup_codes_before_nag}"
       },
       {
+        "name": "SSL_CA_BASE64",
+        "value": "${ssl_ca_base64}"
+      },
+      {
         "name": "MYSQL_DATABASE",
         "value": "${db_name}"
       },

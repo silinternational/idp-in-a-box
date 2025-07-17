@@ -331,3 +331,9 @@ variable "appconfig_env_id" {
   type        = string
   default     = ""
 }
+
+variable "ssl_ca_base64" {
+  description = "Database SSL CA PEM file, base64-encoded"
+  type        = string
+  default     = ""
+}
